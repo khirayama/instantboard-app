@@ -19,7 +19,7 @@ interface IError {
 }
 
 interface IUI {
-  activity: string;
+  activityKey: string;
   selectedLabelId: string|null;
   selectedTaskId: string|null;
   isLoadingTasks: boolean;

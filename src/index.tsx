@@ -12,7 +12,7 @@ const initialState: IState = {
   requests: [],
   members: [],
   ui: {
-    activity: activities.MAIN_ACTIVITY,
+    activityKey: activities.mainActivity.key,
     selectedTaskId: null,
     selectedLabelId: null,
     isLoadingTasks: false,

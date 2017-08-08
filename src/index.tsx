@@ -32,7 +32,7 @@ const initialState: IState = {
   },
 };
 
-const store = new Store(initialState, reducers);
+const store: IStore = new Store(initialState, reducers);
 
 window.addEventListener('DOMContentLoaded', () => {
   console.log(`Start app at ${new Date()}.`);

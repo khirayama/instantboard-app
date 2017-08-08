@@ -12,29 +12,34 @@ interface ITask {
 }
 
 // UI
-interface IHistroy {
-  activity: string;
-  selectedLabelId: string|null;
-  selectedTaskId: string|null;
-}
-
 interface IError {
   resourceName: string;
   resourceId: string|null;
   message: string|null;
 }
 
-interface ILoading {
+interface IIsLoading {
   tasks: boolean;
   labels: boolean;
   requests: boolean;
   members: boolean;
 }
 
+interface IIsShownModal {
+  task: boolean;
+  label: boolean;
+}
+
 interface IUI {
-  currentHistoryIndex: number;
-  histories: IHistroy[];
-  loading: ILoading;
+  activity: string;
+  selectedLabelId: string|null;
+  selectedTaskId: string|null;
+  isLoadingTasks: boolean;
+  isLoadingLabels: boolean;
+  isLoadingRequests: boolean;
+  isLoadingMembers: boolean;
+  isShownTaskModal: boolean;
+  isShownLabelModal: boolean;
   errors: IError[];
 }
 

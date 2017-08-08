@@ -4,6 +4,8 @@ import Store from './store';
 import reducers from './reducers';
 
 const activities = {
+  LOGIN_ACTIVITY: '__LOGIN_ACTIVITY',
+  USER_ACTIVITY: '__USER_ACTIVITY',
   MAIN_ACTIVITY: '__MAIN_ACTIVITY',
   TASK_ACTIVITY: '__TASK_ACTIVITY',
   LABEL_ACTIVITY: '__LABEL_ACTIVITY',
@@ -17,18 +19,15 @@ const initialState: IState = {
   requests: [],
   members: [],
   ui: {
-    currentHistoryIndex: 0,
-    histories: [{
-      activity: activities.MAIN_ACTIVITY,
-      selectedLabelId: null,
-      selectedTaskId: null,
-    }],
-    loading: {
-      tasks: false,
-      labels: false,
-      requests: false,
-      members: false,
-    },
+    activity: activities.MAIN_ACTIVITY,
+    selectedTaskId: null,
+    selectedLabelId: null,
+    isLoadingTasks: false,
+    isLoadingLabels: false,
+    isLoadingRequests: false,
+    isLoadingMembers: false,
+    isShownTaskModal: false,
+    isShownLabelModal: false,
     errors: [],
   },
 };

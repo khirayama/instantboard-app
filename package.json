@@ -1,0 +1,40 @@
+{
+  "name": "Instantboard client",
+  "version": "1.0.0",
+  "description": "Instantboard client",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build:markups": "cpx \"src/index.html\" dist",
+    "build:markups:watch": "cpx \"src/index.html\" dist --watch",
+    "bundle:scripts": "browserify ./src/index.tsx -p [tsify -p ./tsconfig.json] -o ./dist/bundle.js",
+    "bundle:scripts:watch": "watchify ./src/index.tsx -p [tsify -p ./tsconfig.json] -o ./dist/bundle.js",
+    "build:styles": "postcss -c .postcssrc.js src/styles/index.css -o dist/index.css",
+    "build:styles:watch": "postcss -c .postcssrc.js -w src/styles/index.css -o dist/index.css",
+    "server": "browser-sync start --server dist --files dist/**/* --no-open --no-ui --no-ghost-mode --no-notify",
+    "build": "npm run clean && (npm run build:markups & npm run bundle:scripts & npm run build:styles)",
+    "dev": "npm run clean && (npm run server & npm run build:markups:watch & npm run bundle:scripts:watch & npm run build:styles:watch)"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.18.13",
+    "browserify": "^14.4.0",
+    "cpx": "^1.5.0",
+    "cssnano": "^3.10.0",
+    "postcss-cli": "^4.1.0",
+    "postcss-easy-import": "^2.1.0",
+    "postcss-nested": "^2.1.0",
+    "postcss-simple-vars": "^4.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "tsify": "^3.0.1",
+    "typescript": "^2.4.2",
+    "watchify": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.1",
+    "@types/react-dom": "^15.5.2"
+  }
+}

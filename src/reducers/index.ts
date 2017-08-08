@@ -1,3 +1,4 @@
-export default function(state: any, action: any) {
+export default function(state: IState, action: IAction): IState {
   console.log(state, action);
+  return state;
 };

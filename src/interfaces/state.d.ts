@@ -18,18 +18,6 @@ interface IError {
   message: string|null;
 }
 
-interface IIsLoading {
-  tasks: boolean;
-  labels: boolean;
-  requests: boolean;
-  members: boolean;
-}
-
-interface IIsShownModal {
-  task: boolean;
-  label: boolean;
-}
-
 interface IUI {
   activity: string;
   selectedLabelId: string|null;

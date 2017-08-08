@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Store from './store';
 import reducers from './reducers';
-import activities from './activities';
+import {activities} from './activities';
+import Provider from './provider';
 
 const initialState: IState = {
   idToken: null,
@@ -31,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log(`Start app at ${new Date()}.`);
 
   const applicationMainElement: any = document.querySelector('.application--main');
-  ReactDOM.render(<div>hoge</div>, applicationMainElement);
+  ReactDOM.render(<Provider store={store} />, applicationMainElement);
 
   const applicationLoadingElement: any = document.querySelector('.application--loader');
   if (applicationLoadingElement !== null) {

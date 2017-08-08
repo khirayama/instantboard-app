@@ -1,29 +1,8 @@
-import * as React from 'react';
+import LoginActivity from './containers/login-activity';
+import UserActivity from './containers/user-activity';
 import MainActivity from './containers/main-activity';
-
-class LoginActivity extends React.Component<any, any> {
-  public render() {
-    return <div>LoginActivity</div>;
-  }
-}
-
-class UserActivity extends React.Component<any, any> {
-  public render() {
-    return <div>UserActivity</div>;
-  }
-}
-
-class TaskActivity extends React.Component<any, any> {
-  public render() {
-    return <div>TaskActivity</div>;
-  }
-}
-
-class LabelActivity extends React.Component<any, any> {
-  public render() {
-    return <div>LabelActivity</div>;
-  }
-}
+import TaskActivity from './containers/task-activity';
+import LabelActivity from './containers/label-activity';
 
 const activities = {
   loginActivity: {

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "target": "es2015"
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.d.tsx",
+    "./node_modules/@types/**/*.d.ts"
+  ]
+}

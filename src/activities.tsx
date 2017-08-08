@@ -1,10 +1,5 @@
 import * as React from 'react';
-
-class MainActivity extends React.Component<any, any> {
-  public render() {
-    return <div>MainActivity</div>;
-  }
-}
+import MainActivity from './containers/main-activity';
 
 class LoginActivity extends React.Component<any, any> {
   public render() {

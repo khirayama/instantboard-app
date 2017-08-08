@@ -1,0 +1,19 @@
+$color-white: #fff;
+
+$color-primary-dark: #3f51b5;
+$color-primary: #03a9f4;
+$color-primary-light: #b2ebf2;
+
+$color-accent-attention: #ef5350;
+
+$color-text: #424242;
+$color-text-primary: #212121;
+$color-text-secondary: #9e9e9e;
+
+$color-divider: #eee;
+$color-background: $color-white;
+
+$color-ui-focus: #fafafa;
+$color-ui-active: #f0f0f0;
+$color-ui-shadow: rgba(0, 0, 0, 0.1);
+$color-ui-blank: #f0f0f0;

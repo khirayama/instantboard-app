@@ -23,7 +23,7 @@ export default class Provider extends React.Component<IProviderProps, IState> {
     const activity: IActivity|null = findActivity(ui.activityKey);
 
     if (activity) {
-      return React.createElement(activity.component, this.props.store);
+      return React.createElement(activity.component, {store: this.props.store});
     }
     return null;
   }

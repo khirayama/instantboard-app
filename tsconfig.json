@@ -5,7 +5,7 @@
     "sourceMap": true,
     "removeComments": true,
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,

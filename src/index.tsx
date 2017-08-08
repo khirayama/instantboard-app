@@ -2,14 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Store from './store';
 import reducers from './reducers';
-
-const activities = {
-  LOGIN_ACTIVITY: '__LOGIN_ACTIVITY',
-  USER_ACTIVITY: '__USER_ACTIVITY',
-  MAIN_ACTIVITY: '__MAIN_ACTIVITY',
-  TASK_ACTIVITY: '__TASK_ACTIVITY',
-  LABEL_ACTIVITY: '__LABEL_ACTIVITY',
-};
+import activities from './activities';
 
 const initialState: IState = {
   idToken: null,

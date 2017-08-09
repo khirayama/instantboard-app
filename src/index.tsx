@@ -8,13 +8,13 @@ import Router from './router/router';
 import routes from './router/routes';
 
 const store: IStore = new Store(initialState, reducers);
+const router = new Router(routes);
 
 window.addEventListener('DOMContentLoaded', () => {
   console.log(`Start app at ${new Date()}.`);
 
   const applicationMainElement: any = window.document.querySelector('.application--main');
   const path = window.location.pathname;
-  const router = new Router(routes);
   ReactDOM.render((
     <Navigator
       props={{store}}

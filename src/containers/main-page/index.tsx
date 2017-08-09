@@ -5,7 +5,7 @@ import Link from '../../router/link';
 export default class MainPage extends Container {
   public render() {
     return (
-      <div>
+      <section className="page main-page">
         <h1>Main Page!</h1>
         <div>
         <Link to="/tasks/new">to TaskPage</Link>
@@ -13,7 +13,7 @@ export default class MainPage extends Container {
         <div>
         <Link to="/tasks/18/edit">to TaskPage</Link>
         </div>
-      </div>
+      </section>
     );
   }
 }

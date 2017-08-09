@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Container from '../container';
 
-export default class LoginActivity extends Container {
+export default class UserPage extends Container {
   public render() {
-    return <div>Login Activity!</div>;
+    return <div>User Page!</div>;
   }
 }

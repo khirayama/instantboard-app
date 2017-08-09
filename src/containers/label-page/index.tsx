@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Container from '../container';
 
-export default class LabelActivity extends Container {
+export default class LabelPage extends Container {
   public render() {
-    return <div>Label Activity!</div>;
+    return <div>Label Page!</div>;
   }
 }

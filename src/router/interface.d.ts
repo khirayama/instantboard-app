@@ -13,7 +13,7 @@ interface IRouter {
 }
 
 interface INavigatorProps {
-  props: any;
+  props?: any;
   router: any;
   path: string;
 }

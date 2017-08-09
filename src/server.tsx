@@ -1,12 +1,19 @@
 import * as path from 'path';
 import * as express from 'express';
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
+import Store from './store/store';
+import initialState from './store/initial-state';
+import reducers from './reducers';
+import Navigator from './router/navigator';
 import Router from './router/router';
 import routes from './router/routes';
 
 const app = express();
+const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
 
-function template() {
+function template(content) {
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +27,7 @@ function template() {
 </head>
 <body>
   <section class="application">
-    <main class="application--main">Main Content</main>
+    <main class="application--main">${content}</main>
     <div class="application--loader">
       <div class="loader">
         <svg viewBox="0 0 32 32" width="32" height="32">
@@ -36,6 +43,14 @@ function template() {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get(router.getPaths(), (req, res) => {
-  res.send(template())
+  console.log(req.path);
+  const content = ReactDOMServer.renderToString((
+    <Navigator
+      props={{store}}
+      router={router}
+      path={req.path}
+    />
+  ));
+  res.send(template(content))
 });
 app.listen(3000);

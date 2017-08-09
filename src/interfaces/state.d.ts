@@ -12,14 +12,7 @@ interface ITask {
 }
 
 // UI
-interface IError {
-  resourceName: string;
-  resourceId: string|null;
-  message: string|null;
-}
-
 interface IUI {
-  activityKey: string;
   selectedLabelId: string|null;
   selectedTaskId: string|null;
   isLoadingTasks: boolean;
@@ -28,7 +21,11 @@ interface IUI {
   isLoadingMembers: boolean;
   isShownTaskModal: boolean;
   isShownLabelModal: boolean;
-  errors: IError[];
+  errors: {
+    resourceName: string;
+    resourceId: string|null;
+    message: string|null;
+  }[];
 }
 
 // State

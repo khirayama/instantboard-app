@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Store from './store';
 import reducers from './reducers';
-import {activities} from './activities';
-import Provider from './provider';
+import Navigator from './router/navigator';
+import Router from './router/router';
+import routes from './router/routes';
 
 const initialState: IState = {
   idToken: null,
@@ -13,7 +14,6 @@ const initialState: IState = {
   requests: [],
   members: [],
   ui: {
-    activityKey: activities.mainActivity.key,
     selectedTaskId: null,
     selectedLabelId: null,
     isLoadingTasks: false,
@@ -31,10 +31,18 @@ const store: IStore = new Store(initialState, reducers);
 window.addEventListener('DOMContentLoaded', () => {
   console.log(`Start app at ${new Date()}.`);
 
-  const applicationMainElement: any = document.querySelector('.application--main');
-  ReactDOM.render(<Provider store={store} />, applicationMainElement);
+  const applicationMainElement: any = window.document.querySelector('.application--main');
+  const path = window.location.pathname;
+  const router = new Router(routes);
+  ReactDOM.render((
+    <Navigator
+      props={{store}}
+      router={router}
+      path={path}
+    />
+  ), applicationMainElement);
 
-  const applicationLoadingElement: any = document.querySelector('.application--loader');
+  const applicationLoadingElement: any = window.document.querySelector('.application--loader');
   if (applicationLoadingElement !== null) {
     applicationLoadingElement.parentNode.removeChild(applicationLoadingElement);
   }

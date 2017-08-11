@@ -15,12 +15,15 @@
     "server": "nodemon dist/server.js",
     "build": "npm run clean && (npm run bundle:scripts & npm run build:styles)",
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/server.js'",
+    "lint": "tslint 'src/**/*.+(ts|tsx)'",
+    "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",
     "check": "npm-check-updates"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/pino": "^4.7.0",
     "@types/prop-types": "^15.5.1",
     "browser-sync": "^2.18.13",
     "browserify": "^14.4.0",
@@ -31,6 +34,7 @@
     "express": "^4.15.4",
     "nodemon": "^1.11.0",
     "npm-check-updates": "^2.12.1",
+    "pino": "^4.7.1",
     "postcss-cli": "^4.1.0",
     "postcss-easy-import": "^2.1.0",
     "postcss-nested": "^2.1.0",
@@ -39,6 +43,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "tsify": "^3.0.1",
+    "tslint": "^5.6.0",
     "typescript": "^2.4.2",
     "watchify": "^3.9.0"
   },

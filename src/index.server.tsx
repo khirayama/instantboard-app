@@ -29,7 +29,7 @@ function template(content) {
   <section class="application">
     <main class="application--main">${content}</main>
     <div class="application--loader">
-      <div class="loader">
+      <div class="spinner">
         <svg viewBox="0 0 32 32" width="32" height="32">
           <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
         </svg>

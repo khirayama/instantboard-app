@@ -15,7 +15,7 @@ export function _parse(str: string) {
     path += str.slice(index, offset);
     index = offset + res[0].length;
 
-    // if not exist path or empty string
+    // If not exist path or empty string
     if (path) {
       tokens.push(path);
     }
@@ -64,7 +64,7 @@ export function _pathToRegexp(path: string) {
   const regexp = _tokensToRegexp(tokens);
 
   const keys: any = [];
-  tokens.forEach((token) => {
+  tokens.forEach((token: any) => {
     if (typeof token !== 'string') {
       keys.push(token);
     }
@@ -109,8 +109,6 @@ export default class Router {
   }
 
   public matchRoute(path: string) {
-    // for (let i = 0; i < this.routes.length; i++) {
-      // const route = this.routes[i];
     for (const route of this.routes) {
       const {regexp, keys} = _pathToRegexp(route.path || '');
       const {matches, params} = _exec(regexp, keys, path);

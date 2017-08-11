@@ -26,9 +26,9 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
 
   public componentWillMount() {
     if (typeof window === 'object' && window.history && window.history.pushState) {
-      window.addEventListener('popstate', (event: Event) => {
+      window.addEventListener('popstate', () => {
         const path = window.location.pathname;
-        const {route, params} = this.props.router.matchRoute(path);
+        const {route} = this.props.router.matchRoute(path);
         window.document.title = route.title;
         this.setState({path});
       });
@@ -48,7 +48,7 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   }
 
   private _move(path: string) {
-    const {route, params} = this.props.router.matchRoute(path);
+    const {route} = this.props.router.matchRoute(path);
     window.document.title = route.title;
     window.history.pushState(null, route.title, path);
     this.setState({path});

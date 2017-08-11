@@ -20,7 +20,9 @@ export default class Link extends React.Component<ILinkProps, any> {
         href={this.props.to}
         className={this.props.className}
         onClick={this.handleClick}
-      >{this.props.children}</a>
+      >
+        {this.props.children}
+      </a>
     );
   }
 

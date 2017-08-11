@@ -4,7 +4,7 @@ const ACTION_DISPATCH = '__ACTION_DISPATCH';
 export default class Store {
   private listeners: any = {};
   private state: any = {};
-  private reducer: (state: any, action: any) => any = ((state) => state);
+  private reducer: (state: any, action: any) => any = ((state: any) => state);
   private shouldChangeDispatch: (currentState: any, nextState: any) => boolean = (() => true);
 
   constructor(state: any, reducer: any, options: any = {}) {

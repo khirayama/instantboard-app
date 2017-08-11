@@ -8,10 +8,10 @@ export default class MainPage extends Container {
       <section className="page main-page">
         <h1>Main Page!</h1>
         <div>
-        <Link to="/tasks/new">to TaskPage</Link>
+          <Link to="/tasks/new">to TaskPage</Link>
         </div>
         <div>
-        <Link to="/tasks/18/edit">to TaskPage</Link>
+          <Link to="/tasks/18/edit">to TaskPage</Link>
         </div>
       </section>
     );

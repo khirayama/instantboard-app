@@ -14,7 +14,8 @@
     "server:dev": "browser-sync start --server dist --files dist/**/* --no-open --no-ui --no-ghost-mode --no-notify",
     "server": "nodemon dist/server.js",
     "build": "npm run clean && (npm run bundle:scripts & npm run build:styles)",
-    "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/server.js'"
+    "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/server.js'",
+    "check": "npm-check-updates"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "deep-assign": "^2.0.0",
     "express": "^4.15.4",
     "nodemon": "^1.11.0",
+    "npm-check-updates": "^2.12.1",
     "postcss-cli": "^4.1.0",
     "postcss-easy-import": "^2.1.0",
     "postcss-nested": "^2.1.0",

@@ -17,6 +17,8 @@
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/server.js'",
     "lint": "tslint 'src/**/*.+(ts|tsx)'",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",
+    "lint:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore src",
+    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --fix src",
     "check": "npm-check-updates"
   },
   "keywords": [],
@@ -31,6 +33,11 @@
     "cpx": "^1.5.0",
     "cssnano": "^3.10.0",
     "deep-assign": "^2.0.0",
+    "eslint": "^4.4.1",
+    "eslint-config-xo-react": "^0.13.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "eslint-plugin-react": "^7.2.0",
+    "eslint-plugin-typescript": "^0.4.0",
     "express": "^4.15.4",
     "nodemon": "^1.11.0",
     "npm-check-updates": "^2.12.1",
@@ -45,6 +52,7 @@
     "tsify": "^3.0.1",
     "tslint": "^5.6.0",
     "typescript": "^2.4.2",
+    "typescript-eslint-parser": "^5.0.1",
     "watchify": "^3.9.0"
   },
   "devDependencies": {

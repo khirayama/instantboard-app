@@ -1,8 +1,8 @@
+import LabelPage from '../containers/label-page';
 import LoginPage from '../containers/login-page';
-import UserPage from '../containers/user-page';
 import MainPage from '../containers/main-page';
 import TaskPage from '../containers/task-page';
-import LabelPage from '../containers/label-page';
+import UserPage from '../containers/user-page';
 
 const routes: IRoute[] = [{
   path: '/login',

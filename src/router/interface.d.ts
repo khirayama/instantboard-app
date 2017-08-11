@@ -6,7 +6,7 @@ interface IRoute {
 
 interface IRouter {
   getPaths: () => string[];
-  matchRoute: (string) => {
+  matchRoute: (path: string) => {
     route: IRoute;
     params: any;
   };

@@ -1,18 +1,12 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 export default class Navigator extends React.Component<INavigatorProps, {path: string}> {
-  private static childContextTypes = {
+  public static childContextTypes = {
     move: PropTypes.func.isRequired,
   };
 
-  private getChildContext() {
-    return {
-      move: this.move,
-    };
-  }
-
-  private move: (string) => void;
+  public move: (path: string) => void;
 
   constructor(props: INavigatorProps) {
     super(props);
@@ -24,8 +18,14 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
     this.move = this._move.bind(this);
   }
 
+  public getChildContext() {
+    return {
+      move: this.move,
+    };
+  }
+
   public componentWillMount() {
-    if (typeof window === 'object' && window.history && window.history.pushState){
+    if (typeof window === 'object' && window.history && window.history.pushState) {
       window.addEventListener('popstate', (event: Event) => {
         const path = window.location.pathname;
         const {route, params} = this.props.router.matchRoute(path);
@@ -33,13 +33,6 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
         this.setState({path});
       });
     }
-  }
-
-  private _move(path: string) {
-    const {route, params} = this.props.router.matchRoute(path);
-    window.document.title = route.title;
-    window.history.pushState(null, route.title, path);
-    this.setState({path});
   }
 
   public render() {
@@ -52,5 +45,12 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
       return React.createElement(route.component, Object.assign({}, props, {params}));
     }
     return null;
+  }
+
+  private _move(path: string) {
+    const {route, params} = this.props.router.matchRoute(path);
+    window.document.title = route.title;
+    window.history.pushState(null, route.title, path);
+    this.setState({path});
   }
 }

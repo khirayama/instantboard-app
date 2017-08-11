@@ -1,13 +1,13 @@
-import * as path from 'path';
 import * as express from 'express';
+import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import Store from './store/store';
-import initialState from './store/initial-state';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
 import routes from './router/routes';
+import initialState from './store/initial-state';
+import Store from './store/store';
 
 const app = express();
 const store: IStore = new Store(initialState, reducers);
@@ -37,13 +37,12 @@ function template(content) {
     </div>
   </section>
 </body>
-</html>`
+</html>`;
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get(router.getPaths(), (req, res) => {
-  console.log(req.path);
   const content = ReactDOMServer.renderToString((
     <Navigator
       props={{store}}
@@ -51,6 +50,6 @@ app.get(router.getPaths(), (req, res) => {
       path={req.path}
     />
   ));
-  res.send(template(content))
+  res.send(template(content));
 });
 app.listen(3000);

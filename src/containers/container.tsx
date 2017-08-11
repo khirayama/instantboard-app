@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-interface IContainerProps {
-  store: IStore;
-  params: any;
-}
-
 export default class Container extends React.Component<IContainerProps, IState> {
   protected dispatch: (action: IAction) => void;
+
+  constructor(props: IContainerProps) {
+    super(props);
+
+    this.state = props.store.getState();
+    this.dispatch = props.store.dispatch.bind(props.store);
+  }
 
   public componentWillMount() {
     const store = this.props.store;
@@ -14,12 +16,5 @@ export default class Container extends React.Component<IContainerProps, IState> 
     store.addChangeListener(() => {
       this.setState(store.getState());
     });
-  }
-
-  constructor(props: IContainerProps) {
-    super(props);
-
-    this.state = props.store.getState();
-    this.dispatch = props.store.dispatch.bind(props.store);
   }
 }

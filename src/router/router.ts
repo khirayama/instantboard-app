@@ -109,8 +109,9 @@ export default class Router {
   }
 
   public matchRoute(path: string) {
-    for (let i = 0; i < this.routes.length; i++) {
-      const route = this.routes[i];
+    // for (let i = 0; i < this.routes.length; i++) {
+      // const route = this.routes[i];
+    for (const route of this.routes) {
       const {regexp, keys} = _pathToRegexp(route.path || '');
       const {matches, params} = _exec(regexp, keys, path);
       if (matches) {

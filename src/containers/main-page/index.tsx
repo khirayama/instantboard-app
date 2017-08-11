@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Container from '../container';
 import Link from '../../router/link';
+import Container from '../container';
 
 export default class MainPage extends Container {
   public render() {

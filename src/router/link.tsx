@@ -1,25 +1,17 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 
 export default class Link extends React.Component<ILinkProps, any> {
-  private handleClick;
-
   private static contextTypes = {
     move: PropTypes.func.isRequired,
   };
+
+  private handleClick;
 
   constructor(props: ILinkProps) {
     super(props);
 
     this.handleClick = this._handleClick.bind(this);
-  }
-
-  private _handleClick(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const path = this.props.to;
-    this.context.move(path);
   }
 
   public render() {
@@ -30,5 +22,13 @@ export default class Link extends React.Component<ILinkProps, any> {
         onClick={this.handleClick}
       >{this.props.children}</a>
     );
+  }
+
+  private _handleClick(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const path = this.props.to;
+    this.context.move(path);
   }
 }

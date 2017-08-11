@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Store from './store/store';
-import initialState from './store/initial-state';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
 import routes from './router/routes';
+import initialState from './store/initial-state';
+import Store from './store/store';
+import logger from './utils/logger';
 
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
 
 window.addEventListener('DOMContentLoaded', () => {
-  console.log(`Start app at ${new Date()}.`);
+  logger.info(`Start app at ${new Date()}.`);
 
   const applicationMainElement: any = window.document.querySelector('.application--main');
   const path = window.location.pathname;

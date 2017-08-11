@@ -1,7 +1,5 @@
 // Store
-interface IDispatch {
-  (action: IAction): void;
-}
+type IDispatch = (action: IAction) => void;
 
 interface IStore {
   getState: () => IState;
@@ -13,15 +11,19 @@ interface IStore {
 // State
 // Resource
 interface IUser {
+  id: string;
 }
 
 interface IRequest {
+  id: string;
 }
 
 interface ILabel {
+  id: string;
 }
 
 interface ITask {
+  id: string;
 }
 
 // UI
@@ -34,11 +36,11 @@ interface IUI {
   isLoadingMembers: boolean;
   isShownTaskModal: boolean;
   isShownLabelModal: boolean;
-  errors: {
+  errors: Array<{
     resourceName: string;
     resourceId: string|null;
     message: string|null;
-  }[];
+  }>;
 }
 
 // State

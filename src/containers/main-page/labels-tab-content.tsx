@@ -7,7 +7,7 @@ import {
   ListItem,
 } from '../../components/list';
 
-import {Icon} from '../../components/icon';
+import Icon from '../../components/icon';
 
 export class LabelsTabContent extends React.Component<any, any> {
   public static contextTypes = {

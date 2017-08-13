@@ -10,7 +10,7 @@
     .tab-navigation-tab-list-item {
       text-align: center;
       color: $color-text-secondary;
-      .icon {
+      .icon-button {
         font-size: 36px;
         padding: 8px 0 12px;
       }

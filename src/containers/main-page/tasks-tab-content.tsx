@@ -15,7 +15,8 @@ import {
   ListItem,
 } from '../../components/list';
 
-import {Icon} from '../../components/icon';
+import Icon from '../../components/icon';
+import FloatingButton from '../../components/floating-button';
 import {LinkText} from '../../components/link-text';
 
 export class TasksTabContent extends React.Component<any, any> {
@@ -40,7 +41,7 @@ export class TasksTabContent extends React.Component<any, any> {
       <div className="tasks-tab-content--no-labels">
         <div className="tasks-tab-content--no-labels--inner">
           <p>You have no labels.<br/>Create category of task as label.</p>
-          <div className="floating-button" onClick={() => this.context.move('/labels/new')}>CREATE LABEL</div>
+          <FloatingButton onClick={() => this.context.move('/labels/new')}>CREATE LABEL</FloatingButton>
         </div>
       </div>
     );

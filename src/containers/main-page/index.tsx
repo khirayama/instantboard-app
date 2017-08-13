@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Link from '../../router/link';
 import Container from '../container';
-import {Icon} from '../../components/icon';
+import IconButton from '../../components/icon-button';
 import {
   TabNavigation,
   TabNavigationContentList,
@@ -143,11 +143,11 @@ export default class MainPage extends Container {
             </TabNavigationContentList>
           </TabNavigationContentListItem>
           <TabNavigationTabList>
-            <TabNavigationTabListItem index={0}><Icon>view_list</Icon></TabNavigationTabListItem>
-            <TabNavigationTabListItem index={1}><Icon>label</Icon></TabNavigationTabListItem>
-            <TabNavigationTabListItem><div onClick={() => this.handleClickAddButton()}><Icon>add_box</Icon></div></TabNavigationTabListItem>
-            <TabNavigationTabListItem index={2}><Icon>notifications</Icon></TabNavigationTabListItem>
-            <TabNavigationTabListItem index={3}><Icon>person</Icon></TabNavigationTabListItem>
+            <TabNavigationTabListItem index={0}><IconButton>view_list</IconButton></TabNavigationTabListItem>
+            <TabNavigationTabListItem index={1}><IconButton>label</IconButton></TabNavigationTabListItem>
+            <TabNavigationTabListItem><div onClick={() => this.handleClickAddButton()}><IconButton>add_box</IconButton></div></TabNavigationTabListItem>
+            <TabNavigationTabListItem index={2}><IconButton>notifications</IconButton></TabNavigationTabListItem>
+            <TabNavigationTabListItem index={3}><IconButton>person</IconButton></TabNavigationTabListItem>
           </TabNavigationTabList>
         </TabNavigation>
       </section>

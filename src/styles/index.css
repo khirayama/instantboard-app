@@ -3,3 +3,8 @@
 @import "./vars";
 @import "./application";
 @import "./loader";
+@import "./skeleton";
+@import "./floating-button";
+
+@import "./components/**/*";
+@import "./containers/**/*";

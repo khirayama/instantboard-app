@@ -15,4 +15,5 @@ $font-weight-bold: 700;
 $font-base-size: 16px;
 
 $radius: 2px;
+$shadow: 0 2px 2px 1px $color-ui-shadow;
 $border: solid 1px $color-divider;

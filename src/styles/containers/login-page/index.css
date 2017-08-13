@@ -1,0 +1,38 @@
+.login-page {
+  position: relative;
+
+  .login-storyboard--content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 80%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+
+    .login-heading {
+      font-weight: bold;
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .login-description {
+      font-weight: bold;
+      margin-bottom: 24px;
+      color: $color-text-secondary;
+    }
+
+    .login-button {
+      display: inline-block;
+      padding: 4px 8px;
+      text-align: center;
+      border-radius: $radius;
+      background-color: $color-text-secondary;
+      color: $color-white;
+      font-weight: bold;
+      margin-bottom: 16px;
+      &.login-button__facebook {
+        background-color: #3b5998; /* facebook color*/
+      }
+    }
+  }
+}

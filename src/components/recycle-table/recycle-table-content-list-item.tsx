@@ -15,7 +15,7 @@ export class RecycleTableContentListItem extends React.Component<any, any> {
     children: PropTypes.node,
   };
 
-  render() {
+  public render() {
     let isHidden = false;
     if (
       this.props.index < this.context.currentIndex - 1 ||

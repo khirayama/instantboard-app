@@ -23,20 +23,20 @@ export class RecycleTable extends React.Component<any, any> {
     };
   }
 
-  getChildContext() {
+  public getChildContext() {
     return {
       currentIndex: this.state.currentIndex,
       setCurrentIndex: this._setCurrentIndex.bind(this),
     };
   }
 
-  componentDidUpdate() {
+  public componentDidUpdate() {
     if (this.timerId === null) {
       this._scrollToCenter(this.state.currentIndex, false);
     }
   }
 
-  _scrollToCenter(index: any, animate: boolean) {
+  public _scrollToCenter(index: any, animate: boolean) {
     if (!animate) {
       const el = this.el;
       if (el === null) {
@@ -83,14 +83,14 @@ export class RecycleTable extends React.Component<any, any> {
     }
   }
 
-  _setCurrentIndex(index: number) {
+  public _setCurrentIndex(index: number) {
     if (this.timerId === null) {
       this.setState({currentIndex: index});
       this._scrollToCenter(index, true);
     }
   }
 
-  render() {
+  public render() {
     return (
       <section
         className="recycle-table"

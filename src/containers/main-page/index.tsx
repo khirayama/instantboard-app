@@ -1,7 +1,5 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Link from '../../router/link';
-import Container from '../container';
+import * as React from 'react';
 import IconButton from '../../components/icon-button';
 import {
   TabNavigation,
@@ -10,17 +8,19 @@ import {
   TabNavigationTabList,
   TabNavigationTabListItem,
 } from '../../components/tab-navigation';
+import Link from '../../router/link';
+import Container from '../container';
 import {LabelsTabContent} from './labels-tab-content';
 import {RequestsTabContent} from './requests-tab-content';
 import {TasksTabContent} from './tasks-tab-content';
 import {UserTabContent} from './user-tab-content';
 
 export default class MainPage extends Container {
-  private tabIndex: number;
-
   public static contextTypes = {
     move: PropTypes.func,
   };
+
+  private tabIndex: number;
 
   constructor(props: any) {
     super(props);
@@ -33,26 +33,6 @@ export default class MainPage extends Container {
       this.context.move('/labels/new');
     } else {
       this.context.move('/tasks/new');
-    }
-  }
-
-  private loadTabIndex(): number {
-    let index = 0;
-    if (typeof window === 'object' && window.sessionStorage) {
-      index = Number(window.sessionStorage.getItem('_tab_navigatgion_index'));
-    }
-    return index;
-  }
-
-  private saveTabIndex(index: number): void {
-    if (typeof window === 'object' && window.sessionStorage) {
-      window.sessionStorage.setItem('_tab_navigatgion_index', String(index));
-    }
-  }
-
-  private clearTabIndex() {
-    if (typeof window === 'object' && window.sessionStorage) {
-      window.sessionStorage.setItem('_tab_navigatgion_index', String(0));
     }
   }
 
@@ -145,12 +125,34 @@ export default class MainPage extends Container {
           <TabNavigationTabList>
             <TabNavigationTabListItem index={0}><IconButton>view_list</IconButton></TabNavigationTabListItem>
             <TabNavigationTabListItem index={1}><IconButton>label</IconButton></TabNavigationTabListItem>
-            <TabNavigationTabListItem><div onClick={() => this.handleClickAddButton()}><IconButton>add_box</IconButton></div></TabNavigationTabListItem>
+            <TabNavigationTabListItem>
+              <div onClick={() => this.handleClickAddButton()}><IconButton>add_box</IconButton></div>
+            </TabNavigationTabListItem>
             <TabNavigationTabListItem index={2}><IconButton>notifications</IconButton></TabNavigationTabListItem>
             <TabNavigationTabListItem index={3}><IconButton>person</IconButton></TabNavigationTabListItem>
           </TabNavigationTabList>
         </TabNavigation>
       </section>
     );
+  }
+
+  private loadTabIndex(): number {
+    let index = 0;
+    if (typeof window === 'object' && window.sessionStorage) {
+      index = Number(window.sessionStorage.getItem('_tab_navigatgion_index'));
+    }
+    return index;
+  }
+
+  private saveTabIndex(index: number): void {
+    if (typeof window === 'object' && window.sessionStorage) {
+      window.sessionStorage.setItem('_tab_navigatgion_index', String(index));
+    }
+  }
+
+  private clearTabIndex() {
+    if (typeof window === 'object' && window.sessionStorage) {
+      window.sessionStorage.setItem('_tab_navigatgion_index', String(0));
+    }
   }
 }

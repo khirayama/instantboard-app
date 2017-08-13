@@ -33,7 +33,7 @@ interface ITask {
     shortMonthName: string;
     shortDayName: string;
     date: number;
-  },
+  };
 }
 
 // UI

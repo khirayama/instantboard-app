@@ -15,14 +15,57 @@ import {
   ListItem,
 } from '../../components/list';
 
-import Icon from '../../components/icon';
 import FloatingButton from '../../components/floating-button';
+import Icon from '../../components/icon';
 import {LinkText} from '../../components/link-text';
 
 export class TasksTabContent extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
+
+  public render() {
+    const actions = this.props.actions;
+    const ui = this.props.ui;
+    const labels = this.props.labels.filter((label: any) => label.visibled);
+    const tasks = this.props.tasks;
+
+    // Loading label - Show loading
+    //   No labels - Show no labels content
+    //   Labels - Show recycle table view
+    //     Loading tasks - Show skeleton
+    //       No tasks - Show no tasks content
+    //       tasks - Show task list
+    let contentElement: any = null;
+    if (ui.isLoadingLabels) {
+      contentElement = this.createTasksTabContentLoading();
+    } else if (!ui.isLoadingLabels && labels.length === 0) {
+      contentElement = this.createTasksTabContentNoLabels();
+    } else if (!ui.isLoadingLabels && labels.length !== 0) {
+      const recycleTableContents = labels.map((label: any, index: number) => {
+        const groupedTasks = tasks.filter((task: any) => {
+          return (task.labelId === label.id);
+        });
+        return (
+          <RecycleTableContentListItem key={index}>
+            {this.createTaskList(groupedTasks)}
+          </RecycleTableContentListItem>
+        );
+      });
+
+      contentElement = (
+        <RecycleTable>
+          <RecycleTableList>
+            {labels.map((label: any, index: number) => {
+              return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
+            })}
+          </RecycleTableList>
+          <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
+        </RecycleTable>
+      );
+    }
+    return <section className="tasks-tab-content">{contentElement}</section>;
+  }
 
   private createTasksTabContentLoading() {
     return (
@@ -89,13 +132,20 @@ export class TasksTabContent extends React.Component<any, any> {
         >
           {tasks.map((task: any) => {
             return (
-              <ListItem key={task.id} className={classNames("task-list--item", {"task-list--item__completed": task.completed})}>
+              <ListItem
+                key={task.id}
+                className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
+                >
                 <div className="task-list--item--complete-button">
                   <div className="circle"></div>
                 </div>
                 {(task.schedule) ? (
                   <span className="task-list--item--schedule--container">
-                    <span className={`task-list--item--schedule task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`}>
+                    <span
+                      className={classNames(
+                        'task-list--item--schedule',
+                        `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
+                      )}>
                       <span className="task-list--item--schedule--month">
                         {task.schedule.shortMonthName}
                       </span>
@@ -133,42 +183,4 @@ export class TasksTabContent extends React.Component<any, any> {
     );
   }
 
-  public render() {
-    const actions = this.props.actions;
-    const ui = this.props.ui;
-    const labels = this.props.labels.filter((label: any) => label.visibled);
-    const tasks = this.props.tasks;
-
-    // Loading label - Show loading
-    //   No labels - Show no labels content
-    //   Labels - Show recycle table view
-    //     Loading tasks - Show skeleton
-    //       No tasks - Show no tasks content
-    //       tasks - Show task list
-    let contentElement: any = null;
-    if (ui.isLoadingLabels) {
-      contentElement = this.createTasksTabContentLoading();
-    } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = this.createTasksTabContentNoLabels();
-    } else if (!ui.isLoadingLabels && labels.length !== 0) {
-      let recycleTableContents = labels.map((label: any, index: number) => {
-        const groupedTasks = tasks.filter((task: any) => {
-          return (task.labelId === label.id);
-        });
-        return (
-          <RecycleTableContentListItem key={index}>
-            {this.createTaskList(groupedTasks)}
-          </RecycleTableContentListItem>
-        );
-      });
-
-      contentElement = (
-        <RecycleTable>
-          <RecycleTableList>{labels.map((label: any, index: number) => <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>)}</RecycleTableList>
-          <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
-        </RecycleTable>
-      );
-    }
-    return <section className="tasks-tab-content">{contentElement}</section>;
-  }
 }

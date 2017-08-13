@@ -14,13 +14,13 @@ export class RecycleTableListItem extends React.Component<any, any> {
     onActive: PropTypes.func,
   };
 
-  _handleClick() {
+  public _handleClick() {
     this.context.setCurrentIndex(Number(this.props.index));
     if (this.props.onActive) {
       this.props.onActive(this.props.index);
     }
   }
-  render() {
+  public render() {
     const index: number = Number(this.props.index);
 
     return (

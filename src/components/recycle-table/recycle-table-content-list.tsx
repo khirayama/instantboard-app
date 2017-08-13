@@ -20,6 +20,7 @@ export class RecycleTableContentList extends React.Component<any, any> {
   };
 
   private recycleTableContentList: any;
+
   private touch: any;
 
   constructor() {
@@ -35,14 +36,16 @@ export class RecycleTableContentList extends React.Component<any, any> {
       moving: false,
     };
   }
-  getChildContext() {
+
+  public getChildContext() {
     return {
       handleTouchStart: this._handleTouchStart.bind(this),
       handleTouchMove: this._handleTouchMove.bind(this),
       handleTouchEnd: this._handleTouchEnd.bind(this),
     };
   }
-  _handleTouchStart(event: any) {
+
+  public _handleTouchStart(event: any) {
     event.stopPropagation();
 
     this.touch = Object.assign({}, this.touch, {
@@ -51,7 +54,8 @@ export class RecycleTableContentList extends React.Component<any, any> {
       startTime: new Date(),
     });
   }
-  _handleTouchMove(event: any) {
+
+  public _handleTouchMove(event: any) {
     event.stopPropagation();
 
     this.touch = Object.assign({}, this.touch, {
@@ -63,7 +67,8 @@ export class RecycleTableContentList extends React.Component<any, any> {
 
     this._updateTouchMoveView();
   }
-  _handleTouchEnd(event: any) {
+
+  public _handleTouchEnd(event: any) {
     event.stopPropagation();
 
     const THRESHOLD_WIDTH = window.screen.width / 3;
@@ -95,7 +100,8 @@ export class RecycleTableContentList extends React.Component<any, any> {
       moving: false,
     });
   }
-  _calcFilteredDiff() {
+
+  public _calcFilteredDiff() {
     const diff = this._calcDiff();
 
     if (this.touch.endX !== null && this.touch.endY !== null) {
@@ -110,7 +116,8 @@ export class RecycleTableContentList extends React.Component<any, any> {
 
     return diff;
   }
-  _calcDiff() {
+
+  public _calcDiff() {
     let x = this.touch.endX - this.touch.startX;
     let y = this.touch.endY - this.touch.startY;
     let time = this.touch.endTime.getTime() - this.touch.startTime.getTime();
@@ -131,33 +138,46 @@ export class RecycleTableContentList extends React.Component<any, any> {
       },
     };
   }
-  _swipeLeftHandler() {
+
+  public _swipeLeftHandler() {
     this.context.setCurrentIndex(this.context.currentIndex + 1);
   }
-  _swipeRightHandler() {
+
+  public _swipeRightHandler() {
     this.context.setCurrentIndex(this.context.currentIndex - 1);
   }
-  _updateTouchMoveView() {
+
+  public _updateTouchMoveView() {
     const diff = this._calcFilteredDiff();
 
-    if (this.touch.moving && diff.x !== 0 && (Math.abs(diff.delta.x) > Math.abs(diff.delta.y)) && (Math.abs(diff.x) > Math.abs(diff.y))) {
+    if (
+      this.touch.moving &&
+      diff.x !== 0 &&
+      (Math.abs(diff.delta.x) > Math.abs(diff.delta.y)) &&
+      (Math.abs(diff.x) > Math.abs(diff.y))
+    ) {
+      const translateX = this.context.currentIndex * 100 / this.props.children.length;
       this.recycleTableContentList.classList.add('recycle-table-content-list__moving');
-      this.recycleTableContentList.style.transform = `translateX(calc(-${this.context.currentIndex * 100 / this.props.children.length}% + ${diff.x}px))`;
+      this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}% + ${diff.x}px))`;
       this.recycleTableContentList.style.transitionProperty = 'none';
     }
   }
-  _updateTouchEndView() {
+
+  public _updateTouchEndView() {
     if (this.recycleTableContentList.classList.contains('recycle-table-content-list__moving')) {
       this.recycleTableContentList.classList.remove('recycle-table-content-list__moving');
     }
 
-    this.recycleTableContentList.style.transform = `translateX(calc(-${this.context.currentIndex * 100 / this.props.children.length}%))`;
+    const translateX = this.context.currentIndex * 100 / this.props.children.length;
+    this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}%))`;
     this.recycleTableContentList.style.transitionProperty = 'transform';
   }
-  _setRecycleTableContentList(recycleTableContentList: HTMLElement|null) {
+
+  public _setRecycleTableContentList(recycleTableContentList: HTMLElement|null) {
     this.recycleTableContentList = recycleTableContentList;
   }
-  render() {
+
+  public render() {
     const diff = this._calcFilteredDiff();
     const style = {
       width: (this.props.children.length * 100) + '%',

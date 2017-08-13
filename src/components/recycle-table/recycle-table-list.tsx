@@ -13,16 +13,16 @@ export class RecycleTableList extends React.Component<any, any> {
 
   private recycleTableList: any;
 
-  componentDidMount() {
+  public componentDidMount() {
     this._adjustListPosition();
   }
 
-  componentDidUpdate() {
+  public componentDidUpdate() {
     this._adjustIndex();
     this._adjustListPosition();
   }
 
-  _adjustIndex() {
+  public _adjustIndex() {
     const el = this.recycleTableList;
     const listItems = el.querySelectorAll('.recycle-table-list-item');
     if (listItems.length - 1 < this.context.currentIndex) {
@@ -30,7 +30,7 @@ export class RecycleTableList extends React.Component<any, any> {
     }
   }
 
-  _adjustListPosition() {
+  public _adjustListPosition() {
     const el = this.recycleTableList;
     const container = el.parentNode;
     const inner = el.querySelector('.recycle-table-list--inner');
@@ -41,8 +41,8 @@ export class RecycleTableList extends React.Component<any, any> {
       const paddingLeft = (container.clientWidth - firstItem.clientWidth) / 2;
       const paddingRight = (container.clientWidth - lastItem.clientWidth) / 2;
       let width: number = 0;
-      for (let i = 0; i < listItems.length; i++) {
-        width += listItems[i].clientWidth;
+      for (const listItem of listItems) {
+        width += listItem.clientWidth;
       }
 
       if (width && paddingLeft && paddingRight) {
@@ -54,11 +54,11 @@ export class RecycleTableList extends React.Component<any, any> {
     }
   }
 
-  _setRecycleTableList(recycleTableList: HTMLElement|null) {
+  public _setRecycleTableList(recycleTableList: HTMLElement|null) {
     this.recycleTableList = recycleTableList;
   }
 
-  render() {
+  public render() {
     return (
       <section
         className="recycle-table-list"

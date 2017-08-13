@@ -17,21 +17,21 @@ export class List extends React.Component<any, any> {
 
   private listElement: any;
 
-  componentDidMount() {
+  public componentDidMount() {
     this.listElement.querySelector('.list-content').addEventListener('contextmenu', (event: any) => {
       event.preventDefault();
     });
   }
-  getChildContext() {
+  public getChildContext() {
     return {
       listElement: () => this.listElement,
       onSort: this.props.onSort,
     };
   }
-  _setListElement(listElement: any) {
+  public _setListElement(listElement: any) {
     this.listElement = listElement;
   }
-  render() {
+  public render() {
     return (
       <section
         className={classNames('list', this.props.className)}

@@ -31,7 +31,7 @@ const mockTasks = [{
 }, {
   id: '124',
   labelId: '123',
-  text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
+  text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajsd casd c',
   completed: false,
 }];
 

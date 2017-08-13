@@ -1,0 +1,25 @@
+.list {
+  list-style: none;
+  overflow: scroll;
+  &__sorting {
+    position: relative;
+  }
+}
+.list-content {
+  width: 100%;
+  .list-item {
+    overflow: hidden;
+    transition-timing-function: $ease-out;
+    transition-duration: $time-fast;
+    will-change: transform, height, max-height;
+
+    &__sorting {
+      position: relative;
+      z-index: 1;
+    }
+
+    &__moving {
+      position: relative;
+    }
+  }
+}

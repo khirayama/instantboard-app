@@ -46,6 +46,7 @@ export class RecycleTableList extends React.Component<any, any> {
       }
 
       if (width && paddingLeft && paddingRight) {
+        el.style.visibility = 'visible';
         inner.style.width = (width + paddingLeft + paddingRight + 3) + 'px';
         inner.style.paddingLeft = paddingLeft + 'px';
         inner.style.paddingRight = paddingRight + 'px';
@@ -61,6 +62,7 @@ export class RecycleTableList extends React.Component<any, any> {
     return (
       <section
         className="recycle-table-list"
+        style={{visibility: 'hidden'}}
         ref={(el) => this._setRecycleTableList(el)}
         >
         <section className="recycle-table-list--inner">

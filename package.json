@@ -11,6 +11,8 @@
     "bundle:scripts:watch": "watchify ./src/index.web.tsx -p [tsify -p ./tsconfig.client.json] -o ./dist/public/bundle.js",
     "build:styles": "postcss -c .postcssrc.js src/styles/index.css -o dist/public/index.css",
     "build:styles:watch": "postcss -c .postcssrc.js -w src/styles/index.css -o dist/public/index.css",
+    "copy:files": "cpx 'src/**/*.{json,woff2,png}' dist",
+    "copy:files:watch": "cpx -w 'src/**/*.{json,woff2,png}' dist",
     "server:dev": "browser-sync start --server dist --files dist/**/* --no-open --no-ui --no-ghost-mode --no-notify",
     "server": "nodemon dist/index.server.js",
     "build": "npm run clean && (npm run bundle:scripts & npm run build:styles)",

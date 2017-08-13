@@ -23,6 +23,7 @@ function template(content) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="/index.css">
   <script src="/bundle.js" defer></script>
+  <link rel="manifest" href="/manifest.json">
   <title>Instantboard</title>
 </head>
 <body>
@@ -41,6 +42,7 @@ function template(content) {
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'assets')));
 
 app.get(router.getPaths(), (req, res) => {
   const content = ReactDOMServer.renderToString((

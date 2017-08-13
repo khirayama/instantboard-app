@@ -1,8 +1,55 @@
+const mockTasks = [{
+  id: '123',
+  labelId: '123',
+  text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
+  completed: false,
+  schedule: {
+    shortMonthName: 'Feb',
+    shortDayName: 'Mon',
+    date: 28,
+  },
+}, {
+  id: '125',
+  labelId: '123',
+  text: 'fuga',
+  completed: false,
+}, {
+  id: '127',
+  labelId: '123',
+  text: 'foo',
+  completed: false,
+  schedule: {
+    shortMonthName: 'Feb',
+    shortDayName: 'Mon',
+    date: 28,
+  },
+}, {
+  id: '126',
+  labelId: '123',
+  text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
+  completed: true,
+}, {
+  id: '124',
+  labelId: '123',
+  text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
+  completed: false,
+}];
+
+const mockLabels = [{
+  id: '123',
+  name: 'TODAY',
+  visibled: true,
+}, {
+  id: '124',
+  name: 'LATER',
+  visibled: true,
+}];
+
 const initialState: IState = {
   idToken: null,
   profile: null,
-  tasks: [],
-  labels: [],
+  tasks: mockTasks,
+  labels: mockLabels,
   requests: [],
   members: [],
   ui: {

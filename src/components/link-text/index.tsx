@@ -22,11 +22,12 @@ export default class LinkText extends React.Component<any, any> {
       if (text.match(pattern) !== null) {
         return (
           <a
-            key={new Date().getTime()}
+            key={Math.random()}
             href={text}
-            onClick={this.handleClick}
             target="_blank"
             rel="noopener noreferrer"
+            className="link-text"
+            onClick={this.handleClick}
           >
             {text}
           </a>

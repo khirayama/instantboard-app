@@ -20,7 +20,7 @@
     "lint": "tslint 'src/**/*.+(ts|tsx)'",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",
     "lint:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore src",
-    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --fix src",
+    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --rule 'react/jsx-index: 0' --rule 'react/jsx-closing-bracket-location: 0' --rule 'react/jsx-closing-tag-location: 0' --fix src",
     "check": "npm-check-updates"
   },
   "keywords": [],

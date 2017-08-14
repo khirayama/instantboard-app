@@ -32,7 +32,9 @@ export class RecycleTableListItem extends React.Component<IRecycleTableListItem,
           {'recycle-table-list-item__active': (index === this.context.currentIndex)},
         )}
         onClick={this.handleClick}
-      >{this.props.children}</button>
+      >
+        {this.props.children}
+      </button>
     );
   }
 

@@ -190,7 +190,9 @@ export class RecycleTableContentList extends React.Component<any, any> {
           ref={this.setRecycleTableContentList}
           style={style}
           className="recycle-table-content-list--inner"
-        >{this.props.children}</section>
+        >
+          {this.props.children}
+        </section>
       </section>
     );
   }

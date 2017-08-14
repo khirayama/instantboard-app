@@ -25,7 +25,9 @@ export default class TabNavigationTabListItem extends React.Component<any, any> 
       <div
         className={classNames.join(' ')}
         onClick={this.handleClick}
-      >{this.props.children}</div>
+      >
+        {this.props.children}
+      </div>
     );
   }
 

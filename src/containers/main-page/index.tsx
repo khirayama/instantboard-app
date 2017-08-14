@@ -83,7 +83,8 @@ export default class MainPage extends Container {
       <section className="page main-page">
         <TabNavigation
           initialIndex={this.loadTabIndex()}
-          onChange={this.handleChangeTabNavigation}>
+          onChange={this.handleChangeTabNavigation}
+        >
           <TabNavigationContentListItem>
             <TabNavigationContentList index={0}>
               <TasksTabContent

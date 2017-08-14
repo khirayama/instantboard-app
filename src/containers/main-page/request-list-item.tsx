@@ -28,11 +28,15 @@ export default class RequestListItem extends React.Component<any, any> {
           <div
             className="request-list--item--accept-button"
             onClick={this.handleClickAcceptButton}
-          >Accept</div>
+          >
+            Accept
+          </div>
           <div
             className="request-list--item--refuse-button"
             onClick={this.handleClickRefuseButton}
-          >Refuse</div>
+          >
+            Refuse
+          </div>
         </div>
       </li>
     );

@@ -100,7 +100,9 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
       <section
         ref={this.setElement}
         className="recycle-table"
-      >{this.props.children}</section>
+      >
+        {this.props.children}
+      </section>
     );
   }
 

@@ -127,7 +127,9 @@ export class ListItem extends React.Component<any, any> {
         onClick={this.handleClick}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
-      >{this.props.children}</div>
+      >
+        {this.props.children}
+      </div>
     );
   }
 

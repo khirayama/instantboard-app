@@ -27,7 +27,9 @@ export default class LinkText extends React.Component<any, any> {
             onClick={this.handleClick}
             target="_blank"
             rel="noopener noreferrer"
-          >{text}</a>
+          >
+            {text}
+          </a>
         );
       }
       return text;

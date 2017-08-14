@@ -18,6 +18,7 @@ module.exports = {
       'error',
       'always-multiline',
     ],
+    'react/forbid-component-props': 0,
     // Does not work following rules
     // https://github.com/eslint/typescript-eslint-parser#known-issues
     'no-undef': 0,

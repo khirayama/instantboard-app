@@ -16,16 +16,28 @@ import {
 } from '../../components/list';
 
 import FloatingButton from '../../components/floating-button';
-import Icon from '../../components/icon';
-import {LinkText} from '../../components/link-text';
+import LinkText from '../../components/link-text';
 
 export class TasksTabContent extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
 
+  private handleClickCreateLabelButton: any;
+
+  private handleSortTaskList: any;
+
+  private handleClickAddTaskButton: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
+    this.handleSortTaskList = this._handleSortTaskList.bind(this);
+    this.handleClickAddTaskButton = this._handleClickAddTaskButton.bind(this);
+  }
+
   public render() {
-    const actions = this.props.actions;
     const ui = this.props.ui;
     const labels = this.props.labels.filter((label: any) => label.visibled);
     const tasks = this.props.tasks;
@@ -72,7 +84,7 @@ export class TasksTabContent extends React.Component<any, any> {
       <div className="tasks-tab-content--loading">
         <div className="spinner">
           <svg viewBox="0 0 32 32" width="32" height="32">
-            <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+            <circle id="spinner" cx="16" cy="16" r="14" fill="none"/>
           </svg>
         </div>
       </div>
@@ -84,14 +96,13 @@ export class TasksTabContent extends React.Component<any, any> {
       <div className="tasks-tab-content--no-labels">
         <div className="tasks-tab-content--no-labels--inner">
           <p>You have no labels.<br/>Create category of task as label.</p>
-          <FloatingButton onClick={() => this.context.move('/labels/new')}>CREATE LABEL</FloatingButton>
+          <FloatingButton onClick={this.handleClickCreateLabelButton}>CREATE LABEL</FloatingButton>
         </div>
       </div>
     );
   }
 
   private createTaskList(tasks: ITask[]) {
-    const actions = this.props.actions;
     const ui = this.props.ui;
 
     if (ui.isLoadingTasks) {
@@ -101,18 +112,18 @@ export class TasksTabContent extends React.Component<any, any> {
             return (
               <ListItem key={index} className="task-list--item">
                 <div className="task-list--item--complete-button">
-                  <div className="circle"></div>
+                  <div className="circle"/>
                 </div>
                 { (index === 0 || index === 3) ? (
                   <span className="task-list--item--schedule--container">
-                    <span className="task-list--item--schedule"><div className="skeleton" /></span>
+                    <span className="task-list--item--schedule"><div className="skeleton"/></span>
                   </span>
                 ) : null }
                 <div className="task-list--item--content">
-                  <div className="task-list--item--content--loader skeleton"></div>
+                  <div className="task-list--item--content--loader skeleton"/>
                 </div>
                 <div className="task-list--item--delete-button">
-                  <div className="bar"></div>
+                  <div className="bar"/>
                 </div>
               </ListItem>
             );
@@ -121,66 +132,83 @@ export class TasksTabContent extends React.Component<any, any> {
       );
     } else if (tasks.length === 0) {
       return this.createNoTasksContent();
-    } else {
-      return (
-        <List
-          className="task-list"
-          onSort={(from: number, to: number) => {
-            const task = tasks[from];
-            actions.sortTask(task.id, to);
-          }}
-        >
-          {tasks.map((task: any) => {
-            return (
-              <ListItem
-                key={task.id}
-                className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
-                >
-                <div className="task-list--item--complete-button">
-                  <div className="circle"></div>
-                </div>
-                {(task.schedule) ? (
-                  <span className="task-list--item--schedule--container">
-                    <span
-                      className={classNames(
-                        'task-list--item--schedule',
-                        `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
-                      )}>
-                      <span className="task-list--item--schedule--month">
-                        {task.schedule.shortMonthName}
-                      </span>
-                      <span className="task-list--item--schedule--date">
-                        {task.schedule.date}
-                      </span>
-                      <span className="task-list--item--schedule--day">
-                        {task.schedule.shortDayName}
-                      </span>
+    }
+    return (
+      <List
+        className="task-list"
+        onSort={this.handleSortTaskList}
+      >
+        {tasks.map((task: any) => {
+          const handleClickTaskListItem = this._handleClickTaskListItem.bind(this, task.id);
+
+          return (
+            <ListItem
+              key={task.id}
+              className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
+            >
+              <div className="task-list--item--complete-button">
+                <div className="circle"/>
+              </div>
+              {(task.schedule) ? (
+                <span className="task-list--item--schedule--container">
+                  <span
+                    className={classNames(
+                      'task-list--item--schedule',
+                      `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
+                    )}
+                  >
+                    <span className="task-list--item--schedule--month">
+                      {task.schedule.shortMonthName}
+                    </span>
+                    <span className="task-list--item--schedule--date">
+                      {task.schedule.date}
+                    </span>
+                    <span className="task-list--item--schedule--day">
+                      {task.schedule.shortDayName}
                     </span>
                   </span>
-                ) : null}
-                <div className="task-list--item--content" onClick={() => this.context.move(`/tasks/${task.id}/edit`)}>
-                  <div className="task-list--item--content--text">{task.text}</div>
-                </div>
-                <div className="task-list--item--delete-button">
-                  <div className="bar"></div>
-                </div>
-              </ListItem>
-            );
-          })}
-        </List>
-      );
-    }
+                </span>
+              ) : null}
+              <div className="task-list--item--content" onClick={handleClickTaskListItem}>
+                <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
+              </div>
+              <div className="task-list--item--delete-button">
+                <div className="bar"/>
+              </div>
+            </ListItem>
+          );
+        })}
+      </List>
+    );
   }
 
   private createNoTasksContent() {
     return (
       <div className="tasks-tab-content--no-tasks">
         <div className="tasks-tab-content--no-tasks--inner">
-          <p>You're all done.</p>
-          <div className="floating-button" onClick={() => this.context.move('/tasks/new')}>ADD TASK</div>
+          <p>{'You\'re all done.'}</p>
+          <div className="floating-button" onClick={this.handleClickAddTaskButton}>ADD TASK</div>
         </div>
       </div>
     );
   }
 
+  private _handleClickCreateLabelButton() {
+    this.context.move('/labels/new');
+  }
+
+  private _handleSortTaskList(from: number, to: number) {
+    const actions = this.props.actions;
+    const tasks = this.props.tasks;
+    const task = tasks[from];
+    actions.sortTask(task.id, to);
+  }
+
+  private _handleClickTaskListItem(id: string) {
+    this.context.move(`/tasks/${id}/edit`);
+  }
+
+  private _handleClickAddTaskButton() {
+    this.context.move('/tasks/new');
+  }
 }

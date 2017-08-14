@@ -1,4 +1,3 @@
-import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
@@ -9,6 +8,16 @@ export class UserTabContent extends React.Component<any, any> {
     move: PropTypes.func,
   };
 
+  private handleClickLogoutButton: any;
+
+  private handleChangeUserNameInput: any;
+
+  private handleBlurUserNameInput: any;
+
+  private handleClickEditButton: any;
+
+  private handleClickDeleteAccountButton: any;
+
   constructor(props: any) {
     super(props);
 
@@ -16,6 +25,12 @@ export class UserTabContent extends React.Component<any, any> {
       isEditing: false,
       username: props.user.username || '',
     };
+
+    this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
+    this.handleChangeUserNameInput = this._handleChangeUserNameInput.bind(this);
+    this.handleBlurUserNameInput = this._handleBlurUserNameInput.bind(this);
+    this.handleClickEditButton = this._handleClickEditButton.bind(this);
+    this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
   }
 
   public componentDidUpdate(prevProps: any) {
@@ -26,13 +41,9 @@ export class UserTabContent extends React.Component<any, any> {
     }
   }
 
-  public handleChangeUsernameInput(event: any) {
-    this.setState({username: event.currentTarget.value});
-  }
-
   public render() {
     const user = this.props.user;
-    const actions = this.props.actions;
+
     return (
       <section className="user-tab-content">
         <div className="user-tab-content--information">
@@ -45,29 +56,45 @@ export class UserTabContent extends React.Component<any, any> {
                 <textarea
                   autoFocus
                   value={this.state.username}
-                  onBlur={(event: any) => {
-                    actions.updateUser(this.state.username.trim());
-                    this.setState({isEditing: false});
-                  }}
-                  onChange={(event: any) => this.handleChangeUsernameInput(event)}
+                  onBlur={this.handleBlurUserNameInput}
+                  onChange={this.handleChangeUserNameInput}
                 />
               ) : (
-                <p onClick={() => this.setState({isEditing: true})}>
-                  {user.username}
-                  <Icon>edit</Icon>
-                </p>
+                <p onClick={this.handleClickEditButton}>{user.username}<Icon>edit</Icon></p>
               )}
             </div>
           </div>
-          <div className="logout-button" onClick={() => actions.logout()}>Logout</div>
-          <div className="delete-account-button" onClick={() => {
-            const isDelete = window.confirm('Delete account!?');
-            if (isDelete) {
-              actions.deleteUser();
-            }
-          }}>Delete account</div>
+          <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
+          <div className="delete-account-button" onClick={this.handleClickDeleteAccountButton}>Delete account</div>
         </div>
       </section>
     );
+  }
+
+  private _handleClickLogoutButton() {
+    const actions = this.props.actions;
+    actions.logout();
+  }
+
+  private _handleChangeUserNameInput(event: any) {
+    this.setState({username: event.currentTarget.value});
+  }
+
+  private _handleBlurUserNameInput() {
+    const actions = this.props.actions;
+    actions.updateUser(this.state.username.trim());
+    this.setState({isEditing: false});
+  }
+
+  private _handleClickEditButton() {
+    this.setState({isEditing: true});
+  }
+
+  private _handleClickDeleteAccountButton() {
+    const actions = this.props.actions;
+    const isDelete = window.confirm('Delete account!?'); // eslint-disable-line
+    if (isDelete) {
+      actions.deleteUser();
+    }
   }
 }

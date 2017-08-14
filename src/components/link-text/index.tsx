@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class LinkText extends React.Component<any, any> {
+export default class LinkText extends React.Component<any, any> {
   private static propTypes = {
     children: PropTypes.string.isRequired,
   };
@@ -12,10 +12,6 @@ export class LinkText extends React.Component<any, any> {
     super(props);
 
     this.handleClick = this._handleClick.bind(this);
-  }
-
-  public _handleClick(event: any) {
-    event.stopPropagation();
   }
 
   public render() {
@@ -38,5 +34,9 @@ export class LinkText extends React.Component<any, any> {
     });
 
     return <span>{textElements}</span>;
+  }
+
+  private _handleClick(event: any) {
+    event.stopPropagation();
   }
 }

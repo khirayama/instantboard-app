@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 export default class TabNavigationTabList extends React.Component<any, any> {

@@ -12,7 +12,6 @@ import {
 export class ListItem extends React.Component<any, any> {
   private static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string,
     onClick: PropTypes.func,
     onTouchHold: PropTypes.func,
   };
@@ -392,11 +391,12 @@ export class ListItem extends React.Component<any, any> {
   }
   public render() {
     const props = Object.assign({}, this.props);
+    const className = 'list-item';
+    props.className = (props.className) ? props.className + ' ' + className : className;
 
     return (
       <div
         {...props}
-        className={classNames(props.className, 'list-item')}
         ref={(el: any) => this._setListItem(el)}
         onMouseDown={(event: any) => this._handleMouseDown(event)}
         onMouseMove={(event: any) => this._handleMouseMove(event)}

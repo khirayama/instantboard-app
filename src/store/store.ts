@@ -81,10 +81,10 @@ export default class Store {
 
       this.state = nextState;
 
-      /* tslint:disable:no-console */
+      /* Tslint:disable:no-console */
       console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);
       console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
-      /* tslint:enable:no-console */
+      /* Tslint:enable:no-console */
 
       if (this.shouldChangeDispatch(currentState, nextState)) {
         this.dispatchChange();

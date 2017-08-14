@@ -1,12 +1,10 @@
 module.exports = {
   parser: 'typescript-eslint-parser',
   plugins: [
-    'typescript',
-    'react'
+    'react',
   ],
   extends: [
     'xo-space/esnext',
-    'xo-react/space',
   ],
   env: {
     node: true,

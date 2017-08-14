@@ -1,17 +1,25 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class RecycleTableList extends React.Component<any, any> {
+interface IRecycleTableList {
+  children: any;
+}
+
+export class RecycleTableList extends React.Component<IRecycleTableList, any> {
   private static contextTypes = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
 
-  private static propTypes = {
-    children: PropTypes.node,
-  };
-
   private recycleTableList: any;
+
+  private setRecycleTableList: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.setRecycleTableList = this._setRecycleTableList.bind(this);
+  }
 
   public componentDidMount() {
     this._adjustListPosition();
@@ -54,21 +62,21 @@ export class RecycleTableList extends React.Component<any, any> {
     }
   }
 
-  public _setRecycleTableList(recycleTableList: HTMLElement|null) {
-    this.recycleTableList = recycleTableList;
-  }
-
   public render() {
     return (
       <section
+        ref={this.setRecycleTableList}
         className="recycle-table-list"
         style={{visibility: 'hidden'}}
-        ref={(el) => this._setRecycleTableList(el)}
-        >
+      >
         <section className="recycle-table-list--inner">
           {this.props.children}
         </section>
       </section>
     );
+  }
+
+  private _setRecycleTableList(recycleTableList: HTMLElement|null) {
+    this.recycleTableList = recycleTableList;
   }
 }

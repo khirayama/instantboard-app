@@ -1,19 +1,22 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class RecycleTable extends React.Component<any, any> {
+interface IRecycleTableProps {
+  index?: number;
+  children: any;
+}
+
+export class RecycleTable extends React.Component<IRecycleTableProps, any> {
   private static childContextTypes = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
 
-  private static propTypes = {
-    index: PropTypes.number,
-    children: PropTypes.node,
-  };
-
   private el: any;
+
   private timerId: any = null;
+
+  private setElement: any;
 
   constructor(props: any) {
     super(props);
@@ -21,6 +24,8 @@ export class RecycleTable extends React.Component<any, any> {
     this.state = {
       currentIndex: props.index || 0,
     };
+
+    this.setElement = this._setElement.bind(this);
   }
 
   public getChildContext() {
@@ -37,22 +42,7 @@ export class RecycleTable extends React.Component<any, any> {
   }
 
   public _scrollToCenter(index: any, animate: boolean) {
-    if (!animate) {
-      const el = this.el;
-      if (el === null) {
-        return;
-      }
-
-      const list = el.querySelector('.recycle-table-list');
-      const listItems = list.querySelectorAll('.recycle-table-list-item');
-      const listItem = listItems[index];
-      if (listItem) {
-        const currentScrollLeft = list.scrollLeft;
-        const scrollLeft = listItem.offsetLeft - (el.clientWidth - listItem.clientWidth) / 2;
-
-        list.scrollLeft = scrollLeft;
-      }
-    } else {
+    if (animate) {
       this.timerId = setInterval(() => {
         const el = this.el;
         if (el === null) {
@@ -64,7 +54,7 @@ export class RecycleTable extends React.Component<any, any> {
         const listItem = listItems[index];
         if (listItem) {
           const currentScrollLeft = list.scrollLeft;
-          const scrollLeft = listItem.offsetLeft - (el.clientWidth - listItem.clientWidth) / 2;
+          const scrollLeft = listItem.offsetLeft - ((el.clientWidth - listItem.clientWidth) / 2);
 
           const num = 5;
           const speed = (scrollLeft - currentScrollLeft) / num;
@@ -80,6 +70,21 @@ export class RecycleTable extends React.Component<any, any> {
           }
         }
       }, 1000 / 60);
+    } else {
+      const el = this.el;
+      if (el === null) {
+        return;
+      }
+
+      const list = el.querySelector('.recycle-table-list');
+      const listItems = list.querySelectorAll('.recycle-table-list-item');
+      const listItem = listItems[index];
+      if (listItem) {
+        const currentScrollLeft = list.scrollLeft;
+        const scrollLeft = listItem.offsetLeft - ((el.clientWidth - listItem.clientWidth) / 2);
+
+        list.scrollLeft = scrollLeft;
+      }
     }
   }
 
@@ -93,9 +98,13 @@ export class RecycleTable extends React.Component<any, any> {
   public render() {
     return (
       <section
+        ref={this.setElement}
         className="recycle-table"
-        ref={(el: any) => this.el = el}
-        >{this.props.children}</section>
+      >{this.props.children}</section>
     );
+  }
+
+  private _setElement(el: any) {
+    this.el = el;
   }
 }

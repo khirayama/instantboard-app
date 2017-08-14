@@ -22,7 +22,7 @@ export default class LinkText extends React.Component<any, any> {
       if (text.match(pattern) !== null) {
         return (
           <a
-            key={index}
+            key={new Date().getTime()}
             href={text}
             onClick={this.handleClick}
             target="_blank"

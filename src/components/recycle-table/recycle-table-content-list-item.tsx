@@ -2,17 +2,17 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class RecycleTableContentListItem extends React.Component<any, any> {
+interface IRecycleTableContentListItemProps {
+  index: number;
+  children: any;
+}
 
+export class RecycleTableContentListItem extends React.Component<IRecycleTableContentListItemProps, any> {
   private static contextTypes = {
     handleTouchStart: PropTypes.func,
     handleTouchMove: PropTypes.func,
     handleTouchEnd: PropTypes.func,
     currentIndex: PropTypes.number,
-  };
-
-  private static propTypes = {
-    children: PropTypes.node,
   };
 
   public render() {
@@ -32,7 +32,7 @@ export class RecycleTableContentListItem extends React.Component<any, any> {
           'recycle-table-content-list-item',
           {'recycle-table-content-list-item__hidden': isHidden},
         )}
-        >
+      >
         <section className="recycle-table-content-list-item--inner">{this.props.children}</section>
       </section>
     );

@@ -3,6 +3,10 @@ import * as React from 'react';
 
 import {THRESHOLD_DELTAX} from '../constants';
 
+interface IRecycleTableContentList {
+  children: any;
+}
+
 export class RecycleTableContentList extends React.Component<any, any> {
   private static childContextTypes = {
     handleTouchStart: PropTypes.func,
@@ -15,16 +19,14 @@ export class RecycleTableContentList extends React.Component<any, any> {
     setCurrentIndex: PropTypes.func,
   };
 
-  private static propTypes = {
-    children: PropTypes.node,
-  };
-
   private recycleTableContentList: any;
+
+  private setRecycleTableContentList: any;
 
   private touch: any;
 
-  constructor() {
-    super();
+  constructor(props: IRecycleTableContentList) {
+    super(props);
 
     this.touch = {
       startX: null,
@@ -35,6 +37,8 @@ export class RecycleTableContentList extends React.Component<any, any> {
       endTime: new Date(),
       moving: false,
     };
+
+    this.setRecycleTableContentList = this._setRecycleTableContentList.bind(this);
   }
 
   public getChildContext() {
@@ -173,10 +177,6 @@ export class RecycleTableContentList extends React.Component<any, any> {
     this.recycleTableContentList.style.transitionProperty = 'transform';
   }
 
-  public _setRecycleTableContentList(recycleTableContentList: HTMLElement|null) {
-    this.recycleTableContentList = recycleTableContentList;
-  }
-
   public render() {
     const diff = this._calcFilteredDiff();
     const style = {
@@ -187,11 +187,15 @@ export class RecycleTableContentList extends React.Component<any, any> {
     return (
       <section className="recycle-table-content-list">
         <section
-          className="recycle-table-content-list--inner"
+          ref={this.setRecycleTableContentList}
           style={style}
-          ref={(el) => this._setRecycleTableContentList(el)}
-          >{this.props.children}</section>
+          className="recycle-table-content-list--inner"
+        >{this.props.children}</section>
       </section>
     );
+  }
+
+  private _setRecycleTableContentList(recycleTableContentList: HTMLElement|null) {
+    this.recycleTableContentList = recycleTableContentList;
   }
 }

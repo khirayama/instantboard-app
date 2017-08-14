@@ -22,23 +22,22 @@ export default class MainPage extends Container {
 
   private tabIndex: number;
 
+  private handleChangeTabNavigation: any;
+
+  private handleClickAddButton: any;
+
   constructor(props: any) {
     super(props);
 
     this.tabIndex = 0;
-  }
 
-  public handleClickAddButton() {
-    if (this.tabIndex === 1) {
-      this.context.move('/labels/new');
-    } else {
-      this.context.move('/tasks/new');
-    }
+    this.handleChangeTabNavigation = this._handleChangeTabNavigation.bind(this);
+    this.handleClickAddButton = this._handleClickAddButton.bind(this);
   }
 
   public render() {
     const actions = {
-      // updateLabel: this.updateLabel.bind(this),
+      // UpdateLabel: this.updateLabel.bind(this),
       // deleteLabel: this.deleteLabel.bind(this),
       // sortLabel: this.sortLabel.bind(this),
       // updateTask: this.updateTask.bind(this),
@@ -84,10 +83,7 @@ export default class MainPage extends Container {
       <section className="page main-page">
         <TabNavigation
           initialIndex={this.loadTabIndex()}
-          onChange={(index: number) => {
-            this.tabIndex = index;
-            this.saveTabIndex(index);
-          }}>
+          onChange={this.handleChangeTabNavigation}>
           <TabNavigationContentListItem>
             <TabNavigationContentList index={0}>
               <TasksTabContent
@@ -126,7 +122,7 @@ export default class MainPage extends Container {
             <TabNavigationTabListItem index={0}><IconButton>view_list</IconButton></TabNavigationTabListItem>
             <TabNavigationTabListItem index={1}><IconButton>label</IconButton></TabNavigationTabListItem>
             <TabNavigationTabListItem>
-              <div onClick={() => this.handleClickAddButton()}><IconButton>add_box</IconButton></div>
+              <div onClick={this.handleClickAddButton}><IconButton>add_box</IconButton></div>
             </TabNavigationTabListItem>
             <TabNavigationTabListItem index={2}><IconButton>notifications</IconButton></TabNavigationTabListItem>
             <TabNavigationTabListItem index={3}><IconButton>person</IconButton></TabNavigationTabListItem>
@@ -134,6 +130,19 @@ export default class MainPage extends Container {
         </TabNavigation>
       </section>
     );
+  }
+
+  private _handleChangeTabNavigation(index: number) {
+    this.tabIndex = index;
+    this.saveTabIndex(index);
+  }
+
+  private _handleClickAddButton() {
+    if (this.tabIndex === 1) {
+      this.context.move('/labels/new');
+    } else {
+      this.context.move('/tasks/new');
+    }
   }
 
   private loadTabIndex(): number {

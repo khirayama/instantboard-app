@@ -2,24 +2,26 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class RecycleTableListItem extends React.Component<any, any> {
+interface IRecycleTableListItem {
+  index: number;
+  children: any;
+  onActive?: any;
+}
+
+export class RecycleTableListItem extends React.Component<IRecycleTableListItem, any> {
   private static contextTypes = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
 
-  private static propTypes = {
-    index: PropTypes.number.isRequired,
-    children: PropTypes.node,
-    onActive: PropTypes.func,
-  };
+  private handleClick: any;
 
-  public _handleClick() {
-    this.context.setCurrentIndex(Number(this.props.index));
-    if (this.props.onActive) {
-      this.props.onActive(this.props.index);
-    }
+  constructor(props: any) {
+    super(props);
+
+    this.handleClick = this._handleClick.bind(this);
   }
+
   public render() {
     const index: number = Number(this.props.index);
 
@@ -29,8 +31,15 @@ export class RecycleTableListItem extends React.Component<any, any> {
           'recycle-table-list-item',
           {'recycle-table-list-item__active': (index === this.context.currentIndex)},
         )}
-        onClick={() => this._handleClick()}
-        >{this.props.children}</button>
+        onClick={this.handleClick}
+      >{this.props.children}</button>
     );
+  }
+
+  private _handleClick() {
+    this.context.setCurrentIndex(Number(this.props.index));
+    if (this.props.onActive) {
+      this.props.onActive(this.props.index);
+    }
   }
 }

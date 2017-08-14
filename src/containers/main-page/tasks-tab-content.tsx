@@ -59,7 +59,7 @@ export class TasksTabContent extends React.Component<any, any> {
           return (task.labelId === label.id);
         });
         return (
-          <RecycleTableContentListItem key={index}>
+          <RecycleTableContentListItem key={label.id} index={index}>
             {this.createTaskList(groupedTasks)}
           </RecycleTableContentListItem>
         );

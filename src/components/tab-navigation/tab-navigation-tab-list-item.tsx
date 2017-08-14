@@ -7,17 +7,36 @@ export default class TabNavigationTabListItem extends React.Component<any, any> 
     setIndex: PropTypes.func,
   };
 
+  private handleClick: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleClick = this._handleClick.bind(this);
+  }
+
   public render() {
     const classNames = ['tab-navigation-tab-list-item'];
-    const index = (this.props.index !== undefined) ? this.props.index : null;
+    const index = this.getIndex();
     if (index === this.context.getIndex()) {
       classNames.push('tab-navigation-tab-list-item__current');
     }
     return (
       <div
         className={classNames.join(' ')}
-        onClick={(event: any) => this.context.setIndex(index)}
+        onClick={this.handleClick}
       >{this.props.children}</div>
     );
+  }
+
+  private getIndex(): number|null {
+    const index = (this.props.index === undefined) ? null : this.props.index;
+    return index;
+  }
+
+  private _handleClick() {
+    const index = this.getIndex();
+
+    this.context.setIndex(index);
   }
 }

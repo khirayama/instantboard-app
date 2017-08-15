@@ -81,10 +81,12 @@ export default class Store {
 
       this.state = nextState;
 
-      /* Tslint:disable:no-console */
+      /* eslint-disable capitalized-comments */
+      /* tslint:disable:no-console */
       console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);
       console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
-      /* Tslint:enable:no-console */
+      /* tslint:enable:no-console */
+      /* eslint-enable capitalized-comments */
 
       if (this.shouldChangeDispatch(currentState, nextState)) {
         this.dispatchChange();

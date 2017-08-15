@@ -1,0 +1,3 @@
+interface IRequest {
+  id: string;
+}

@@ -1,0 +1,3 @@
+interface IUser {
+  id: string;
+}

@@ -6,4 +6,5 @@
 @import "./skeleton";
 
 @import "./components/**/*";
+@import "./custom-components/**/*";
 @import "./containers/**/*";

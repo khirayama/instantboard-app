@@ -65,7 +65,7 @@ export default class NotificationIndexPage extends Container {
               />
             </div>
           </div>
-          <TabNavigation/>
+          <TabNavigation index={2}/>
         </div>
       </section>
     );

@@ -65,7 +65,7 @@ export default class LabelIndexPage extends Container {
               />
             </div>
           </div>
-          <TabNavigation/>
+          <TabNavigation index={1}/>
         </div>
       </section>
     );

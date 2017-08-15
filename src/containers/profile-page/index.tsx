@@ -65,7 +65,7 @@ export default class ProfilePage extends Container {
               />
             </div>
           </div>
-          <TabNavigation/>
+          <TabNavigation index={3}/>
         </div>
       </section>
     );

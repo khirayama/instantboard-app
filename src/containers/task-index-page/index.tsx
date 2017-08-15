@@ -66,7 +66,7 @@ export default class TaskIndexPage extends Container {
               />
             </div>
           </div>
-          <TabNavigation/>
+          <TabNavigation index={0}/>
         </div>
       </section>
     );

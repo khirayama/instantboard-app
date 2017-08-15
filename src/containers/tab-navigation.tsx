@@ -1,8 +1,9 @@
+import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import IconButton from '../components/icon-button';
 
-export default class TabNavigation extends React.Component {
+export default class TabNavigation extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -28,16 +29,24 @@ export default class TabNavigation extends React.Component {
   }
 
   public render() {
+    const currentIndex = this.props.index || 0;
+
     return (
       <div className="tab-navigation-tab-list">
         <div
-          className="tab-navigation-tab-list-item"
+          className={classNames(
+            "tab-navigation-tab-list-item",
+            {"tab-navigation-tab-list-item__current": currentIndex === 0}
+          )}
           onClick={this.handleClickTaskTabLink}
         >
           <IconButton>view_list</IconButton>
         </div>
         <div
-          className="tab-navigation-tab-list-item"
+          className={classNames(
+            "tab-navigation-tab-list-item",
+            {"tab-navigation-tab-list-item__current": currentIndex === 1}
+          )}
           onClick={this.handleClickLabelTabLink}
         >
           <IconButton>label</IconButton>
@@ -49,13 +58,19 @@ export default class TabNavigation extends React.Component {
           <IconButton>add_box</IconButton>
         </div>
         <div
-          className="tab-navigation-tab-list-item"
+          className={classNames(
+            "tab-navigation-tab-list-item",
+            {"tab-navigation-tab-list-item__current": currentIndex === 2}
+          )}
           onClick={this.handleClickNotificationTabLink}
         >
           <IconButton>notifications</IconButton>
         </div>
         <div
-          className="tab-navigation-tab-list-item"
+          className={classNames(
+            "tab-navigation-tab-list-item",
+            {"tab-navigation-tab-list-item__current": currentIndex === 3}
+          )}
           onClick={this.handleClickProfileTabLink}
         >
           <IconButton>person</IconButton>

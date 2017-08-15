@@ -1,7 +1,10 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import {
+  TabNavigation,
+  TabNavigationContent,
+} from '../../components/custom/tab-navigation';
 import Container from '../container';
-import TabNavigation from '../tab-navigation';
 import {RequestsTabContent} from './requests-tab-content';
 
 export default class NotificationIndexPage extends Container {

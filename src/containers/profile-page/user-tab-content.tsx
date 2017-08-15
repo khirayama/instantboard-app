@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import Icon from '../../components/icon';
+import Icon from '../../components/fundamental/icon';
 
 export class UserTabContent extends React.Component<any, any> {
   public static contextTypes = {

@@ -1,7 +1,10 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import {
+  TabNavigation,
+  TabNavigationContent,
+} from '../../components/custom/tab-navigation';
 import Container from '../container';
-import TabNavigation from '../tab-navigation';
 import {LabelsTabContent} from './labels-tab-content';
 
 export default class LabelIndexPage extends Container {

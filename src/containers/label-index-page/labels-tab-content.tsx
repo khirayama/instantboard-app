@@ -2,12 +2,11 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
+import Icon from '../../components/fundamental/icon';
 import {
   List,
   ListItem,
-} from '../../components/list';
-
-import Icon from '../../components/icon';
+} from '../../components/fundamental/list';
 
 export class LabelsTabContent extends React.Component<any, any> {
   public static contextTypes = {

@@ -8,15 +8,15 @@ import {
   RecycleTableContentListItem,
   RecycleTableList,
   RecycleTableListItem,
-} from '../../components/recycle-table';
+} from '../../components/fundamental/recycle-table';
 
 import {
   List,
   ListItem,
-} from '../../components/list';
+} from '../../components/fundamental/list';
 
-import FloatingButton from '../../components/floating-button';
-import LinkText from '../../components/link-text';
+import FloatingButton from '../../components/fundamental/floating-button';
+import LinkText from '../../components/fundamental/link-text';
 
 export class TasksTabContent extends React.Component<any, any> {
   public static contextTypes = {

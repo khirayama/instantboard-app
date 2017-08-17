@@ -1,12 +1,15 @@
 interface ITask {
-  id: string;
-  labelId: string;
-  text: string;
-  completed: boolean;
   connecting: boolean;
-  schedule?: {
-    shortMonthName: string;
-    shortDayName: string;
-    date: number;
+  cid: string;
+  data: {
+    id: string;
+    labelId: string;
+    text: string;
+    completed: boolean;
+    schedule: {
+      shortMonthName: string;
+      shortDayName: string;
+      date: number;
+    } | null;
   };
 }

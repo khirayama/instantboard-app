@@ -1,6 +1,9 @@
 interface ILabel {
-  id: string;
-  name: string;
-  visibled: boolean;
   connecting: boolean;
+  cid: string;
+  data: {
+    id: string;
+    name: string;
+    visibled: boolean;
+  };
 }

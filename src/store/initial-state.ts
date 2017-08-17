@@ -1,6 +1,18 @@
+import * as uuid from 'uuid/v4';
+
+const mockLabels = [{
+  cid: uuid(),
+  name: 'TODAY',
+  visibled: true,
+}, {
+  cid: uuid(),
+  name: 'LATER',
+  visibled: true,
+}];
+
 const mockTasks = [{
-  cid: '123',
-  labelId: '123',
+  cid: uuid(),
+  labelId: mockLabels[0].cid,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: false,
   schedule: {
@@ -9,14 +21,14 @@ const mockTasks = [{
     date: 28,
   },
 }, {
-  cid: '125',
-  labelId: '123',
+  cid: uuid(),
+  labelId: mockLabels[0].cid,
   text: 'fuga',
   completed: false,
   schedule: null,
 }, {
-  cid: '127',
-  labelId: '123',
+  cid: uuid(),
+  labelId: mockLabels[0].cid,
   text: 'foo',
   completed: false,
   schedule: {
@@ -25,27 +37,17 @@ const mockTasks = [{
     date: 28,
   },
 }, {
-  cid: '126',
-  labelId: '123',
+  cid: uuid(),
+  labelId: mockLabels[0].cid,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: true,
   schedule: null,
 }, {
-  cid: '124',
-  labelId: '123',
+  cid: uuid(),
+  labelId: mockLabels[0].cid,
   text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajsd casd c',
   completed: false,
   schedule: null,
-}];
-
-const mockLabels = [{
-  cid: '123',
-  name: 'TODAY',
-  visibled: true,
-}, {
-  cid: '124',
-  name: 'LATER',
-  visibled: true,
 }];
 
 const initialState: IState = {

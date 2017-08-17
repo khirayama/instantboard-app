@@ -3,6 +3,7 @@ interface ITask {
   labelId: string;
   text: string;
   completed: boolean;
+  connecting: boolean;
   schedule?: {
     shortMonthName: string;
     shortDayName: string;

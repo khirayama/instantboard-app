@@ -12,7 +12,7 @@ const mockLabels = [{
 
 const mockTasks = [{
   cid: uuid(),
-  labelId: mockLabels[0].cid,
+  labelCid: mockLabels[0].cid,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: false,
   schedule: {
@@ -22,13 +22,13 @@ const mockTasks = [{
   },
 }, {
   cid: uuid(),
-  labelId: mockLabels[0].cid,
+  labelCid: mockLabels[0].cid,
   text: 'fuga',
   completed: false,
   schedule: null,
 }, {
   cid: uuid(),
-  labelId: mockLabels[0].cid,
+  labelCid: mockLabels[0].cid,
   text: 'foo',
   completed: false,
   schedule: {
@@ -38,13 +38,13 @@ const mockTasks = [{
   },
 }, {
   cid: uuid(),
-  labelId: mockLabels[0].cid,
+  labelCid: mockLabels[0].cid,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: true,
   schedule: null,
 }, {
   cid: uuid(),
-  labelId: mockLabels[0].cid,
+  labelCid: mockLabels[0].cid,
   text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajsd casd c',
   completed: false,
   schedule: null,

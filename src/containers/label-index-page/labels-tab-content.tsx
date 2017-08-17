@@ -24,6 +24,7 @@ export class LabelsTabContent extends React.Component<any, any> {
   public render() {
     const labels = this.props.labels;
     const actions = this.props.actions;
+
     return (labels.length) ? (
       <List
         className="label-list"
@@ -31,7 +32,7 @@ export class LabelsTabContent extends React.Component<any, any> {
       >
         {labels.map((label: any) => {
           return (
-            <ListItem key={label.id}>
+            <ListItem key={label.cid}>
               {label.name}
             </ListItem>
           );
@@ -49,6 +50,6 @@ export class LabelsTabContent extends React.Component<any, any> {
     const actions = this.props.actions;
 
     const label = labels[from];
-    actions.sortLabel(label.id, to);
+    actions.sortLabel(label.cid, to);
   }
 }

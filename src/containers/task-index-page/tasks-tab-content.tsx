@@ -56,10 +56,10 @@ export class TasksTabContent extends React.Component<any, any> {
     } else if (!ui.isLoadingLabels && labels.length !== 0) {
       const recycleTableContents = labels.map((label: any, index: number) => {
         const groupedTasks = tasks.filter((task: any) => {
-          return (task.labelId === label.id);
+          return (task.labelCid === label.cid);
         });
         return (
-          <RecycleTableContentListItem key={label.id} index={index}>
+          <RecycleTableContentListItem key={label.cid} index={index}>
             {this.createTaskList(groupedTasks)}
           </RecycleTableContentListItem>
         );
@@ -69,7 +69,7 @@ export class TasksTabContent extends React.Component<any, any> {
         <RecycleTable>
           <RecycleTableList>
             {labels.map((label: any, index: number) => {
-              return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
+              return <RecycleTableListItem key={label.cid} index={index}>{label.name}</RecycleTableListItem>;
             })}
           </RecycleTableList>
           <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
@@ -139,11 +139,11 @@ export class TasksTabContent extends React.Component<any, any> {
         onSort={this.handleSortTaskList}
       >
         {tasks.map((task: any) => {
-          const handleClickTaskListItem = this._handleClickTaskListItem.bind(this, task.id);
+          const handleClickTaskListItem = this._handleClickTaskListItem.bind(this, task.cid);
 
           return (
             <ListItem
-              key={task.id}
+              key={task.cid}
               className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
             >
               <div className="task-list--item--complete-button">
@@ -201,7 +201,7 @@ export class TasksTabContent extends React.Component<any, any> {
     const actions = this.props.actions;
     const tasks = this.props.tasks;
     const task = tasks[from];
-    actions.sortTask(task.id, to);
+    actions.sortTask(task.cid, to);
   }
 
   private _handleClickTaskListItem(id: string) {

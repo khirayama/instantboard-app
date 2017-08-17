@@ -1,9 +1,17 @@
 interface IUI {
-  selectedLabelId: string|null;
   selectedTaskId: string|null;
-  errors: Array<{
+  selectedLabelId: string|null;
+  isLoadingTasks: boolean;
+  isLoadingTaskCids: string[];
+  isLoadingLabels: boolean;
+  isLoadingLabelCids: string[];
+  isLoadingRequests: boolean;
+  isLoadingRequestCids: string[];
+  isLoadingMembers: boolean;
+  isLoadingMemberCids: string[];
+  errors: {
     resourceName: string;
     resourceId: string|null;
     message: string|null;
-  }>;
+  }[];
 }

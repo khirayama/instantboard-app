@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import {SpinnerIcon} from './components/fundamental/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
@@ -30,11 +31,7 @@ function template(content) {
   <section class="application">
     <main class="application--main">${content}</main>
     <div class="application--loader">
-      <div class="spinner">
-        <svg viewBox="0 0 32 32" width="32" height="32">
-          <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-        </svg>
-      </div>
+      ${ReactDOMServer.renderToString(<SpinnerIcon/>)}
     </div>
   </section>
 </body>

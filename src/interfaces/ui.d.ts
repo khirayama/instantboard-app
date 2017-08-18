@@ -9,9 +9,9 @@ interface IUI {
   isLoadingRequestCids: string[];
   isLoadingMembers: boolean;
   isLoadingMemberCids: string[];
-  errors: {
+  errors: Array<{
     resourceName: string;
     resourceId: string|null;
     message: string|null;
-  }[];
+  }>;
 }

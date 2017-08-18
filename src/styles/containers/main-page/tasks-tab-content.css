@@ -57,22 +57,9 @@
       }
       .task-list--item--complete-button {
         padding: 8px;
-        .circle {
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          border: solid 2px $color-divider;
-          background-color: $color-background;
-        }
       }
       .task-list--item--delete-button {
         padding: 8px 12px;
-        .bar {
-          width: 18px;
-          height: 2px;
-          border-radius: $radius;
-          background-color: $color-divider;
-        }
       }
 
       .task-list--item--schedule--container {
@@ -103,11 +90,11 @@
         background-color: $color-divider;
         .task-list--item--complete-button,
         .task-list--item--delete-button {
-          .circle {
+          .check-icon {
             background-color: $color-divider;
             border: solid 2px $color-white;
           }
-          .bar {
+          .remove-icon {
             background-color: $color-white;
           }
         }

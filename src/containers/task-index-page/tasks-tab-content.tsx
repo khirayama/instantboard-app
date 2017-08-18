@@ -2,6 +2,17 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
+import FloatingButton from '../../components/fundamental/floating-button';
+import {
+  CheckIcon,
+  RemoveIcon,
+  SpinnerIcon,
+} from '../../components/fundamental/icon';
+import LinkText from '../../components/fundamental/link-text';
+import {
+  List,
+  ListItem,
+} from '../../components/fundamental/list';
 import {
   RecycleTable,
   RecycleTableContentList,
@@ -9,14 +20,6 @@ import {
   RecycleTableList,
   RecycleTableListItem,
 } from '../../components/fundamental/recycle-table';
-
-import {
-  List,
-  ListItem,
-} from '../../components/fundamental/list';
-
-import FloatingButton from '../../components/fundamental/floating-button';
-import LinkText from '../../components/fundamental/link-text';
 
 export class TasksTabContent extends React.Component<any, any> {
   public static contextTypes = {
@@ -82,11 +85,7 @@ export class TasksTabContent extends React.Component<any, any> {
   private createTasksTabContentLoading() {
     return (
       <div className="tasks-tab-content--loading">
-        <div className="spinner">
-          <svg viewBox="0 0 32 32" width="32" height="32">
-            <circle id="spinner" cx="16" cy="16" r="14" fill="none"/>
-          </svg>
-        </div>
+        <SpinnerIcon/>
       </div>
     );
   }
@@ -112,7 +111,7 @@ export class TasksTabContent extends React.Component<any, any> {
             return (
               <ListItem key={index} className="task-list--item">
                 <div className="task-list--item--complete-button">
-                  <div className="circle"/>
+                  <CheckIcon/>
                 </div>
                 { (index === 0 || index === 3) ? (
                   <span className="task-list--item--schedule--container">
@@ -123,7 +122,7 @@ export class TasksTabContent extends React.Component<any, any> {
                   <div className="task-list--item--content--loader skeleton"/>
                 </div>
                 <div className="task-list--item--delete-button">
-                  <div className="bar"/>
+                  <RemoveIcon/>
                 </div>
               </ListItem>
             );
@@ -147,7 +146,7 @@ export class TasksTabContent extends React.Component<any, any> {
               className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
             >
               <div className="task-list--item--complete-button">
-                <div className="circle"/>
+                <CheckIcon/>
               </div>
               {(task.schedule) ? (
                 <span className="task-list--item--schedule--container">
@@ -173,7 +172,7 @@ export class TasksTabContent extends React.Component<any, any> {
                 <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
               </div>
               <div className="task-list--item--delete-button">
-                <div className="bar"/>
+                <RemoveIcon/>
               </div>
             </ListItem>
           );

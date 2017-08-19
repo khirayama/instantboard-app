@@ -1,3 +1,4 @@
+import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
@@ -5,50 +6,31 @@ import {
   TabNavigationContent,
 } from '../../components/custom/tab-navigation';
 import Container from '../container';
-import {LabelsTabContent} from './labels-tab-content';
+import {
+  List,
+  ListItem,
+} from '../../components/fundamental/list';
 
 export default class LabelIndexPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
 
-  public render() {
-    const actions = {
-      // UpdateLabel: this.updateLabel.bind(this),
-      // deleteLabel: this.deleteLabel.bind(this),
-      // sortLabel: this.sortLabel.bind(this),
-      // updateTask: this.updateTask.bind(this),
-      // deleteTask: this.deleteTask.bind(this),
-      // sortTask: this.sortTask.bind(this),
-      // acceptRequest: this.acceptRequest.bind(this),
-      // refuseRequest: this.refuseRequest.bind(this),
-      // updateUser: this.updateUser.bind(this),
-      // deleteUser: () => {
-      //   clearTabIndex();
-      //   const dispatch = this.props.store.dispatch.bind(this.props.store);
-      //   deleteUser(dispatch, {accessToken: this.accessToken}).then(() => {
-      //     console.log('ok');
-      //     this.clearAccessToken();
-      //     this.context.move('/login');
-      //   });
-      // },
-      // logout: () => {
-      //   clearTabIndex();
-      //   this.clearAccessToken();
-      //   this.context.move('/login');
-      // },
-      updateLabel: () => {},
-      deleteLabel: () => {},
+  private handleSortLabelList: any;
+
+  private actions: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.actions = {
       sortLabel: () => {},
-      updateTask: () => {},
-      deleteTask: () => {},
-      sortTask: () => {},
-      acceptRequest: () => {},
-      refuseRequest: () => {},
-      updateUser: () => {},
-      deleteUser: () => {},
-      logout: () => {},
     };
+
+    this.handleSortLabelList = this._handleSortLabelList.bind(this);
+  }
+
+  public render() {
     const ui = this.state.ui;
     const user = this.state.profile || {};
     const labels = this.state.labels;
@@ -61,16 +43,39 @@ export default class LabelIndexPage extends Container<any, any> {
         <div className="tab-navigation">
           <div className="tab-navigation-content-list tab-navigation-content-list__active">
             <div className="tab-navigation-content-list-item">
-              <LabelsTabContent
-                actions={actions}
-                ui={ui}
-                labels={labels}
-              />
+              {
+                (labels.length) ? (
+                  <List
+                    className="label-list"
+                    onSort={this.handleSortLabelList}
+                  >
+                    {labels.map((label: any) => {
+                      return (
+                        <ListItem key={label.cid}>
+                          {label.name}
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                ) : (
+                  <div className="no-label-content">
+                    <p>No labels</p>
+                  </div>
+                )
+              }
             </div>
           </div>
           <TabNavigation index={1}/>
         </div>
       </section>
     );
+  }
+
+  private _handleSortLabelList(from: number, to: number) {
+    const labels = this.props.labels;
+    const actions = this.props.actions;
+
+    const label = labels[from];
+    this.actions.sortLabel(label.cid, to);
   }
 }

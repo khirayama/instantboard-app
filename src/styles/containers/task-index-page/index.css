@@ -1,227 +1,192 @@
 .task-index-page {
   $height-recycle-table-content-list: 36px;
 
+  width: 100%;
+  height: 100%;
+
   .recycle-table-content-list {
     height: calc(100% - $height-recycle-table-content-list)!important;
   }
 
-  /* labels-tab-content */
-  .label-list-item {
-    background: $color-white;
-    padding: 12px;
-    &.label-list-item__hidden {
-      background: $color-divider;
-    }
-  }
-
-  .label-list {
-    .list-content {
-      .list-item {
-        transition: background .1s ease-out;
-        .label-list-item.swipeable-view-content {
-          padding: 18px 12px;
-
-          &.swipeable-view-content__swipe_right {
-            background-color: $color-divider;
-          }
-
-          &.label-list-item__unvisibled {
-            background-color: $color-divider;
-            &.list-item-content__swipe_right {
-              background-color: $color-white;
-            }
-          }
-        }
-        .swipeable-view-background {
-          color: $color-white;
-          padding: 0 12px;
-          & .icon {
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            transition-timing-function: $ease-out-expo;
-            transition-duration: $time-basic;
-            transition-property: font-size;
-          }
-
-          &__will-swipe {
-            & .icon {
-              font-size: 32px;
-            }
-          }
-        }
-        .swipeable-view-background__left {
-          background-color: $color-primary;
-          & .icon {
-            justify-content: flex-start;
-          }
-        }
-        .swipeable-view-background__right {
-          background-color: $color-accent-attention;
-          & .icon {
-            justify-content: flex-end;
-          }
-        }
-      }
-    }
-  }
-  .no-label-content {
+  /* loading labels */
+  .tasks-tab-content--loading {
     position: relative;
     width: 100%;
     height: 100%;
-    p {
+    .spinner {
       position: absolute;
-      top: 45%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2rem;
-      color: $color-text-secondary;
-      text-align: center;
-      font-weight: bold;
     }
   }
 
-  /* requests-tab-content */
-  .requests-tab-content {
+  /* No labels, No tasks */
+  .tasks-tab-content--no-labels,
+  .tasks-tab-content--no-tasks {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .tasks-tab-content--no-labels--inner,
+    .tasks-tab-content--no-tasks--inner {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      p {
+        color: $color-text-secondary;
+        font-weight: bold;
+        padding: 24px;
+      }
+    }
+  }
+
+  .task-list {
     width: 100%;
     height: 100%;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    .task-list--item {
+      display: flex;
+      min-height: 44px;
+      align-items: stretch;
 
-    .request-list {
-      .request-list--item {
+      .task-list--item--complete-button,
+      .task-list--item--delete-button {
         display: flex;
-        justify-content: space-between;
-        padding: 18px 12px;
-        & + .request-list--item {
-          border-top: $border;
-        }
-
-        .request-list--item--information-container {
-          display: inline-block;
-          .request-list--item--label-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-          }
-          .request-list--item--description {
-            color: $color-text-secondary;
-            word-break: break-all;
-          }
-        }
-        .request-list--item--button-container {
-          display: inline-block;
-          min-width: 160px;
-          text-align: right;
-          .request-list--item--accept-button {
-            display: inline-block;
-            padding: 4px 8px;
-            text-align: center;
-            border-radius: $radius;
-            background-color: $color-primary;
-            color: $color-white;
-          }
-          .request-list--item--refuse-button {
-            display: inline-block;
-            padding: 4px 8px;
-            border: $border;
-            text-align: center;
-            border-radius: $radius;
-          }
-          .request-list--item--accept-button +
-          .request-list--item--refuse-button {
-            margin-left: 8px;
-          }
-        }
-      }
-    }
-
-    .no-request-content {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      p {
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2rem;
-        color: $color-text-secondary;
+        align-items: center;
         text-align: center;
         font-weight: bold;
+        color: $color-text-secondary;
+      }
+      .task-list--item--complete-button {
+        padding: 8px;
+      }
+      .task-list--item--delete-button {
+        padding: 8px 12px;
+      }
+
+      .task-list--item--schedule--container {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px 8px 0;
+      }
+
+      .task-list--item--content {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        padding: 12px 0;
+      }
+
+      .task-list--item--content--loader{
+        height: 1rem;
+      }
+      &:nth-of-type(6n+1) {.task-list--item--content--loader{width: 80%;}}
+      &:nth-of-type(6n+2) {.task-list--item--content--loader{width: 48%;}}
+      &:nth-of-type(6n+3) {.task-list--item--content--loader{width: 72%;}}
+      &:nth-of-type(6n+4) {.task-list--item--content--loader{width: 76%;}}
+      &:nth-of-type(6n+5) {.task-list--item--content--loader{width: 64%;}}
+      &:nth-of-type(6n+0) {.task-list--item--content--loader{width: 60%;}}
+
+      &__completed {
+        color: $color-text-secondary;
+        background-color: $color-divider;
+        .task-list--item--complete-button,
+        .task-list--item--delete-button {
+          .check-icon {
+            background-color: $color-divider;
+            border: solid 2px $color-white;
+          }
+          .remove-icon {
+            background-color: $color-white;
+          }
+        }
       }
     }
   }
 
-  /* user-tab-content */
-  .user-tab-content {
-    $height: 44px;
+  .task-list--item--schedule {
     position: relative;
-    width: 100%;
-    height: 100%;
-    .user-tab-content--information {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    color: $color-white;
+    text-align: center;
+    border-radius: $radius;
+    vertical-align: top;
+    &--month {
       position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
+      top: 3px;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 8px;
+      line-height: 8px;
+      font-size: 8px;
+      vertical-align: top;
+    }
+    &--date {
+      position: absolute;
+      display: inline-block;
+      top: 13px;
+      left: 0;
+      width: 100%;
+      height: 18px;
+      line-height: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      vertical-align: top;
+    }
+    &--day {
+      position: absolute;
+      display: inline-block;
+      bottom: 3px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      line-height: 8px;
+      font-size: 8px;
+      vertical-align: top;
+    }
 
-      .user-tab-content--username {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        margin-bottom: 24px;
-
-        .user-tab-content--username--icon {
-          display: inline-block;
-          height: $height;
-          position: absolute;
-          top: 0;
-          left: 0;
-          .icon {
-            /* color: $color-text-secondary; */
-            font-size: $height;
-          }
-        }
-
-        .user-tab-content--username--input {
-          display: inline-block;
-          position: relative;
-
-          p, textarea {
-            display: inline-block;
-            background-color: transparent;
-            font-size: 2rem;
-            font-weight: bold;
-            padding-left: calc($height + 16px);
-            padding-right: $height;
-            vertical-align: top;
-            width: 100%;
-            min-height: 160px;
-            max-height: 320px;
-            word-break: break-all;
-            overflow: scroll;
-            resize: none;
-          }
-          .icon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 4px 0;
-            font-size: 36px;
-            vertical-align: text-top;
-            color: $color-text-secondary;
-            z-index: -1;
-          }
-        }
-      }
-      .logout-button {
-        font-weight: bold;
-        margin-bottom: 16px;
-      }
-      .delete-account-button {
-        font-weight: bold;
-      }
+    &__jan {
+      background-color: rgb(255, 216, 120);
+    }
+    &__feb {
+      background-color: rgb(243, 191, 136);
+    }
+    &__mar {
+      background-color: rgb(249, 129, 143);
+    }
+    &__apr {
+      background-color: rgb(214, 110, 122);
+    }
+    &__may {
+      background-color: rgb(167, 189, 0);
+    }
+    &__jun {
+      background-color: rgb(155, 85, 128);
+    }
+    &__jul {
+      background-color: rgb(203, 140, 45);
+    }
+    &__aug {
+      background-color: rgb(62, 179, 112);
+    }
+    &__sep {
+      background-color: rgb(114, 164, 106);
+    }
+    &__oct {
+      background-color: rgb(255, 166, 0);
+    }
+    &__nov {
+      background-color: rgb(151, 39, 58);
+    }
+    &__dec {
+      background-color: rgb(0, 134, 173);
     }
   }
 }

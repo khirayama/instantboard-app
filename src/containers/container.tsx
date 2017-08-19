@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export default class Container extends React.Component<IContainerProps, IState> {
+export default class Container<P extends IContainerProps, S extends IState> extends React.Component<any, any> {
   protected dispatch: (action: IAction) => void;
 
-  constructor(props: IContainerProps) {
+  constructor(props: P) {
     super(props);
 
     this.state = props.store.getState();

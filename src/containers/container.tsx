@@ -3,6 +3,8 @@ import * as React from 'react';
 export default class Container<P extends IContainerProps, S extends IState> extends React.Component<any, any> {
   protected dispatch: (action: IAction) => void;
 
+  protected actions: any;
+
   constructor(props: P) {
     super(props);
 

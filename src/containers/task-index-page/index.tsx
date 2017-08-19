@@ -37,8 +37,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private handleClickAddTaskButton: any;
 
-  private actions: any;
-
   constructor(props: any) {
     super(props);
 

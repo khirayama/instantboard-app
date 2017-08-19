@@ -27,8 +27,6 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   private handleClickDeleteAccountButton: any;
 
-  private actions: any;
-
   constructor(props: any) {
     super(props);
 
@@ -38,14 +36,6 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     });
 
     this.actions = {
-      updateLabel: () => {},
-      deleteLabel: () => {},
-      sortLabel: () => {},
-      updateTask: () => {},
-      deleteTask: () => {},
-      sortTask: () => {},
-      acceptRequest: () => {},
-      refuseRequest: () => {},
       updateUser: () => {},
       deleteUser: () => {},
       logout: () => {},

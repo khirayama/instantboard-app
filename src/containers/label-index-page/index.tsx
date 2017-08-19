@@ -18,8 +18,6 @@ export default class LabelIndexPage extends Container<any, any> {
 
   private handleSortLabelList: any;
 
-  private actions: any;
-
   constructor(props: any) {
     super(props);
 

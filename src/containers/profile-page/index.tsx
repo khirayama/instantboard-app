@@ -34,7 +34,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
     this.state = Object.assign({}, this.state, {
       isEditing: false,
-      username: props.user.username || '',
+      username: (this.state.profile) ? this.state.profile.username : '',
     });
 
     this.actions = {

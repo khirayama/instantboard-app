@@ -4,39 +4,40 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/custom/tab-navigation';
+import Icon from '../../components/fundamental/icon';
 import Container from '../container';
-import {UserTabContent} from './user-tab-content';
 
-export default class ProfilePage extends Container {
+interface IProfilePageState extends IState {
+  isEditing: boolean;
+  username: string;
+}
+
+export default class ProfilePage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };
 
-  public render() {
-    const actions = {
-      // UpdateLabel: this.updateLabel.bind(this),
-      // deleteLabel: this.deleteLabel.bind(this),
-      // sortLabel: this.sortLabel.bind(this),
-      // updateTask: this.updateTask.bind(this),
-      // deleteTask: this.deleteTask.bind(this),
-      // sortTask: this.sortTask.bind(this),
-      // acceptRequest: this.acceptRequest.bind(this),
-      // refuseRequest: this.refuseRequest.bind(this),
-      // updateUser: this.updateUser.bind(this),
-      // deleteUser: () => {
-      //   clearTabIndex();
-      //   const dispatch = this.props.store.dispatch.bind(this.props.store);
-      //   deleteUser(dispatch, {accessToken: this.accessToken}).then(() => {
-      //     console.log('ok');
-      //     this.clearAccessToken();
-      //     this.context.move('/login');
-      //   });
-      // },
-      // logout: () => {
-      //   clearTabIndex();
-      //   this.clearAccessToken();
-      //   this.context.move('/login');
-      // },
+  private handleClickLogoutButton: any;
+
+  private handleChangeUserNameInput: any;
+
+  private handleBlurUserNameInput: any;
+
+  private handleClickEditButton: any;
+
+  private handleClickDeleteAccountButton: any;
+
+  private actions: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.state = Object.assign({}, this.state, {
+      isEditing: false,
+      username: props.user.username || '',
+    });
+
+    this.actions = {
       updateLabel: () => {},
       deleteLabel: () => {},
       sortLabel: () => {},
@@ -49,6 +50,23 @@ export default class ProfilePage extends Container {
       deleteUser: () => {},
       logout: () => {},
     };
+
+    this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
+    this.handleChangeUserNameInput = this._handleChangeUserNameInput.bind(this);
+    this.handleBlurUserNameInput = this._handleBlurUserNameInput.bind(this);
+    this.handleClickEditButton = this._handleClickEditButton.bind(this);
+    this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
+  }
+
+  public componentDidUpdate(prevProps: any) {
+    if (!prevProps.user.username && this.props.user.username) {
+      this.setState({
+        username: this.props.user.username,
+      });
+    }
+  }
+
+  public render() {
     const ui = this.state.ui;
     const user = this.state.profile || {};
     const labels = this.state.labels;
@@ -61,16 +79,58 @@ export default class ProfilePage extends Container {
         <div className="tab-navigation">
           <div className="tab-navigation-content-list tab-navigation-content-list__active">
             <div className="tab-navigation-content-list-item">
-              <UserTabContent
-                actions={actions}
-                ui={ui}
-                user={user}
-              />
+              <section className="user-tab-content">
+                <div className="user-tab-content--information">
+                  <div className="user-tab-content--username">
+                    <div className="user-tab-content--username--icon">
+                      <Icon>person</Icon>
+                    </div>
+                    <div className="user-tab-content--username--input">
+                      {(this.state.isEditing) ? (
+                        <textarea
+                          autoFocus
+                          value={this.state.username}
+                          onBlur={this.handleBlurUserNameInput}
+                          onChange={this.handleChangeUserNameInput}
+                        />
+                      ) : (
+                        <p onClick={this.handleClickEditButton}>{user.username}<Icon>edit</Icon></p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
+                  <div className="delete-account-button" onClick={this.handleClickDeleteAccountButton}>Delete account</div>
+                </div>
+              </section>
             </div>
           </div>
           <TabNavigation index={3}/>
         </div>
       </section>
     );
+  }
+
+  private _handleClickLogoutButton() {
+    this.actions.logout();
+  }
+
+  private _handleChangeUserNameInput(event: any) {
+    this.setState({username: event.currentTarget.value});
+  }
+
+  private _handleBlurUserNameInput() {
+    this.actions.updateUser(this.state.username.trim());
+    this.setState({isEditing: false});
+  }
+
+  private _handleClickEditButton() {
+    this.setState({isEditing: true});
+  }
+
+  private _handleClickDeleteAccountButton() {
+    const isDelete = window.confirm('Delete account!?'); // eslint-disable-line
+    if (isDelete) {
+      this.actions.deleteUser();
+    }
   }
 }

@@ -26,7 +26,7 @@ import {
 } from '../../components/fundamental/recycle-table';
 import Container from '../container';
 
-export default class TaskIndexPage extends Container {
+export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };

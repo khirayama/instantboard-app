@@ -7,7 +7,7 @@ import {
 import Container from '../container';
 import {RequestsTabContent} from './requests-tab-content';
 
-export default class NotificationIndexPage extends Container {
+export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

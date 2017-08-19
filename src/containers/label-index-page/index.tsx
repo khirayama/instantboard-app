@@ -7,7 +7,7 @@ import {
 import Container from '../container';
 import {LabelsTabContent} from './labels-tab-content';
 
-export default class LabelIndexPage extends Container {
+export default class LabelIndexPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

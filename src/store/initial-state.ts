@@ -8,6 +8,10 @@ const mockLabels = [{
   cid: uuid(),
   name: 'LATER',
   visibled: true,
+}, {
+  cid: uuid(),
+  name: 'MEMO',
+  visibled: false,
 }];
 
 const mockTasks = [{

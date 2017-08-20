@@ -14,6 +14,7 @@ import {
   List,
   ListItem,
 } from '../../components/list';
+import Skeleton from '../../components/skeleton';
 import Container from '../container';
 
 export default class LabelIndexPage extends Container<any, any> {
@@ -55,7 +56,7 @@ export default class LabelIndexPage extends Container<any, any> {
                   <VisibilityIcon/>
                 </div>
                 <div className="label-list--item--content">
-                  <div className="label-list--item--content--loader skeleton"/>
+                  <div className="label-list--item--content--loader"><Skeleton/></div>
                 </div>
                 <div className="label-list--item--delete-button">
                   <RemoveIcon/>

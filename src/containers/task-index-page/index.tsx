@@ -24,6 +24,7 @@ import {
   RecycleTableList,
   RecycleTableListItem,
 } from '../../components/recycle-table';
+import Skeleton from '../../components/skeleton';
 import Container from '../container';
 
 export default class TaskIndexPage extends Container<IContainerProps, IState> {
@@ -133,11 +134,11 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
                 </div>
                 { (index === 0 || index === 3) ? (
                   <span className="task-list--item--schedule--container">
-                    <span className="task-list--item--schedule"><div className="skeleton"/></span>
+                    <span className="task-list--item--schedule"><Skeleton/></span>
                   </span>
                 ) : null }
                 <div className="task-list--item--content">
-                  <div className="task-list--item--content--loader skeleton"/>
+                  <div className="task-list--item--content--loader"><Skeleton/></div>
                 </div>
                 <div className="task-list--item--delete-button">
                   <RemoveIcon/>

@@ -4,7 +4,7 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-import Icon from '../../components/icon';
+import {Icon} from '../../components/icon';
 import Container from '../container';
 
 interface IProfilePageState extends IState {

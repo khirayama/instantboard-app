@@ -80,7 +80,6 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
       const listItems = list.querySelectorAll('.recycle-table-list-item');
       const listItem = listItems[index];
       if (listItem) {
-        const currentScrollLeft = list.scrollLeft;
         const scrollLeft = listItem.offsetLeft - ((el.clientWidth - listItem.clientWidth) / 2);
 
         list.scrollLeft = scrollLeft;

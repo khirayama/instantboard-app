@@ -50,11 +50,7 @@ export default class NotificationIndexPage extends Container<any, any> {
       logout: () => {},
     };
     const ui = this.state.ui;
-    const user = this.state.profile || {};
-    const labels = this.state.labels;
-    const tasks = this.state.tasks;
     const requests = this.state.requests;
-    const members = this.state.members;
 
     return (
       <section className="page main-page">

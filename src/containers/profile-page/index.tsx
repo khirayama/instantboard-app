@@ -57,12 +57,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   public render() {
-    const ui = this.state.ui;
     const user = this.state.profile || {};
-    const labels = this.state.labels;
-    const tasks = this.state.tasks;
-    const requests = this.state.requests;
-    const members = this.state.members;
 
     return (
       <section className="page main-page">
@@ -89,7 +84,10 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
                     </div>
                   </div>
                   <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
-                  <div className="delete-account-button" onClick={this.handleClickDeleteAccountButton}>Delete account</div>
+                  <div
+                    className="delete-account-button"
+                    onClick={this.handleClickDeleteAccountButton}
+                  >Delete account</div>
                 </div>
               </section>
             </div>

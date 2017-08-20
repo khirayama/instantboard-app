@@ -5,6 +5,11 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/custom/tab-navigation';
+import FloatingButton from '../../components/fundamental/floating-button';
+import {
+  CheckIcon,
+  RemoveIcon,
+} from '../../components/fundamental/icon';
 import {
   List,
   ListItem,
@@ -16,6 +21,8 @@ export default class LabelIndexPage extends Container<any, any> {
     move: PropTypes.func,
   };
 
+  private handleClickCreateLabelButton: any;
+
   private handleSortLabelList: any;
 
   constructor(props: any) {
@@ -25,6 +32,7 @@ export default class LabelIndexPage extends Container<any, any> {
       sortLabel: () => {},
     };
 
+    this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
     this.handleSortLabelList = this._handleSortLabelList.bind(this);
   }
 
@@ -34,19 +42,36 @@ export default class LabelIndexPage extends Container<any, any> {
 
     let contentElement: any = null;
 
-    // Loading label - Show loading content
+    // Loading label - Show skeleton
     //   No labels - Show no labels content
     //   Labels - Show label list
     if (ui.isLoadingLabels) {
       contentElement = (
-        <div className="no-label-content">
-          <p>Show spinner</p>
-        </div>
+        <List className="label-list">
+          {[0, 1, 2].map((index: number) => {
+            return (
+              <ListItem key={index} className="label-list--item">
+                <div className="label-list--item--visible-button">
+                  <CheckIcon/>
+                </div>
+                <div className="label-list--item--content">
+                  <div className="label-list--item--content--loader skeleton"/>
+                </div>
+                <div className="label-list--item--delete-button">
+                  <RemoveIcon/>
+                </div>
+              </ListItem>
+            );
+          })}
+        </List>
       );
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = (
-        <div className="no-label-content">
-          <p>No labels</p>
+        <div className="label-index-page--content--no-labels">
+          <div className="label-index-page--content--no-labels--inner">
+            <p>You have no labels.<br/>Create category of task as label.</p>
+            <FloatingButton onClick={this.handleClickCreateLabelButton}>CREATE LABEL</FloatingButton>
+          </div>
         </div>
       );
     } else if (!ui.isLoadingLabels && labels.length !== 0) {
@@ -55,10 +80,21 @@ export default class LabelIndexPage extends Container<any, any> {
           className="label-list"
           onSort={this.handleSortLabelList}
         >
-          {labels.map((label: any) => {
+          {labels.map((label: ILabel) => {
             return (
-              <ListItem key={label.cid}>
-                {label.name}
+              <ListItem
+                key={label.cid}
+                className={classNames('label-list--item', {'label-list--item__unvisibled': !label.visibled})}
+              >
+                <div className="label-list--item--visible-button">
+                  <CheckIcon/>
+                </div>
+                <div className="label-list--item--content">
+                  <div className="label-list--item--content--text">{label.name}</div>
+                </div>
+                <div className="label-list--item--delete-button">
+                  <RemoveIcon/>
+                </div>
               </ListItem>
             );
           })}
@@ -74,10 +110,13 @@ export default class LabelIndexPage extends Container<any, any> {
   }
 
   private _handleSortLabelList(from: number, to: number) {
-    const actions = this.props.actions;
     const labels = this.props.labels;
-
     const label = labels[from];
+
     this.actions.sortLabel(label.cid, to);
+  }
+
+  private _handleClickCreateLabelButton() {
+    this.context.move('/labels/new');
   }
 }

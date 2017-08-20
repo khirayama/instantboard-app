@@ -58,6 +58,12 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
     let contentElement: any = null;
 
+    // Loading label - Show loading content
+    //   No labels - Show no labels content
+    //   Labels - Show recycle table view
+    //     Loading tasks - Show skeleton
+    //       No tasks - Show no tasks content
+    //       Tasks - Show task list
     if (ui.isLoadingLabels) {
       contentElement = this.createTasksTabContentLoading();
     } else if (!ui.isLoadingLabels && labels.length === 0) {
@@ -86,17 +92,9 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       );
     }
 
-    // Loading label - Show loading
-    //   No labels - Show no labels content
-    //   Labels - Show recycle table view
-    //     Loading tasks - Show skeleton
-    //       No tasks - Show no tasks content
-    //       tasks - Show task list
     return (
       <section className="page task-index-page">
-        <TabNavigationContent>
-          <section className="tasks-tab-content">{contentElement}</section>
-        </TabNavigationContent>
+        <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation index={0}/>
       </section>
     );
@@ -104,7 +102,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private createTasksTabContentLoading() {
     return (
-      <div className="tasks-tab-content--loading">
+      <div className="task-index-page--content--loading">
         <SpinnerIcon/>
       </div>
     );
@@ -112,8 +110,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private createTasksTabContentNoLabels() {
     return (
-      <div className="tasks-tab-content--no-labels">
-        <div className="tasks-tab-content--no-labels--inner">
+      <div className="task-index-page--content--no-labels">
+        <div className="task-index-page--content--no-labels--inner">
           <p>You have no labels.<br/>Create category of task as label.</p>
           <FloatingButton onClick={this.handleClickCreateLabelButton}>CREATE LABEL</FloatingButton>
         </div>
@@ -203,8 +201,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private createNoTasksContent() {
     return (
-      <div className="tasks-tab-content--no-tasks">
-        <div className="tasks-tab-content--no-tasks--inner">
+      <div className="task-index-page--content--no-tasks">
+        <div className="task-index-page--content--no-tasks--inner">
           <p>{'You\'re all done.'}</p>
           <div className="floating-button" onClick={this.handleClickAddTaskButton}>ADD TASK</div>
         </div>

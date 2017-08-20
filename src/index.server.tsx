@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import {SpinnerIcon} from './components/fundamental/icon';
+import {SpinnerIcon} from './components/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';

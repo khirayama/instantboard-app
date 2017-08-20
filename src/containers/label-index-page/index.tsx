@@ -4,16 +4,16 @@ import * as React from 'react';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/custom/tab-navigation';
-import FloatingButton from '../../components/fundamental/floating-button';
+} from '../../components/common/tab-navigation';
+import FloatingButton from '../../components/floating-button';
 import {
   CheckIcon,
   RemoveIcon,
-} from '../../components/fundamental/icon';
+} from '../../components/icon';
 import {
   List,
   ListItem,
-} from '../../components/fundamental/list';
+} from '../../components/list';
 import Container from '../container';
 
 export default class LabelIndexPage extends Container<any, any> {

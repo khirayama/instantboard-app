@@ -3,8 +3,8 @@ import * as React from 'react';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/custom/tab-navigation';
-import Icon from '../../components/fundamental/icon';
+} from '../../components/common/tab-navigation';
+import Icon from '../../components/icon';
 import Container from '../container';
 
 interface IProfilePageState extends IState {

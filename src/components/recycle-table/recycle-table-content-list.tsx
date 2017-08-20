@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import {THRESHOLD_DELTAX} from '../../constants';
+import {THRESHOLD_DELTAX} from '../constants';
 
 interface IRecycleTableContentList {
   children: any;

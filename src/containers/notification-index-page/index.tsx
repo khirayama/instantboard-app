@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/custom/tab-navigation';
+} from '../../components/common/tab-navigation';
 import Container from '../container';
 import {RequestsTabContent} from './requests-tab-content';
 

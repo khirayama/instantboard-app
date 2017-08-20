@@ -4,26 +4,26 @@ import * as React from 'react';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/custom/tab-navigation';
+} from '../../components/common/tab-navigation';
 // Components
-import FloatingButton from '../../components/fundamental/floating-button';
+import FloatingButton from '../../components/floating-button';
 import {
   CheckIcon,
   RemoveIcon,
   SpinnerIcon,
-} from '../../components/fundamental/icon';
-import LinkText from '../../components/fundamental/link-text';
+} from '../../components/icon';
+import LinkText from '../../components/link-text';
 import {
   List,
   ListItem,
-} from '../../components/fundamental/list';
+} from '../../components/list';
 import {
   RecycleTable,
   RecycleTableContentList,
   RecycleTableContentListItem,
   RecycleTableList,
   RecycleTableListItem,
-} from '../../components/fundamental/recycle-table';
+} from '../../components/recycle-table';
 import Container from '../container';
 
 export default class TaskIndexPage extends Container<IContainerProps, IState> {

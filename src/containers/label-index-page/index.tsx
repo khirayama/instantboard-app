@@ -7,8 +7,8 @@ import {
 } from '../../components/common/tab-navigation';
 import FloatingButton from '../../components/floating-button';
 import {
-  CheckIcon,
   RemoveIcon,
+  VisibilityIcon,
 } from '../../components/icon';
 import {
   List,
@@ -52,7 +52,7 @@ export default class LabelIndexPage extends Container<any, any> {
             return (
               <ListItem key={index} className="label-list--item">
                 <div className="label-list--item--visible-button">
-                  <CheckIcon/>
+                  <VisibilityIcon/>
                 </div>
                 <div className="label-list--item--content">
                   <div className="label-list--item--content--loader skeleton"/>
@@ -87,7 +87,7 @@ export default class LabelIndexPage extends Container<any, any> {
                 className={classNames('label-list--item', {'label-list--item__unvisibled': !label.visibled})}
               >
                 <div className="label-list--item--visible-button">
-                  <CheckIcon/>
+                  <VisibilityIcon/>
                 </div>
                 <div className="label-list--item--content">
                   <div className="label-list--item--content--text">{label.name}</div>

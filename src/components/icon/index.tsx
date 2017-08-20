@@ -36,3 +36,11 @@ export class SpinnerIcon extends React.Component<any, any> {
     );
   }
 }
+
+export class VisibilityIcon extends React.Component<any, any> {
+  public render() {
+    return (
+      <div className="visibility-icon"/>
+    );
+  }
+}

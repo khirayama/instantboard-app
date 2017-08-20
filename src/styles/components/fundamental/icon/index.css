@@ -32,6 +32,14 @@
   background-color: $color-background;
 }
 
+.visibility-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: solid 2px $color-divider;
+  background-color: $color-background;
+}
+
 .remove-icon {
   width: 18px;
   height: 2px;

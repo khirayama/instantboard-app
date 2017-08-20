@@ -19,8 +19,8 @@
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/index.server.js'",
     "lint": "tslint 'src/**/*.+(ts|tsx)'",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",
-    "lint:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore src",
-    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --rule 'react/jsx-index: 0' --rule 'react/jsx-closing-bracket-location: 0' --rule 'react/jsx-closing-tag-location: 0' --fix src",
+    "lint:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts src",
+    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts --rule 'react/jsx-index: 0' --rule 'react/jsx-closing-bracket-location: 0' --rule 'react/jsx-closing-tag-location: 0' --fix src",
     "check": "npm-check-updates"
   },
   "keywords": [],

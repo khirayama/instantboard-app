@@ -23,7 +23,7 @@ module.exports = {
     // Does not work following rules
     // https://github.com/eslint/typescript-eslint-parser#known-issues
     'no-undef': 0,
-    'no-unused-vars': 0,
+    'no-unused-vars': 1,
     'no-useless-constructor': 0,
     'space-infix-ops': 0,
 

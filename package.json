@@ -41,7 +41,7 @@
     "eslint-config-xo-space": "^0.16.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-typescript": "^0.5.0",
+    "eslint-plugin-typescript": "^0.6.0",
     "express": "^4.15.4",
     "nodemon": "^1.11.0",
     "npm-check-updates": "^2.12.1",
@@ -57,12 +57,12 @@
     "tsify": "^3.0.1",
     "tslint": "^5.6.0",
     "typescript": "^2.4.2",
-    "typescript-eslint-parser": "^6.0.1",
+    "typescript-eslint-parser": "^7.0.0",
     "uuid": "^3.1.0",
     "watchify": "^3.9.0"
   },
   "devDependencies": {
-    "@types/react": "^16.0.3",
+    "@types/react": "^16.0.4",
     "@types/react-dom": "^15.5.4"
   }
 }

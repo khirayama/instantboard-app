@@ -97,8 +97,12 @@
         .task-list--item--complete-button,
         .task-list--item--delete-button {
           .check-icon {
-            background-color: $color-divider;
-            border: solid 2px $color-white;
+            .circle {
+              fill: $color-divider;
+            }
+            .circle-inner {
+              fill: $color-white;
+            }
           }
           .remove-icon {
             background-color: $color-white;

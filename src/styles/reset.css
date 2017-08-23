@@ -26,7 +26,10 @@ tbody,
 tr,
 th,
 td,
-i {
+i,
+svg,
+circle,
+rect {
   box-sizing: border-box;
   margin: 0;
   padding: 0;

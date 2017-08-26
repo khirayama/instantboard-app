@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import Transition from 'react-transition-group/Transition';
 
 import {
   THRESHOLD_HOLD_TIME,
@@ -72,39 +73,6 @@ export class ListItem extends React.Component<any, any> {
     this.handleTouchEnd = this._handleTouchEnd.bind(this);
   }
 
-  public componentWillEnter(done: any) {
-    const el = this.listItem;
-    const height = el.offsetHeight;
-
-    el.style.maxHeight = '0px';
-
-    el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
-    setTimeout(() => {
-      el.style.maxHeight = height + 'px';
-    }, 0);
-    setTimeout(() => {
-      el.style.maxHeight = '';
-      el.style.transitionProperty = '';
-      done();
-    }, TRANSITION_TIME);
-  }
-
-  public componentWillLeave(done: any) {
-    const el = this.listItem;
-    const height = el.offsetHeight;
-
-    el.style.height = height + 'px';
-
-    el.style.transitionProperty = transitionProperties.HEIGHT;
-    setTimeout(() => {
-      el.style.height = '0px';
-    }, 0);
-
-    setTimeout(() => {
-      done();
-    }, TRANSITION_TIME);
-  }
-
   public componentDidMount() {
     // Can't prevent event passive in Chrome.
     // because not use onTouchMove
@@ -116,19 +84,66 @@ export class ListItem extends React.Component<any, any> {
     const className = 'list-item';
     props.className = (props.className) ? props.className + ' ' + className : className;
 
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+    delete props.onExited;
+
+    let listHeight: number = 0;
+
     return (
-      <div
-        {...props}
-        ref={this.setListItem}
-        onMouseDown={this.handleMouseDown}
-        onMouseMove={this.handleMouseMove}
-        onMouseUp={this.handleMouseUp}
-        onClick={this.handleClick}
-        onTouchStart={this.handleTouchStart}
-        onTouchEnd={this.handleTouchEnd}
-      >
-        {this.props.children}
-      </div>
+      <Transition
+        in={this.props.in}
+        key={this.props.key}
+        timeout={TRANSITION_TIME}
+        onEnter={() => {
+          const el = this.listItem;
+          listHeight = el.offsetHeight;
+          el.style.maxHeight = '0px';
+          el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
+        }}
+        onEntering={() => {
+          const el = this.listItem;
+          setTimeout(() => {
+            el.style.maxHeight = listHeight + 'px';
+          }, 0);
+        }}
+        onEntered={() => {
+          const el = this.listItem;
+          el.style.maxHeight = '';
+          el.style.transitionProperty = '';
+          listHeight = 0;
+        }}
+        onExit={() => {
+          const el = this.listItem;
+          listHeight = el.offsetHeight;
+
+          el.style.height = listHeight + 'px';
+          el.style.transitionProperty = transitionProperties.HEIGHT;
+        }}
+        onExiting={() => {
+          const el = this.listItem;
+          setTimeout(() => {
+            el.style.height = '0px';
+          }, 0);
+        }}
+        onExited={() => {
+          this.props.onExited();
+        }}
+        >
+        <li
+          {...props}
+          ref={this.setListItem}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
+          onClick={this.handleClick}
+          onTouchStart={this.handleTouchStart}
+          onTouchEnd={this.handleTouchEnd}
+        >
+          {this.props.children}
+        </li>
+      </Transition>
     );
   }
 

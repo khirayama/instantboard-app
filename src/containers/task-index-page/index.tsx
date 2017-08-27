@@ -8,8 +8,8 @@ import {
 // Components
 import FloatingButton from '../../components/floating-button';
 import {
-  SpinnerIcon,
   Icon,
+  SpinnerIcon,
 } from '../../components/icon';
 import LinkText from '../../components/link-text';
 import {

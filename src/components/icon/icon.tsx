@@ -33,7 +33,7 @@ export default class Icon extends React.Component<any, any> {
       }
     }
     return (
-      <svg className={classNames(`icon__${type}`, "icon", {"icon__active": this.props.active})} viewBox="0 0 100 100">
+      <svg className={classNames(`icon__${type}`, 'icon', {icon__active: this.props.active})} viewBox="0 0 100 100">
         {icon}
       </svg>
     );

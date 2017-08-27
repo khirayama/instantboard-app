@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import IconButton from '../../icon-button';
+import Icon from './icon';
 
 export default class TabNavigation extends React.Component<any, any> {
   public static contextTypes = {
@@ -40,7 +40,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickTaskTabLink}
         >
-          <IconButton>view_list</IconButton>
+          <Icon type="list"/>
         </div>
         <div
           className={classNames(
@@ -49,13 +49,13 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickLabelTabLink}
         >
-          <IconButton>label</IconButton>
+          <Icon type="label"/>
         </div>
         <div
           className="tab-navigation-tab-list-item"
           onClick={this.handleClickAddTabLink}
         >
-          <IconButton>add_box</IconButton>
+          <Icon type="add"/>
         </div>
         <div
           className={classNames(
@@ -64,7 +64,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickNotificationTabLink}
         >
-          <IconButton>notifications</IconButton>
+          <Icon type="notification"/>
         </div>
         <div
           className={classNames(
@@ -73,7 +73,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickProfileTabLink}
         >
-          <IconButton>person</IconButton>
+          <Icon type="profile"/>
         </div>
       </div>
     );

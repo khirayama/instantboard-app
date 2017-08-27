@@ -71,7 +71,7 @@ export default class Icon extends React.Component<any, any> {
       }
     }
     return (
-      <svg className="icon" viewBox="0 0 100 100">
+      <svg className="tab-navigation--icon" viewBox="0 0 100 100">
         {icon}
       </svg>
     );

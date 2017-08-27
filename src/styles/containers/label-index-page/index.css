@@ -6,11 +6,10 @@
     -webkit-overflow-scrolling: touch;
     .label-list--item {
       display: flex;
-      min-height: 44px;
       align-items: stretch;
 
       .label-list--item--visible-button,
-      .label-list--item--delete-button {
+      .label-list--item--destroy-button {
         display: flex;
         align-items: center;
         text-align: center;
@@ -20,7 +19,7 @@
       .label-list--item--visible-button {
         padding: 8px;
       }
-      .label-list--item--delete-button {
+      .label-list--item--destroy-button {
         padding: 8px 12px;
       }
 
@@ -48,7 +47,7 @@
         color: $color-text-secondary;
         background-color: $color-divider;
         .label-list--item--visible-button,
-        .label-list--item--delete-button {
+        .label-list--item--destroy-button {
           .check-icon {
             background-color: $color-divider;
             border: solid 2px $color-white;

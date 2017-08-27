@@ -1,32 +1,4 @@
 .main-page {
-  $height-tab-navigation-tab-list: 56px;
-  $height-recycle-table-content-list: 36px;
-
-  .tab-navigation-tab-list {
-    /* border-top: solid 1px $color-divider; */
-    background: $color-white;
-    box-shadow: 0 -1px 1px 1px $color-ui-shadow;
-    height: $height-tab-navigation-tab-list;
-    .tab-navigation-tab-list-item {
-      text-align: center;
-      color: $color-text-secondary;
-      .icon-button {
-        font-size: 36px;
-        padding: 8px 0 12px;
-      }
-      &.tab-navigation-tab-list-item__current {
-        color: $color-text-primary;
-      }
-    }
-  }
-  .tab-navigation-content-list {
-    height: calc(100% - $height-tab-navigation-tab-list);
-  }
-
-  .recycle-table-content-list {
-    height: calc(100% - $height-recycle-table-content-list)!important;
-  }
-
   /* labels-tab-content */
   .label-list-item {
     background: $color-white;
@@ -40,52 +12,6 @@
     .list-content {
       .list-item {
         transition: background .1s ease-out;
-        .label-list-item.swipeable-view-content {
-          padding: 18px 12px;
-
-          &.swipeable-view-content__swipe_right {
-            background-color: $color-divider;
-          }
-
-          &.label-list-item__unvisibled {
-            background-color: $color-divider;
-            &.list-item-content__swipe_right {
-              background-color: $color-white;
-            }
-          }
-        }
-        .swipeable-view-background {
-          color: $color-white;
-          padding: 0 12px;
-          & .icon {
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            transition-timing-function: $ease-out-expo;
-            transition-duration: $time-basic;
-            transition-property: font-size;
-          }
-
-          &__will-swipe {
-            & .icon {
-              font-size: 32px;
-            }
-          }
-        }
-        .swipeable-view-background__left {
-          background-color: $color-primary;
-          & .icon {
-            justify-content: flex-start;
-          }
-        }
-        .swipeable-view-background__right {
-          background-color: $color-accent-attention;
-          & .icon {
-            justify-content: flex-end;
-          }
-        }
       }
     }
   }

@@ -24,12 +24,24 @@ $height-tab-navigation-tab-list: 56px;
   .tab-navigation-tab-list-item {
     text-align: center;
     color: $color-text-secondary;
-    .icon-button {
-      font-size: 36px;
-      padding: 8px 0 12px;
+    .tab-navigation--icon {
+      padding: 6px 0 8px;
+      height: 100%;
+      path,
+      circle,
+      rect {
+        stroke-width: 3;
+        stroke: $color-text-secondary;
+      }
     }
     &.tab-navigation-tab-list-item__current {
-      color: $color-text-primary;
+      .tab-navigation--icon {
+        path,
+        circle,
+        rect {
+          stroke: $color-text-primary;
+        }
+      }
     }
   }
 }

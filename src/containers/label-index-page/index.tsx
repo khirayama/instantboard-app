@@ -2,14 +2,17 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  createLabel,
+  destroyLabel,
+  fetchLabel,
+  updateLabel,
+} from '../../action-creators';
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import FloatingButton from '../../components/floating-button';
-import {
-  RemoveIcon,
-  VisibilityIcon,
-} from '../../components/icon';
+import {Icon} from '../../components/icon';
 import {
   List,
   ListItem,
@@ -46,20 +49,20 @@ export default class LabelIndexPage extends Container<any, any> {
     // Loading label - Show skeleton
     //   No labels - Show no labels content
     //   Labels - Show label list
-    if (ui.isLoadingLabels) {
+    if (labels.length === 0 && ui.isLoadingLabels) {
       contentElement = (
         <List className="label-list">
           {[0, 1, 2].map((index: number) => {
             return (
               <ListItem key={index} className="label-list--item">
                 <div className="label-list--item--visible-button">
-                  <VisibilityIcon/>
+                  <Icon type="check"/>
                 </div>
                 <div className="label-list--item--content">
                   <div className="label-list--item--content--loader"><Skeleton/></div>
                 </div>
                 <div className="label-list--item--delete-button">
-                  <RemoveIcon/>
+                  <Icon type="remove"/>
                 </div>
               </ListItem>
             );

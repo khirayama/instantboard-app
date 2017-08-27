@@ -8,9 +8,8 @@ import {
 // Components
 import FloatingButton from '../../components/floating-button';
 import {
-  CheckIcon,
-  RemoveIcon,
   SpinnerIcon,
+  Icon,
 } from '../../components/icon';
 import LinkText from '../../components/link-text';
 import {
@@ -130,7 +129,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
             return (
               <ListItem key={index} className="task-list--item">
                 <div className="task-list--item--complete-button">
-                  <CheckIcon/>
+                  <Icon type="check"/>
                 </div>
                 { (index === 0 || index === 3) ? (
                   <span className="task-list--item--schedule--container">
@@ -141,7 +140,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
                   <div className="task-list--item--content--loader"><Skeleton/></div>
                 </div>
                 <div className="task-list--item--delete-button">
-                  <RemoveIcon/>
+                  <Icon type="remove"/>
                 </div>
               </ListItem>
             );
@@ -165,7 +164,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
               className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
             >
               <div className="task-list--item--complete-button">
-                <CheckIcon/>
+                <Icon type="check" active={task.completed}/>
               </div>
               {(task.schedule) ? (
                 <span className="task-list--item--schedule--container">
@@ -191,7 +190,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
                 <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
               </div>
               <div className="task-list--item--delete-button">
-                <RemoveIcon/>
+                <Icon type="remove"/>
               </div>
             </ListItem>
           );

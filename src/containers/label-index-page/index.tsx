@@ -18,6 +18,7 @@ import {
   ListItem,
 } from '../../components/list';
 import Skeleton from '../../components/skeleton';
+import Link from '../../router/link';
 import Container from '../container';
 
 export default class LabelIndexPage extends Container<any, any> {
@@ -155,9 +156,11 @@ class LabelListItem extends React.Component<any, any> {
         <div className="label-list--item--visible-button" onClick={this.handleClickVisibleButton}>
           <Icon type="check" active={!label.visibled}/>
         </div>
-        <div className="label-list--item--content">
-          <div className="label-list--item--content--text">{label.name}</div>
-        </div>
+          <div className="label-list--item--content">
+            <Link to={`/labels/${label.cid}/edit`}>
+              <div className="label-list--item--content--text">{label.name}</div>
+            </Link>
+          </div>
         <div className="label-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled}/>
         </div>

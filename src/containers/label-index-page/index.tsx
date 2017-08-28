@@ -2,9 +2,9 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-  createLabel,
   destroyLabel,
   fetchLabel,
+  sortLabel,
   updateLabel,
 } from '../../action-creators';
 import {
@@ -36,13 +36,15 @@ export default class LabelIndexPage extends Container<any, any> {
       fetchLabel: () => {
         fetchLabel(this.dispatch);
       },
-      updateLabel: (label: any) => {
+      updateLabel: (label: ILabel) => {
         updateLabel(this.dispatch, label);
       },
-      destroyLabel: (label: any) => {
+      destroyLabel: (label: ILabel) => {
         destroyLabel(this.dispatch, label);
       },
-      sortLabel: () => {},
+      sortLabel: (label: ILabel, to: number) => {
+        sortLabel(this.dispatch, label, to);
+      },
     };
 
     this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
@@ -116,10 +118,10 @@ export default class LabelIndexPage extends Container<any, any> {
   }
 
   private _handleSortLabelList(from: number, to: number) {
-    const labels = this.props.labels;
+    const labels = this.state.labels;
     const label = labels[from];
 
-    this.actions.sortLabel(label.cid, to);
+    this.actions.sortLabel(label, to);
   }
 
   private _handleClickCreateLabelButton() {

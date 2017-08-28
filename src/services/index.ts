@@ -34,44 +34,153 @@ class LabelService {
   }
 
   public fetch() {
-    return new Promise((resolve: any) => {
-      resolve(this.data);
-    });
+    const labels = this.sortByPriority(this.data);
+
+    return {
+      data: {labels},
+      sync: () => {
+        return new Promise((resolve, reject) => {
+          try {
+            this.save();
+          } catch (error) {
+            reject(error);
+            return;
+          }
+          resolve(labels);
+        });
+      },
+    };
   }
 
   public create(label: any) {
-    return new Promise((resolve) => {
-      const newLabel: any = this.build(label);
-      this.data.push(newLabel);
-      this.save();
-      resolve(newLabel);
-    });
+    const newLabel: any = this.build(label);
+    this.data.push(newLabel);
+
+    return {
+      data: {label: newLabel},
+      sync: () => {
+        return new Promise((resolve, reject) => {
+          try {
+            this.save();
+          } catch (error) {
+            reject(error);
+            return;
+          }
+          resolve(newLabel);
+        });
+      },
+    };
   }
 
   public update(label: any) {
-    return new Promise((resolve) => {
-      const newLabel: any = this.build(label);
-      this.data = this.data.map((_label: any) => {
-        if (_label.cid === newLabel.cid) {
-          return newLabel;
-        }
-        return _label;
-      });
-      this.save();
-      resolve(newLabel);
+    const newLabel: any = this.build(label);
+    this.data = this.data.map((_label: any) => {
+      if (_label.cid === newLabel.cid) {
+        return newLabel;
+      }
+      return _label;
     });
+
+    return {
+      data: {label: newLabel},
+      sync: () => {
+        return new Promise((resolve, reject) => {
+          try {
+            this.save();
+          } catch (error) {
+            reject(error);
+            return;
+          }
+          resolve(newLabel);
+        });
+      },
+    };
   }
 
   public destroy(label: any) {
-    return new Promise((resolve) => {
-      this.data = this.data.filter((_label: any) => {
-        if (_label.cid === label.cid) {
-          return false;
+    const labels = this.sortByPriority(this.data);
+
+    this.data = labels.filter((_label: any) => {
+      if (_label.cid === label.cid) {
+        return false;
+      }
+      if (_label.priority > label.priority) {
+        _label.priority -= 1;
+      }
+      return true;
+    });
+
+    return {
+      data: {labels: this.sortByPriority(this.data)},
+      sync: () => {
+        return new Promise((resolve, reject) => {
+          try {
+            this.save();
+          } catch (error) {
+            reject(error);
+            return;
+          }
+          resolve(labels);
+        });
+      },
+    };
+  }
+
+  public sort(label, priority) {
+    const labels = this.sortByPriority(this.data);
+
+    if (label.priority > priority) {
+      this.data = labels.map(label_ => {
+        if (label_.priority === label.priority) {
+          label_.priority = priority;
+        } else if (
+          (priority <= label_.priority) &&
+          (label_.priority < label.priority)
+        ) {
+          label_.priority += 1;
         }
-        return true;
+        return label_;
       });
-      this.save();
-      resolve(label);
+    } else if (label.priority < priority) {
+      this.data = labels.map(label_ => {
+        if (label_.priority === label.priority) {
+          label_.priority = priority;
+        } else if (
+          (label.priority < label_.priority) &&
+          (label_.priority <= priority)
+        ) {
+          label_.priority -= 1;
+        }
+        return label_;
+      });
+    }
+
+    return {
+      data: {
+        labels: this.sortByPriority(labels),
+      },
+      sync: () => {
+        return new Promise((resolve, reject) => {
+          try {
+            this.save();
+          } catch (error) {
+            reject(error);
+            return;
+          }
+          resolve(labels);
+        });
+      },
+    };
+  }
+
+  private sortByPriority(labels) {
+    return labels.sort((x, y) => {
+      if (x.priority > y.priority) {
+        return 1;
+      } else if (x.priority < y.priority) {
+        return -1;
+      }
+      return 0;
     });
   }
 

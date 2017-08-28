@@ -3,9 +3,14 @@ const ACTION_DISPATCH = '__ACTION_DISPATCH';
 
 export default class Store {
   private listeners: any = {};
+
   private state: any = {};
+
   private reducer: (state: any, action: any) => any = ((state: any) => state);
-  private shouldChangeDispatch: (currentState: any, nextState: any) => boolean = (() => true);
+
+  private debounce: number|null;
+
+  private timerId: any;
 
   constructor(state: any, reducer: any, options: any = {}) {
     if (state) {
@@ -16,9 +21,8 @@ export default class Store {
       this.reducer = reducer;
     }
 
-    if (options.shouldChangeDispatch) {
-      this.shouldChangeDispatch = options.shouldChangeDispatch;
-    }
+    // Options
+    this.debounce = options.debounce || null;
 
     this.subscribe();
   }
@@ -88,13 +92,22 @@ export default class Store {
       /* tslint:enable:no-console */
       /* eslint-enable capitalized-comments */
 
-      if (this.shouldChangeDispatch(currentState, nextState)) {
-        this.dispatchChange();
-      }
+      this.dispatchChange();
     });
   }
 
   private dispatchChange(): void {
-    this.emit(EVENT_CHANGE, this);
+    if (this.debounce) {
+      if (this.timerId) {
+        return;
+      }
+      this.emit(EVENT_CHANGE, this);
+      this.timerId = setTimeout(() => {
+        this.timerId = null;
+        this.emit(EVENT_CHANGE, this);
+      }, 1000 / 60);
+    } else {
+      this.emit(EVENT_CHANGE, this);
+    }
   }
 }

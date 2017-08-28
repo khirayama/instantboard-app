@@ -1,10 +1,10 @@
 import * as deepAssign from 'deep-assign';
 import actionTypes from '../constants/action-types';
 
-export default function(state: IState, action: IAction): IState {
+export default function (state: IState, action: IAction): IState {
   const newState: IState = deepAssign({}, state);
   const payload = action.payload;
-  const meta = action.meta;
+  // Const meta = action.meta;
 
   switch (action.type) {
     case (actionTypes.FETCH_LABEL): {
@@ -48,17 +48,24 @@ export default function(state: IState, action: IAction): IState {
       break;
     }
     case (actionTypes.DESTROY_LABEL): {
-      newState.labels = newState.labels.filter((label: ILabel) => {
-        if (label.cid === payload.label.cid) {
-          return false;
-        }
-        return true;
-      });
-      newState.ui.isLoadingLabelCids.push(payload.label.cid);
+      newState.labels = payload.labels;
       break;
     }
     case (actionTypes.DESTROY_LABEL_SUCCESS): {
       newState.ui.isLoadingLabelCids = newState.ui.isLoadingLabelCids.filter((cid: string) => (cid !== payload.label.cid));
+      break;
+    }
+    case (actionTypes.SORT_LABEL): {
+      newState.labels = payload.labels;
+      break;
+    }
+    case (actionTypes.SORT_LABEL_SUCCESS): {
+      break;
+    }
+    case (actionTypes.SORT_LABEL_FAILURE): {
+      break;
+    }
+    default: {
       break;
     }
   }

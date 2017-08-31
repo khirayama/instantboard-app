@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as cookieParser from 'cookie-parser';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
@@ -10,9 +11,18 @@ import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 
+import tokenManager from './utils/token-manager';
+import * as jwt from 'jwt-simple';
+
 const app = express();
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
+
+const SECRET_KEY = process.env.SECRET_KEY;
+
+const APP_SERVER_PORT = process.env.APP_SERVER_PORT;
+const APP_SERVER_HOSTNAME = process.env.APP_SERVER_HOSTNAME;
+const APP_SERVER_HOST = `http://${APP_SERVER_HOSTNAME}:${APP_SERVER_PORT}`;
 
 function template(content) {
   return `<!DOCTYPE html>
@@ -39,8 +49,18 @@ function template(content) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use(cookieParser());
 
 app.get(router.getPaths(), (req, res) => {
+  if (req.path !== '/login') {
+    const token = req.cookies[tokenManager.key];
+    try {
+      const decode = jwt.decode(token, SECRET_KEY);
+    } catch(err) {
+      res.redirect('/login');
+    }
+  }
+
   const content = ReactDOMServer.renderToString((
     <Navigator
       props={{store}}
@@ -50,4 +70,6 @@ app.get(router.getPaths(), (req, res) => {
   ));
   res.send(template(content));
 });
-app.listen(3000);
+
+console.log(`Start api app at ${new Date()} on ${APP_SERVER_HOST}`);
+app.listen(APP_SERVER_PORT);

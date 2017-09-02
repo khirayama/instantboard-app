@@ -1,211 +1,137 @@
+import axios from 'axios';
 import * as uuid from 'uuid/v4';
+import tokenManager from '../utils/token-manager';
 
-class LabelService {
-  private data: any[] = [];
+const API_SERVER_PORT = process.env.API_SERVER_PORT;
+const API_SERVER_HOSTNAME = process.env.API_SERVER_HOSTNAME;
+const API_SERVER_HOST = `http://${API_SERVER_HOSTNAME}:${API_SERVER_PORT}`;
 
-  private key: string = '__instantboard_labels';
+function handleRequestError(err: any, reject: any) {
+  const status = err.response.status;
 
-  constructor() {
-    this.data = this.load();
+  if (status === 401) {
+    window.location.href = '/login';
   }
-
-  public cache() {
-    return this.data;
-  }
-
-  public build(label: any) {
-    let label_ = {};
-    for (let i = 0; i < this.data.length; i++) {
-      const data = this.data[i];
-      if (data.cid === label.cid) {
-        label_ = data;
-        break;
-      }
-    }
-
-    const newLabel: any = Object.assign({
-      cid: uuid(),
-      name: '',
-      visibled: true,
-      priority: this.data.length,
-    }, label_, label);
-
-    return newLabel;
-  }
-
-  public fetch() {
-    const labels = this.sortByPriority(this.data);
-
-    return {
-      data: {labels},
-      sync: () => {
-        return new Promise((resolve, reject) => {
-          try {
-            this.save();
-          } catch (error) {
-            reject(error);
-            return;
-          }
-          resolve(labels);
-        });
-      },
-    };
-  }
-
-  public create(label: any) {
-    const newLabel: any = this.build(label);
-    this.data.push(newLabel);
-
-    return {
-      data: {label: newLabel},
-      sync: () => {
-        return new Promise((resolve, reject) => {
-          try {
-            this.save();
-          } catch (error) {
-            reject(error);
-            return;
-          }
-          resolve(newLabel);
-        });
-      },
-    };
-  }
-
-  public update(label: any) {
-    const newLabel: any = this.build(label);
-    this.data = this.data.map((_label: any) => {
-      if (_label.cid === newLabel.cid) {
-        return newLabel;
-      }
-      return _label;
-    });
-
-    return {
-      data: {label: newLabel},
-      sync: () => {
-        return new Promise((resolve, reject) => {
-          try {
-            this.save();
-          } catch (error) {
-            reject(error);
-            return;
-          }
-          resolve(newLabel);
-        });
-      },
-    };
-  }
-
-  public destroy(label: any) {
-    const labels = this.sortByPriority(this.data);
-
-    this.data = labels.filter((_label: any) => {
-      if (_label.cid === label.cid) {
-        return false;
-      }
-      if (_label.priority > label.priority) {
-        _label.priority -= 1;
-      }
-      return true;
-    });
-
-    return {
-      data: {labels: this.sortByPriority(this.data)},
-      sync: () => {
-        return new Promise((resolve, reject) => {
-          try {
-            this.save();
-          } catch (error) {
-            reject(error);
-            return;
-          }
-          resolve(labels);
-        });
-      },
-    };
-  }
-
-  public sort(label, priority) {
-    const labels = this.sortByPriority(this.data);
-
-    if (label.priority > priority) {
-      this.data = labels.map(label_ => {
-        if (label_.priority === label.priority) {
-          label_.priority = priority;
-        } else if (
-          (priority <= label_.priority) &&
-          (label_.priority < label.priority)
-        ) {
-          label_.priority += 1;
-        }
-        return label_;
-      });
-    } else if (label.priority < priority) {
-      this.data = labels.map(label_ => {
-        if (label_.priority === label.priority) {
-          label_.priority = priority;
-        } else if (
-          (label.priority < label_.priority) &&
-          (label_.priority <= priority)
-        ) {
-          label_.priority -= 1;
-        }
-        return label_;
-      });
-    }
-
-    return {
-      data: {
-        labels: this.sortByPriority(labels),
-      },
-      sync: () => {
-        return new Promise((resolve, reject) => {
-          try {
-            this.save();
-          } catch (error) {
-            reject(error);
-            return;
-          }
-          resolve(labels);
-        });
-      },
-    };
-  }
-
-  private sortByPriority(labels) {
-    return labels.sort((x, y) => {
-      if (x.priority > y.priority) {
-        return 1;
-      } else if (x.priority < y.priority) {
-        return -1;
-      }
-      return 0;
-    });
-  }
-
-  private isBrowser() {
-    return (typeof window === 'object');
-  }
-
-  private load() {
-    if (this.isBrowser()) {
-      const dataString: any = window.localStorage.getItem(this.key);
-      const data: any = (dataString) ? JSON.parse(dataString) : [];
-      return data;
-    }
-    return [];
-  }
-
-  private save() {
-    if (this.isBrowser()) {
-      window.localStorage.setItem(this.key, JSON.stringify(this.data));
-    }
-  }
+  reject(err);
 }
 
-const Label = new LabelService();
+const Label = {
+  req: axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/labels`,
+    headers: {
+      Authorization: `Bearer ${tokenManager.get()}`,
+    },
+  }),
+
+  fetch: () => {
+    return new Promise((resolve, reject) => {
+      Label.req.get('/').then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  create: (params: {name: string}) => {
+    return new Promise((resolve, reject) => {
+      Label.req.post('/', params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  update: (params: {id: string; name: string}) => {
+    return new Promise((resolve, reject) => {
+      Label.req.put(`/${params.id}`, params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  destroy: (params: any) => {
+    return new Promise((resolve, reject) => {
+      Label.req.delete(`/${params.id}`).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  sort: (params: any, priority: number) => {
+    return new Promise((resolve, reject) => {
+      Label.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+};
+
+const Task = {
+  req: axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/tasks`,
+    headers: {
+      Authorization: `Bearer ${tokenManager.get()}`,
+    },
+  }),
+
+  fetch: () => {
+    return new Promise((resolve, reject) => {
+      Task.req.get('/').then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  create: (params: {labelId: string, content: string}) => {
+    return new Promise((resolve, reject) => {
+      Task.req.post('/', params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  update: (params: any) => {
+    return new Promise((resolve, reject) => {
+      Task.req.put(`/${params.id}`, params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  destroy: (params: any) => {
+    return new Promise((resolve, reject) => {
+      Task.req.delete(`/${params.id}`).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  // Sort: (params: any, priority: number) => {
+  //   return new Promise((resolve, reject) => {
+  //     Label.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
+  //       resolve(data);
+  //     }).catch((err: any) => {handleRequestError(err, reject)});
+  //   });
+  // },
+};
 
 export {
   Label,
+  Task,
 };

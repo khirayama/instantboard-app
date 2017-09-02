@@ -29,6 +29,7 @@
   "dependencies": {
     "@types/pino": "^4.7.0",
     "@types/prop-types": "^15.5.1",
+    "axios": "^0.16.2",
     "browser-sync": "^2.18.13",
     "browserify": "^14.4.0",
     "classnames": "^2.2.5",

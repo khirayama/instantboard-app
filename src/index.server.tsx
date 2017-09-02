@@ -1,5 +1,5 @@
-import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
@@ -11,8 +11,8 @@ import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 
-import tokenManager from './utils/token-manager';
 import * as jwt from 'jwt-simple';
+import tokenManager from './utils/token-manager';
 
 const app = express();
 const store: IStore = new Store(initialState, reducers);
@@ -56,7 +56,7 @@ app.get(router.getPaths(), (req, res) => {
     const token = req.cookies[tokenManager.key];
     try {
       const decode = jwt.decode(token, SECRET_KEY);
-    } catch(err) {
+    } catch (err) {
       res.redirect('/login');
     }
   }

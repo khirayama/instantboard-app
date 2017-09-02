@@ -1,21 +1,18 @@
 import actionTypes from '../constants/action-types';
-import {Label} from '../services';
+import {
+  Label,
+  Task,
+} from '../services';
 
 // Label
 export function fetchLabel(dispatch) {
+  const _action = {
+    type: actionTypes.FETCH_LABEL,
+  };
+  dispatch(_action);
+
   return new Promise(resolve => {
-    const {data, sync} = Label.fetch();
-
-    const _action = {
-      type: actionTypes.FETCH_LABEL,
-      payload: {
-        labels: data.labels,
-        isLoadingLabels: true,
-      },
-    };
-    dispatch(_action);
-
-    sync().then(labels => {
+    Label.fetch().then((labels: ILabel[]) => {
       const action = {
         type: actionTypes.FETCH_LABEL_SUCCESS,
         payload: {labels},
@@ -33,16 +30,13 @@ export function fetchLabel(dispatch) {
 }
 
 export function createLabel(dispatch, label) {
+  const _action = {
+    type: actionTypes.CREATE_LABEL,
+  };
+  dispatch(_action);
+
   return new Promise(resolve => {
-    const {data, sync} = Label.create(label);
-
-    const _action = {
-      type: actionTypes.CREATE_LABEL,
-      payload: {label: data.label},
-    };
-    dispatch(_action);
-
-    sync().then(newLabel => {
+    Label.create(label).then((newLabel: ILabel) => {
       const action = {
         type: actionTypes.CREATE_LABEL_SUCCESS,
         payload: {label: newLabel},
@@ -60,16 +54,13 @@ export function createLabel(dispatch, label) {
 }
 
 export function updateLabel(dispatch, label) {
+  const _action = {
+    type: actionTypes.UPDATE_LABEL,
+  };
+  dispatch(_action);
+
   return new Promise(resolve => {
-    const {data, sync} = Label.update(label);
-
-    const _action = {
-      type: actionTypes.UPDATE_LABEL,
-      payload: {label: data.label},
-    };
-    dispatch(_action);
-
-    sync().then(newLabel => {
+    Label.update(label).then((newLabel: ILabel) => {
       const action = {
         type: actionTypes.UPDATE_LABEL_SUCCESS,
         payload: {label: newLabel},
@@ -87,16 +78,14 @@ export function updateLabel(dispatch, label) {
 }
 
 export function destroyLabel(dispatch, label) {
+  const _action = {
+    type: actionTypes.DESTROY_LABEL,
+    payload: {label},
+  };
+  dispatch(_action);
+
   return new Promise(resolve => {
-    const {data, sync} = Label.destroy(label);
-
-    const _action = {
-      type: actionTypes.DESTROY_LABEL,
-      payload: {labels: data.labels},
-    };
-    dispatch(_action);
-
-    sync().then(() => {
+    Label.destroy(label).then(() => {
       const action = {
         type: actionTypes.DESTROY_LABEL_SUCCESS,
       };
@@ -113,24 +102,120 @@ export function destroyLabel(dispatch, label) {
 }
 
 export function sortLabel(dispatch, label, to) {
+  const _action = {
+    type: actionTypes.SORT_LABEL,
+    payload: {label, priority: to},
+  };
+  dispatch(_action);
+
   return new Promise(resolve => {
-    const {data, sync} = Label.sort(label, to);
-
-    const _action = {
-      type: actionTypes.SORT_LABEL,
-      payload: {labels: data.labels},
-    };
-    dispatch(_action);
-
-    sync().then(() => {
+    Label.sort(label, to).then((labels: ILabel[]) => {
       const action = {
         type: actionTypes.SORT_LABEL_SUCCESS,
+        labels,
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
       const action = {
         type: actionTypes.SORT_LABEL_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+// Task
+export function fetchTask(dispatch) {
+  const _action = {
+    type: actionTypes.FETCH_TASK,
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Task.fetch().then((tasks: ITask[]) => {
+      const action = {
+        type: actionTypes.FETCH_TASK_SUCCESS,
+        payload: {tasks},
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action = {
+        type: actionTypes.FETCH_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+export function createTask(dispatch, task) {
+  const _action = {
+    type: actionTypes.CREATE_TASK,
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Task.create(task).then((newTask: ITask) => {
+      const action = {
+        type: actionTypes.CREATE_TASK_SUCCESS,
+        payload: {task: newTask},
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action = {
+        type: actionTypes.CREATE_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+export function updateTask(dispatch, task) {
+  const _action = {
+    type: actionTypes.UPDATE_TASK,
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Task.update(task).then((newTask: ITask) => {
+      const action = {
+        type: actionTypes.UPDATE_TASK_SUCCESS,
+        payload: {task: newTask},
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action = {
+        type: actionTypes.UPDATE_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+export function destroyTask(dispatch, task) {
+  const _action = {
+    type: actionTypes.DESTROY_TASK,
+    payload: {task},
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Task.destroy(task).then(() => {
+      const action = {
+        type: actionTypes.DESTROY_TASK_SUCCESS,
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action = {
+        type: actionTypes.DESTROY_TASK_FAILURE,
       };
       dispatch(action);
       resolve(action);

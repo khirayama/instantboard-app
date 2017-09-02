@@ -1,5 +1,4 @@
 interface IState {
-  idToken: string|null;
   profile: IUser|null;
   tasks: ITask[];
   labels: ILabel[];

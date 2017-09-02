@@ -1,5 +1,5 @@
 interface ILabel {
-  cid: string;
+  id: string;
   name: string;
   visibled: boolean;
   priority: number;

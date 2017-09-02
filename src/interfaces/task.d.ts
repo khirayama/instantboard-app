@@ -1,6 +1,6 @@
 interface ITask {
-  cid: string;
-  labelCid: string;
+  id: string;
+  labelId: string;
   text: string;
   completed: boolean;
   schedule: {

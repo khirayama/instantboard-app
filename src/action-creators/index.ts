@@ -4,6 +4,15 @@ import {
   Task,
 } from '../services';
 
+function transformLabel(label): ILabel {
+  return {
+    id: String(label.id),
+    name: label.name,
+    visibled: label.visibled,
+    priority: label.priority,
+  };
+}
+
 // Label
 export function fetchLabel(dispatch) {
   const _action = {
@@ -12,10 +21,10 @@ export function fetchLabel(dispatch) {
   dispatch(_action);
 
   return new Promise(resolve => {
-    Label.fetch().then((labels: ILabel[]) => {
+    Label.fetch().then((labels: any[]) => {
       const action = {
         type: actionTypes.FETCH_LABEL_SUCCESS,
-        payload: {labels},
+        payload: {labels: labels.map(transformLabel)},
       };
       dispatch(action);
       resolve(action);

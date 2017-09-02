@@ -9,8 +9,8 @@ const tokenManager = {
     Cookie.set(tokenManager.key, token, {
       // Cookie spec: http://www.yunabe.jp/docs/cookie_and_security.html
       // No set domain: https://blog.tokumaru.org/2011/10/cookiedomain.html
+      // No set secure:
       expires,
-      // secure: true,
     });
   },
   get: () => {

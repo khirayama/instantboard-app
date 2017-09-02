@@ -50,11 +50,10 @@
     -webkit-overflow-scrolling: touch;
     .task-list--item {
       display: flex;
-      min-height: 44px;
       align-items: stretch;
 
       .task-list--item--complete-button,
-      .task-list--item--delete-button {
+      .task-list--item--destroy-button {
         display: flex;
         align-items: center;
         text-align: center;
@@ -64,7 +63,7 @@
       .task-list--item--complete-button {
         padding: 8px;
       }
-      .task-list--item--delete-button {
+      .task-list--item--destroy-button {
         padding: 8px 12px;
       }
 
@@ -95,7 +94,7 @@
         color: $color-text-secondary;
         background-color: $color-divider;
         .task-list--item--complete-button,
-        .task-list--item--delete-button {
+        .task-list--item--destroy-button {
           .check-icon {
             .circle {
               fill: $color-divider;

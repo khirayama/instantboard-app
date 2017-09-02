@@ -70,14 +70,14 @@ export default class LabelIndexPage extends Container<any, any> {
         <List className="label-list">
           {[0, 1, 2].map((index: number) => {
             return (
-              <ListItem key={index} className="label-list--item">
+              <ListItem key={`skelton-${index}`} className="label-list--item">
                 <div className="label-list--item--visible-button">
                   <Icon type="check"/>
                 </div>
                 <div className="label-list--item--content">
                   <div className="label-list--item--content--loader"><Skeleton/></div>
                 </div>
-                <div className="label-list--item--delete-button">
+                <div className="label-list--item--destroy-button">
                   <Icon type="remove"/>
                 </div>
               </ListItem>
@@ -94,7 +94,7 @@ export default class LabelIndexPage extends Container<any, any> {
           </div>
         </div>
       );
-    } else if (!ui.isLoadingLabels && labels.length !== 0) {
+    } else if (labels.length !== 0) {
       contentElement = (
         <List
           className="label-list"
@@ -102,7 +102,7 @@ export default class LabelIndexPage extends Container<any, any> {
         >
           {labels.map((label: ILabel) => (
               <LabelListItem
-                key={label.cid}
+                key={label.id}
                 actions={this.actions}
                 label={label}
               />
@@ -156,11 +156,11 @@ class LabelListItem extends React.Component<any, any> {
         <div className="label-list--item--visible-button" onClick={this.handleClickVisibleButton}>
           <Icon type="check" active={!label.visibled}/>
         </div>
-          <div className="label-list--item--content">
-            <Link to={`/labels/${label.cid}/edit`}>
-              <div className="label-list--item--content--text">{label.name}</div>
-            </Link>
-          </div>
+        <div className="label-list--item--content">
+          <Link to={`/labels/${label.id}/edit`}>
+            <div className="label-list--item--content--text">{label.name}</div>
+          </Link>
+        </div>
         <div className="label-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled}/>
         </div>
@@ -173,7 +173,7 @@ class LabelListItem extends React.Component<any, any> {
     const actions = this.props.actions;
 
     actions.updateLabel({
-      cid: label.cid,
+      id: label.id,
       visibled: !label.visibled,
     });
   }

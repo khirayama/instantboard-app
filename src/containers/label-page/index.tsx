@@ -16,9 +16,9 @@ export default class LabelPage extends Container<any, any> {
     super(props);
 
     let name = '';
-    if (this.state.ui.selectedLabelCid) {
+    if (this.state.ui.selectedLabelId) {
       this.state.labels.forEach((label: ILabel) => {
-        if (label.cid === this.state.ui.selectedLabelCid) {
+        if (label.id === this.state.ui.selectedLabelId) {
           name = label.name;
         }
       });

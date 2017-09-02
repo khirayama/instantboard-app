@@ -2,10 +2,16 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  destroyTask,
+  fetchLabel,
+  fetchTask,
+  updateTask,
+} from '../../action-creators';
+// Components
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-// Components
 import FloatingButton from '../../components/floating-button';
 import {
   Icon,
@@ -41,14 +47,29 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     super(props);
 
     this.actions = {
-      updateTask: () => {},
-      deleteTask: () => {},
+      fetchLabel: () => {
+        fetchLabel(this.dispatch);
+      },
+      fetchTask: () => {
+        fetchTask(this.dispatch);
+      },
+      updateTask: (task) => {
+        updateTask(this.dispatch, task);
+      },
+      destroyTask: (task) => {
+        destroyTask(this.dispatch, task);
+      },
       sortTask: () => {},
     };
 
     this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
     this.handleSortTaskList = this._handleSortTaskList.bind(this);
     this.handleClickAddTaskButton = this._handleClickAddTaskButton.bind(this);
+  }
+
+  public componentDidMount() {
+    this.actions.fetchLabel();
+    this.actions.fetchTask();
   }
 
   public render() {
@@ -64,17 +85,17 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     //     Loading tasks - Show skeleton
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
-    if (ui.isLoadingLabels) {
+    if (ui.isLoadingLabels && labels.length === 0) {
       contentElement = this.createTasksTabContentLoading();
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = this.createTasksTabContentNoLabels();
     } else if (!ui.isLoadingLabels && labels.length !== 0) {
       const recycleTableContents = labels.map((label: any, index: number) => {
         const groupedTasks = tasks.filter((task: any) => {
-          return (task.labelCid === label.cid);
+          return (task.labelId === label.id);
         });
         return (
-          <RecycleTableContentListItem key={label.cid} index={index}>
+          <RecycleTableContentListItem key={label.id} index={index}>
             {this.createTaskList(groupedTasks)}
           </RecycleTableContentListItem>
         );
@@ -84,7 +105,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         <RecycleTable>
           <RecycleTableList>
             {labels.map((label: any, index: number) => {
-              return <RecycleTableListItem key={label.cid} index={index}>{label.name}</RecycleTableListItem>;
+              return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
             })}
           </RecycleTableList>
           <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
@@ -122,7 +143,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   private createTaskList(tasks: ITask[]) {
     const ui = this.state.ui;
 
-    if (ui.isLoadingTasks) {
+    if (ui.isLoadingTasks && tasks.length === 0) {
       return (
         <List className="task-list">
           {[0, 1, 2, 3, 4, 5].map((index: number) => {
@@ -156,43 +177,12 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         onSort={this.handleSortTaskList}
       >
         {tasks.map((task: any) => {
-          const handleClickTaskListItem = this._handleClickTaskListItem.bind(this, task.cid);
-
           return (
-            <ListItem
-              key={task.cid}
-              className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
-            >
-              <div className="task-list--item--complete-button">
-                <Icon type="check" active={task.completed}/>
-              </div>
-              {(task.schedule) ? (
-                <span className="task-list--item--schedule--container">
-                  <span
-                    className={classNames(
-                      'task-list--item--schedule',
-                      `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
-                    )}
-                  >
-                    <span className="task-list--item--schedule--month">
-                      {task.schedule.shortMonthName}
-                    </span>
-                    <span className="task-list--item--schedule--date">
-                      {task.schedule.date}
-                    </span>
-                    <span className="task-list--item--schedule--day">
-                      {task.schedule.shortDayName}
-                    </span>
-                  </span>
-                </span>
-              ) : null}
-              <div className="task-list--item--content" onClick={handleClickTaskListItem}>
-                <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
-              </div>
-              <div className="task-list--item--delete-button">
-                <Icon type="remove"/>
-              </div>
-            </ListItem>
+            <TaskListItem
+              key={task.id}
+              actions={this.actions}
+              task={task}
+            />
           );
         })}
       </List>
@@ -217,14 +207,94 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   private _handleSortTaskList(from: number, to: number) {
     const tasks = this.state.tasks;
     const task = tasks[from];
-    this.actions.sortTask(task.cid, to);
-  }
-
-  private _handleClickTaskListItem(id: string) {
-    this.context.move(`/tasks/${id}/edit`);
+    this.actions.sortTask(task.id, to);
   }
 
   private _handleClickAddTaskButton() {
     this.context.move('/tasks/new');
+  }
+}
+
+class TaskListItem extends React.Component<any, any> {
+  private handleClickCompleteButton: any;
+
+  private handleClickTaskListItem: any;
+
+  private handleClickDestroyButton: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleClickCompleteButton = this._handleClickCompleteButton.bind(this);
+    this.handleClickTaskListItem = this._handleClickTaskListItem.bind(this);
+    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
+  }
+
+  public render() {
+    const task = this.props.task;
+    const props = Object.assign({}, this.props);
+
+    delete props.actions;
+    delete props.task;
+
+    return (
+      <ListItem
+        {...props}
+        className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
+      >
+        <div className="task-list--item--complete-button" onClick={this.handleClickCompleteButton}>
+          <Icon type="check" active={task.completed}/>
+        </div>
+        {(task.schedule) ? (
+          <span className="task-list--item--schedule--container">
+            <span
+              className={classNames(
+                'task-list--item--schedule',
+                `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
+              )}
+            >
+              <span className="task-list--item--schedule--month">
+                {task.schedule.shortMonthName}
+              </span>
+              <span className="task-list--item--schedule--date">
+                {task.schedule.date}
+              </span>
+              <span className="task-list--item--schedule--day">
+                {task.schedule.shortDayName}
+              </span>
+            </span>
+          </span>
+        ) : null}
+        <div className="task-list--item--content" onClick={this.handleClickTaskListItem}>
+          <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
+        </div>
+        <div className="task-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
+          <Icon type="remove"/>
+        </div>
+      </ListItem>
+    );
+  }
+
+  private _handleClickCompleteButton() {
+    const task = this.props.task;
+    const actions = this.props.actions;
+
+    actions.updateTask({
+      id: task.id,
+      completed: !task.completed,
+    });
+  }
+
+  private _handleClickTaskListItem() {
+    const task = this.props.task;
+
+    this.context.move(`/tasks/${task.id}/edit`);
+  }
+
+  private _handleClickDestroyButton() {
+    const task = this.props.task;
+    const actions = this.props.actions;
+
+    actions.destroyTask(task);
   }
 }

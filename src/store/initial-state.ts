@@ -1,22 +1,22 @@
 import * as uuid from 'uuid/v4';
 
 const mockLabels = [{
-  cid: uuid(),
+  id: uuid(),
   name: 'TODAY',
   visibled: true,
 }, {
-  cid: uuid(),
+  id: uuid(),
   name: 'LATER',
   visibled: true,
 }, {
-  cid: uuid(),
+  id: uuid(),
   name: 'MEMO',
   visibled: false,
 }];
 
 const mockTasks = [{
-  cid: uuid(),
-  labelCid: mockLabels[0].cid,
+  id: uuid(),
+  labelId: mockLabels[0].id,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: false,
   schedule: {
@@ -25,14 +25,14 @@ const mockTasks = [{
     date: 28,
   },
 }, {
-  cid: uuid(),
-  labelCid: mockLabels[0].cid,
+  id: uuid(),
+  labelId: mockLabels[0].id,
   text: 'fuga',
   completed: false,
   schedule: null,
 }, {
-  cid: uuid(),
-  labelCid: mockLabels[0].cid,
+  id: uuid(),
+  labelId: mockLabels[0].id,
   text: 'foo',
   completed: false,
   schedule: {
@@ -41,37 +41,32 @@ const mockTasks = [{
     date: 28,
   },
 }, {
-  cid: uuid(),
-  labelCid: mockLabels[0].cid,
+  id: uuid(),
+  labelId: mockLabels[0].id,
   text: 'fuga casdjhbcalds cadjskcn dsajncadslc dnsa csadkc asdc adsc kjcqd asd casd casd c',
   completed: true,
   schedule: null,
 }, {
-  cid: uuid(),
-  labelCid: mockLabels[0].cid,
+  id: uuid(),
+  labelId: mockLabels[0].id,
   text: 'fuga https://material.io/icons/ https://lightworks-blog.com/team-building casdjhbcalds cadjskcn dsajsd casd c',
   completed: false,
   schedule: null,
 }];
 
 const initialState: IState = {
-  idToken: null,
   profile: null,
-  tasks: mockTasks,
-  labels: mockLabels,
+  tasks: [],
+  labels: [],
   requests: [],
   members: [],
   ui: {
     selectedTaskId: null,
     selectedLabelId: null,
     isLoadingTasks: false,
-    isLoadingTaskCids: [],
     isLoadingLabels: false,
-    isLoadingLabelCids: [],
     isLoadingRequests: false,
-    isLoadingRequestCids: [],
     isLoadingMembers: false,
-    isLoadingMemberCids: [],
     errors: [],
   },
 };

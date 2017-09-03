@@ -1,6 +1,9 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {createLabel} from '../../action-creators';
+import {
+  fetchLabel,
+  createLabel,
+} from '../../action-creators';
 import Container from '../container';
 
 export default class LabelPage extends Container<any, any> {
@@ -15,18 +18,12 @@ export default class LabelPage extends Container<any, any> {
   constructor(props: any) {
     super(props);
 
-    let name = '';
-    if (this.state.ui.selectedLabelId) {
-      this.state.labels.forEach((label: ILabel) => {
-        if (label.id === this.state.ui.selectedLabelId) {
-          name = label.name;
-        }
-      });
-    }
-
-    this.state = Object.assign({}, this.state, {name});
+    this.state = Object.assign({}, this.state, {name: ''});
 
     this.actions = {
+      fetchLabel: () => {
+        fetchLabel(this.dispatch);
+      },
       createLabel: (label) => {
         createLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
@@ -38,15 +35,25 @@ export default class LabelPage extends Container<any, any> {
     this.handleSubmit = this._handleSubmit.bind(this);
   }
 
-  private _handleChangeNameInput(event: any) {
-    this.setState({name: event.currentTarget.value});
+  public componentDidMount() {
+    this.actions.fetchLabel();
   }
 
-  private _handleSubmit(event: any) {
-    event.preventDefault();
-    const name = this.state.name.trim();
-    if (name) {
-      this.actions.createLabel({name});
+  public componentDidUpdate(prevProps, prevState) {
+    const ui = this.state.ui;
+    const prevUi = prevState.ui;
+    const labels = this.state.labels;
+    const selectedLabelId = this.props.params.id;
+
+    if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && selectedLabelId) {
+      let name = '';
+      for (let i = 0; i < labels.length; i++) {
+        const label = labels[i];
+        if (label.id === selectedLabelId) {
+          this.setState({name: label.name});
+          break;
+        }
+      }
     }
   }
 
@@ -59,5 +66,17 @@ export default class LabelPage extends Container<any, any> {
         </form>
       </section>
     );
+  }
+
+  private _handleChangeNameInput(event: any) {
+    this.setState({name: event.currentTarget.value});
+  }
+
+  private _handleSubmit(event: any) {
+    event.preventDefault();
+    const name = this.state.name.trim();
+    if (name) {
+      this.actions.createLabel({name});
+    }
   }
 }

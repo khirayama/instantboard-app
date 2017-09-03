@@ -1,8 +1,8 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-  fetchLabel,
   createLabel,
+  fetchLabel,
 } from '../../action-creators';
 import Container from '../container';
 
@@ -46,7 +46,7 @@ export default class LabelPage extends Container<any, any> {
     const selectedLabelId = this.props.params.id;
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && selectedLabelId) {
-      let name = '';
+      const name = '';
       for (let i = 0; i < labels.length; i++) {
         const label = labels[i];
         if (label.id === selectedLabelId) {

@@ -88,11 +88,7 @@ export default class TabNavigation extends React.Component<any, any> {
   }
 
   private _handleClickAddTabLink() {
-    if (window.location.pathname === '/labels') {
-      this.context.move('/labels/new');
-    } else {
-      this.context.move('/tasks/new');
-    }
+    this.context.move(this.props.addTabLinkPath);
   }
 
   private _handleClickNotificationTabLink() {

@@ -92,7 +92,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
               </section>
             </div>
           </div>
-          <TabNavigation index={3}/>
+          <TabNavigation index={3} addTabLinkPath='/tasks/new'/>
         </div>
       </section>
     );

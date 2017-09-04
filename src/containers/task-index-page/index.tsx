@@ -39,6 +39,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private handleClickCreateLabelButton: any;
 
+  private handleChangeIndex: any;
+
   constructor(props: any) {
     super(props);
 
@@ -58,7 +60,10 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       sortTask: () => {},
     };
 
+    this.state = Object.assign({}, this.state, {index: this.loadIndex()});
+
     this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
+    this.handleChangeIndex = this._handleChangeIndex.bind(this);
   }
 
   public componentDidMount() {
@@ -100,10 +105,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         );
       });
 
-      const initialIndex = this.loadIndex();
-
       contentElement = (
-        <RecycleTable index={initialIndex} onChange={this.saveIndex}>
+        <RecycleTable index={this.state.index} onChange={this.handleChangeIndex}>
           <RecycleTableList>
             {labels.map((label: any, index: number) => {
               return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
@@ -114,10 +117,11 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       );
     }
 
+    const label = labels[this.state.index];
     return (
       <section className="page task-index-page">
         <TabNavigationContent>{contentElement}</TabNavigationContent>
-        <TabNavigation index={0}/>
+        <TabNavigation index={0} addTabLinkPath={(label) ? `/tasks/new?label-id=${label.id}` : '/tasks/new'}/>
       </section>
     );
   }
@@ -135,6 +139,10 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     }
   }
 
+  private _handleChangeIndex(index: number): void {
+    this.saveIndex(index);
+    this.setState({index});
+  }
 
   private createTasksTabContentLoading() {
     return (

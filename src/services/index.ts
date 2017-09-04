@@ -33,7 +33,7 @@ const Label = {
     });
   },
 
-  create: (params: {name: string}) => {
+  create: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
       Label.req.post('/', params).then(({data}) => {
         resolve(data);
@@ -43,7 +43,7 @@ const Label = {
     });
   },
 
-  update: (params: {id: string; name: string}) => {
+  update: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
       Label.req.put(`/${params.id}`, params).then(({data}) => {
         resolve(data);
@@ -53,7 +53,7 @@ const Label = {
     });
   },
 
-  destroy: (params: any) => {
+  destroy: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
       Label.req.delete(`/${params.id}`).then(({data}) => {
         resolve(data);
@@ -63,7 +63,7 @@ const Label = {
     });
   },
 
-  sort: (params: any, priority: number) => {
+  sort: (params: ILabelRequest, priority: number) => {
     return new Promise((resolve, reject) => {
       Label.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
         resolve(data);
@@ -92,7 +92,7 @@ const Task = {
     });
   },
 
-  create: (params: {labelId: string, content: string}) => {
+  create: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
       Task.req.post('/', params).then(({data}) => {
         resolve(data);
@@ -102,7 +102,7 @@ const Task = {
     });
   },
 
-  update: (params: any) => {
+  update: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
       Task.req.put(`/${params.id}`, params).then(({data}) => {
         resolve(data);
@@ -112,7 +112,7 @@ const Task = {
     });
   },
 
-  destroy: (params: any) => {
+  destroy: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
       Task.req.delete(`/${params.id}`).then(({data}) => {
         resolve(data);
@@ -121,14 +121,6 @@ const Task = {
       });
     });
   },
-
-  // Sort: (params: any, priority: number) => {
-  //   return new Promise((resolve, reject) => {
-  //     Label.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
-  //       resolve(data);
-  //     }).catch((err: any) => {handleRequestError(err, reject)});
-  //   });
-  // },
 };
 
 export {

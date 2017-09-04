@@ -3,6 +3,7 @@ import * as React from 'react';
 
 interface IRecycleTableProps {
   index?: number;
+  onChange?: any;
   children: any;
 }
 
@@ -21,26 +22,11 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
   constructor(props: any) {
     super(props);
 
-    const initialIndex = this.loadIndex();
-
     this.state = {
-      currentIndex: props.index || initialIndex,
+      currentIndex: props.index || 0,
     };
 
     this.setElement = this._setElement.bind(this);
-  }
-
-  private loadIndex(): number {
-    if (typeof window === 'object') {
-      return JSON.parse(window.sessionStorage.getItem('__recycle-table-index') || '0');
-    }
-    return 0;
-  }
-
-  private saveIndex(index: number): void {
-    if (typeof window === 'object') {
-      window.sessionStorage.setItem('__recycle-table-index', JSON.stringify(index));
-    }
   }
 
   public getChildContext() {
@@ -104,9 +90,11 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
 
   public _setCurrentIndex(index: number) {
     if (this.timerId === null) {
-      this.saveIndex(index);
       this.setState({currentIndex: index});
       this._scrollToCenter(index, true);
+      if (this.props.onChange) {
+        this.props.onChange(index);
+      }
     }
   }
 

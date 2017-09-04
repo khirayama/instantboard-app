@@ -100,8 +100,10 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         );
       });
 
+      const initialIndex = this.loadIndex();
+
       contentElement = (
-        <RecycleTable>
+        <RecycleTable index={initialIndex} onChange={this.saveIndex}>
           <RecycleTableList>
             {labels.map((label: any, index: number) => {
               return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
@@ -119,6 +121,20 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       </section>
     );
   }
+
+  private loadIndex(): number {
+    if (typeof window === 'object') {
+      return JSON.parse(window.sessionStorage.getItem('__recycle-table-index') || '0');
+    }
+    return 0;
+  }
+
+  private saveIndex(index: number): void {
+    if (typeof window === 'object') {
+      window.sessionStorage.setItem('__recycle-table-index', JSON.stringify(index));
+    }
+  }
+
 
   private createTasksTabContentLoading() {
     return (

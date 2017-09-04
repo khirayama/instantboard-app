@@ -38,7 +38,12 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   public render() {
     const props = this.props.props;
     const router: IRouter = this.props.router;
-    const path: string = this.state.path;
+    const path_: string = this.state.path;
+
+    let path = path_;
+    if (path.indexOf('?') !== -1) {
+      path = path.split('?')[0];
+    }
 
     const {route, params} = router.matchRoute(path);
     if (route) {
@@ -47,7 +52,12 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
     return null;
   }
 
-  private _move(path: string) {
+  private _move(path_: string) {
+    let path = path_;
+    if (path.indexOf('?') !== -1) {
+      path = path.split('?')[0];
+    }
+
     const {route} = this.props.router.matchRoute(path);
     window.document.title = route.title;
     window.history.pushState(null, route.title, path);

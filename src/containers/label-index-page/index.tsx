@@ -18,7 +18,6 @@ import {
   ListItem,
 } from '../../components/list';
 import Skeleton from '../../components/skeleton';
-import Link from '../../router/link';
 import Container from '../container';
 
 export default class LabelIndexPage extends Container<any, any> {
@@ -131,7 +130,13 @@ export default class LabelIndexPage extends Container<any, any> {
 }
 
 class LabelListItem extends React.Component<any, any> {
+  public static contextTypes = {
+    move: PropTypes.func,
+  };
+
   private handleClickVisibleButton: any;
+
+  private handleClickLabelListItem: any;
 
   private handleClickDestroyButton: any;
 
@@ -139,6 +144,7 @@ class LabelListItem extends React.Component<any, any> {
     super(props);
 
     this.handleClickVisibleButton = this._handleClickVisibleButton.bind(this);
+    this.handleClickLabelListItem = this._handleClickLabelListItem.bind(this);
     this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
   }
 
@@ -156,10 +162,8 @@ class LabelListItem extends React.Component<any, any> {
         <div className="label-list--item--visible-button" onClick={this.handleClickVisibleButton}>
           <Icon type="check" active={!label.visibled}/>
         </div>
-        <div className="label-list--item--content">
-          <Link to={`/labels/${label.id}/edit`}>
-            <div className="label-list--item--content--text">{label.name}</div>
-          </Link>
+        <div className="label-list--item--content" onClick={this.handleClickLabelListItem}>
+          <div className="label-list--item--content--text">{label.name}</div>
         </div>
         <div className="label-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled}/>
@@ -176,6 +180,12 @@ class LabelListItem extends React.Component<any, any> {
       id: label.id,
       visibled: !label.visibled,
     });
+  }
+
+  private _handleClickLabelListItem() {
+    const label = this.props.label;
+
+    this.context.move(`/labels/${label.id}/edit`);
   }
 
   private _handleClickDestroyButton() {

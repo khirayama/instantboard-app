@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   createLabel,
+  updateLabel,
   fetchLabel,
 } from '../../action-creators';
 import Container from '../container';
@@ -26,6 +27,11 @@ export default class LabelPage extends Container<any, any> {
       },
       createLabel: (label) => {
         createLabel(this.dispatch, label).then(() => {
+          this.context.move('/labels');
+        });
+      },
+      updateLabel: (label) => {
+        updateLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
         });
       },
@@ -74,9 +80,16 @@ export default class LabelPage extends Container<any, any> {
 
   private _handleSubmit(event: any) {
     event.preventDefault();
+
     const name = this.state.name.trim();
+    const id = this.props.params.id;
+
     if (name) {
-      this.actions.createLabel({name});
+      if (id === undefined || id === null) {
+        this.actions.createLabel({name});
+      } else {
+        this.actions.updateLabel({id, name});
+      }
     }
   }
 }

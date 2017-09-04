@@ -39,10 +39,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
   private handleClickCreateLabelButton: any;
 
-  private handleSortTaskList: any;
-
-  private handleClickAddTaskButton: any;
-
   constructor(props: any) {
     super(props);
 
@@ -63,8 +59,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     };
 
     this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
-    this.handleSortTaskList = this._handleSortTaskList.bind(this);
-    this.handleClickAddTaskButton = this._handleClickAddTaskButton.bind(this);
   }
 
   public componentDidMount() {
@@ -96,7 +90,12 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         });
         return (
           <RecycleTableContentListItem key={label.id} index={index}>
-            {this.createTaskList(groupedTasks)}
+            <TaskList
+              actions={this.actions}
+              ui={this.state.ui}
+              label={label}
+              tasks={groupedTasks}
+            />
           </RecycleTableContentListItem>
         );
       });
@@ -140,8 +139,30 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     );
   }
 
-  private createTaskList(tasks: ITask[]) {
-    const ui = this.state.ui;
+  private _handleClickCreateLabelButton() {
+    this.context.move('/labels/new');
+  }
+}
+
+class TaskList extends React.Component<any, any> {
+  public static contextTypes = {
+    move: PropTypes.func,
+  };
+
+  private handleSortTaskList: any;
+
+  private handleClickAddTaskButton: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleSortTaskList = this._handleSortTaskList.bind(this);
+    this.handleClickAddTaskButton = this._handleClickAddTaskButton.bind(this);
+  }
+
+  public render() {
+    const ui = this.props.ui;
+    const tasks = this.props.tasks;
 
     if (ui.isLoadingTasks && tasks.length === 0) {
       return (
@@ -180,7 +201,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
           return (
             <TaskListItem
               key={task.id}
-              actions={this.actions}
+              actions={this.props.actions}
               task={task}
             />
           );
@@ -200,22 +221,25 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     );
   }
 
-  private _handleClickCreateLabelButton() {
-    this.context.move('/labels/new');
-  }
-
   private _handleSortTaskList(from: number, to: number) {
     const tasks = this.state.tasks;
     const task = tasks[from];
-    this.actions.sortTask(task.id, to);
+
+    this.props.actions.sortTask(task.id, to);
   }
 
   private _handleClickAddTaskButton() {
-    this.context.move('/tasks/new');
+    const label = this.props.label;
+
+    this.context.move(`/tasks/new?label-id=${label.id}`);
   }
 }
 
 class TaskListItem extends React.Component<any, any> {
+  public static contextTypes = {
+    move: PropTypes.func,
+  };
+
   private handleClickCompleteButton: any;
 
   private handleClickTaskListItem: any;
@@ -288,7 +312,7 @@ class TaskListItem extends React.Component<any, any> {
   private _handleClickTaskListItem() {
     const task = this.props.task;
 
-    this.context.move(`/tasks/${task.id}/edit`);
+    this.context.move(`/tasks/${task.id}/edit?label-id=${task.labelId}`);
   }
 
   private _handleClickDestroyButton() {

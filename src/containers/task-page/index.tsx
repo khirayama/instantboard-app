@@ -1,6 +1,11 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {createTask} from '../../action-creators';
+import * as queryString from 'query-string';
+import {
+  fetchLabel,
+  fetchTask,
+  createTask,
+} from '../../action-creators';
 import Container from '../container';
 
 export default class TaskPage extends Container<any, any> {
@@ -19,10 +24,16 @@ export default class TaskPage extends Container<any, any> {
 
     this.state = Object.assign({}, this.state, {
       content: '',
-      labelId: this.state.labels[0].id,
+      labelId: null,
     });
 
     this.actions = {
+      fetchLabel: () => {
+        fetchLabel(this.dispatch);
+      },
+      fetchTask: () => {
+        fetchTask(this.dispatch);
+      },
       createTask: (task) => {
         createTask(this.dispatch, task).then(() => {
           this.context.move('/');
@@ -33,6 +44,67 @@ export default class TaskPage extends Container<any, any> {
     this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
     this.handleChangeContentInput = this._handleChangeContentInput.bind(this);
     this.handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  public componentDidMount() {
+    this.actions.fetchLabel();
+    this.actions.fetchTask();
+  }
+
+  public componentDidUpdate(prevProps, prevState) {
+    const ui = this.state.ui;
+    const prevUi = prevState.ui;
+    const tasks = this.state.tasks;
+    const labels = this.state.labels;
+    const selectedTaskId = this.props.params.id;
+
+    let selectedLabelId = null;
+    if (typeof window === 'object') {
+      const query = queryString.parse(window.location.search);
+      if (query['label-id']) {
+        selectedLabelId = query['label-id'];
+      }
+    }
+
+    if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0) {
+      let labelId = labels[0].id;
+      for (let i = 0; i < labels.length; i++) {
+        const label = labels[i];
+        if (label.id === selectedLabelId) {
+          labelId = label.id;
+          break;
+        }
+      }
+      this.setState({labelId});
+    }
+
+    if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && selectedTaskId) {
+      for (let i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
+        if (task.id === selectedTaskId) {
+          this.setState({content: task.content});
+          break;
+        }
+      }
+    }
+  }
+
+  public render() {
+    const labels = this.state.labels;
+
+    return (
+      <section className="page task-page">
+        <form onSubmit={this.handleSubmit}>
+          {(this.state.labelId) ? (
+            <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
+              {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}
+            </select>
+          ) : null}
+          <input type="text" autoFocus value={this.state.name} onChange={this.handleChangeContentInput} />
+          <button>Create!</button>
+        </form>
+      </section>
+    );
   }
 
   private _handleChangeLabelIdSelect(event: any) {
@@ -52,19 +124,5 @@ export default class TaskPage extends Container<any, any> {
         labelId: this.state.labelId,
       });
     }
-  }
-
-  public render() {
-    const labels = this.state.labels;
-
-    return (
-      <section className="page task-page">
-        <form onSubmit={this.handleSubmit}>
-          <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>{labels.map((label: any) => <option key={label.id}>{label.name}</option>)}</select>
-          <input type="text" autoFocus value={this.state.name} onChange={this.handleChangeContentInput} />
-          <button>Create!</button>
-        </form>
-      </section>
-    );
   }
 }

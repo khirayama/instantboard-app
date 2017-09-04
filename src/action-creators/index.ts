@@ -4,32 +4,58 @@ import {
   Task,
 } from '../services';
 
-function transformLabel(label): ILabel {
+function transformSchedule(schedule: any): ISchedule|null {
+  if (schedule === null) {
+    return null;
+  }
+
   return {
-    id: String(label.id),
-    name: label.name,
-    visibled: label.visibled,
-    priority: label.priority,
+    shortMonthName: schedule.shortMonthName,
+    shortDayName: schedule.shortDayName,
+    date: schedule.date,
+  };
+}
+
+function transformTask(task: ITaskRequest|ITaskResponse): ITask {
+  return {
+    id: String(task.id || ''),
+    labelId: String(task.labelId || ''),
+    text: task.text || '',
+    priority: task.priority || 0,
+    completed: (task.completed) ? true : false,
+    schedule: transformSchedule(task.schedule) || null,
+  };
+}
+
+function transformLabel(label: ILabelRequest|ILabelResponse): ILabel {
+  return {
+    id: String(label.id || ''),
+    name: label.name || '',
+    visibled: (label.visibled) ? true : false,
+    priority: label.priority || 0,
+    members: label.members || [],
   };
 }
 
 // Label
-export function fetchLabel(dispatch) {
-  const _action = {
+export function fetchLabel(dispatch: IDispatch) {
+  const _action: IAction = {
     type: actionTypes.FETCH_LABEL,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Label.fetch().then((labels: any[]) => {
-      const action = {
+    Label.fetch().then((labels: ILabelResponse[]) => {
+      const action: IAction = {
         type: actionTypes.FETCH_LABEL_SUCCESS,
-        payload: {labels: labels.map(transformLabel)},
+        payload: {
+          labels: labels.map(transformLabel),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.FETCH_LABEL_FAILURE,
       };
       dispatch(action);
@@ -38,22 +64,24 @@ export function fetchLabel(dispatch) {
   });
 }
 
-export function createLabel(dispatch, label) {
-  const _action = {
+export function createLabel(dispatch: IDispatch, label: ILabelRequest) {
+  const _action: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Label.create(label).then((newLabel: ILabel) => {
-      const action = {
+    Label.create(label).then((newLabel: ILabelResponse) => {
+      const action: IAction = {
         type: actionTypes.CREATE_LABEL_SUCCESS,
-        payload: {label: newLabel},
+        payload: {
+          label: transformLabel(newLabel),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.CREATE_LABEL_FAILURE,
       };
       dispatch(action);
@@ -62,22 +90,24 @@ export function createLabel(dispatch, label) {
   });
 }
 
-export function updateLabel(dispatch, label) {
-  const _action = {
+export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
+  const _action: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Label.update(label).then((newLabel: ILabel) => {
-      const action = {
+    Label.update(label).then((newLabel: ILabelResponse) => {
+      const action: IAction = {
         type: actionTypes.UPDATE_LABEL_SUCCESS,
-        payload: {label: newLabel},
+        payload: {
+          label: transformLabel(newLabel),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.UPDATE_LABEL_FAILURE,
       };
       dispatch(action);
@@ -86,22 +116,24 @@ export function updateLabel(dispatch, label) {
   });
 }
 
-export function destroyLabel(dispatch, label) {
-  const _action = {
+export function destroyLabel(dispatch: IDispatch, label: ILabelRequest) {
+  const _action: IAction = {
     type: actionTypes.DESTROY_LABEL,
-    payload: {label},
+    payload: {
+      label: transformLabel(label),
+    },
   };
   dispatch(_action);
 
   return new Promise(resolve => {
     Label.destroy(label).then(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.DESTROY_LABEL_SUCCESS,
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.DESTROY_LABEL_FAILURE,
       };
       dispatch(action);
@@ -110,18 +142,23 @@ export function destroyLabel(dispatch, label) {
   });
 }
 
-export function sortLabel(dispatch, label, to) {
-  const _action = {
+export function sortLabel(dispatch: IDispatch, label: ILabelRequest, to: number) {
+  const _action: IAction = {
     type: actionTypes.SORT_LABEL,
-    payload: {label, priority: to},
+    payload: {
+      label: transformLabel(label),
+      priority: to,
+    },
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Label.sort(label, to).then((labels: ILabel[]) => {
-      const action = {
+    Label.sort(label, to).then((labels: ILabelResponse[]) => {
+      const action: IAction = {
         type: actionTypes.SORT_LABEL_SUCCESS,
-        labels,
+        payload: {
+          labels: labels.map(transformLabel),
+        },
       };
       dispatch(action);
       resolve(action);
@@ -136,22 +173,24 @@ export function sortLabel(dispatch, label, to) {
 }
 
 // Task
-export function fetchTask(dispatch) {
-  const _action = {
+export function fetchTask(dispatch: IDispatch) {
+  const _action: IAction = {
     type: actionTypes.FETCH_TASK,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Task.fetch().then((tasks: ITask[]) => {
-      const action = {
+    Task.fetch().then((tasks: ITaskResponse[]) => {
+      const action: IAction = {
         type: actionTypes.FETCH_TASK_SUCCESS,
-        payload: {tasks},
+        payload: {
+          tasks: tasks.map(transformTask),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.FETCH_TASK_FAILURE,
       };
       dispatch(action);
@@ -160,22 +199,24 @@ export function fetchTask(dispatch) {
   });
 }
 
-export function createTask(dispatch, task) {
-  const _action = {
+export function createTask(dispatch: IDispatch, task: ITaskRequest) {
+  const _action: IAction = {
     type: actionTypes.CREATE_TASK,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Task.create(task).then((newTask: ITask) => {
-      const action = {
+    Task.create(task).then((newTask: ITaskResponse) => {
+      const action: IAction = {
         type: actionTypes.CREATE_TASK_SUCCESS,
-        payload: {task: newTask},
+        payload: {
+          task: transformTask(newTask),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.CREATE_TASK_FAILURE,
       };
       dispatch(action);
@@ -184,22 +225,24 @@ export function createTask(dispatch, task) {
   });
 }
 
-export function updateTask(dispatch, task) {
-  const _action = {
+export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
+  const _action: IAction = {
     type: actionTypes.UPDATE_TASK,
   };
   dispatch(_action);
 
   return new Promise(resolve => {
-    Task.update(task).then((newTask: ITask) => {
-      const action = {
+    Task.update(task).then((newTask: ITaskResponse) => {
+      const action: IAction = {
         type: actionTypes.UPDATE_TASK_SUCCESS,
-        payload: {task: newTask},
+        payload: {
+          task: transformTask(newTask),
+        },
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.UPDATE_TASK_FAILURE,
       };
       dispatch(action);
@@ -208,22 +251,24 @@ export function updateTask(dispatch, task) {
   });
 }
 
-export function destroyTask(dispatch, task) {
-  const _action = {
+export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
+  const _action: IAction = {
     type: actionTypes.DESTROY_TASK,
-    payload: {task},
+    payload: {
+      task: transformTask(task),
+    },
   };
   dispatch(_action);
 
   return new Promise(resolve => {
     Task.destroy(task).then(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.DESTROY_TASK_SUCCESS,
       };
       dispatch(action);
       resolve(action);
     }).catch(() => {
-      const action = {
+      const action: IAction = {
         type: actionTypes.DESTROY_TASK_FAILURE,
       };
       dispatch(action);

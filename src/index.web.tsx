@@ -8,9 +8,7 @@ import initialState from './store/initial-state';
 import Store from './store/store';
 import logger from './utils/logger';
 
-const store: IStore = new Store(initialState, reducers, {
-  debounce: 1000 / 60,
-});
+const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
 
 window.addEventListener('DOMContentLoaded', () => {

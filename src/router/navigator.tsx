@@ -60,7 +60,7 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
 
     const {route} = this.props.router.matchRoute(path);
     window.document.title = route.title;
-    window.history.pushState(null, route.title, path);
-    this.setState({path});
+    window.history.pushState(null, route.title, path_);
+    this.setState({path: path_});
   }
 }

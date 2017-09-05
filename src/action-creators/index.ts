@@ -21,6 +21,7 @@ function transformTask(task: ITaskRequest|ITaskResponse): ITask {
     id: String(task.id || ''),
     labelId: String(task.labelId || ''),
     text: task.text || '',
+    content: task.content || '',
     priority: task.priority || 0,
     completed: (task.completed) ? true : false,
     schedule: transformSchedule(task.schedule) || null,

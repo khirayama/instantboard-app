@@ -100,7 +100,7 @@ export default class TaskPage extends Container<any, any> {
               {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}
             </select>
           ) : null}
-          <input type="text" autoFocus value={this.state.name} onChange={this.handleChangeContentInput} />
+          <input type="text" autoFocus value={this.state.content} onChange={this.handleChangeContentInput} />
           <button>Create!</button>
         </form>
       </section>

@@ -11,6 +11,7 @@ interface ITask {
   id: string;
   labelId: string;
   text: string;
+  content: string;
   completed: boolean;
   priority: number;
   schedule: ISchedule | null;
@@ -30,6 +31,7 @@ interface ITaskResponse {
   id: string;
   labelId: string;
   text: string;
+  content: string;
   completed: boolean;
   priority: number;
   schedule: IScheduleResponse | null;

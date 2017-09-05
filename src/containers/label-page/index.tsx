@@ -25,12 +25,12 @@ export default class LabelPage extends Container<any, any> {
       fetchLabel: () => {
         fetchLabel(this.dispatch);
       },
-      createLabel: (label) => {
+      createLabel: (label: ILabelRequest) => {
         createLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
         });
       },
-      updateLabel: (label) => {
+      updateLabel: (label: ILabelRequest) => {
         updateLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
         });

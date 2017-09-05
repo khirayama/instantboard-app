@@ -116,6 +116,7 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
     case (actionTypes.SORT_LABEL_SUCCESS): {
+      newState.labels = payload.labels;
       newState.ui.isLoadingLabels = false;
       break;
     }

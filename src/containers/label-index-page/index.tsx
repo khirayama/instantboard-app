@@ -121,7 +121,9 @@ export default class LabelIndexPage extends Container<any, any> {
     const labels = this.state.labels;
     const label = labels[from];
 
-    this.actions.sortLabel(label, to);
+    if (label.priority !== to) {
+      this.actions.sortLabel(label, to);
+    }
   }
 
   private _handleClickCreateLabelButton() {

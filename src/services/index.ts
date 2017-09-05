@@ -133,7 +133,27 @@ const Task = {
   },
 };
 
+const Member = {
+  req: axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/members`,
+    headers: {
+      Authorization: `Bearer ${tokenManager.get()}`,
+    },
+  }),
+
+  fetch: () => {
+    return new Promise((resolve, reject) => {
+      Member.req.get('/').then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+};
+
 export {
   Label,
   Task,
+  Member,
 };

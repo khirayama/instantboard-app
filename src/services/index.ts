@@ -121,6 +121,16 @@ const Task = {
       });
     });
   },
+
+  sort: (params: ITaskRequest, priority: number) => {
+    return new Promise((resolve, reject) => {
+      Task.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
 };
 
 export {

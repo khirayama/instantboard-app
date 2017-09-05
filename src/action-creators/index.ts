@@ -2,6 +2,7 @@ import actionTypes from '../constants/action-types';
 import {
   Label,
   Task,
+  Member,
 } from '../services';
 
 function transformSchedule(schedule: any): ISchedule|null {
@@ -301,6 +302,32 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
     }).catch(() => {
       const action = {
         type: actionTypes.SORT_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+export function fetchMember(dispatch: IDispatch) {
+  const _action: IAction = {
+    type: actionTypes.FETCH_MEMBER,
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Member.fetch().then((members: IUserResponse[]) => {
+      const action: IAction = {
+        type: actionTypes.FETCH_MEMBER_SUCCESS,
+        payload: {
+          members: members.map(transformUser),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.FETCH_MEMBER_FAILURE,
       };
       dispatch(action);
       resolve(action);

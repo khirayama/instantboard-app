@@ -189,6 +189,65 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
 
+    case (actionTypes.SORT_TASK): {
+      // Uncomfortable to immediate update UI.
+      newState.tasks = (() => {
+        let tasks = state.tasks;
+        const task = payload.task;
+        const priority = payload.priority;
+
+        if (task.priority > priority) {
+          tasks = tasks.map(task_ => {
+            if (task_.labelId === task.labelId) {
+              if (task_.priority === task.priority) {
+                task_.priority = priority;
+              } else if (
+                (priority <= task_.priority) &&
+                (task_.priority < task.priority)
+              ) {
+                task_.priority += 1;
+              }
+            }
+            return task_;
+          });
+        } else if (task.priority < priority) {
+          tasks = tasks.map(task_ => {
+            if (task_.labelId === task.labelId) {
+              if (task_.priority === task.priority) {
+                task_.priority = priority;
+              } else if (
+                (task.priority < task_.priority) &&
+                (task_.priority <= priority)
+              ) {
+                task_.priority -= 1;
+              }
+            }
+            return task_;
+          });
+        }
+
+        return tasks.sort((x, y) => {
+          if (x.priority > y.priority) {
+            return 1;
+          } else if (x.priority < y.priority) {
+            return -1;
+          }
+          return 0;
+        });
+      })();
+      newState.ui.isLoadingTasks = true;
+      break;
+    }
+    case (actionTypes.SORT_TASK_SUCCESS): {
+      newState.tasks = payload.tasks;
+      newState.ui.isLoadingTasks = false;
+      break;
+    }
+    case (actionTypes.SORT_TASK_FAILURE): {
+      newState.ui.isLoadingTasks = false;
+      break;
+    }
+
     default: {
       break;
     }

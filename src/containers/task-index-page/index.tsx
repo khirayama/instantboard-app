@@ -6,6 +6,7 @@ import {
   fetchLabel,
   fetchTask,
   updateTask,
+  sortTask,
 } from '../../action-creators';
 // Components
 import {
@@ -57,7 +58,9 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       destroyTask: (task) => {
         destroyTask(this.dispatch, task);
       },
-      sortTask: () => {},
+      sortTask: (task: ITask, to: number) => {
+        sortTask(this.dispatch, task, to);
+      },
     };
 
     this.state = Object.assign({}, this.state, {index: this.loadIndex()});

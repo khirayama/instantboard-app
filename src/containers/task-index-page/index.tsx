@@ -249,10 +249,12 @@ class TaskList extends React.Component<any, any> {
   }
 
   private _handleSortTaskList(from: number, to: number) {
-    const tasks = this.state.tasks;
+    const tasks = this.props.tasks;
     const task = tasks[from];
 
-    this.props.actions.sortTask(task.id, to);
+    if (task.priority !== to) {
+      this.props.actions.sortTask(task, to);
+    }
   }
 
   private _handleClickAddTaskButton() {

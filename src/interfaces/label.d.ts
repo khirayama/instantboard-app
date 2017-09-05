@@ -3,7 +3,7 @@ interface ILabel {
   name: string;
   visibled: boolean;
   priority: number;
-  members: IMember[];
+  members: IUser[];
 }
 
 interface ILabelRequest {
@@ -11,7 +11,7 @@ interface ILabelRequest {
   name?: string;
   visibled?: boolean;
   priority?: number;
-  members?: IMember[];
+  members?: IUser[];
 }
 
 interface ILabelResponse {
@@ -19,13 +19,7 @@ interface ILabelResponse {
   name: string;
   visibled: boolean;
   priority: number;
-  members: IMemberResponse[];
+  members: IUserResponse[];
   createdAt: string;
   updatedAt: string;
-}
-
-interface IMember {
-}
-
-interface IMemberResponse {
 }

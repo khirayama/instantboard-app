@@ -29,6 +29,13 @@ function transformTask(task: ITaskRequest|ITaskResponse): ITask {
   };
 }
 
+function transformUser(user: IUserRequest|IUserResponse): IUser {
+  console.log(user);
+  return {
+    id: String(user.id || ''),
+  };
+}
+
 function transformLabel(label: ILabelRequest|ILabelResponse): ILabel {
   return {
     id: String(label.id || ''),

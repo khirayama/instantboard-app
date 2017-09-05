@@ -5,6 +5,7 @@ import {
   fetchLabel,
   fetchTask,
   createTask,
+  updateTask,
 } from '../../action-creators';
 import Container from '../container';
 
@@ -34,8 +35,13 @@ export default class TaskPage extends Container<any, any> {
       fetchTask: () => {
         fetchTask(this.dispatch);
       },
-      createTask: (task) => {
+      createTask: (task: ITaskRequest) => {
         createTask(this.dispatch, task).then(() => {
+          this.context.move('/');
+        });
+      },
+      updateTask: (task: ITaskRequest) => {
+        updateTask(this.dispatch, task).then(() => {
           this.context.move('/');
         });
       },
@@ -117,12 +123,23 @@ export default class TaskPage extends Container<any, any> {
 
   private _handleSubmit(event: any) {
     event.preventDefault();
+
     const content = this.state.content.trim();
+    const id = this.props.params.id;
+
     if (content) {
-      this.actions.createTask({
-        content,
-        labelId: this.state.labelId,
-      });
+      if (id === undefined || id === null) {
+        this.actions.createTask({
+          content,
+          labelId: this.state.labelId,
+        });
+      } else {
+        this.actions.updateTask({
+          id,
+          content,
+          labelId: this.state.labelId,
+        });
+      }
     }
   }
 }

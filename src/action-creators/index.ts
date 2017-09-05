@@ -277,3 +277,33 @@ export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
     });
   });
 }
+
+export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
+  const _action: IAction = {
+    type: actionTypes.SORT_TASK,
+    payload: {
+      task: transformTask(task),
+      priority: to,
+    },
+  };
+  dispatch(_action);
+
+  return new Promise(resolve => {
+    Task.sort(task, to).then((tasks: ITaskResponse[]) => {
+      const action: IAction = {
+        type: actionTypes.SORT_TASK_SUCCESS,
+        payload: {
+          tasks: tasks.map(transformTask),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action = {
+        type: actionTypes.SORT_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}

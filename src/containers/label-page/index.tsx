@@ -4,6 +4,7 @@ import {
   createLabel,
   updateLabel,
   fetchLabel,
+  fetchMember,
 } from '../../action-creators';
 import Container from '../container';
 
@@ -22,6 +23,9 @@ export default class LabelPage extends Container<any, any> {
     this.state = Object.assign({}, this.state, {name: ''});
 
     this.actions = {
+      fetchMember: () => {
+        fetchMember(this.dispatch);
+      },
       fetchLabel: () => {
         fetchLabel(this.dispatch);
       },
@@ -43,6 +47,7 @@ export default class LabelPage extends Container<any, any> {
 
   public componentDidMount() {
     this.actions.fetchLabel();
+    this.actions.fetchMember();
   }
 
   public componentDidUpdate(prevProps, prevState) {

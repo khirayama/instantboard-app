@@ -3,6 +3,7 @@ import {
   Label,
   Task,
   Member,
+  Request,
 } from '../services';
 
 function transformSchedule(schedule: any): ISchedule|null {
@@ -81,14 +82,26 @@ export function createLabel(dispatch: IDispatch, label: ILabelRequest) {
 
   return new Promise(resolve => {
     Label.create(label).then((newLabel: ILabelResponse) => {
+      const newLabel_ = transformLabel(newLabel);
       const action: IAction = {
         type: actionTypes.CREATE_LABEL_SUCCESS,
         payload: {
-          label: transformLabel(newLabel),
+          label: newLabel_,
         },
       };
       dispatch(action);
-      resolve(action);
+
+      if (label.memberNames) {
+        const promises = label.memberNames.map((memberName: string) => {
+          return Request.create({
+            labelId: newLabel_.id,
+            memberName,
+          });
+        });
+        Promise.all(promises).then(() => {
+          resolve(action);
+        });
+      }
     }).catch(() => {
       const action: IAction = {
         type: actionTypes.CREATE_LABEL_FAILURE,

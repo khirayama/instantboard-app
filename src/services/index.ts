@@ -152,8 +152,58 @@ const Member = {
   },
 };
 
+const Request = {
+  req: axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/requests`,
+    headers: {
+      Authorization: `Bearer ${tokenManager.get()}`,
+    },
+  }),
+
+  fetch: () => {
+    return new Promise((resolve, reject) => {
+      Request.req.get('/').then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  create: (params: IRequestRequest) => {
+    return new Promise((resolve, reject) => {
+      Request.req.post('/', params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  update: (params: IRequestRequest) => {
+    return new Promise((resolve, reject) => {
+      Request.req.put(`/${params.id}`, params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  destroy: (params: IRequestRequest) => {
+    return new Promise((resolve, reject) => {
+      Request.req.delete(`/${params.id}`).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+};
+
 export {
   Label,
   Task,
   Member,
+  Request,
 };

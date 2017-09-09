@@ -91,15 +91,17 @@ export function createLabel(dispatch: IDispatch, label: ILabelRequest) {
       };
       dispatch(action);
 
-      if (label.memberNames) {
-        const promises = label.memberNames.map((memberName: string) => {
+      if (label.members) {
+        const promises = label.members.map((member: any) => {
           return Request.create({
             labelId: newLabel_.id,
-            memberName,
+            memberName: member.name,
           });
         });
         Promise.all(promises).then(() => {
           resolve(action);
+        }).catch((err) => {
+          console.log(err);
         });
       }
     }).catch(() => {

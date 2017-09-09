@@ -114,13 +114,13 @@
       transform: translate(-50%, -50%);
       width: 80%;
 
-      .user-tab-content--username {
+      .user-tab-content--name {
         display: inline-block;
         position: relative;
         width: 100%;
         margin-bottom: 24px;
 
-        .user-tab-content--username--icon {
+        .user-tab-content--name--icon {
           display: inline-block;
           height: $height;
           position: absolute;
@@ -132,7 +132,7 @@
           }
         }
 
-        .user-tab-content--username--input {
+        .user-tab-content--name--input {
           display: inline-block;
           position: relative;
 

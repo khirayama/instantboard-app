@@ -9,7 +9,7 @@ import Container from '../container';
 
 interface IProfilePageState extends IState {
   isEditing: boolean;
-  username: string;
+  name: string;
 }
 
 export default class ProfilePage extends Container<IContainerProps, IState> {
@@ -19,9 +19,9 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   private handleClickLogoutButton: any;
 
-  private handleChangeUserNameInput: any;
+  private handleChangeNameInput: any;
 
-  private handleBlurUserNameInput: any;
+  private handleBlurNameInput: any;
 
   private handleClickEditButton: any;
 
@@ -32,7 +32,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
     this.state = Object.assign({}, this.state, {
       isEditing: false,
-      username: (this.state.profile) ? this.state.profile.username : '',
+      name: (this.state.profile) ? this.state.profile.name : '',
     });
 
     this.actions = {
@@ -42,16 +42,16 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     };
 
     this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
-    this.handleChangeUserNameInput = this._handleChangeUserNameInput.bind(this);
-    this.handleBlurUserNameInput = this._handleBlurUserNameInput.bind(this);
+    this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
+    this.handleBlurNameInput = this._handleBlurNameInput.bind(this);
     this.handleClickEditButton = this._handleClickEditButton.bind(this);
     this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
   }
 
   public componentDidUpdate(prevProps: any) {
-    if (!prevProps.user.username && this.props.user.username) {
+    if (!prevProps.user.name && this.props.user.name) {
       this.setState({
-        username: this.props.user.username,
+        name: this.props.user.name,
       });
     }
   }
@@ -66,20 +66,20 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
             <div className="tab-navigation-content-list-item">
               <section className="user-tab-content">
                 <div className="user-tab-content--information">
-                  <div className="user-tab-content--username">
-                    <div className="user-tab-content--username--icon">
+                  <div className="user-tab-content--name">
+                    <div className="user-tab-content--name--icon">
                       <Icon>person</Icon>
                     </div>
-                    <div className="user-tab-content--username--input">
+                    <div className="user-tab-content--name--input">
                       {(this.state.isEditing) ? (
                         <textarea
                           autoFocus
-                          value={this.state.username}
-                          onBlur={this.handleBlurUserNameInput}
-                          onChange={this.handleChangeUserNameInput}
+                          value={this.state.name}
+                          onBlur={this.handleBlurNameInput}
+                          onChange={this.handleChangeNameInput}
                         />
                       ) : (
-                        <p onClick={this.handleClickEditButton}>{user.username}<Icon>edit</Icon></p>
+                        <p onClick={this.handleClickEditButton}>{user.name}<Icon>edit</Icon></p>
                       )}
                     </div>
                   </div>
@@ -102,12 +102,12 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     this.actions.logout();
   }
 
-  private _handleChangeUserNameInput(event: any) {
-    this.setState({username: event.currentTarget.value});
+  private _handleChangeNameInput(event: any) {
+    this.setState({name: event.currentTarget.value});
   }
 
-  private _handleBlurUserNameInput() {
-    this.actions.updateUser(this.state.username.trim());
+  private _handleBlurNameInput() {
+    this.actions.updateUser(this.state.name.trim());
     this.setState({isEditing: false});
   }
 

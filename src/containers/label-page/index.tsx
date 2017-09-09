@@ -15,12 +15,20 @@ export default class LabelPage extends Container<any, any> {
 
   private handleChangeNameInput: any;
 
-  private handleSubmit: any;
+  private handleSubmitLabelForm: any;
+
+  private handleChangeMemberNameInput: any;
+
+  private handleSubmitMemberNameForm: any;
 
   constructor(props: any) {
     super(props);
 
-    this.state = Object.assign({}, this.state, {name: ''});
+    this.state = Object.assign({}, this.state, {
+      labelName: '',
+      memberName: '',
+      memberNames: [],
+    });
 
     this.actions = {
       fetchMember: () => {
@@ -42,7 +50,9 @@ export default class LabelPage extends Container<any, any> {
     };
 
     this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
-    this.handleSubmit = this._handleSubmit.bind(this);
+    this.handleSubmitLabelForm = this._handleSubmitLabelForm.bind(this);
+    this.handleChangeMemberNameInput = this._handleChangeMemberNameInput.bind(this);
+    this.handleSubmitMemberNameForm = this._handleSubmitMemberNameForm.bind(this);
   }
 
   public componentDidMount() {
@@ -57,11 +67,13 @@ export default class LabelPage extends Container<any, any> {
     const selectedLabelId = this.props.params.id;
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && selectedLabelId) {
-      const name = '';
       for (let i = 0; i < labels.length; i++) {
         const label = labels[i];
         if (label.id === selectedLabelId) {
-          this.setState({name: label.name});
+          this.setState({
+            labelName: label.name,
+            members: label.members,
+          });
           break;
         }
       }
@@ -71,8 +83,12 @@ export default class LabelPage extends Container<any, any> {
   public render() {
     return (
       <section className="page label-page">
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" autoFocus value={this.state.name} onChange={this.handleChangeNameInput} />
+        <form onSubmit={this.handleSubmitMemberNameForm}>
+          <input type="text" value={this.state.memberName} onChange={this.handleChangeMemberNameInput} />
+          <ul>{this.state.members.map((member, index) => <li key={index}>{member.name}</li>)}</ul>
+        </form>
+        <form onSubmit={this.handleSubmitLabelForm}>
+          <input type="text" autoFocus value={this.state.labelName} onChange={this.handleChangeNameInput} />
           <button>Create!</button>
         </form>
       </section>
@@ -80,21 +96,49 @@ export default class LabelPage extends Container<any, any> {
   }
 
   private _handleChangeNameInput(event: any) {
-    this.setState({name: event.currentTarget.value});
+    this.setState({labelName: event.currentTarget.value});
   }
 
-  private _handleSubmit(event: any) {
+  private _handleSubmitLabelForm(event: any) {
     event.preventDefault();
 
-    const name = this.state.name.trim();
+    const labelName = this.state.labelName.trim();
+    const members = this.state.members;
     const id = this.props.params.id;
 
-    if (name) {
+    if (labelName) {
       if (id === undefined || id === null) {
-        this.actions.createLabel({name});
+        this.actions.createLabel({
+          name: labelName,
+          members,
+        });
       } else {
-        this.actions.updateLabel({id, name});
+        this.actions.updateLabel({
+          id,
+          name: labelName,
+          members,
+        });
       }
     }
+  }
+
+  private _handleChangeMemberNameInput(event: any) {
+    this.setState({memberName: event.currentTarget.value});
+  }
+
+  private _handleSubmitMemberNameForm(event: any) {
+    event.preventDefault();
+
+    const memberName = this.state.memberName.trim();
+    const members = this.state.members;
+
+    members.push({
+      name: memberName,
+    });
+
+    this.setState({
+      memberName: '',
+      members,
+    });
   }
 }

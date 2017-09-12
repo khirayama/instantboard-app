@@ -16,6 +16,13 @@ function handleRequestError(err: any, reject: any) {
   reject(data);
 }
 
+const searchReq = axios.create({
+  baseURL: `${API_SERVER_HOST}/api/v1/search`,
+  headers: {
+    Authorization: `Bearer ${tokenManager.get()}`,
+  },
+});
+
 const Label = {
   req: axios.create({
     baseURL: `${API_SERVER_HOST}/api/v1/labels`,
@@ -136,15 +143,25 @@ const Task = {
 
 const User = {
   req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/users`,
+    baseURL: `${API_SERVER_HOST}/api/v1/user`,
     headers: {
       Authorization: `Bearer ${tokenManager.get()}`,
     },
   }),
 
-  exist: (params: any) => {
+  get: () => {
     return new Promise((resolve, reject) => {
-      User.req.get('/exist', {params}).then(({data}) => {
+      User.req.get('/').then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  search: (params) => {
+    return new Promise((resolve, reject) => {
+      searchReq.get('/users', {params}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);

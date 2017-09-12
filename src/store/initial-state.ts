@@ -61,8 +61,6 @@ const initialState: IState = {
   requests: [],
   members: [],
   ui: {
-    selectedTaskId: null,
-    selectedLabelId: null,
     isLoadingTasks: false,
     isLoadingLabels: false,
     isLoadingRequests: false,

@@ -1,6 +1,4 @@
 interface IUI {
-  selectedTaskId: string|null;
-  selectedLabelId: string|null;
   isLoadingTasks: boolean;
   isLoadingLabels: boolean;
   isLoadingRequests: boolean;

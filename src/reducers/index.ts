@@ -248,6 +248,18 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
 
+    // User
+    case (actionTypes.GET_CURRENT_USER): {
+      break;
+    }
+    case (actionTypes.GET_CURRENT_USER_SUCCES): {
+      newState.profile = payload.profile;
+      break;
+    }
+    case (actionTypes.GET_CURRENT_USER_FAILURE): {
+      break;
+    }
+
     default: {
       break;
     }

@@ -1,5 +1,6 @@
 import actionTypes from '../constants/action-types';
 import {
+  User,
   Label,
   Task,
   Member,
@@ -32,7 +33,7 @@ function transformTask(task: ITaskRequest|ITaskResponse): ITask {
 
 function transformUser(user: IUserRequest|IUserResponse): IUser {
   return {
-    id: String(user.id || ''),
+    name: user.name || '',
   };
 }
 
@@ -409,6 +410,32 @@ export function fetchMember(dispatch: IDispatch) {
     }).catch(() => {
       const action: IAction = {
         type: actionTypes.FETCH_MEMBER_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
+export function getCurrentUser(dispatch: IDispatch) {
+  const _action: IAction = {
+    type: actionTypes.GET_CURRENT_USER,
+  };
+  dispatch(_action);
+
+  return new Promise((resolve, reject) => {
+    User.get().then((user: IUserResponse) => {
+      const action: IAction = {
+        type: actionTypes.GET_CURRENT_USER_SUCCES,
+        payload: {
+          profile: transformUser(user),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.GET_CURRENT_USER_FAILURE,
       };
       dispatch(action);
       resolve(action);

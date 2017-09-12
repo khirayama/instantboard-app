@@ -11,7 +11,7 @@ interface ILabelRequest {
   name?: string;
   visibled?: boolean;
   priority?: number;
-  members?: IUser[];
+  members: IUser[];
 }
 
 interface ILabelResponse {

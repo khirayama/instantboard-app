@@ -8,11 +8,12 @@ const API_SERVER_HOST = `http://${API_SERVER_HOSTNAME}:${API_SERVER_PORT}`;
 
 function handleRequestError(err: any, reject: any) {
   const status = err.response.status;
+  const data = err.response.data;
 
   if (status === 401) {
     window.location.href = '/login';
   }
-  reject(err);
+  reject(data);
 }
 
 const Label = {

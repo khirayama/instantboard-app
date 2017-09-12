@@ -134,6 +134,25 @@ const Task = {
   },
 };
 
+const User = {
+  req: axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/users`,
+    headers: {
+      Authorization: `Bearer ${tokenManager.get()}`,
+    },
+  }),
+
+  exist: (params: any) => {
+    return new Promise((resolve, reject) => {
+      User.req.get('/exist', {params}).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+};
+
 const Member = {
   req: axios.create({
     baseURL: `${API_SERVER_HOST}/api/v1/members`,
@@ -205,6 +224,7 @@ const Request = {
 export {
   Label,
   Task,
+  User,
   Member,
   Request,
 };

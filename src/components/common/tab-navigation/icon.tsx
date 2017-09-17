@@ -1,3 +1,5 @@
+/* eslint-disable capitalized-comments */
+/* tslint:disable:max-line-length */
 import * as React from 'react';
 
 /*

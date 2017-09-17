@@ -71,5 +71,9 @@ app.get(router.getPaths(), (req, res) => {
   res.send(template(content));
 });
 
+/* eslint-disable capitalized-comments */
+/* tslint:disable:no-console */
 console.log(`Start api app at ${new Date()} on ${APP_SERVER_HOST}`);
+/* tslint:enable:no-console */
+/* eslint-enable capitalized-comments */
 app.listen(APP_SERVER_PORT);

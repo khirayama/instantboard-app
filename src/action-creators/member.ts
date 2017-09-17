@@ -3,7 +3,7 @@ import {
   Member,
 } from '../services';
 import {
-  transformUser,
+  transformUserResponse,
 } from './transforms';
 
 export function fetchMember(dispatch: IDispatch) {
@@ -17,7 +17,7 @@ export function fetchMember(dispatch: IDispatch) {
       const action: IAction = {
         type: actionTypes.FETCH_MEMBER_SUCCESS,
         payload: {
-          requests: requests.map(transformUser),
+          requests: requests.map(transformUserResponse),
         },
       };
       dispatch(action);

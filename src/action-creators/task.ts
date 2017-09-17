@@ -33,7 +33,7 @@ export function fetchTask(dispatch: IDispatch) {
   });
 }
 
-export function createTask(dispatch: IDispatch, task: ITaskRequest) {
+export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
   const _action: IAction = {
     type: actionTypes.CREATE_TASK,
   };

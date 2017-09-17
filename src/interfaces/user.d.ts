@@ -1,14 +1,14 @@
 interface IUser {
-  id: string;
+  id: number;
   name: string;
 }
 
 interface IUserRequest {
-  id?: string;
+  id?: number;
   name?: string;
 }
 
 interface IUserResponse {
-  id: string;
+  id: number;
   name: string;
 }

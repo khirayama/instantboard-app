@@ -3,7 +3,7 @@ import {
   User,
 } from '../services';
 import {
-  transformUser,
+  transformUserResponse,
 } from './transforms';
 
 export function getUser(dispatch: IDispatch) {
@@ -17,7 +17,7 @@ export function getUser(dispatch: IDispatch) {
       const action: IAction = {
         type: actionTypes.GET_CURRENT_USER_SUCCES,
         payload: {
-          profile: transformUser(user),
+          profile: transformUserResponse(user),
         },
       };
       dispatch(action);

@@ -34,7 +34,7 @@ export function fetchLabel(dispatch: IDispatch) {
   });
 }
 
-export function createLabel(dispatch: IDispatch, label: ILabelRequest) {
+export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
   const _action: IAction = {
     type: actionTypes.CREATE_LABEL,
   };

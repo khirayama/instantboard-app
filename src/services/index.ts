@@ -40,7 +40,7 @@ const Label = {
     });
   },
 
-  create: (params: ILabelRequest) => {
+  create: (params: ILabelCreateRequest) => {
     return new Promise((resolve, reject) => {
       Label.req.post('/', params).then(({data}) => {
         resolve(data);
@@ -99,7 +99,7 @@ const Task = {
     });
   },
 
-  create: (params: ITaskRequest) => {
+  create: (params: ITaskCreateRequest) => {
     return new Promise((resolve, reject) => {
       Task.req.post('/', params).then(({data}) => {
         resolve(data);

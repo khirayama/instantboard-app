@@ -23,8 +23,8 @@ export function transformRequestResponse(request: IRequestResponse): IRequest {
 
 export function transformTaskResponse(task: ITaskResponse): ITask {
   return {
-    id: String(task.id || ''),
-    labelId: String(task.label.id || ''),
+    id: task.id,
+    labelId: task.label.id,
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,
@@ -35,8 +35,8 @@ export function transformTaskResponse(task: ITaskResponse): ITask {
 
 export function transformTaskRequest(task: ITaskRequest): ITask {
   return {
-    id: String(task.id || ''),
-    labelId: String(task.labelId || ''),
+    id: task.id,
+    labelId: task.labelId,
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,
@@ -45,16 +45,16 @@ export function transformTaskRequest(task: ITaskRequest): ITask {
   };
 }
 
-export function transformUser(user: IUserRequest|IUserResponse): IUser {
+export function transformUserResponse(user: IUserResponse): IUser {
   return {
-    id: String(user.id || ''),
+    id: user.id,
     name: user.name || '',
   };
 }
 
 export function transformLabelResponse(label: ILabelResponse): ILabel {
   return {
-    id: String(label.id || ''),
+    id: label.id,
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
@@ -64,7 +64,7 @@ export function transformLabelResponse(label: ILabelResponse): ILabel {
 
 export function transformLabelRequest(label: ILabelRequest): ILabel {
   return {
-    id: String(label.id || ''),
+    id: label.id,
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,

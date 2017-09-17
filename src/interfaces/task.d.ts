@@ -8,8 +8,8 @@ interface IScheduleResponse {
 }
 
 interface ITask {
-  id: string;
-  labelId: string;
+  id: number;
+  labelId: number;
   text: string;
   content: string;
   completed: boolean;
@@ -17,10 +17,19 @@ interface ITask {
   schedule: ISchedule | null;
 }
 
+interface ITaskCreateRequest {
+  labelId: number;
+  text: string;
+  content?: string;
+  completed?: boolean;
+  priority?: number;
+  schedule?: ISchedule| null;
+}
+
 interface ITaskRequest {
-  id?: string;
-  labelId?: string;
-  text?: string;
+  id: number;
+  labelId: number;
+  text: string;
   content?: string;
   completed?: boolean;
   priority?: number;
@@ -28,9 +37,9 @@ interface ITaskRequest {
 }
 
 interface ITaskResponse {
-  id: string;
+  id: number;
   label: {
-    id: string;
+    id: number;
     name: string;
     priority: number;
     visibled: boolean;

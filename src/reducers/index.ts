@@ -1,8 +1,8 @@
-import * as deepAssign from 'deep-assign';
+/* eslint-disable complexity */
 import actionTypes from '../constants/action-types';
 
 export default function (state: IState, action: IAction): IState {
-  const newState: IState = deepAssign({}, state);
+  const newState: IState = JSON.parse(JSON.stringify(state));
   const payload = action.payload;
 
   switch (action.type) {
@@ -74,32 +74,32 @@ export default function (state: IState, action: IAction): IState {
       // Uncomfortable to immediate update UI.
       newState.labels = (() => {
         let labels = state.labels;
-        const label = payload.label;
+        const newLabel = payload.label;
         const priority = payload.priority;
 
-        if (label.priority > priority) {
-          labels = labels.map(label_ => {
-            if (label_.priority === label.priority) {
-              label_.priority = priority;
+        if (newLabel.priority > priority) {
+          labels = labels.map(label => {
+            if (label.priority === newLabel.priority) {
+              label.priority = priority;
             } else if (
-              (priority <= label_.priority) &&
-              (label_.priority < label.priority)
+              (priority <= label.priority) &&
+              (label.priority < newLabel.priority)
             ) {
-              label_.priority += 1;
+              label.priority += 1;
             }
-            return label_;
+            return label;
           });
-        } else if (label.priority < priority) {
-          labels = labels.map(label_ => {
-            if (label_.priority === label.priority) {
-              label_.priority = priority;
+        } else if (newLabel.priority < priority) {
+          labels = labels.map(label => {
+            if (label.priority === newLabel.priority) {
+              label.priority = priority;
             } else if (
-              (label.priority < label_.priority) &&
-              (label_.priority <= priority)
+              (newLabel.priority < label.priority) &&
+              (label.priority <= priority)
             ) {
-              label_.priority -= 1;
+              label.priority -= 1;
             }
-            return label_;
+            return label;
           });
         }
 
@@ -193,36 +193,36 @@ export default function (state: IState, action: IAction): IState {
       // Uncomfortable to immediate update UI.
       newState.tasks = (() => {
         let tasks = state.tasks;
-        const task = payload.task;
+        const newTask = payload.task;
         const priority = payload.priority;
 
-        if (task.priority > priority) {
-          tasks = tasks.map(task_ => {
-            if (task_.labelId === task.labelId) {
-              if (task_.priority === task.priority) {
-                task_.priority = priority;
+        if (newTask.priority > priority) {
+          tasks = tasks.map(task => {
+            if (task.labelId === newTask.labelId) {
+              if (task.priority === newTask.priority) {
+                task.priority = priority;
               } else if (
-                (priority <= task_.priority) &&
-                (task_.priority < task.priority)
+                (priority <= task.priority) &&
+                (task.priority < newTask.priority)
               ) {
-                task_.priority += 1;
+                task.priority += 1;
               }
             }
-            return task_;
+            return task;
           });
-        } else if (task.priority < priority) {
-          tasks = tasks.map(task_ => {
-            if (task_.labelId === task.labelId) {
-              if (task_.priority === task.priority) {
-                task_.priority = priority;
+        } else if (newTask.priority < priority) {
+          tasks = tasks.map(task => {
+            if (task.labelId === newTask.labelId) {
+              if (task.priority === newTask.priority) {
+                task.priority = priority;
               } else if (
-                (task.priority < task_.priority) &&
-                (task_.priority <= priority)
+                (newTask.priority < task.priority) &&
+                (task.priority <= priority)
               ) {
-                task_.priority -= 1;
+                task.priority -= 1;
               }
             }
-            return task_;
+            return task;
           });
         }
 

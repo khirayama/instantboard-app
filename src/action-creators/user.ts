@@ -1,9 +1,5 @@
 import actionTypes from '../constants/action-types';
 import {
-  Label,
-  Member,
-  Request,
-  Task,
   User,
 } from '../services';
 import {
@@ -31,7 +27,7 @@ export function getUser(dispatch: IDispatch) {
         type: actionTypes.GET_CURRENT_USER_FAILURE,
       };
       dispatch(action);
-      resolve(action);
+      reject(action);
     });
   });
 }

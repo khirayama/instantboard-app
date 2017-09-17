@@ -28,7 +28,7 @@ export function transformTaskResponse(task: ITaskResponse): ITask {
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,
-    completed: (task.completed) ? true : false,
+    completed: Boolean(task.completed),
     schedule: transformSchedule(task.schedule) || null,
   };
 }
@@ -40,7 +40,7 @@ export function transformTaskRequest(task: ITaskRequest): ITask {
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,
-    completed: (task.completed) ? true : false,
+    completed: Boolean(task.completed),
     schedule: transformSchedule(task.schedule) || null,
   };
 }
@@ -56,7 +56,7 @@ export function transformLabelResponse(label: ILabelResponse): ILabel {
   return {
     id: String(label.id || ''),
     name: label.name || '',
-    visibled: (label.visibled) ? true : false,
+    visibled: Boolean(label.visibled),
     priority: label.priority || 0,
     requests: (label.requests) ? label.requests.map(transformRequestResponse) : [],
   };
@@ -66,7 +66,7 @@ export function transformLabelRequest(label: ILabelRequest): ILabel {
   return {
     id: String(label.id || ''),
     name: label.name || '',
-    visibled: (label.visibled) ? true : false,
+    visibled: Boolean(label.visibled),
     priority: label.priority || 0,
     requests: (label.requests) ? label.requests : [],
   };

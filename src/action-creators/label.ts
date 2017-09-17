@@ -1,10 +1,7 @@
 import actionTypes from '../constants/action-types';
 import {
   Label,
-  Member,
   Request,
-  Task,
-  User,
 } from '../services';
 import {
   transformLabelRequest,
@@ -17,7 +14,7 @@ export function fetchLabel(dispatch: IDispatch) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Label.fetch().then((labels: ILabelResponse[]) => {
       const action: IAction = {
         type: actionTypes.FETCH_LABEL_SUCCESS,
@@ -82,9 +79,9 @@ export function createLabel(dispatch: IDispatch, label: ILabelRequest) {
           Request.create({
             labelId: newLabel_.id,
             memberName: request.member.name,
-          }).then((res) => {
+          }).then(res => {
             requestHandler(true, res);
-          }).catch((res) => {
+          }).catch(res => {
             requestHandler(false, res);
           });
         });
@@ -146,9 +143,9 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
           Request.create({
             labelId: newLabel_.id,
             memberName: member.name,
-          }).then((res) => {
+          }).then(res => {
             requestHandler(true, res);
-          }).catch((res) => {
+          }).catch(res => {
             requestHandler(false, res);
           });
         });
@@ -172,7 +169,7 @@ export function destroyLabel(dispatch: IDispatch, label: ILabelRequest) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Label.destroy(label).then(() => {
       const action: IAction = {
         type: actionTypes.DESTROY_LABEL_SUCCESS,
@@ -199,7 +196,7 @@ export function sortLabel(dispatch: IDispatch, label: ILabelRequest, to: number)
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Label.sort(label, to).then((labels: ILabelResponse[]) => {
       const action: IAction = {
         type: actionTypes.SORT_LABEL_SUCCESS,

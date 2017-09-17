@@ -1,10 +1,6 @@
 import actionTypes from '../constants/action-types';
 import {
-  Label,
-  Member,
-  Request,
   Task,
-  User,
 } from '../services';
 import {
   transformTaskRequest,
@@ -17,7 +13,7 @@ export function fetchTask(dispatch: IDispatch) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Task.fetch().then((tasks: ITaskResponse[]) => {
       const action: IAction = {
         type: actionTypes.FETCH_TASK_SUCCESS,
@@ -43,7 +39,7 @@ export function createTask(dispatch: IDispatch, task: ITaskRequest) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Task.create(task).then((newTask: ITaskResponse) => {
       const action: IAction = {
         type: actionTypes.CREATE_TASK_SUCCESS,
@@ -69,7 +65,7 @@ export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Task.update(task).then((newTask: ITaskResponse) => {
       const action: IAction = {
         type: actionTypes.UPDATE_TASK_SUCCESS,
@@ -98,7 +94,7 @@ export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Task.destroy(task).then(() => {
       const action: IAction = {
         type: actionTypes.DESTROY_TASK_SUCCESS,
@@ -125,7 +121,7 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Task.sort(task, to).then((tasks: ITaskResponse[]) => {
       const action: IAction = {
         type: actionTypes.SORT_TASK_SUCCESS,

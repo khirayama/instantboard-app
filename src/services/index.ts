@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as uuid from 'uuid/v4';
 import tokenManager from '../utils/token-manager';
 
 const API_SERVER_PORT = process.env.API_SERVER_PORT;
@@ -159,7 +158,7 @@ const User = {
     });
   },
 
-  search: (params) => {
+  search: params => {
     return new Promise((resolve, reject) => {
       searchReq.get('/users', {params}).then(({data}) => {
         resolve(data);

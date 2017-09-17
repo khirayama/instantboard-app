@@ -80,7 +80,7 @@ export default class Store {
 
   private subscribe(): void {
     this.addListener(ACTION_DISPATCH, (action: any) => {
-      const currentState = this.clone(this.state);
+      // Const currentState = this.clone(this.state);
       const nextState: any = this.reducer(this.clone(this.state), action);
 
       this.state = nextState;

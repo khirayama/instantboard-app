@@ -1,7 +1,7 @@
 import * as deepAssign from 'deep-assign';
 import actionTypes from '../constants/action-types';
 
-export default function(state: IState, action: IAction): IState {
+export default function (state: IState, action: IAction): IState {
   const newState: IState = deepAssign({}, state);
   const payload = action.payload;
 
@@ -78,7 +78,7 @@ export default function(state: IState, action: IAction): IState {
         const priority = payload.priority;
 
         if (label.priority > priority) {
-          labels = labels.map((label_) => {
+          labels = labels.map(label_ => {
             if (label_.priority === label.priority) {
               label_.priority = priority;
             } else if (
@@ -90,7 +90,7 @@ export default function(state: IState, action: IAction): IState {
             return label_;
           });
         } else if (label.priority < priority) {
-          labels = labels.map((label_) => {
+          labels = labels.map(label_ => {
             if (label_.priority === label.priority) {
               label_.priority = priority;
             } else if (
@@ -197,7 +197,7 @@ export default function(state: IState, action: IAction): IState {
         const priority = payload.priority;
 
         if (task.priority > priority) {
-          tasks = tasks.map((task_) => {
+          tasks = tasks.map(task_ => {
             if (task_.labelId === task.labelId) {
               if (task_.priority === task.priority) {
                 task_.priority = priority;
@@ -211,7 +211,7 @@ export default function(state: IState, action: IAction): IState {
             return task_;
           });
         } else if (task.priority < priority) {
-          tasks = tasks.map((task_) => {
+          tasks = tasks.map(task_ => {
             if (task_.labelId === task.labelId) {
               if (task_.priority === task.priority) {
                 task_.priority = priority;

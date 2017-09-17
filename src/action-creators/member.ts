@@ -1,10 +1,6 @@
 import actionTypes from '../constants/action-types';
 import {
-  Label,
   Member,
-  Request,
-  Task,
-  User,
 } from '../services';
 import {
   transformUser,
@@ -16,7 +12,7 @@ export function fetchMember(dispatch: IDispatch) {
   };
   dispatch(_action);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     Member.fetch().then((requests: IUserResponse[]) => {
       const action: IAction = {
         type: actionTypes.FETCH_MEMBER_SUCCESS,

@@ -76,8 +76,7 @@ export default class TaskPage extends Container<any, any> {
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0) {
       let labelId = labels[0].id;
-      for (let i = 0; i < labels.length; i++) {
-        const label = labels[i];
+      for (const label of labels) {
         if (label.id === selectedLabelId) {
           labelId = label.id;
           break;
@@ -87,8 +86,7 @@ export default class TaskPage extends Container<any, any> {
     }
 
     if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && selectedTaskId) {
-      for (let i = 0; i < tasks.length; i++) {
-        const task = tasks[i];
+      for (const task of tasks) {
         if (task.id === selectedTaskId) {
           this.setState({content: task.content});
           break;

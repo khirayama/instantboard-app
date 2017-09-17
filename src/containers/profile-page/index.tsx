@@ -36,9 +36,18 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     });
 
     this.actions = {
-      updateUser: () => {},
-      deleteUser: () => {},
-      logout: () => {},
+      updateUser: () => {
+        let count = 0;
+        count++;
+      },
+      deleteUser: () => {
+        let count = 0;
+        count++;
+      },
+      logout: () => {
+        let count = 0;
+        count++;
+      },
     };
 
     this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);

@@ -31,7 +31,7 @@ export default class LabelPage extends Container<any, any> {
     super(props);
 
     this.state = Object.assign({}, this.state, {
-      labelId: Number(props.params.id),
+      labelId: (props.params.id) ? Number(props.params.id) : null,
       labelName: '',
       memberName: '',
       memberNameErrorMessage: '',
@@ -46,16 +46,16 @@ export default class LabelPage extends Container<any, any> {
         fetchLabel(this.dispatch);
       },
       createLabel: (label: ILabelRequest) => {
-        createLabel(this.dispatch, label).then((action) => {
+        createLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
-        }).catch((result) => {
-          const label = result.label;
-          const members = result.members;
+        }).catch((result: any) => {
+          const newLabel = result.label;
+          const requests = result.requests;
 
-          if (label.id) {
+          if (newLabel.id) {
             this.setState({
-              labelId: label.id,
-              labelRequests: members,
+              labelId: newLabel.id,
+              labelRequests: requests,
             });
           }
         });
@@ -64,13 +64,13 @@ export default class LabelPage extends Container<any, any> {
         updateLabel(this.dispatch, label).then(() => {
           this.context.move('/labels');
         }).catch((result) => {
-          const label = result.label;
-          const members = result.members;
+          const newLabel = result.label;
+          const requests = result.requests;
 
-          if (label.id) {
+          if (newLabel.id) {
             this.setState({
-              labelId: label.id,
-              labelRequests: members,
+              labelId: newLabel.id,
+              labelRequests: requests,
             });
           }
         });
@@ -99,8 +99,7 @@ export default class LabelPage extends Container<any, any> {
     const labelId = this.state.labelId;
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
-      for (let i = 0; i < labels.length; i++) {
-        const label = labels[i];
+      for (const label of labels) {
         if (label.id === labelId) {
           this.setState({
             labelName: label.name,
@@ -121,7 +120,9 @@ export default class LabelPage extends Container<any, any> {
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <input type="text" value={this.state.memberName} onChange={this.handleChangeMemberNameInput} />
           {(this.state.memberNameErrorMessage) ? <span>{this.state.memberNameErrorMessage}</span> : null}
-          <ul>{this.state.labelRequests.filter((request) => request.member.name !== profile.name).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
+          <ul>{this.state.labelRequests.filter((request) => {
+            return (request.member.name !== profile.name);
+          }).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
         </form>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input type="text" autoFocus value={this.state.labelName} onChange={this.handleChangeNameInput} />

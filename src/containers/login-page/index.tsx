@@ -30,24 +30,42 @@ export default class LoginPage extends Container<any, any> {
     }
   }
 
+  public render() {
+    return (
+      <section>
+        <h1>Instantboard</h1>
+        <a
+          href={`${API_SERVER_HOST}/auth/facebook`}
+          onClick={this.handleClickLoginWithFacebookButton}
+        >Login with Facebook</a>
+      </section>
+    );
+  }
+
   private _handleClickLoginWithFacebookButton(event: any) {
     event.preventDefault();
     const position = 120;
     const width = Math.max(window.parent.screen.width - (position * 2), 375);
     const height = Math.max(window.parent.screen.height - (position * 2), 667);
-    const win = window.open(event.currentTarget.href, '_blank', `top=${position}, left=${position}, width=${width}, height=${height}, menubar=no, toolbar=no, location=yes, status=no, resizable=yes, scrollbars=yes`);
+    const win = window.open(
+      event.currentTarget.href,
+      '_blank',
+      `
+        top=${position},
+        left=${position},
+        width=${width},
+        height=${height},
+        menubar=no,
+        toolbar=no,
+        location=yes,
+        status=no,
+        resizable=yes,
+        scrollbars=yes
+      `,
+    );
 
     win.addEventListener('unload', () => {
       this.context.move('/');
     });
-  }
-
-  public render() {
-    return (
-      <section>
-        <h1>Instantboard</h1>
-        <a href={`${API_SERVER_HOST}/auth/facebook`} onClick={this.handleClickLoginWithFacebookButton}>Login with Facebook</a>
-      </section>
-    );
   }
 }

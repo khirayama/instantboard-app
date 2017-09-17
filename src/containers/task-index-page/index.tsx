@@ -2,13 +2,14 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-  destroyTask,
   fetchLabel,
+} from '../../action-creators/label';
+import {
+  destroyTask,
   fetchTask,
-  updateTask,
   sortTask,
-} from '../../action-creators';
-// Components
+  updateTask,
+} from '../../action-creators/task';
 import {
   TabNavigation,
   TabNavigationContent,

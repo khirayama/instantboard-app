@@ -64,7 +64,7 @@ export default class NotificationIndexPage extends Container<any, any> {
               />
             </div>
           </div>
-          <TabNavigation index={2} addTabLinkPath='/tasks/new'/>
+          <TabNavigation index={2} addTabLinkPath="/tasks/new"/>
         </div>
       </section>
     );

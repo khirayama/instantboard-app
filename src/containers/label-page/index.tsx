@@ -2,13 +2,17 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   createLabel,
-  updateLabel,
   fetchLabel,
+  updateLabel,
+} from '../../action-creators/label';
+import {
   fetchMember,
-  getCurrentUser,
-} from '../../action-creators';
-import Container from '../container';
+} from '../../action-creators/member';
+import {
+  getUser,
+} from '../../action-creators/user';
 import {User} from '../../services';
+import Container from '../container';
 
 export default class LabelPage extends Container<any, any> {
   public static contextTypes = {
@@ -71,8 +75,8 @@ export default class LabelPage extends Container<any, any> {
           }
         });
       },
-      getCurrentUser: () => {
-        getCurrentUser(this.dispatch);
+      getUser: () => {
+        getUser(this.dispatch);
       },
     };
 
@@ -83,7 +87,7 @@ export default class LabelPage extends Container<any, any> {
   }
 
   public componentDidMount() {
-    this.actions.getCurrentUser();
+    this.actions.getUser();
     this.actions.fetchLabel();
     this.actions.fetchMember();
   }
@@ -121,7 +125,7 @@ export default class LabelPage extends Container<any, any> {
         </form>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input type="text" autoFocus value={this.state.labelName} onChange={this.handleChangeNameInput} />
-          <button>{(labelId) ? "Update!" : "Create!"}</button>
+          <button>{(labelId) ? 'Update!' : 'Create!'}</button>
         </form>
       </section>
     );

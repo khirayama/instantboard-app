@@ -6,7 +6,7 @@ import {
   fetchLabel,
   sortLabel,
   updateLabel,
-} from '../../action-creators';
+} from '../../action-creators/label';
 import {
   TabNavigation,
   TabNavigationContent,
@@ -112,7 +112,7 @@ export default class LabelIndexPage extends Container<any, any> {
     return (
       <section className="page label-index-page">
         <TabNavigationContent>{contentElement}</TabNavigationContent>
-        <TabNavigation index={1} addTabLinkPath='/labels/new'/>
+        <TabNavigation index={1} addTabLinkPath="/labels/new"/>
       </section>
     );
   }

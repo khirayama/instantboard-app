@@ -1,12 +1,14 @@
 import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import * as queryString from 'query-string';
+import * as React from 'react';
 import {
   fetchLabel,
-  fetchTask,
+} from '../../action-creators/label';
+import {
   createTask,
+  fetchTask,
   updateTask,
-} from '../../action-creators';
+} from '../../action-creators/task';
 import Container from '../container';
 
 export default class TaskPage extends Container<any, any> {

@@ -31,11 +31,11 @@ export default class LabelPage extends Container<any, any> {
     super(props);
 
     this.state = Object.assign({}, this.state, {
-      labelId: props.params.id,
+      labelId: Number(props.params.id),
       labelName: '',
       memberName: '',
       memberNameErrorMessage: '',
-      labelMembers: [],
+      labelRequests: [],
     });
 
     this.actions = {
@@ -55,7 +55,7 @@ export default class LabelPage extends Container<any, any> {
           if (label.id) {
             this.setState({
               labelId: label.id,
-              labelMembers: members,
+              labelRequests: members,
             });
           }
         });
@@ -70,7 +70,7 @@ export default class LabelPage extends Container<any, any> {
           if (label.id) {
             this.setState({
               labelId: label.id,
-              labelMembers: members,
+              labelRequests: members,
             });
           }
         });
@@ -104,7 +104,7 @@ export default class LabelPage extends Container<any, any> {
         if (label.id === labelId) {
           this.setState({
             labelName: label.name,
-            labelMembers: label.members,
+            labelRequests: label.requests,
           });
           break;
         }
@@ -121,7 +121,7 @@ export default class LabelPage extends Container<any, any> {
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <input type="text" value={this.state.memberName} onChange={this.handleChangeMemberNameInput} />
           {(this.state.memberNameErrorMessage) ? <span>{this.state.memberNameErrorMessage}</span> : null}
-          <ul>{this.state.labelMembers.filter((member) => member.name !== profile.name).map((member, index) => <li key={index}>{member.name}</li>)}</ul>
+          <ul>{this.state.labelRequests.filter((request) => request.member.name !== profile.name).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
         </form>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input type="text" autoFocus value={this.state.labelName} onChange={this.handleChangeNameInput} />
@@ -139,20 +139,20 @@ export default class LabelPage extends Container<any, any> {
     event.preventDefault();
 
     const labelName = this.state.labelName.trim();
-    const members = this.state.labelMembers;
+    const requests = this.state.labelRequests;
     const id = this.state.labelId;
 
     if (labelName) {
       if (id === undefined || id === null) {
         this.actions.createLabel({
           name: labelName,
-          members,
+          requests,
         });
       } else {
         this.actions.updateLabel({
           id,
           name: labelName,
-          members,
+          requests,
         });
       }
     }
@@ -169,14 +169,16 @@ export default class LabelPage extends Container<any, any> {
 
     User.search({name: memberName}).then((users: any) => {
       if (users.length && users[0].name === memberName) {
-        const labelMembers = this.state.labelMembers.concat();
-        labelMembers.push({
-          name: memberName,
+        const labelRequests = this.state.labelRequests.concat();
+        labelRequests.push({
+          member: {
+            name: memberName,
+          },
         });
         this.setState({
           memberName: '',
           memberNameErrorMessage: '',
-          labelMembers,
+          labelRequests,
         });
       } else {
         this.setState({

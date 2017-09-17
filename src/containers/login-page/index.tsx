@@ -13,12 +13,12 @@ export default class LoginPage extends Container<any, any> {
     move: PropTypes.func,
   };
 
-  private handleClickLoginWithFacebookButton: any;
+  private handleClickLoginButton: any;
 
   constructor(props: any) {
     super(props);
 
-    this.handleClickLoginWithFacebookButton = this._handleClickLoginWithFacebookButton.bind(this);
+    this.handleClickLoginButton = this._handleClickLoginButton.bind(this);
   }
 
   public componentWillMount() {
@@ -36,13 +36,17 @@ export default class LoginPage extends Container<any, any> {
         <h1>Instantboard</h1>
         <a
           href={`${API_SERVER_HOST}/auth/facebook`}
-          onClick={this.handleClickLoginWithFacebookButton}
+          onClick={this.handleClickLoginButton}
         >Login with Facebook</a>
+        <a
+          href={`${API_SERVER_HOST}/auth/tester`}
+          onClick={this.handleClickLoginButton}
+        >Login as tester</a>
       </section>
     );
   }
 
-  private _handleClickLoginWithFacebookButton(event: any) {
+  private _handleClickLoginButton(event: any) {
     event.preventDefault();
     const position = 120;
     const width = Math.max(window.parent.screen.width - (position * 2), 375);

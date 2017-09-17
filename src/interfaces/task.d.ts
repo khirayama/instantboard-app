@@ -5,6 +5,9 @@ interface ISchedule {
 }
 
 interface IScheduleResponse {
+  shortMonthName: string;
+  shortDayName: string;
+  date: number;
 }
 
 interface ITask {

@@ -7,7 +7,6 @@ import TaskIndexPage from '../containers/task-index-page';
 import TaskPage from '../containers/task-page';
 import UserPage from '../containers/user-page';
 
-// TODO: Support redirect
 const routes: IRoute[] = [{
   path: '/login',
   title: 'Login',

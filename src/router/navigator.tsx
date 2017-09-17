@@ -6,21 +6,17 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
     move: PropTypes.func.isRequired,
   };
 
-  public move: (path: string) => void;
-
   constructor(props: INavigatorProps) {
     super(props);
 
     this.state = {
       path: props.path,
     };
-
-    this.move = this._move.bind(this);
   }
 
   public getChildContext() {
     return {
-      move: this.move,
+      move: this.move.bind(this),
     };
   }
 
@@ -38,29 +34,29 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   public render() {
     const props = this.props.props;
     const router: IRouter = this.props.router;
-    const path_: string = this.state.path;
+    const path: string = this.state.path;
 
-    let path = path_;
-    if (path.indexOf('?') !== -1) {
-      path = path.split('?')[0];
+    let pathname = path;
+    if (pathname.indexOf('?') !== -1) {
+      pathname = pathname.split('?')[0];
     }
 
-    const {route, params} = router.matchRoute(path);
+    const {route, params} = router.matchRoute(pathname);
     if (route) {
       return React.createElement(route.component, Object.assign({}, props, {params}));
     }
     return null;
   }
 
-  private _move(path_: string) {
-    let path = path_;
-    if (path.indexOf('?') !== -1) {
-      path = path.split('?')[0];
+  private move(path: string): void {
+    let pathname = path;
+    if (pathname.indexOf('?') !== -1) {
+      pathname = pathname.split('?')[0];
     }
 
-    const {route} = this.props.router.matchRoute(path);
+    const {route} = this.props.router.matchRoute(pathname);
     window.document.title = route.title;
-    window.history.pushState(null, route.title, path_);
-    this.setState({path: path_});
+    window.history.pushState(null, route.title, path);
+    this.setState({path});
   }
 }

@@ -24,12 +24,5 @@ module.exports = {
     // https://github.com/eslint/typescript-eslint-parser#known-issues
     'no-undef': 0,
     'no-unused-vars': 1,
-    'no-useless-constructor': 0,
-    'space-infix-ops': 0,
-
-    // For `eslint --fix`, following rules is set in package.json
-    // 'react/jsx-indent': 0,
-    // 'react/jsx-closing-bracket-location': 0,
-    // 'react/jsx-closing-tag-location': 0,
   },
 };

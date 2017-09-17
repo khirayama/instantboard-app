@@ -29,7 +29,12 @@ interface ITaskRequest {
 
 interface ITaskResponse {
   id: string;
-  labelId: string;
+  label: {
+    id: string;
+    name: string;
+    priority: number;
+    visibled: boolean;
+  };
   text: string;
   content: string;
   completed: boolean;

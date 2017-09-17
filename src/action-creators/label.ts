@@ -115,7 +115,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
       };
       dispatch(action);
 
-      if (label.requests.length) {
+      if (label.requests && label.requests.length) {
         const result: any = {
           label: transformedLabel,
           requests: [],

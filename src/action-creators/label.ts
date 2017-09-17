@@ -115,17 +115,17 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
       };
       dispatch(action);
 
-      if (label.requests) {
+      if (label.requests.length) {
         const result: any = {
           label: newLabel_,
           requests: [],
         };
-        label.requests.forEach((member: any) => {
+        label.requests.forEach((request: any) => {
           const requestHandler = (success: any, res: any) => {
             result.requests.push({
               success,
               labelId: newLabel_.id,
-              name: member.name,
+              name: request.member.name,
               errors: (success) ? [] : [res.error],
             });
 
@@ -142,7 +142,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
           };
           Request.create({
             labelId: newLabel_.id,
-            memberName: member.name,
+            memberName: request.member.name,
           }).then(res => {
             requestHandler(true, res);
           }).catch(res => {

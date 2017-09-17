@@ -26,6 +26,7 @@ export default class TaskPage extends Container<any, any> {
     super(props);
 
     this.state = Object.assign({}, this.state, {
+      taskId: (props.params.id) ? Number(props.params.id) : null,
       content: '',
       labelId: null,
     });
@@ -64,13 +65,12 @@ export default class TaskPage extends Container<any, any> {
     const prevUi = prevState.ui;
     const tasks = this.state.tasks;
     const labels = this.state.labels;
-    const selectedTaskId = this.props.params.id;
 
-    let selectedLabelId = null;
+    let selectedLabelId: number|null = null;
     if (typeof window === 'object') {
       const query = queryString.parse(window.location.search);
       if (query['label-id']) {
-        selectedLabelId = query['label-id'];
+        selectedLabelId = Number(query['label-id']);
       }
     }
 
@@ -85,9 +85,9 @@ export default class TaskPage extends Container<any, any> {
       this.setState({labelId});
     }
 
-    if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && selectedTaskId) {
+    if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && this.state.taskId) {
       for (const task of tasks) {
-        if (task.id === selectedTaskId) {
+        if (task.id === this.state.taskId) {
           this.setState({content: task.content});
           break;
         }

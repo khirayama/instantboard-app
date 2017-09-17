@@ -7,10 +7,10 @@ import {
 } from './transforms';
 
 export function fetchMember(dispatch: IDispatch) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.FETCH_MEMBER,
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Member.fetch().then((requests: IUserResponse[]) => {

@@ -7,10 +7,10 @@ import {
 } from './transforms';
 
 export function getUser(dispatch: IDispatch) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.GET_CURRENT_USER,
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise((resolve, reject) => {
     User.get().then((user: IUserResponse) => {

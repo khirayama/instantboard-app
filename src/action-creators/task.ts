@@ -8,10 +8,10 @@ import {
 } from './transforms';
 
 export function fetchTask(dispatch: IDispatch) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.FETCH_TASK,
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Task.fetch().then((tasks: ITaskResponse[]) => {
@@ -34,10 +34,10 @@ export function fetchTask(dispatch: IDispatch) {
 }
 
 export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.CREATE_TASK,
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Task.create(task).then((newTask: ITaskResponse) => {
@@ -60,10 +60,10 @@ export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
 }
 
 export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.UPDATE_TASK,
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Task.update(task).then((newTask: ITaskResponse) => {
@@ -86,13 +86,13 @@ export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
 }
 
 export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
       task: transformTaskRequest(task),
     },
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Task.destroy(task).then(() => {
@@ -112,14 +112,14 @@ export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
 }
 
 export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
-  const _action: IAction = {
+  const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {
       task: transformTaskRequest(task),
       priority: to,
     },
   };
-  dispatch(_action);
+  dispatch(preAction);
 
   return new Promise(resolve => {
     Task.sort(task, to).then((tasks: ITaskResponse[]) => {

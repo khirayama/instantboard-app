@@ -1,7 +1,14 @@
 interface IRequest {
   id: number|null;
   status: string;
-  member: IUser|null;
+  member: {
+    id: number,
+    name: string,
+  };
+  label: {
+    id: number,
+    name: string,
+  }|null;
 }
 
 interface IRequestRequest {
@@ -14,5 +21,12 @@ interface IRequestRequest {
 interface IRequestResponse {
   id: number;
   status: string;
-  member: IUserResponse;
+  member: {
+    id: number,
+    name: string,
+  };
+  label: {
+    id: number,
+    name: string,
+  };
 }

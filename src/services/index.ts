@@ -196,9 +196,9 @@ const Request = {
     },
   }),
 
-  fetch: () => {
+  fetch: params => {
     return new Promise((resolve, reject) => {
-      Request.req.get('/').then(({data}) => {
+      Request.req.get('/', {params}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);

@@ -1,6 +1,10 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  fetchRequest,
+  updateRequest,
+} from '../../action-creators/request';
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
@@ -12,17 +16,25 @@ export default class NotificationIndexPage extends Container<any, any> {
     move: PropTypes.func,
   };
 
-  public render() {
-    const actions = {
-      acceptRequest: () => {
-        let count = 0;
-        count++;
+  constructor(props: any) {
+    super(props);
+
+    this.actions = {
+      fetchRequest: () => {
+        fetchRequest(this.dispatch, {status: 'pending'});
       },
-      refuseRequest: () => {
-        let count = 0;
-        count++;
+      updateRequest: (request: IRequestRequest) => {
+        updateRequest(this.dispatch, request);
       },
     };
+  }
+
+  public componentDidMount() {
+    this.actions.fetchRequest();
+  }
+
+  public render() {
+    const actions = this.actions;
     const ui = this.state.ui;
     const requests = this.state.requests;
 
@@ -32,7 +44,7 @@ export default class NotificationIndexPage extends Container<any, any> {
           <div className="tab-navigation-content-list tab-navigation-content-list__active">
             <div className="tab-navigation-content-list-item">
               <RequestsTabContent
-                actions={actions}
+                actions={this.actions}
                 ui={ui}
                 requests={requests}
               />

@@ -18,8 +18,8 @@ export default class RequestListItem extends React.Component<any, any> {
     return (
       <li className="request-list--item">
         <div className="request-list--item--information-container">
-          <div className="request-list--item--label-name">{request.labelName}</div>
-          <div className="request-list--item--description">From {request.memberName}</div>
+          <div className="request-list--item--label-name">{request.label.name}</div>
+          <div className="request-list--item--description">From {request.member.name}</div>
         </div>
         <div className="request-list--item--button-container">
           <div
@@ -43,13 +43,19 @@ export default class RequestListItem extends React.Component<any, any> {
     const actions = this.props.actions;
     const request = this.props.request;
 
-    actions.acceptRequest(request.id);
+    actions.updateRequest({
+      id: request.id,
+      status: 'accepted',
+    });
   }
 
   private _handleClickRefuseButton() {
     const actions = this.props.actions;
     const request = this.props.request;
 
-    actions.refuseRequest(request.id);
+    actions.updateRequest({
+      id: request.id,
+      status: 'refused',
+    });
   }
 }

@@ -14,9 +14,13 @@ export function transformRequestResponse(request: IRequestResponse): IRequest {
   return {
     id: request.id || null,
     status: request.status || 'accepts',
-    member: (request.member) ? {
+    member: {
       id: request.member.id,
       name: request.member.name,
+    },
+    label: (request.label) ? {
+      id: request.label.id,
+      name: request.label.name,
     } : null,
   };
 }

@@ -260,6 +260,37 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
 
+    // REQUEST
+    case (actionTypes.FETCH_REQUEST): {
+      newState.ui.isLoadingRequests = true;
+      break;
+    }
+    case (actionTypes.FETCH_REQUEST_SUCCESS): {
+      newState.requests = payload.requests;
+      newState.ui.isLoadingRequests = false;
+      break;
+    }
+    case (actionTypes.FETCH_REQUEST_FAILURE): {
+      newState.ui.isLoadingRequests = false;
+      break;
+    }
+
+    case (actionTypes.UPDATE_REQUEST): {
+      newState.ui.isLoadingRequests = true;
+      break;
+    }
+    case (actionTypes.UPDATE_REQUEST_SUCCESS): {
+      newState.requests = state.requests.filter(request => {
+        return (payload.request.id !== request.id);
+      });
+      newState.ui.isLoadingRequests = false;
+      break;
+    }
+    case (actionTypes.UPDATE_REQUEST_FAILURE): {
+      newState.ui.isLoadingRequests = false;
+      break;
+    }
+
     default: {
       break;
     }

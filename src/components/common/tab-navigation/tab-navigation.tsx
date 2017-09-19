@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Icon from './icon';
+import {Icon} from '../../icon';
 
 export default class TabNavigation extends React.Component<any, any> {
   public static contextTypes = {
@@ -40,7 +40,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickTaskTabLink}
         >
-          <Icon type="list"/>
+          <Icon type="list" className="tab-navigation--icon"/>
         </div>
         <div
           className={classNames(
@@ -49,13 +49,13 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickLabelTabLink}
         >
-          <Icon type="label"/>
+          <Icon type="label" className="tab-navigation--icon"/>
         </div>
         <div
           className="tab-navigation-tab-list-item"
           onClick={this.handleClickAddTabLink}
         >
-          <Icon type="add"/>
+          <Icon type="add" className="tab-navigation--icon"/>
         </div>
         <div
           className={classNames(
@@ -64,7 +64,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickNotificationTabLink}
         >
-          <Icon type="notification"/>
+          <Icon type="notification" className="tab-navigation--icon"/>
         </div>
         <div
           className={classNames(
@@ -73,7 +73,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
           onClick={this.handleClickProfileTabLink}
         >
-          <Icon type="profile"/>
+          <Icon type="profile" className="tab-navigation--icon"/>
         </div>
       </div>
     );

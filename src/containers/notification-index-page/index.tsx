@@ -9,7 +9,7 @@ import {
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import Container from '../container';
-import {RequestsTabContent} from './requests-tab-content';
+import RequestListItem from './request-list-item';
 
 export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {
@@ -39,19 +39,21 @@ export default class NotificationIndexPage extends Container<any, any> {
     const requests = this.state.requests;
 
     return (
-      <section className="page main-page">
-        <div className="tab-navigation">
-          <div className="tab-navigation-content-list tab-navigation-content-list__active">
-            <div className="tab-navigation-content-list-item">
-              <RequestsTabContent
-                actions={this.actions}
-                ui={ui}
-                requests={requests}
-              />
+      <section className="page notification-index-page">
+        <TabNavigationContent>
+          {(requests.length) ? (
+            <ul className="request-list">
+              {requests.map((request: IRequest) => {
+                return <RequestListItem key={request.id} request={request} actions={actions}/>;
+              })}
+            </ul>
+          ) : (
+            <div className="no-request-content">
+              <p>No notifications</p>
             </div>
-          </div>
-          <TabNavigation index={2} addTabLinkPath="/tasks/new"/>
-        </div>
+          )}
+        </TabNavigationContent>
+        <TabNavigation index={2} addTabLinkPath="/tasks/new"/>
       </section>
     );
   }

@@ -1,6 +1,9 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  getUser,
+} from '../../action-creators/user';
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
@@ -48,6 +51,9 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
         let count = 0;
         count++;
       },
+      getUser: () => {
+        getUser(this.dispatch);
+      },
     };
 
     this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
@@ -57,52 +63,52 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
   }
 
-  public componentDidUpdate(prevProps: any) {
-    if (!prevProps.user.name && this.props.user.name) {
+  public componentDidMount() {
+    this.actions.getUser();
+  }
+
+  public componentDidUpdate() {
+    if (this.state.profile && this.state.profile.name && this.state.profile.name !== this.state.name) {
       this.setState({
-        name: this.props.user.name,
+        name: this.state.profile.name,
       });
     }
   }
 
   public render() {
-    const user = this.state.profile || {};
+    const profile = this.state.profile || {};
 
     return (
-      <section className="page main-page">
-        <div className="tab-navigation">
-          <div className="tab-navigation-content-list tab-navigation-content-list__active">
-            <div className="tab-navigation-content-list-item">
-              <section className="user-tab-content">
-                <div className="user-tab-content--information">
-                  <div className="user-tab-content--name">
-                    <div className="user-tab-content--name--icon">
-                      <Icon>person</Icon>
-                    </div>
-                    <div className="user-tab-content--name--input">
-                      {(this.state.isEditing) ? (
-                        <textarea
-                          autoFocus
-                          value={this.state.name}
-                          onBlur={this.handleBlurNameInput}
-                          onChange={this.handleChangeNameInput}
-                        />
-                      ) : (
-                        <p onClick={this.handleClickEditButton}>{user.name}<Icon>edit</Icon></p>
-                      )}
-                    </div>
-                  </div>
-                  <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
-                  <div
-                    className="delete-account-button"
-                    onClick={this.handleClickDeleteAccountButton}
-                  >Delete account</div>
+      <section className="page profile-page">
+        <TabNavigationContent>
+          <section className="profile-tab-content">
+            <div className="profile-tab-content--information">
+              <div className="profile-tab-content--name">
+                <div className="profile-tab-content--name--icon">
+                  <Icon type="profile" />
                 </div>
-              </section>
+                <div className="profile-tab-content--name--input">
+                  {(this.state.isEditing) ? (
+                    <textarea
+                      autoFocus
+                      value={this.state.name}
+                      onBlur={this.handleBlurNameInput}
+                      onChange={this.handleChangeNameInput}
+                    />
+                  ) : (
+                    <p onClick={this.handleClickEditButton}>{profile.name}<Icon>edit</Icon></p>
+                  )}
+                </div>
+              </div>
+              <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
+              <div
+                className="delete-account-button"
+                onClick={this.handleClickDeleteAccountButton}
+              >Delete account</div>
             </div>
-          </div>
-          <TabNavigation index={3} addTabLinkPath="/tasks/new"/>
-        </div>
+          </section>
+        </TabNavigationContent>
+        <TabNavigation index={3} addTabLinkPath="/tasks/new"/>
       </section>
     );
   }

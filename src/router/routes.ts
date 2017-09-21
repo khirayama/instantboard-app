@@ -16,10 +16,6 @@ const routes: IRoute[] = [{
   title: 'New User',
   component: UserPage,
 }, {
-  path: '/',
-  title: 'Instantboard',
-  component: TaskIndexPage,
-}, {
   path: '/tasks',
   title: 'Instantboard',
   component: TaskIndexPage,

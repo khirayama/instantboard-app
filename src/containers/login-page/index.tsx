@@ -69,7 +69,7 @@ export default class LoginPage extends Container<any, any> {
     );
 
     win.addEventListener('unload', () => {
-      this.context.move('/');
+      this.context.move('/tasks');
     });
   }
 }

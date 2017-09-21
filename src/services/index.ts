@@ -167,6 +167,16 @@ const User = {
       });
     });
   },
+
+  update: params => {
+    return new Promise((resolve, reject) => {
+      User.req.put('/', params).then(({data}) => {
+        resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
 };
 
 const Member = {

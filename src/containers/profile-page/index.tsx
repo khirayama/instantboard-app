@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   getUser,
+  updateUser,
 } from '../../action-creators/user';
 import {
   TabNavigation,
@@ -26,6 +27,8 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   private handleBlurNameInput: any;
 
+  private handleKeyDownNameInput: any;
+
   private handleClickEditButton: any;
 
   private handleClickDeleteAccountButton: any;
@@ -39,9 +42,8 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     });
 
     this.actions = {
-      updateUser: () => {
-        let count = 0;
-        count++;
+      updateUser: (profile) => {
+        updateUser(this.dispatch, profile);
       },
       deleteUser: () => {
         let count = 0;
@@ -59,6 +61,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
     this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
     this.handleBlurNameInput = this._handleBlurNameInput.bind(this);
+    this.handleKeyDownNameInput = this._handleKeyDownNameInput.bind(this);
     this.handleClickEditButton = this._handleClickEditButton.bind(this);
     this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
   }
@@ -67,8 +70,8 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     this.actions.getUser();
   }
 
-  public componentDidUpdate() {
-    if (this.state.profile && this.state.profile.name && this.state.profile.name !== this.state.name) {
+  public componentDidUpdate(prevProps, prevState) {
+    if (!prevState.profile && this.state.profile && this.state.profile.name && this.state.profile.name !== this.state.name) {
       this.setState({
         name: this.state.profile.name,
       });
@@ -89,14 +92,20 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
                 </div>
                 <div className="profile-tab-content--name--input">
                   {(this.state.isEditing) ? (
-                    <textarea
-                      autoFocus
-                      value={this.state.name}
-                      onBlur={this.handleBlurNameInput}
-                      onChange={this.handleChangeNameInput}
-                    />
+                    <form onSubmit={this.handleBlurNameInput}>
+                      <textarea
+                        autoFocus
+                        value={this.state.name}
+                        onBlur={this.handleBlurNameInput}
+                        onChange={this.handleChangeNameInput}
+                        onKeyDown={this.handleKeyDownNameInput}
+                      />
+                    </form>
                   ) : (
-                    <p onClick={this.handleClickEditButton}>{profile.name}<Icon>edit</Icon></p>
+                    <p onClick={this.handleClickEditButton}>
+                      {profile.name}
+                      <Icon type="edit" />
+                    </p>
                   )}
                 </div>
               </div>
@@ -122,8 +131,25 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   private _handleBlurNameInput() {
-    this.actions.updateUser(this.state.name.trim());
+    this.actions.updateUser({
+      name: this.state.name.trim(),
+    });
     this.setState({isEditing: false});
+  }
+
+  private _handleKeyDownNameInput(event: any) {
+    const ENTER_KEY = 13;
+
+    const keyCode = event.keyCode;
+    const shiftKey = event.shiftKey;
+    const metaKey = event.metaKey;
+
+    if (keyCode === ENTER_KEY) {
+      this.actions.updateUser({
+        name: this.state.name.trim(),
+      });
+      this.setState({isEditing: false});
+    }
   }
 
   private _handleClickEditButton() {

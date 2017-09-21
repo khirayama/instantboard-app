@@ -8,14 +8,14 @@ import {
 
 export function getUser(dispatch: IDispatch) {
   const preAction: IAction = {
-    type: actionTypes.GET_CURRENT_USER,
+    type: actionTypes.GET_USER,
   };
   dispatch(preAction);
 
   return new Promise((resolve, reject) => {
     User.get().then((user: IUserResponse) => {
       const action: IAction = {
-        type: actionTypes.GET_CURRENT_USER_SUCCES,
+        type: actionTypes.GET_USER_SUCCES,
         payload: {
           profile: transformUserResponse(user),
         },
@@ -24,7 +24,36 @@ export function getUser(dispatch: IDispatch) {
       resolve(action);
     }).catch(() => {
       const action: IAction = {
-        type: actionTypes.GET_CURRENT_USER_FAILURE,
+        type: actionTypes.GET_USER_FAILURE,
+      };
+      dispatch(action);
+      reject(action);
+    });
+  });
+}
+
+export function updateUser(dispatch: IDispatch, user: IUserRequest) {
+  const preAction: IAction = {
+    type: actionTypes.UPDATE_USER,
+    payload: {
+      profile: user,
+    },
+  };
+  dispatch(preAction);
+
+  return new Promise((resolve, reject) => {
+    User.update(user).then((newUser: IUserResponse) => {
+      const action: IAction = {
+        type: actionTypes.UPDATE_USER_SUCCES,
+        payload: {
+          profile: transformUserResponse(newUser),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.UPDATE_USER_FAILURE,
       };
       dispatch(action);
       reject(action);

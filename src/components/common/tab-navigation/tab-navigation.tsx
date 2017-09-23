@@ -80,7 +80,7 @@ export default class TabNavigation extends React.Component<any, any> {
   }
 
   private _handleClickTaskTabLink() {
-    this.context.move('/tasks');
+    this.context.move('/');
   }
 
   private _handleClickLabelTabLink() {

@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  deleteUser,
   getUser,
   updateUser,
 } from '../../action-creators/user';
@@ -42,19 +43,17 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     });
 
     this.actions = {
+      getUser: () => {
+        getUser(this.dispatch);
+      },
       updateUser: (profile) => {
         updateUser(this.dispatch, profile);
       },
       deleteUser: () => {
-        let count = 0;
-        count++;
-      },
-      logout: () => {
-        let count = 0;
-        count++;
-      },
-      getUser: () => {
-        getUser(this.dispatch);
+        deleteUser(this.dispatch).then(() => {
+          tokenManager.set(null);
+          this.context.move('/login');
+        });
       },
     };
 
@@ -123,7 +122,8 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   private _handleClickLogoutButton() {
-    this.actions.logout();
+    tokenManager.set(null);
+    this.context.move('/login');
   }
 
   private _handleChangeNameInput(event: any) {

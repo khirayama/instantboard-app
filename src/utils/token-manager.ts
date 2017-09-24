@@ -2,7 +2,7 @@ import * as Cookie from 'js-cookie';
 
 const tokenManager = {
   key: '__instantboard_token',
-  set: (token: string) => {
+  set: (token: string|null) => {
     const now = new Date();
     const expires = new Date(now.setFullYear(now.getFullYear() + 3));
 

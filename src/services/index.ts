@@ -15,24 +15,28 @@ function handleRequestError(err: any, reject: any) {
   reject(data);
 }
 
-const searchReq = axios.create({
-  baseURL: `${API_SERVER_HOST}/api/v1/search`,
-  headers: {
-    Authorization: `Bearer ${tokenManager.get()}`,
-  },
-});
-
-const Label = {
-  req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/labels`,
+const searchReq = () => {
+  return axios.create({
+    baseURL: `${API_SERVER_HOST}/api/v1/search`,
     headers: {
       Authorization: `Bearer ${tokenManager.get()}`,
     },
-  }),
+  });
+};
+
+const Label = {
+  req: () => {
+    return axios.create({
+      baseURL: `${API_SERVER_HOST}/api/v1/labels`,
+      headers: {
+        Authorization: `Bearer ${tokenManager.get()}`,
+      },
+    });
+  },
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Label.req.get('/').then(({data}) => {
+      Label.req().get('/').then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -42,7 +46,7 @@ const Label = {
 
   create: (params: ILabelCreateRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req.post('/', params).then(({data}) => {
+      Label.req().post('/', params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -52,7 +56,7 @@ const Label = {
 
   update: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req.put(`/${params.id}`, params).then(({data}) => {
+      Label.req().put(`/${params.id}`, params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -62,7 +66,7 @@ const Label = {
 
   destroy: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req.delete(`/${params.id}`).then(({data}) => {
+      Label.req().delete(`/${params.id}`).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -72,7 +76,7 @@ const Label = {
 
   sort: (params: ILabelRequest, priority: number) => {
     return new Promise((resolve, reject) => {
-      Label.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
+      Label.req().put(`/${params.id}/sort`, {priority}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -82,16 +86,18 @@ const Label = {
 };
 
 const Task = {
-  req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/tasks`,
-    headers: {
-      Authorization: `Bearer ${tokenManager.get()}`,
-    },
-  }),
+  req: () => {
+    return axios.create({
+      baseURL: `${API_SERVER_HOST}/api/v1/tasks`,
+      headers: {
+        Authorization: `Bearer ${tokenManager.get()}`,
+      },
+    });
+  },
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Task.req.get('/').then(({data}) => {
+      Task.req().get('/').then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -101,7 +107,7 @@ const Task = {
 
   create: (params: ITaskCreateRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req.post('/', params).then(({data}) => {
+      Task.req().post('/', params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -111,7 +117,7 @@ const Task = {
 
   update: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req.put(`/${params.id}`, params).then(({data}) => {
+      Task.req().put(`/${params.id}`, params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -121,7 +127,7 @@ const Task = {
 
   destroy: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req.delete(`/${params.id}`).then(({data}) => {
+      Task.req().delete(`/${params.id}`).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -131,7 +137,7 @@ const Task = {
 
   sort: (params: ITaskRequest, priority: number) => {
     return new Promise((resolve, reject) => {
-      Task.req.put(`/${params.id}/sort`, {priority}).then(({data}) => {
+      Task.req().put(`/${params.id}/sort`, {priority}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -141,16 +147,18 @@ const Task = {
 };
 
 const User = {
-  req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/user`,
-    headers: {
-      Authorization: `Bearer ${tokenManager.get()}`,
-    },
-  }),
+  req: () => {
+    return axios.create({
+      baseURL: `${API_SERVER_HOST}/api/v1/user`,
+      headers: {
+        Authorization: `Bearer ${tokenManager.get()}`,
+      },
+    });
+  },
 
   get: () => {
     return new Promise((resolve, reject) => {
-      User.req.get('/').then(({data}) => {
+      User.req().get('/').then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -160,7 +168,7 @@ const User = {
 
   search: params => {
     return new Promise((resolve, reject) => {
-      searchReq.get('/users', {params}).then(({data}) => {
+      searchReq().get('/users', {params}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -170,8 +178,18 @@ const User = {
 
   update: params => {
     return new Promise((resolve, reject) => {
-      User.req.put('/', params).then(({data}) => {
+      User.req().put('/', params).then(({data}) => {
         resolve(data);
+      }).catch((err: any) => {
+        handleRequestError(err, reject);
+      });
+    });
+  },
+
+  delete: () => {
+    return new Promise((resolve, reject) => {
+      User.req().delete('/').then(() => {
+        resolve();
       }).catch((err: any) => {
         handleRequestError(err, reject);
       });
@@ -180,16 +198,18 @@ const User = {
 };
 
 const Member = {
-  req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/members`,
-    headers: {
-      Authorization: `Bearer ${tokenManager.get()}`,
-    },
-  }),
+  req: () => {
+    return axios.create({
+      baseURL: `${API_SERVER_HOST}/api/v1/members`,
+      headers: {
+        Authorization: `Bearer ${tokenManager.get()}`,
+      },
+    });
+  },
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Member.req.get('/').then(({data}) => {
+      Member.req().get('/').then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -199,16 +219,18 @@ const Member = {
 };
 
 const Request = {
-  req: axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/requests`,
-    headers: {
-      Authorization: `Bearer ${tokenManager.get()}`,
-    },
-  }),
+  req: () => {
+    return axios.create({
+      baseURL: `${API_SERVER_HOST}/api/v1/requests`,
+      headers: {
+        Authorization: `Bearer ${tokenManager.get()}`,
+      },
+    });
+  },
 
   fetch: params => {
     return new Promise((resolve, reject) => {
-      Request.req.get('/', {params}).then(({data}) => {
+      Request.req().get('/', {params}).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -218,7 +240,7 @@ const Request = {
 
   create: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req.post('/', params).then(({data}) => {
+      Request.req().post('/', params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -228,7 +250,7 @@ const Request = {
 
   update: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req.put(`/${params.id}`, params).then(({data}) => {
+      Request.req().put(`/${params.id}`, params).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);
@@ -238,7 +260,7 @@ const Request = {
 
   destroy: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req.delete(`/${params.id}`).then(({data}) => {
+      Request.req().delete(`/${params.id}`).then(({data}) => {
         resolve(data);
       }).catch((err: any) => {
         handleRequestError(err, reject);

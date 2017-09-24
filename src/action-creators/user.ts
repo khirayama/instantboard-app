@@ -60,3 +60,26 @@ export function updateUser(dispatch: IDispatch, user: IUserRequest) {
     });
   });
 }
+
+export function deleteUser(dispatch: IDispatch) {
+  const preAction: IAction = {
+    type: actionTypes.DELETE_USER,
+  };
+  dispatch(preAction);
+
+  return new Promise((resolve, reject) => {
+    User.delete().then(() => {
+      const action: IAction = {
+        type: actionTypes.DELETE_USER_SUCCES,
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.DELETE_USER_FAILURE,
+      };
+      dispatch(action);
+      reject(action);
+    });
+  });
+}

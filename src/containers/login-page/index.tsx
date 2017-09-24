@@ -4,9 +4,7 @@ import * as React from 'react';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';
 
-const API_SERVER_PORT = process.env.API_SERVER_PORT;
-const API_SERVER_HOSTNAME = process.env.API_SERVER_HOSTNAME;
-const API_SERVER_HOST = `http://${API_SERVER_HOSTNAME}:${API_SERVER_PORT}`;
+const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
 export default class LoginPage extends Container<any, any> {
   public static contextTypes = {

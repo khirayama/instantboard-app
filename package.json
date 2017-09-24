@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Instantboard client",
   "main": "dist/index.js",
+  "engines": {
+    "node": "8.5.0"
+  },
   "scripts": {
     "start": "npm run server",
     "clean": "rm -rf dist",
@@ -61,9 +64,7 @@
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "typescript-eslint-parser": "^8.0.0",
-    "watchify": "^3.9.0"
-  },
-  "devDependencies": {
+    "watchify": "^3.9.0",
     "@types/pino": "^4.7.0",
     "@types/prop-types": "^15.5.1",
     "@types/react": "^16.0.5",

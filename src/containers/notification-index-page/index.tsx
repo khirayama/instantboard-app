@@ -5,9 +5,13 @@ import {
   updateRequest,
 } from '../../action-creators/request';
 import {
+  pollRequest,
+} from '../../action-creators/request';
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
+import poller from '../../utils/poller';
 import Container from '../container';
 import RequestListItem from './request-list-item';
 
@@ -20,6 +24,9 @@ export default class NotificationIndexPage extends Container<any, any> {
     super(props);
 
     this.actions = {
+      pollRequest: () => {
+        pollRequest(this.dispatch, {status: 'pending'});
+      },
       fetchRequest: () => {
         fetchRequest(this.dispatch, {status: 'pending'});
       },
@@ -31,6 +38,12 @@ export default class NotificationIndexPage extends Container<any, any> {
 
   public componentDidMount() {
     this.actions.fetchRequest();
+    poller.add(this.actions.pollRequest, 3000);
+  }
+
+  public componentWillUnmount() {
+    poller.remove(this.actions.pollRequest);
+    super.componentWillUnmount();
   }
 
   public render() {

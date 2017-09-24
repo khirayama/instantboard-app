@@ -1,6 +1,9 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
+  pollRequest,
+} from '../../action-creators/request';
+import {
   deleteUser,
   getUser,
   updateUser,
@@ -10,6 +13,7 @@ import {
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import {Icon} from '../../components/icon';
+import poller from '../../utils/poller';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';
 
@@ -44,6 +48,9 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     });
 
     this.actions = {
+      pollRequest: () => {
+        pollRequest(this.dispatch, {status: 'pending'});
+      },
       getUser: () => {
         getUser(this.dispatch);
       },
@@ -68,6 +75,12 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   public componentDidMount() {
     this.actions.getUser();
+    poller.add(this.actions.pollRequest, 3000);
+  }
+
+  public componentWillUnmount() {
+    poller.remove(this.actions.pollRequest);
+    super.componentWillUnmount();
   }
 
   public componentDidUpdate(prevProps, prevState) {

@@ -8,6 +8,9 @@ import {
   updateLabel,
 } from '../../action-creators/label';
 import {
+  pollRequest,
+} from '../../action-creators/request';
+import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
@@ -18,6 +21,7 @@ import {
   ListItem,
 } from '../../components/list';
 import Skeleton from '../../components/skeleton';
+import poller from '../../utils/poller';
 import Container from '../container';
 import LabelListItem from './label-list-item';
 
@@ -34,6 +38,9 @@ export default class LabelIndexPage extends Container<any, any> {
     super(props);
 
     this.actions = {
+      pollRequest: () => {
+        pollRequest(this.dispatch, {status: 'pending'});
+      },
       fetchLabel: () => {
         fetchLabel(this.dispatch);
       },
@@ -54,6 +61,12 @@ export default class LabelIndexPage extends Container<any, any> {
 
   public componentDidMount() {
     this.actions.fetchLabel();
+    poller.add(this.actions.pollRequest, 3000);
+  }
+
+  public componentWillUnmount() {
+    poller.remove(this.actions.pollRequest);
+    super.componentWillUnmount();
   }
 
   public render() {

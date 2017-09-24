@@ -5,8 +5,12 @@ import {
   fetchLabel,
 } from '../../action-creators/label';
 import {
+  pollRequest,
+} from '../../action-creators/request';
+import {
   destroyTask,
   fetchTask,
+  pollTask,
   sortTask,
   updateTask,
 } from '../../action-creators/task';
@@ -30,6 +34,7 @@ import {
   RecycleTableList,
   RecycleTableListItem,
 } from '../../components/recycle-table';
+import poller from '../../utils/poller';
 import Container from '../container';
 import TaskList from './task-list';
 
@@ -46,8 +51,22 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     super(props);
 
     this.actions = {
+      pollTask: () => {
+        pollTask(this.dispatch);
+      },
+      pollRequest: () => {
+        pollRequest(this.dispatch, {status: 'pending'});
+      },
       fetchLabel: () => {
-        fetchLabel(this.dispatch);
+        fetchLabel(this.dispatch).then((action: IAction) => {
+          const labels = action.payload.labels;
+          for (const label of labels) {
+            if (label.requests.length > 1) {
+              poller.add(this.actions.pollTask, 3000);
+              break;
+            }
+          }
+        });
       },
       fetchTask: () => {
         fetchTask(this.dispatch);
@@ -72,6 +91,13 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public componentDidMount() {
     this.actions.fetchLabel();
     this.actions.fetchTask();
+    poller.add(this.actions.pollRequest, 3000);
+  }
+
+  public componentWillUnmount() {
+    poller.remove(this.actions.pollTask);
+    poller.remove(this.actions.pollRequest);
+    super.componentWillUnmount();
   }
 
   public render() {

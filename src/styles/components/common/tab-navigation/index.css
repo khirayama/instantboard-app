@@ -23,6 +23,7 @@ $height-tab-navigation-tab-list: 56px;
   height: $height-tab-navigation-tab-list;
   .tab-navigation-tab-list-item {
     text-align: center;
+    position: relative;
     color: $color-text-secondary;
     .tab-navigation--icon {
       padding: 6px 0 8px;
@@ -33,6 +34,17 @@ $height-tab-navigation-tab-list: 56px;
         stroke-width: 3;
         stroke: $color-text-secondary;
       }
+    }
+    .tab-navigation--icon--badge {
+      display: inline-block;
+      position: absolute;
+      top: calc(50% - 18px);
+      left: calc(50% + 6px);
+      width: 8px;
+      height: 8px;
+      background: $color-accent-attention;
+      z-index: 1;
+      border-radius: 50%;
     }
     &.tab-navigation-tab-list-item__current {
       .tab-navigation--icon {

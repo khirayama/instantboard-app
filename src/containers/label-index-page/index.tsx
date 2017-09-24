@@ -123,10 +123,17 @@ export default class LabelIndexPage extends Container<any, any> {
         </List>
       );
     }
+
+    const badges = (this.state.requests.length) ? [2] : [];
+
     return (
       <section className="page label-index-page">
         <TabNavigationContent>{contentElement}</TabNavigationContent>
-        <TabNavigation index={1} addTabLinkPath="/labels/new"/>
+        <TabNavigation
+          index={1}
+          badges={badges}
+          addTabLinkPath="/labels/new"
+        />
       </section>
     );
   }

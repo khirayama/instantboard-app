@@ -30,6 +30,7 @@ export default class TabNavigation extends React.Component<any, any> {
 
   public render() {
     const currentIndex = this.props.index || 0;
+    const badges = this.props.badges || [];
 
     return (
       <div className="tab-navigation-tab-list">
@@ -41,6 +42,7 @@ export default class TabNavigation extends React.Component<any, any> {
           onClick={this.handleClickTaskTabLink}
         >
           <Icon type="list" className="tab-navigation--icon"/>
+          {(badges.indexOf(0) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
         </div>
         <div
           className={classNames(
@@ -50,6 +52,7 @@ export default class TabNavigation extends React.Component<any, any> {
           onClick={this.handleClickLabelTabLink}
         >
           <Icon type="label" className="tab-navigation--icon"/>
+          {(badges.indexOf(1) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
         </div>
         <div
           className="tab-navigation-tab-list-item"
@@ -65,6 +68,7 @@ export default class TabNavigation extends React.Component<any, any> {
           onClick={this.handleClickNotificationTabLink}
         >
           <Icon type="notification" className="tab-navigation--icon"/>
+          {(badges.indexOf(2) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
         </div>
         <div
           className={classNames(
@@ -74,6 +78,7 @@ export default class TabNavigation extends React.Component<any, any> {
           onClick={this.handleClickProfileTabLink}
         >
           <Icon type="profile" className="tab-navigation--icon"/>
+          {(badges.indexOf(3) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
         </div>
       </div>
     );

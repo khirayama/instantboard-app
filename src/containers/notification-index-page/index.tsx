@@ -50,6 +50,7 @@ export default class NotificationIndexPage extends Container<any, any> {
     const actions = this.actions;
     const ui = this.state.ui;
     const requests = this.state.requests;
+    const badges = (this.state.requests.length) ? [2] : [];
 
     return (
       <section className="page notification-index-page">
@@ -66,7 +67,11 @@ export default class NotificationIndexPage extends Container<any, any> {
             </div>
           )}
         </TabNavigationContent>
-        <TabNavigation index={2} addTabLinkPath="/tasks/new"/>
+        <TabNavigation
+          index={2}
+          badges={badges}
+          addTabLinkPath="/tasks/new"
+        />
       </section>
     );
   }

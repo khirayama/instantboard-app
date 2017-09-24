@@ -147,11 +147,14 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       );
     }
 
+    const badges = (this.state.requests.length) ? [2] : [];
+
     return (
       <section className="page task-index-page">
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation
           index={0}
+          badges={badges}
           addTabLinkPath={(currentLabel) ? `/tasks/new?label-id=${currentLabel.id}` : '/tasks/new'}
         />
       </section>

@@ -98,6 +98,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   public render() {
     const profile = this.state.profile || {};
+    const badges = (this.state.requests.length) ? [2] : [];
 
     return (
       <section className="page profile-page">
@@ -135,7 +136,11 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
             </div>
           </section>
         </TabNavigationContent>
-        <TabNavigation index={3} addTabLinkPath="/tasks/new"/>
+        <TabNavigation
+          index={3}
+          badges={badges}
+          addTabLinkPath="/tasks/new"
+        />
       </section>
     );
   }

@@ -4,6 +4,7 @@
   "description": "Instantboard client",
   "main": "dist/index.js",
   "scripts": {
+    "start": "npm run server",
     "clean": "rm -rf dist",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
@@ -15,7 +16,7 @@
     "copy:files:watch": "cpx -w 'src/**/*.{json,woff2,png}' dist",
     "server:dev": "browser-sync start --server dist --files dist/**/* --no-open --no-ui --no-ghost-mode --no-notify",
     "server": "nodemon dist/index.server.js",
-    "build": "npm run clean && (npm run bundle:scripts & npm run build:styles)",
+    "build": "npm run clean && npm run compile:scripts && npm run build:styles && npm run bundle:scripts && npm run copy:files",
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/index.server.js'",
     "lint": "tslint 'src/**/*.+(ts|tsx)'",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",

@@ -59,7 +59,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
       },
       deleteUser: () => {
         deleteUser(this.dispatch).then(() => {
-          tokenManager.set(null);
+          tokenManager.set('');
           this.context.move('/login');
         });
       },
@@ -146,7 +146,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   private _handleClickLogoutButton() {
-    tokenManager.set(null);
+    tokenManager.set('');
     this.context.move('/login');
   }
 

@@ -50,15 +50,6 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cookieParser());
 
 app.get(router.getPaths(), (req, res) => {
-  if (req.path !== '/login') {
-    const token = req.cookies[tokenManager.key];
-    try {
-      const decode = jwt.decode(token, SECRET_KEY);
-    } catch (err) {
-      res.redirect('/login');
-    }
-  }
-
   const content = ReactDOMServer.renderToString((
     <Navigator
       props={{store}}

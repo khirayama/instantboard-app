@@ -69,7 +69,11 @@ export default class LoginPage extends Container<any, any> {
     );
 
     win.addEventListener('unload', () => {
-      this.context.move('/tasks');
+      // If don't use setTimeout,
+      // Service layer can't get token using tokenManager.get
+      setTimeout(() => {
+        this.context.move('/');
+      }, 100);
     });
   }
 }

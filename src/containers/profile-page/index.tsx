@@ -10,6 +10,7 @@ import {
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import {Icon} from '../../components/icon';
+import tokenManager from '../../utils/token-manager';
 import Container from '../container';
 
 interface IProfilePageState extends IState {
@@ -70,7 +71,12 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   public componentDidUpdate(prevProps, prevState) {
-    if (!prevState.profile && this.state.profile && this.state.profile.name && this.state.profile.name !== this.state.name) {
+    if (
+      !prevState.profile &&
+      this.state.profile &&
+      this.state.profile.name &&
+      this.state.profile.name !== this.state.name
+    ) {
       this.setState({
         name: this.state.profile.name,
       });

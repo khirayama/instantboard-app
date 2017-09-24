@@ -1,9 +1,7 @@
 import axios from 'axios';
 import tokenManager from '../utils/token-manager';
 
-const API_SERVER_PORT = process.env.API_SERVER_PORT;
-const API_SERVER_HOSTNAME = process.env.API_SERVER_HOSTNAME;
-const API_SERVER_HOST = `http://${API_SERVER_HOSTNAME}:${API_SERVER_PORT}`;
+const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
 function handleRequestError(err: any, reject: any) {
   const status = err.response.status;

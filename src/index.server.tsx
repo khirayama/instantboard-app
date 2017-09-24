@@ -20,9 +20,7 @@ const router = new Router(routes);
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const APP_SERVER_PORT = process.env.APP_SERVER_PORT;
-const APP_SERVER_HOSTNAME = process.env.APP_SERVER_HOSTNAME;
-const APP_SERVER_HOST = `http://${APP_SERVER_HOSTNAME}:${APP_SERVER_PORT}`;
+const APP_SERVER_PORT = process.env.PORT || 3000;
 
 function template(content) {
   return `<!DOCTYPE html>
@@ -73,7 +71,7 @@ app.get(router.getPaths(), (req, res) => {
 
 /* eslint-disable capitalized-comments */
 /* tslint:disable:no-console */
-console.log(`Start api app at ${new Date()} on ${APP_SERVER_HOST}`);
+console.log(`Start api app at ${new Date()}`);
 /* tslint:enable:no-console */
 /* eslint-enable capitalized-comments */
 app.listen(APP_SERVER_PORT);

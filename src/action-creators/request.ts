@@ -6,6 +6,27 @@ import {
   transformRequestResponse,
 } from './transforms';
 
+export function pollRequest(dispatch: IDispatch, params) {
+  return new Promise(resolve => {
+    Request.fetch(params).then((requests: IRequestResponse[]) => {
+      const action: IAction = {
+        type: actionTypes.FETCH_REQUEST_SUCCESS,
+        payload: {
+          requests: requests.map(transformRequestResponse),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.FETCH_REQUEST_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
 export function fetchRequest(dispatch: IDispatch, params) {
   const preAction: IAction = {
     type: actionTypes.FETCH_REQUEST,

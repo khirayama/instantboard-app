@@ -7,6 +7,27 @@ import {
   transformTaskResponse,
 } from './transforms';
 
+export function pollTask(dispatch: IDispatch) {
+  return new Promise(resolve => {
+    Task.fetch().then((tasks: ITaskResponse[]) => {
+      const action: IAction = {
+        type: actionTypes.FETCH_TASK_SUCCESS,
+        payload: {
+          tasks: tasks.map(transformTaskResponse),
+        },
+      };
+      dispatch(action);
+      resolve(action);
+    }).catch(() => {
+      const action: IAction = {
+        type: actionTypes.FETCH_TASK_FAILURE,
+      };
+      dispatch(action);
+      resolve(action);
+    });
+  });
+}
+
 export function fetchTask(dispatch: IDispatch) {
   const preAction: IAction = {
     type: actionTypes.FETCH_TASK,

@@ -29,9 +29,14 @@
     "check": "npm-check-updates"
   },
   "dependencies": {
+    "@types/pino": "^4.7.0",
+    "@types/prop-types": "^15.5.1",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
     "axios": "^0.16.2",
     "browserify": "^14.4.0",
     "classnames": "^2.2.5",
+    "compression": "^1.7.0",
     "concurrently": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "cpx": "^1.5.0",
@@ -62,10 +67,7 @@
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "typescript-eslint-parser": "^8.0.0",
-    "watchify": "^3.9.0",
-    "@types/pino": "^4.7.0",
-    "@types/prop-types": "^15.5.1",
-    "@types/react": "^16.0.5",
-    "@types/react-dom": "^15.5.4"
+    "uglifyify": "^4.0.4",
+    "watchify": "^3.9.0"
   }
 }

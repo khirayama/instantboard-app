@@ -1,36 +1,40 @@
 .login-page {
   position: relative;
 
-  .login-storyboard--content {
+  .login-page--content {
     position: absolute;
     top: 40%;
     left: 50%;
     width: 80%;
+    max-width: 240px;
     text-align: center;
     transform: translate(-50%, -50%);
 
-    .login-heading {
+    .login-page--content--heading {
       font-weight: bold;
       font-size: 2rem;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
     }
 
-    .login-description {
-      font-weight: bold;
-      margin-bottom: 24px;
+    .login-page--content--description {
+      font-size: .8rem;
+      margin-bottom: 36px;
       color: $color-text-secondary;
     }
 
-    .login-button {
+    .login-page--content--login-button {
+      cursor: pointer;
       display: inline-block;
-      padding: 4px 8px;
+      padding: 6px 0;
+      width: 100%;
       text-align: center;
       border-radius: $radius;
       background-color: $color-text-secondary;
-      color: $color-white;
       font-weight: bold;
+      color: $color-white;
       margin-bottom: 16px;
-      &.login-button__facebook {
+      &.login-page--content--login-button__facebook {
         background-color: #3b5998; /* facebook color*/
       }
     }

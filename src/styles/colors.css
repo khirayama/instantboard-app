@@ -1,9 +1,5 @@
 $color-white: #fff;
 
-$color-primary-dark: #3f51b5;
-$color-primary: #03a9f4;
-$color-primary-light: #b2ebf2;
-
 $color-accent-attention: #ef5350;
 
 $color-text: #424242;
@@ -14,7 +10,17 @@ $color-divider: #eee;
 $color-loader: #eee;
 $color-background: $color-white;
 
-$color-ui-focus: #fafafa;
-$color-ui-active: #f0f0f0;
 $color-ui-shadow: rgba(0, 0, 0, 0.1);
-$color-ui-blank: #f0f0f0;
+
+$color-season-jan: rgb(255, 216, 120);
+$color-season-feb: rgb(243, 191, 136);
+$color-season-mar: rgb(249, 129, 143);
+$color-season-apr: rgb(214, 110, 122);
+$color-season-may: rgb(167, 189, 0);
+$color-season-jun: rgb(155, 85, 128);
+$color-season-jul: rgb(203, 140, 45);
+$color-season-aug: rgb(62, 179, 112);
+$color-season-sep: rgb(114, 164, 106);
+$color-season-oct: rgb(255, 166, 0);
+$color-season-nov: rgb(151, 39, 58);
+$color-season-dec: rgb(0, 134, 173);

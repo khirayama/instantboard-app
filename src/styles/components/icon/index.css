@@ -17,10 +17,16 @@
 
 .spinner-icon {
   display: inline-block;
+  .spinner-color1 {
+    animation: spinner-color1 12s linear infinite alternate;
+  }
+  .spinner-color2 {
+    animation: spinner-color2 12s linear infinite alternate;
+  }
 
   #spinner {
     box-sizing: border-box;
-    stroke: $color-loader;
+    stroke: url("#spinner-gradient");
     stroke-width:3px;
     transform-origin: 50%;
     animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
@@ -49,6 +55,48 @@
     stroke-dasharray: 2, 85.964;
     stroke-dashoffset: -65.973;
     transform: rotate(90deg);
+  }
+}
+
+@keyframes spinner-color1 {
+  0% {
+    stop-color: $color-season-jan;
+  }
+  20% {
+    stop-color: $color-season-mar;
+  }
+  40% {
+    stop-color: $color-season-may;
+  }
+  60% {
+    stop-color: $color-season-jul;
+  }
+  80% {
+    stop-color: $color-season-sep;
+  }
+  100% {
+    stop-color: $color-season-nov;
+  }
+}
+
+@keyframes spinner-color2 {
+  0% {
+    stop-color: $color-season-feb;
+  }
+  20% {
+    stop-color: $color-season-apr;
+  }
+  40% {
+    stop-color: $color-season-jun;
+  }
+  60% {
+    stop-color: $color-season-aug;
+  }
+  80% {
+    stop-color: $color-season-oct;
+  }
+  100% {
+    stop-color: $color-season-dec;
   }
 }
 

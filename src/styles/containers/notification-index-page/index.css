@@ -32,7 +32,7 @@
           padding: 4px 8px;
           text-align: center;
           border-radius: $radius;
-          background-color: $color-primary;
+          background-color: $color-background;
           color: $color-white;
         }
         .request-list--item--refuse-button {

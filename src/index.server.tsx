@@ -1,9 +1,8 @@
+import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
-import * as ReactDOMServer from 'react-dom/server';
-import * as compression from 'compression';
 import {SpinnerIcon} from './components/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
@@ -23,8 +22,14 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const APP_SERVER_PORT = process.env.PORT || 3000;
 
-function template(content) {
-  return `<!DOCTYPE html>
+function minifyHTML(htmlString) {
+  const parts = htmlString[0].split('\n');
+  const minifiedParts = parts.map((part) => part.trim());
+  return minifiedParts.join('');
+}
+
+function template() {
+  return minifyHTML`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -37,9 +42,19 @@ function template(content) {
 </head>
 <body>
   <section class="application">
-    <main class="application--main">${content}</main>
+    <main class="application--main"></main>
     <div class="application--loader">
-      ${ReactDOMServer.renderToString(<SpinnerIcon/>)}
+      <div class="spinner-icon">
+        <svg viewBox="0 0 32 32" width="32" height="32">
+          <defs>
+            <linearGradient id="spinner-gradient">
+              <stop class="spinner-color1" offset="100%"/>
+              <stop class="spinner-color2" offset="100%"/>
+            </linearGradient>
+          </defs>
+          <circle id="spinner" cx="16" cy="16" r="14" fill="none"/>
+        </svg>
+      </div>
     </div>
   </section>
 </body>
@@ -56,14 +71,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cookieParser());
 
 app.get(router.getPaths(), (req, res) => {
-  const content = ReactDOMServer.renderToString((
-    <Navigator
-      props={{store}}
-      router={router}
-      path={req.path}
-    />
-  ));
-  res.send(template(content));
+  res.send(template());
 });
 
 /* eslint-disable capitalized-comments */

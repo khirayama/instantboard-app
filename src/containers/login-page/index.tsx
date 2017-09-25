@@ -30,16 +30,27 @@ export default class LoginPage extends Container<any, any> {
 
   public render() {
     return (
-      <section>
-        <h1>Instantboard</h1>
-        <a
-          href={`${API_SERVER_HOST}/auth/facebook`}
-          onClick={this.handleClickLoginButton}
-        >Login with Facebook</a>
-        <a
-          href={`${API_SERVER_HOST}/auth/tester`}
-          onClick={this.handleClickLoginButton}
-        >Login as tester</a>
+      <section className="page login-page">
+        <section className="login-page--content">
+          <h1 className="login-page--content--heading">Instantboard</h1>
+          <p className="login-page--content--description">Sign up to manage and share your tasks.</p>
+          <div>
+            <a
+              className="login-page--content--login-button login-page--content--login-button__facebook"
+              href={`${API_SERVER_HOST}/auth/facebook`}
+              onClick={this.handleClickLoginButton}
+            >Log in with Facebook</a>
+          </div>
+          {(process.env.NODE_ENV !== 'production') ? (
+            <div>
+              <a
+                className="login-page--content--login-button"
+                href={`${API_SERVER_HOST}/auth/tester`}
+                onClick={this.handleClickLoginButton}
+              >Log in as tester</a>
+            </div>
+          ) : null}
+        </section>
       </section>
     );
   }

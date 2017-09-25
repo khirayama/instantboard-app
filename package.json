@@ -12,7 +12,7 @@
     "clean": "rm -rf dist",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
-    "bundle:scripts": "browserify ./src/index.web.tsx -t envify -t uglifyify -p [tsify -p ./tsconfig.client.json] -p bundle-collapser/plugin | uglifyjs --compress > ./dist/public/bundle.js",
+    "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -t envify -t uglifyify -p [tsify -p ./tsconfig.client.json] -p bundle-collapser/plugin | uglifyjs --compress > ./dist/public/bundle.js",
     "bundle:scripts:watch": "watchify ./src/index.web.tsx -t envify -p [tsify -p ./tsconfig.client.json] -o ./dist/public/bundle.js",
     "build:styles": "postcss -c .postcssrc.js src/styles/index.css -o dist/public/index.css",
     "build:styles:watch": "postcss -c .postcssrc.js -w src/styles/index.css -o dist/public/index.css",

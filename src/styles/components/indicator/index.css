@@ -1,0 +1,161 @@
+.indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 2;
+  transition: top 200ms ease-out;
+
+  .indicator-color1 {
+    animation: indicator-color1 3s linear infinite alternate;
+  }
+  .indicator-color2 {
+    animation: indicator-color2 3s linear infinite alternate;
+  }
+  .indicator-color3 {
+    animation: indicator-color3 3s linear infinite alternate;
+  }
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    #indicator {
+      fill: url("#indicator-gradient");
+    }
+  }
+
+  &.indicator-appear,
+  &.indicator-enter {
+    top: -4px;
+  }
+  &.indicator-appear-active,
+  &.indicator-enter-active {
+    top: 0;
+  }
+  &.indicator-leave {
+    top: 0;
+  }
+  &.indicator-leave-active {
+    top: -4px;
+  }
+}
+
+@keyframes indicator-color1 {
+  0% {
+    stop-color: $color-season-jan;
+  }
+  9% {
+    stop-color: $color-season-feb;
+  }
+  18% {
+    stop-color: $color-season-mar;
+  }
+  27% {
+    stop-color: $color-season-apr;
+  }
+  36% {
+    stop-color: $color-season-may;
+  }
+  45% {
+    stop-color: $color-season-jun;
+  }
+  54% {
+    stop-color: $color-season-jul;
+  }
+  63% {
+    stop-color: $color-season-aug;
+  }
+  72% {
+    stop-color: $color-season-sep;
+  }
+  81% {
+    stop-color: $color-season-oct;
+  }
+  90% {
+    stop-color: $color-season-nov;
+  }
+  100% {
+    stop-color: $color-season-dec;
+  }
+}
+
+@keyframes indicator-color2 {
+  0% {
+    stop-color: $color-season-dec;
+  }
+  9% {
+    stop-color: $color-season-jan;
+  }
+  18% {
+    stop-color: $color-season-feb;
+  }
+  27% {
+    stop-color: $color-season-mar;
+  }
+  36% {
+    stop-color: $color-season-apr;
+  }
+  45% {
+    stop-color: $color-season-may;
+  }
+  54% {
+    stop-color: $color-season-jun;
+  }
+  63% {
+    stop-color: $color-season-jul;
+  }
+  72% {
+    stop-color: $color-season-aug;
+  }
+  81% {
+    stop-color: $color-season-sep;
+  }
+  90% {
+    stop-color: $color-season-oct;
+  }
+  100% {
+    stop-color: $color-season-nov;
+  }
+}
+
+@keyframes indicator-color3 {
+  0% {
+    stop-color: $color-season-nov;
+  }
+  9% {
+    stop-color: $color-season-dec;
+  }
+  18% {
+    stop-color: $color-season-jan;
+  }
+  27% {
+    stop-color: $color-season-feb;
+  }
+  36% {
+    stop-color: $color-season-mar;
+  }
+  45% {
+    stop-color: $color-season-apr;
+  }
+  54% {
+    stop-color: $color-season-may;
+  }
+  63% {
+    stop-color: $color-season-jun;
+  }
+  72% {
+    stop-color: $color-season-jul;
+  }
+  81% {
+    stop-color: $color-season-aug;
+  }
+  90% {
+    stop-color: $color-season-sep;
+  }
+  100% {
+    stop-color: $color-season-oct;
+  }
+}

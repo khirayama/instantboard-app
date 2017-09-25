@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import * as compression from 'compression';
 import {SpinnerIcon} from './components/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
@@ -45,6 +46,11 @@ function template(content) {
 </html>`;
 }
 
+app.use(compression({
+  threshold: 0,
+  level: 9,
+  memLevel: 9,
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cookieParser());

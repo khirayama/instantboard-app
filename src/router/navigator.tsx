@@ -50,13 +50,20 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
 
   private move(path: string): void {
     let pathname = path;
+    let search = '';
     if (pathname.indexOf('?') !== -1) {
-      pathname = pathname.split('?')[0];
+      const tmp = pathname.split('?');
+      pathname = tmp[0];
+      search = tmp[1];
     }
-
-    const {route} = this.props.router.matchRoute(pathname);
-    window.document.title = route.title;
-    window.history.pushState(null, route.title, path);
-    this.setState({path});
+    if (
+      window.location.pathname !== pathname ||
+      window.location.search.replace('?', '') !== search
+    ) {
+      const {route} = this.props.router.matchRoute(pathname);
+      window.document.title = route.title;
+      window.history.pushState(null, route.title, path);
+      this.setState({path});
+    }
   }
 }

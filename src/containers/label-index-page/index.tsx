@@ -101,7 +101,7 @@ export default class LabelIndexPage extends Container<any, any> {
 
     return (
       <section key="label-index-page" className="page label-index-page">
-        <Indicator key="indicator" active={(ui.isLoadingLabels && labels.length !== 0)}/>
+        <Indicator active={(ui.isLoadingLabels && labels.length !== 0)}/>
         <TabNavigationContent>
           <List
             className="label-list"

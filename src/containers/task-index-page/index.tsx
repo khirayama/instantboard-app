@@ -62,7 +62,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
           const labels = action.payload.labels;
           for (const label of labels) {
             if (label.requests.length > 1) {
-              poller.add(this.actions.pollTask, 3000);
+              poller.add(this.actions.pollTask, 5000);
               break;
             }
           }
@@ -91,7 +91,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public componentDidMount() {
     this.actions.fetchLabel();
     this.actions.fetchTask();
-    poller.add(this.actions.pollRequest, 3000);
+    poller.add(this.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {

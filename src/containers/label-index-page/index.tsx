@@ -61,7 +61,7 @@ export default class LabelIndexPage extends Container<any, any> {
 
   public componentDidMount() {
     this.actions.fetchLabel();
-    poller.add(this.actions.pollRequest, 3000);
+    poller.add(this.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {

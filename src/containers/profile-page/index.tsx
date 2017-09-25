@@ -75,7 +75,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
   public componentDidMount() {
     this.actions.getUser();
-    poller.add(this.actions.pollRequest, 3000);
+    poller.add(this.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {

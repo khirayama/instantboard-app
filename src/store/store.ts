@@ -85,12 +85,14 @@ export default class Store {
 
       this.state = nextState;
 
-      /* eslint-disable capitalized-comments */
-      /* tslint:disable:no-console */
-      console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);
-      console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
-      /* tslint:enable:no-console */
-      /* eslint-enable capitalized-comments */
+      if (process.env.NODE_ENV !== 'production') {
+        /* eslint-disable capitalized-comments */
+        /* tslint:disable:no-console */
+        console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);
+        console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
+        /* tslint:enable:no-console */
+        /* eslint-enable capitalized-comments */
+      }
 
       this.dispatchChange();
     });

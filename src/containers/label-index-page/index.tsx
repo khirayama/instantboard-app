@@ -15,12 +15,15 @@ import {
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import FloatingButton from '../../components/floating-button';
-import {Icon} from '../../components/icon';
+import {
+  Icon,
+  SpinnerIcon,
+} from '../../components/icon';
+import Indicator from '../../components/indicator';
 import {
   List,
   ListItem,
 } from '../../components/list';
-import Skeleton from '../../components/skeleton';
 import poller from '../../utils/poller';
 import Container from '../container';
 import LabelListItem from './label-list-item';
@@ -73,33 +76,18 @@ export default class LabelIndexPage extends Container<any, any> {
     const ui = this.state.ui;
     const labels = this.state.labels;
 
-    let contentElement: any = null;
+    let backgroundElement: any = null;
 
-    // Loading label - Show skeleton
-    //   No labels - Show no labels content
-    //   Labels - Show label list
-    if (labels.length === 0 && ui.isLoadingLabels) {
-      contentElement = (
-        <List className="label-list">
-          {[0, 1, 2].map((index: number) => {
-            return (
-              <ListItem key={`skelton-${index}`} className="label-list--item">
-                <div className="label-list--item--visible-button">
-                  <Icon type="check"/>
-                </div>
-                <div className="label-list--item--content">
-                  <div className="label-list--item--content--loader"><Skeleton/></div>
-                </div>
-                <div className="label-list--item--destroy-button">
-                  <Icon type="remove"/>
-                </div>
-              </ListItem>
-            );
-          })}
-        </List>
+    if (ui.isLoadingLabels && labels.length === 0) {
+      backgroundElement = (
+        <div className="label-index-page--content--loading">
+          <div className="label-index-page--content--loading--spinner">
+            <SpinnerIcon/>
+          </div>
+        </div>
       );
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = (
+      backgroundElement = (
         <div className="label-index-page--content--no-labels">
           <div className="label-index-page--content--no-labels--inner">
             <p>You have no labels.<br/>Create category of task as label.</p>
@@ -107,28 +95,28 @@ export default class LabelIndexPage extends Container<any, any> {
           </div>
         </div>
       );
-    } else if (labels.length !== 0) {
-      contentElement = (
-        <List
-          className="label-list"
-          onSort={this.handleSortLabelList}
-        >
-          {labels.map((label: ILabel) => (
-              <LabelListItem
-                key={label.id}
-                actions={this.actions}
-                label={label}
-              />
-          ))}
-        </List>
-      );
     }
 
     const badges = (this.state.requests.length) ? [2] : [];
 
     return (
-      <section className="page label-index-page">
-        <TabNavigationContent>{contentElement}</TabNavigationContent>
+      <section key="label-index-page" className="page label-index-page">
+        <Indicator key="indicator" active={(ui.isLoadingLabels && labels.length !== 0)}/>
+        <TabNavigationContent>
+          <List
+            className="label-list"
+            onSort={this.handleSortLabelList}
+          >
+            {labels.map((label: ILabel) => (
+                <LabelListItem
+                  key={label.id}
+                  actions={this.actions}
+                  label={label}
+                />
+            ))}
+          </List>
+          {backgroundElement}
+        </TabNavigationContent>
         <TabNavigation
           index={1}
           badges={badges}

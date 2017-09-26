@@ -27,7 +27,7 @@ $height-tab-navigation-tab-list: 56px;
     color: $color-text-secondary;
     .tab-navigation--icon {
       padding: 6px 0 8px;
-      height: 100%;
+      height: $height-tab-navigation-tab-list;
       path,
       circle,
       rect {

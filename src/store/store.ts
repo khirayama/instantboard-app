@@ -85,7 +85,7 @@ export default class Store {
 
       this.state = nextState;
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (process && process.env.NODE_ENV !== 'production') {
         /* eslint-disable capitalized-comments */
         /* tslint:disable:no-console */
         console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);

@@ -6,13 +6,18 @@ import Router from './router/router';
 import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
-import logger from './utils/logger';
 
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
 
 window.addEventListener('DOMContentLoaded', () => {
-  logger.info(`Start app at ${new Date()}.`);
+  if (process && process.env.NODE_ENV !== 'production') {
+    /* eslint-disable capitalized-comments */
+    /* tslint:disable:no-console */
+    console.log(`Start app at ${new Date()}.`);
+    /* tslint:enable:no-console */
+    /* eslint-enable capitalized-comments */
+  }
 
   const applicationMainElement: any = window.document.querySelector('.application--main');
   const path = window.location.pathname;

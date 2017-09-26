@@ -1,5 +1,4 @@
 import * as PropTypes from 'prop-types';
-import * as queryString from 'query-string';
 import * as React from 'react';
 import {
   fetchLabel,
@@ -9,6 +8,7 @@ import {
   fetchTask,
   updateTask,
 } from '../../action-creators/task';
+import queryString from '../../utils/query-string';
 import Container from '../container';
 
 export default class TaskPage extends Container<any, any> {

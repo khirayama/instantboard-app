@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
-import * as queryString from 'query-string';
 import * as React from 'react';
+import queryString from '../../utils/query-string';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';
 

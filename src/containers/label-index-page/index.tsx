@@ -1,5 +1,4 @@
 import * as classNames from 'classnames';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   destroyLabel,
@@ -10,15 +9,13 @@ import {
 import {
   pollRequest,
 } from '../../action-creators/request';
+import LoadingContent from '../../components/common/loading-content';
+import NoLabelContent from '../../components/common/no-label-content';
 import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-import FloatingButton from '../../components/floating-button';
-import {
-  Icon,
-  SpinnerIcon,
-} from '../../components/icon';
+import {Icon} from '../../components/icon';
 import Indicator from '../../components/indicator';
 import {
   List,
@@ -29,12 +26,6 @@ import Container from '../container';
 import LabelListItem from './label-list-item';
 
 export default class LabelIndexPage extends Container<any, any> {
-  public static contextTypes = {
-    move: PropTypes.func,
-  };
-
-  private handleClickCreateLabelButton: any;
-
   private handleSortLabelList: any;
 
   constructor(props: any) {
@@ -58,7 +49,6 @@ export default class LabelIndexPage extends Container<any, any> {
       },
     };
 
-    this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
     this.handleSortLabelList = this._handleSortLabelList.bind(this);
   }
 
@@ -77,24 +67,10 @@ export default class LabelIndexPage extends Container<any, any> {
     const labels = this.state.labels;
 
     let backgroundElement: any = null;
-
     if (ui.isLoadingLabels && labels.length === 0) {
-      backgroundElement = (
-        <div className="label-index-page--content--loading">
-          <div className="label-index-page--content--loading--spinner">
-            <SpinnerIcon/>
-          </div>
-        </div>
-      );
+      backgroundElement = <LoadingContent/>;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      backgroundElement = (
-        <div className="label-index-page--content--no-labels">
-          <div className="label-index-page--content--no-labels--inner">
-            <p>You have no labels.<br/>Create category of task as label.</p>
-            <FloatingButton onClick={this.handleClickCreateLabelButton}>CREATE LABEL</FloatingButton>
-          </div>
-        </div>
-      );
+      backgroundElement = <NoLabelContent/>;
     }
 
     const badges = (this.state.requests.length) ? [2] : [];
@@ -133,9 +109,5 @@ export default class LabelIndexPage extends Container<any, any> {
     if (label.priority !== to) {
       this.actions.sortLabel(label, to);
     }
-  }
-
-  private _handleClickCreateLabelButton() {
-    this.context.move('/labels/new');
   }
 }

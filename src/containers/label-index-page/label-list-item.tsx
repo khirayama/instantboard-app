@@ -2,10 +2,7 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {Icon} from '../../components/icon';
-import {
-  List,
-  ListItem,
-} from '../../components/list';
+import {ListItem} from '../../components/list';
 
 export default class LabelListItem extends React.Component<any, any> {
   public static contextTypes = {
@@ -31,6 +28,7 @@ export default class LabelListItem extends React.Component<any, any> {
     const props = Object.assign({}, this.props);
 
     delete props.actions;
+    delete props.label;
 
     return (
       <ListItem

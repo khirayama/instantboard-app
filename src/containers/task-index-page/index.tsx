@@ -14,19 +14,15 @@ import {
   sortTask,
   updateTask,
 } from '../../action-creators/task';
+import LoadingContent from '../../components/common/loading-content';
+import NoLabelContent from '../../components/common/no-label-content';
 import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
 import FloatingButton from '../../components/floating-button';
-import {
-  Icon,
-  SpinnerIcon,
-} from '../../components/icon';
-import {
-  List,
-  ListItem,
-} from '../../components/list';
+import {Icon} from '../../components/icon';
+import Indicator from '../../components/indicator';
 import {
   RecycleTable,
   RecycleTableContentList,
@@ -42,8 +38,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };
-
-  private handleClickCreateLabelButton: any;
 
   private handleChangeIndex: any;
 
@@ -84,7 +78,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
     this.state = Object.assign({}, this.state, {index: this.loadIndex()});
 
-    this.handleClickCreateLabelButton = this._handleClickCreateLabelButton.bind(this);
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
   }
 
@@ -115,10 +108,10 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
     if (ui.isLoadingLabels && labels.length === 0) {
-      contentElement = this.createTasksTabContentLoading();
+      contentElement = <LoadingContent />;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = this.createTasksTabContentNoLabels();
-    } else if (!ui.isLoadingLabels && labels.length !== 0) {
+      contentElement = <NoLabelContent />;
+    } else if (labels.length !== 0) {
       const recycleTableContents = labels.map((label: ILabel, index: number) => {
         const groupedTasks = tasks.filter((task: ITask) => {
           return (task.labelId === label.id);
@@ -151,11 +144,17 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
     return (
       <section className="page task-index-page">
+        <Indicator active={(
+          (ui.isLoadingLabels && labels.length !== 0) ||
+          (ui.isLoadingTasks && tasks.length !== 0)
+        )}/>
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation
           index={0}
           badges={badges}
-          addTabLinkPath={(currentLabel) ? `/tasks/new?label-id=${currentLabel.id}` : '/tasks/new'}
+          addTabLinkPath={(currentLabel) ? `/tasks/new?label-id=${currentLabel.id}` : (
+            (labels.length === 0) ? '/labels/new' : '/tasks/new'
+          )}
         />
       </section>
     );
@@ -177,28 +176,5 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   private _handleChangeIndex(index: number): void {
     this.saveIndex(index);
     this.setState({index});
-  }
-
-  private createTasksTabContentLoading() {
-    return (
-      <div className="task-index-page--content--loading">
-        <SpinnerIcon/>
-      </div>
-    );
-  }
-
-  private createTasksTabContentNoLabels() {
-    return (
-      <div className="task-index-page--content--no-labels">
-        <div className="task-index-page--content--no-labels--inner">
-          <p>You have no labels.<br/>Create category of task as label.</p>
-          <FloatingButton onClick={this.handleClickCreateLabelButton}>CREATE LABEL</FloatingButton>
-        </div>
-      </div>
-    );
-  }
-
-  private _handleClickCreateLabelButton() {
-    this.context.move('/labels/new');
   }
 }

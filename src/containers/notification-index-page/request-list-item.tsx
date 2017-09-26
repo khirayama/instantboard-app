@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {ListItem} from '../../components/list';
 
 export default class RequestListItem extends React.Component<any, any> {
   private handleClickAcceptButton: any;
@@ -14,9 +15,16 @@ export default class RequestListItem extends React.Component<any, any> {
 
   public render() {
     const request = this.props.request;
+    const props = Object.assign({}, this.props);
+
+    delete props.actions;
+    delete props.request;
 
     return (
-      <li className="request-list--item">
+      <ListItem
+        {...props}
+        className="request-list--item"
+      >
         <div className="request-list--item--information-container">
           <div className="request-list--item--label-name">{request.label.name}</div>
           <div className="request-list--item--description">From {request.member.name}</div>
@@ -35,7 +43,7 @@ export default class RequestListItem extends React.Component<any, any> {
             Refuse
           </div>
         </div>
-      </li>
+      </ListItem>
     );
   }
 

@@ -5,16 +5,11 @@ import NotificationIndexPage from '../containers/notification-index-page';
 import ProfilePage from '../containers/profile-page';
 import TaskIndexPage from '../containers/task-index-page';
 import TaskPage from '../containers/task-page';
-import UserPage from '../containers/user-page';
 
 const routes: IRoute[] = [{
   path: '/login',
   title: 'Login',
   component: LoginPage,
-}, {
-  path: '/users/new',
-  title: 'New User',
-  component: UserPage,
 }, {
   path: '/',
   title: 'Instantboard',

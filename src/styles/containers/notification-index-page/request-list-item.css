@@ -1,0 +1,44 @@
+.request-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 12px;
+  & + .request-list-item {
+    border-top: $border;
+  }
+
+  .request-list-item--information-container {
+    display: inline-block;
+    .request-list-item--label-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .request-list-item--description {
+      color: $color-text-secondary;
+      word-break: break-all;
+    }
+  }
+  .request-list-item--button-container {
+    display: inline-block;
+    min-width: 160px;
+    text-align: right;
+    .request-list-item--accept-button {
+      display: inline-block;
+      padding: 4px 8px;
+      text-align: center;
+      border-radius: $radius;
+      background-color: $color-background;
+      color: $color-white;
+    }
+    .request-list-item--refuse-button {
+      display: inline-block;
+      padding: 4px 8px;
+      border: $border;
+      text-align: center;
+      border-radius: $radius;
+    }
+    .request-list-item--accept-button +
+    .request-list-item--refuse-button {
+      margin-left: 8px;
+    }
+  }
+}

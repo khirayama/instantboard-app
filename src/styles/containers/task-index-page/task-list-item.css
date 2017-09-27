@@ -1,0 +1,143 @@
+.task-list-item {
+  display: flex;
+  align-items: stretch;
+
+  .task-list-item--complete-button,
+  .task-list-item--destroy-button {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: $color-text-secondary;
+  }
+  .task-list-item--complete-button {
+    padding: 8px;
+  }
+  .task-list-item--destroy-button {
+    padding: 8px 12px;
+  }
+
+  .task-list-item--schedule--container {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px 8px 0;
+  }
+
+  .task-list-item--content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 12px 0;
+  }
+
+  .task-list-item--content--loader {
+    height: 1rem;
+  }
+  &:nth-of-type(6n+1) {.task-list-item--content--loader{width: 80%;}}
+  &:nth-of-type(6n+2) {.task-list-item--content--loader{width: 48%;}}
+  &:nth-of-type(6n+3) {.task-list-item--content--loader{width: 72%;}}
+  &:nth-of-type(6n+4) {.task-list-item--content--loader{width: 76%;}}
+  &:nth-of-type(6n+5) {.task-list-item--content--loader{width: 64%;}}
+  &:nth-of-type(6n+0) {.task-list-item--content--loader{width: 60%;}}
+
+  &__completed {
+    color: $color-text-secondary;
+    background-color: $color-divider;
+    .task-list-item--complete-button,
+    .task-list-item--destroy-button {
+      .check-icon {
+        .circle {
+          fill: $color-divider;
+        }
+        .circle-inner {
+          fill: $color-white;
+        }
+      }
+      .remove-icon {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  .task-list-item--schedule {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    color: $color-white;
+    text-align: center;
+    border-radius: $radius;
+    vertical-align: top;
+    &--month {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 8px;
+      line-height: 8px;
+      font-size: 8px;
+      vertical-align: top;
+    }
+    &--date {
+      position: absolute;
+      display: inline-block;
+      top: 13px;
+      left: 0;
+      width: 100%;
+      height: 18px;
+      line-height: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      vertical-align: top;
+    }
+    &--day {
+      position: absolute;
+      display: inline-block;
+      bottom: 3px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      line-height: 8px;
+      font-size: 8px;
+      vertical-align: top;
+    }
+
+    &__jan {
+      background-color: $color-season-jan;
+    }
+    &__feb {
+      background-color: $color-season-feb;
+    }
+    &__mar {
+      background-color: $color-season-mar;
+    }
+    &__apr {
+      background-color: $color-season-apr;
+    }
+    &__may {
+      background-color: $color-season-may;
+    }
+    &__jun {
+      background-color: $color-season-jun;
+    }
+    &__jul {
+      background-color: $color-season-jul;
+    }
+    &__aug {
+      background-color: $color-season-aug;
+    }
+    &__sep {
+      background-color: $color-season-sep;
+    }
+    &__oct {
+      background-color: $color-season-oct;
+    }
+    &__nov {
+      background-color: $color-season-nov;
+    }
+    &__dec {
+      background-color: $color-season-dec;
+    }
+  }
+}

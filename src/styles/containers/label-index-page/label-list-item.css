@@ -1,0 +1,41 @@
+.label-list-item {
+  display: flex;
+  align-items: stretch;
+
+  .label-list-item--visible-button,
+  .label-list-item--destroy-button {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: $color-text-secondary;
+  }
+  .label-list-item--visible-button {
+    padding: 8px;
+  }
+  .label-list-item--destroy-button {
+    padding: 8px 12px;
+  }
+
+  .label-list-item--content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 12px 0;
+  }
+
+  &__unvisibled {
+    color: $color-text-secondary;
+    background: $color-divider;
+    .label-list-item--visible-button,
+    .label-list-item--destroy-button {
+      .check-icon {
+        background-color: $color-divider;
+        border: solid 2px $color-white;
+      }
+      .remove-icon {
+        background-color: $color-white;
+      }
+    }
+  }
+}

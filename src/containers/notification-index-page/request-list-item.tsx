@@ -23,21 +23,21 @@ export default class RequestListItem extends React.Component<any, any> {
     return (
       <ListItem
         {...props}
-        className="request-list--item"
+        className="request-list-item"
       >
-        <div className="request-list--item--information-container">
-          <div className="request-list--item--label-name">{request.label.name}</div>
-          <div className="request-list--item--description">From {request.member.name}</div>
+        <div className="request-list-item--information-container">
+          <div className="request-list-item--label-name">{request.label.name}</div>
+          <div className="request-list-item--description">From {request.member.name}</div>
         </div>
-        <div className="request-list--item--button-container">
+        <div className="request-list-item--button-container">
           <div
-            className="request-list--item--accept-button"
+            className="request-list-item--accept-button"
             onClick={this.handleClickAcceptButton}
           >
             Accept
           </div>
           <div
-            className="request-list--item--refuse-button"
+            className="request-list-item--refuse-button"
             onClick={this.handleClickRefuseButton}
           >
             Refuse

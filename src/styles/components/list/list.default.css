@@ -6,7 +6,6 @@
     .list-item {
       cursor: pointer;
       border-bottom: $border;
-      background-color: $color-white;
 
       &__holding {
         position: relative;

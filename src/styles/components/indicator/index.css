@@ -1,5 +1,6 @@
 .indicator {
-  $height: 4px;
+  $height: 2px;
+  $animation: 3000ms linear infinite alternate;
 
   position: fixed;
   top: -$height;
@@ -7,16 +8,16 @@
   width: 100%;
   height: $height;
   z-index: 2;
-  transition: top .2s ease-out .2s;
+  transition: top 200ms ease-out 160ms;
 
   .indicator-color1 {
-    animation: indicator-color1 3s linear infinite alternate;
+    animation: indicator-color1 $animation;
   }
   .indicator-color2 {
-    animation: indicator-color2 3s linear infinite alternate;
+    animation: indicator-color2 $animation;
   }
   .indicator-color3 {
-    animation: indicator-color3 3s linear infinite alternate;
+    animation: indicator-color3 $animation;
   }
   svg {
     position: absolute;

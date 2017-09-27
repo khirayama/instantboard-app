@@ -33,15 +33,15 @@ export default class LabelListItem extends React.Component<any, any> {
     return (
       <ListItem
         {...props}
-        className={classNames('label-list--item', {'label-list--item__unvisibled': !label.visibled})}
+        className={classNames('label-list-item', {'label-list-item__unvisibled': !label.visibled})}
       >
-        <div className="label-list--item--visible-button" onClick={this.handleClickVisibleButton}>
+        <div className="label-list-item--visible-button" onClick={this.handleClickVisibleButton}>
           <Icon type="check" active={!label.visibled}/>
         </div>
-        <div className="label-list--item--content" onClick={this.handleClickLabelListItem}>
-          <div className="label-list--item--content--text">{label.name}</div>
+        <div className="label-list-item--content" onClick={this.handleClickLabelListItem}>
+          <div className="label-list-item--content--text">{label.name}</div>
         </div>
-        <div className="label-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
+        <div className="label-list-item--destroy-button" onClick={this.handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled}/>
         </div>
       </ListItem>

@@ -1,0 +1,15 @@
+.no-notification-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  p {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: $color-text-secondary;
+    text-align: center;
+    font-weight: bold;
+  }
+}

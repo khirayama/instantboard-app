@@ -36,35 +36,35 @@ export default class TaskListItem extends React.Component<any, any> {
     return (
       <ListItem
         {...props}
-        className={classNames('task-list--item', {'task-list--item__completed': task.completed})}
+        className={classNames('task-list-item', {'task-list-item__completed': task.completed})}
       >
-        <div className="task-list--item--complete-button" onClick={this.handleClickCompleteButton}>
+        <div className="task-list-item--complete-button" onClick={this.handleClickCompleteButton}>
           <Icon type="check" active={task.completed}/>
         </div>
         {(task.schedule) ? (
-          <span className="task-list--item--schedule--container">
+          <span className="task-list-item--schedule--container">
             <span
               className={classNames(
-                'task-list--item--schedule',
-                `task-list--item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
+                'task-list-item--schedule',
+                `task-list-item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
               )}
             >
-              <span className="task-list--item--schedule--month">
+              <span className="task-list-item--schedule--month">
                 {task.schedule.shortMonthName}
               </span>
-              <span className="task-list--item--schedule--date">
+              <span className="task-list-item--schedule--date">
                 {task.schedule.date}
               </span>
-              <span className="task-list--item--schedule--day">
+              <span className="task-list-item--schedule--day">
                 {task.schedule.shortDayName}
               </span>
             </span>
           </span>
         ) : null}
-        <div className="task-list--item--content" onClick={this.handleClickTaskListItem}>
-          <div className="task-list--item--content--text"><LinkText>{task.text}</LinkText></div>
+        <div className="task-list-item--content" onClick={this.handleClickTaskListItem}>
+          <div className="task-list-item--content--text"><LinkText>{task.text}</LinkText></div>
         </div>
-        <div className="task-list--item--destroy-button" onClick={this.handleClickDestroyButton}>
+        <div className="task-list-item--destroy-button" onClick={this.handleClickDestroyButton}>
           <Icon type="remove"/>
         </div>
       </ListItem>

@@ -16,6 +16,7 @@ import {List} from '../../components/list';
 import poller from '../../utils/poller';
 import Container from '../container';
 import RequestListItem from './request-list-item';
+import NoNotificationContent from './no-notification-content';
 
 export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {
@@ -68,11 +69,7 @@ export default class NotificationIndexPage extends Container<any, any> {
               );
             })}
           </List>
-          {(requests.length === 0) ? (
-            <div className="no-request-content">
-              <p>No notifications</p>
-            </div>
-          ) : null}
+          {(requests.length === 0) ? <NoNotificationContent/> : null}
         </TabNavigationContent>
         <TabNavigation
           index={2}

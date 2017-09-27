@@ -1,0 +1,18 @@
+.no-task-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .no-task-content--inner {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    p {
+      color: $color-text-secondary;
+      font-weight: bold;
+      padding: 24px;
+    }
+  }
+}

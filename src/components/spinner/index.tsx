@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-export default class SpinnerIcon extends React.Component<any, any> {
+export default class Spinner extends React.Component<any, any> {
   public render() {
     return (
-      <div className="spinner-icon">
+      <div className="spinner">
         <svg viewBox="0 0 32 32" width="32" height="32">
           <defs>
             <linearGradient id="spinner-gradient">

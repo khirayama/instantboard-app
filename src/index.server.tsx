@@ -4,7 +4,6 @@ import * as fastify from 'fastify';
 import * as path from 'path';
 import * as React from 'react';
 import * as serveStatic from 'serve-static';
-import {SpinnerIcon} from './components/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
@@ -56,7 +55,7 @@ function template() {
   <section class="application">
     <main class="application--main"></main>
     <div class="application--loader">
-      <div class="spinner-icon">
+      <div class="spinner">
         <svg viewBox="0 0 32 32" width="32" height="32">
           <defs>
             <linearGradient id="spinner-gradient">

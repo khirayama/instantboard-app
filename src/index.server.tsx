@@ -1,8 +1,9 @@
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
-import * as express from 'express';
+import * as fastify from 'fastify';
 import * as path from 'path';
 import * as React from 'react';
+import * as serveStatic from 'serve-static';
 import {SpinnerIcon} from './components/icon';
 import reducers from './reducers';
 import Navigator from './router/navigator';
@@ -14,13 +15,13 @@ import Store from './store/store';
 import * as jwt from 'jwt-simple';
 import tokenManager from './utils/token-manager';
 
-const app = express();
+const app = fastify();
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const APP_SERVER_PORT = process.env.PORT || 3000;
+const APP_SERVER_PORT = Number(process.env.PORT || '3000');
 
 function minifyHTML(htmlString) {
   const parts = htmlString[0].split('\n');
@@ -77,13 +78,20 @@ app.use(compression({
   level: 9,
   memLevel: 9,
 }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cookieParser());
 
-app.get(router.getPaths(), (req, res) => {
-  res.send(template());
+// For fastify
+app.use(serveStatic(path.join(__dirname, 'public')));
+router.getPaths().forEach((pathname) => {
+  app.get(pathname, (req, res) => {
+    res.type('text/html').send(template());
+  });
 });
+// For express
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.get(router.getPaths(), (req, res) => {
+//   res.send(template());
+// });
 
 /* eslint-disable capitalized-comments */
 /* tslint:disable:no-console */

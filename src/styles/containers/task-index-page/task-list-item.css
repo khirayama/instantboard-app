@@ -1,6 +1,7 @@
 .task-list-item {
   display: flex;
   align-items: stretch;
+  background: $color-white;
 
   .task-list-item--complete-button,
   .task-list-item--destroy-button {
@@ -30,33 +31,9 @@
     padding: 12px 0;
   }
 
-  .task-list-item--content--loader {
-    height: 1rem;
-  }
-  &:nth-of-type(6n+1) {.task-list-item--content--loader{width: 80%;}}
-  &:nth-of-type(6n+2) {.task-list-item--content--loader{width: 48%;}}
-  &:nth-of-type(6n+3) {.task-list-item--content--loader{width: 72%;}}
-  &:nth-of-type(6n+4) {.task-list-item--content--loader{width: 76%;}}
-  &:nth-of-type(6n+5) {.task-list-item--content--loader{width: 64%;}}
-  &:nth-of-type(6n+0) {.task-list-item--content--loader{width: 60%;}}
-
   &__completed {
     color: $color-text-secondary;
     background-color: $color-divider;
-    .task-list-item--complete-button,
-    .task-list-item--destroy-button {
-      .check-icon {
-        .circle {
-          fill: $color-divider;
-        }
-        .circle-inner {
-          fill: $color-white;
-        }
-      }
-      .remove-icon {
-        background-color: $color-white;
-      }
-    }
   }
 
   .task-list-item--schedule {

@@ -1,6 +1,7 @@
 .label-list-item {
   display: flex;
   align-items: stretch;
+  background: $color-white;
 
   .label-list-item--visible-button,
   .label-list-item--destroy-button {
@@ -27,15 +28,5 @@
   &__unvisibled {
     color: $color-text-secondary;
     background: $color-divider;
-    .label-list-item--visible-button,
-    .label-list-item--destroy-button {
-      .check-icon {
-        background-color: $color-divider;
-        border: solid 2px $color-white;
-      }
-      .remove-icon {
-        background-color: $color-white;
-      }
-    }
   }
 }

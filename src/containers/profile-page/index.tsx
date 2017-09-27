@@ -12,7 +12,7 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-import {Icon} from '../../components/icon';
+import Icon from '../../components/icon';
 import poller from '../../utils/poller';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';

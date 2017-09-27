@@ -1,9 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 import LoadingContent from '../../components/common/loading-content';
-import {
-  Icon,
-} from '../../components/icon';
+import Icon from '../../components/icon';
 import {
   List,
   ListItem,

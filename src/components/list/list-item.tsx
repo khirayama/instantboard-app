@@ -37,6 +37,8 @@ export class ListItem extends React.Component<any, any> {
 
   private handleTouchStart: any;
 
+  private handleTouchMove: any;
+
   private handleTouchEnd: any;
 
   constructor() {
@@ -70,13 +72,18 @@ export class ListItem extends React.Component<any, any> {
     this.handleMouseUp = this._handleMouseUp.bind(this);
     this.handleClick = this._handleClick.bind(this);
     this.handleTouchStart = this._handleTouchStart.bind(this);
+    this.handleTouchMove = this._handleTouchMove.bind(this);
     this.handleTouchEnd = this._handleTouchEnd.bind(this);
   }
 
   public componentDidMount() {
     // Can't prevent event passive in Chrome.
     // because not use onTouchMove
-    this.listItem.addEventListener('touchmove', this._handleTouchMove.bind(this));
+    this.listItem.addEventListener('touchmove', this.handleTouchMove);
+  }
+
+  public componentWillUnount() {
+    this.listItem.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   public render() {
@@ -88,6 +95,7 @@ export class ListItem extends React.Component<any, any> {
     delete props.enter;
     delete props.exit;
     delete props.onExited;
+    delete props.in;
 
     let listHeight: number = 0;
 

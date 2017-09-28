@@ -72,6 +72,8 @@ function template() {
 </html>`;
 }
 
+const html = template();
+
 app.use(compression({
   threshold: 0,
   level: 9,
@@ -83,7 +85,7 @@ app.use(cookieParser());
 app.use(serveStatic(path.join(__dirname, 'public')));
 router.getPaths().forEach((pathname) => {
   app.get(pathname, (req, res) => {
-    res.type('text/html').send(template());
+    res.type('text/html').send(html);
   });
 });
 // For express

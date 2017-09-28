@@ -13,16 +13,24 @@ export class List extends React.Component<any, any> {
 
   private setListElement: any;
 
+  private preventDefault: any;
+
   constructor(props) {
     super(props);
 
     this.setListElement = this._setListElement.bind(this);
+
+    this.preventDefault = (event: any) => {
+      event.preventDefault();
+    };
   }
 
   public componentDidMount() {
-    this.listElement.querySelector('.list-content').addEventListener('contextmenu', (event: any) => {
-      event.preventDefault();
-    });
+    this.listElement.querySelector('.list-content').addEventListener('contextmenu', this.preventDefault);
+  }
+
+  public componentWillUnmount() {
+    this.listElement.querySelector('.list-content').removeEventListener('contextmenu', this.preventDefault);
   }
 
   public getChildContext() {

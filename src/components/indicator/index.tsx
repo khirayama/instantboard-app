@@ -8,10 +8,6 @@ export default class Indicator extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      show: false,
-    };
-
     this.setElement = this._setElement.bind(this);
   }
 

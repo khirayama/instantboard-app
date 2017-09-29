@@ -19,6 +19,8 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
 
   private setElement: any;
 
+  private setCurrentIndex: any;
+
   constructor(props: any) {
     super(props);
 
@@ -27,12 +29,13 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
     };
 
     this.setElement = this._setElement.bind(this);
+    this.setCurrentIndex = this._setCurrentIndex.bind(this);
   }
 
   public getChildContext() {
     return {
       currentIndex: this.state.currentIndex,
-      setCurrentIndex: this._setCurrentIndex.bind(this),
+      setCurrentIndex: this.setCurrentIndex,
     };
   }
 

@@ -25,6 +25,12 @@ export class RecycleTableContentList extends React.Component<any, any> {
 
   private touch: any;
 
+  private handleTouchStart: any;
+
+  private handleTouchMove: any;
+
+  private handleTouchEnd: any;
+
   constructor(props: IRecycleTableContentList) {
     super(props);
 
@@ -39,13 +45,16 @@ export class RecycleTableContentList extends React.Component<any, any> {
     };
 
     this.setRecycleTableContentList = this._setRecycleTableContentList.bind(this);
+    this.handleTouchStart = this._handleTouchStart.bind(this);
+    this.handleTouchMove = this._handleTouchMove.bind(this);
+    this.handleTouchEnd = this._handleTouchEnd.bind(this);
   }
 
   public getChildContext() {
     return {
-      handleTouchStart: this._handleTouchStart.bind(this),
-      handleTouchMove: this._handleTouchMove.bind(this),
-      handleTouchEnd: this._handleTouchEnd.bind(this),
+      handleTouchStart: this.handleTouchStart,
+      handleTouchMove: this.handleTouchMove,
+      handleTouchEnd: this.handleTouchEnd,
     };
   }
 

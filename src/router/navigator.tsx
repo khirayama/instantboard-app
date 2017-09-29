@@ -27,6 +27,7 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
 
   public componentWillMount() {
     if (typeof window === 'object' && window.history && window.history.pushState) {
+      this.log();
       window.addEventListener('popstate', () => {
         const path = window.location.pathname;
         const {route} = this.props.router.matchRoute(path);

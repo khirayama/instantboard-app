@@ -12,18 +12,15 @@ export default class TabNavigation extends React.Component<any, any> {
 
   private handleClickLabelTabLink: any;
 
-  private handleClickAddTabLink: any;
-
   private handleClickNotificationTabLink: any;
 
   private handleClickProfileTabLink: any;
 
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.handleClickTaskTabLink = this._handleClickTaskTabLink.bind(this);
     this.handleClickLabelTabLink = this._handleClickLabelTabLink.bind(this);
-    this.handleClickAddTabLink = this._handleClickAddTabLink.bind(this);
     this.handleClickNotificationTabLink = this._handleClickNotificationTabLink.bind(this);
     this.handleClickProfileTabLink = this._handleClickProfileTabLink.bind(this);
   }
@@ -55,12 +52,6 @@ export default class TabNavigation extends React.Component<any, any> {
           {(badges.indexOf(1) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
         </div>
         <div
-          className="tab-navigation-tab-list-item"
-          onClick={this.handleClickAddTabLink}
-        >
-          <Icon type="add" className="tab-navigation--icon"/>
-        </div>
-        <div
           className={classNames(
             'tab-navigation-tab-list-item',
             {'tab-navigation-tab-list-item__current': currentIndex === 2},
@@ -90,10 +81,6 @@ export default class TabNavigation extends React.Component<any, any> {
 
   private _handleClickLabelTabLink() {
     this.context.move('/labels');
-  }
-
-  private _handleClickAddTabLink() {
-    this.context.move(this.props.addTabLinkPath);
   }
 
   private _handleClickNotificationTabLink() {

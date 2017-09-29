@@ -50,6 +50,13 @@ function template() {
   <link rel="apple-touch-icon" sizes="76x76" href="/images/icon-ios.png">
 
   <title>Instantboard</title>
+
+  <script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-107259240-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
 </head>
 <body>
   <section class="application">

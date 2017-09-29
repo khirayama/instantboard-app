@@ -1,4 +1,3 @@
-
 const poller: {
   callbacks: any[];
   add: any;
@@ -22,6 +21,9 @@ const poller: {
       }
     },
     clear: () => {
+      for (const callback of poller.callbacks) {
+        clearInterval(callback.id);
+      }
       poller.callbacks = [];
     },
   };

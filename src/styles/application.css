@@ -11,6 +11,13 @@ body {
   height: 100%;
 }
 
+input,
+textarea {
+  &::-webkit-input-placeholder {
+    color: $color-text-tertiary;
+  }
+}
+
 .application {
   position: relative;
   width: 100%;

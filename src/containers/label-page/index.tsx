@@ -11,6 +11,8 @@ import {
 import {
   getUser,
 } from '../../action-creators/user';
+import Icon from '../../components/icon';
+import Link from '../../router/link';
 import {User} from '../../services';
 import Container from '../container';
 
@@ -118,14 +120,34 @@ export default class LabelPage extends Container<any, any> {
     return (
       <section className="page label-page">
         <form onSubmit={this.handleSubmitMemberNameForm}>
-          <input type="text" value={this.state.memberName} onChange={this.handleChangeMemberNameInput} />
-          {(this.state.memberNameErrorMessage) ? <span>{this.state.memberNameErrorMessage}</span> : null}
-          <ul>{this.state.labelRequests.filter((request) => {
-            return (request.member.name !== profile.name);
-          }).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
+          <header className="label-page--header">
+            <Link to="/"><Icon type="arrow_back"/></Link>
+            <button><Icon type="send"/></button>
+          </header>
+          <div className="label-page--member-block">
+            <Icon type="profile"/>
+            <input
+              type="text"
+              value={this.state.memberName}
+              onChange={this.handleChangeMemberNameInput}
+              placeholder="Search by member name"
+            />
+            {(this.state.memberNameErrorMessage) ? <span>{this.state.memberNameErrorMessage}</span> : null}
+          </div>
+          <div>
+            <ul>{this.state.labelRequests.filter((request) => {
+              return (request.member.name !== profile.name);
+            }).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
+          </div>
         </form>
         <form onSubmit={this.handleSubmitLabelForm}>
-          <input type="text" autoFocus value={this.state.labelName} onChange={this.handleChangeNameInput} />
+          <input
+            autoFocus
+            type="text"
+            value={this.state.labelName}
+            onChange={this.handleChangeNameInput}
+            placeholder="Enter label name"
+          />
           <button>{(labelId) ? 'Update!' : 'Create!'}</button>
         </form>
       </section>

@@ -1,2 +1,43 @@
 .label-page {
+  $height: 56px;
+
+  .label-page--header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: $height;
+    box-shadow: $shadow;
+
+    a,
+    button {
+      display: inline-block;
+      width: $height;
+      height: $height;
+    }
+  }
+
+  .label-page--member-block {
+    border-bottom: $border;
+    height: $height;
+
+    .icon {
+      display: inline-block;
+      height: $height;
+      padding: 4px;
+      path {
+        stroke: black;
+      }
+    }
+    input {
+      display: inline-block;
+      vertical-align: top;
+      background: transparent;
+      width: calc(100% - $height);
+      height: $height;
+    }
+  }
+
+  input {
+    padding: 12px;
+  }
 }

@@ -15,8 +15,8 @@ import Indicator from '../../components/indicator';
 import {List} from '../../components/list';
 import poller from '../../utils/poller';
 import Container from '../container';
-import RequestListItem from './request-list-item';
 import NoNotificationContent from './no-notification-content';
+import RequestListItem from './request-list-item';
 
 export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {

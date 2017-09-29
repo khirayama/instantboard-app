@@ -8,6 +8,8 @@ import {
   fetchTask,
   updateTask,
 } from '../../action-creators/task';
+import Icon from '../../components/icon';
+import Link from '../../router/link';
 import queryString from '../../utils/query-string';
 import Container from '../container';
 
@@ -101,13 +103,27 @@ export default class TaskPage extends Container<any, any> {
     return (
       <section className="page task-page">
         <form onSubmit={this.handleSubmit}>
-          {(this.state.labelId) ? (
-            <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
-              {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}
-            </select>
-          ) : null}
-          <input type="text" autoFocus value={this.state.content} onChange={this.handleChangeContentInput} />
-          <button>Create!</button>
+          <header className="task-page--header">
+            <Link to="/"><Icon type="arrow_back"/></Link>
+            <button><Icon type="send"/></button>
+          </header>
+          <div className="task-page--label-block">
+            <Icon type="label"/>
+            {(this.state.labelId) ? (
+              <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
+                {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}
+              </select>
+            ) : null}
+          </div>
+          <div>
+            <input
+              autoFocus
+              type="text"
+              value={this.state.content}
+              onChange={this.handleChangeContentInput}
+              placeholder="Enter task text"
+            />
+          </div>
         </form>
       </section>
     );

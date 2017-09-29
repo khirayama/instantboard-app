@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
 } from '../../components/list';
+import Link from '../../router/link';
 import NoTaskContent from './no-task-content';
 import TaskListItem from './task-list-item';
 
@@ -21,12 +22,13 @@ export default class TaskList extends React.Component<any, any> {
   public render() {
     const ui = this.props.ui;
     const tasks = this.props.tasks;
+    const label = this.props.label;
 
     let backgroundElement: any = null;
     if (ui.isLoadingTasks && tasks.length === 0) {
       backgroundElement = <LoadingContent />;
     } else if (tasks.length === 0) {
-      backgroundElement = <NoTaskContent label={this.props.label} />;
+      backgroundElement = <NoTaskContent label={label} />;
     }
 
     return (
@@ -45,6 +47,10 @@ export default class TaskList extends React.Component<any, any> {
             );
           })}
         </List>
+        <Link className="task-list--add-button" to={`/tasks/new?label-id=${label.id}`}>
+          <Icon type="add" />
+          <p>ADD TASK</p>
+        </Link>
         {backgroundElement}
       </span>
     );

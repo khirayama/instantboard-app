@@ -21,6 +21,7 @@ import {
   List,
   ListItem,
 } from '../../components/list';
+import Link from '../../router/link';
 import poller from '../../utils/poller';
 import Container from '../container';
 import LabelListItem from './label-list-item';
@@ -91,6 +92,10 @@ export default class LabelIndexPage extends Container<any, any> {
                 />
             ))}
           </List>
+          <Link className="label-index-page--add-button" to="/labels/new">
+            <Icon type="add" />
+            <p>ADD LABEL</p>
+          </Link>
           {backgroundElement}
         </TabNavigationContent>
         <TabNavigation

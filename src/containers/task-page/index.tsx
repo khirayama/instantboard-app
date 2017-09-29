@@ -108,7 +108,7 @@ export default class TaskPage extends Container<any, any> {
             <button><Icon type="send"/></button>
           </header>
           <div className="task-page--label-block">
-            <Icon type="label"/>
+            <Link to="/labels"><Icon type="label"/></Link>
             {(this.state.labelId) ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
                 {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}

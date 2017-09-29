@@ -12,6 +12,9 @@ import * as React from 'react';
  * - add
  * - notification
  * - profile
+ * - send
+ * - arrow_back
+ * - edit
 */
 
 export default class Icon extends React.Component<any, any> {
@@ -94,6 +97,9 @@ export default class Icon extends React.Component<any, any> {
           </g>
         );
         break;
+      }
+      default: {
+        return type;
       }
     }
     return (

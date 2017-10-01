@@ -1,7 +1,5 @@
 import actionTypes from '../constants/action-types';
-import {
-  User,
-} from '../services';
+import {User} from '../services';
 import {
   transformUserResponse,
 } from './transforms';

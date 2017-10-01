@@ -17,7 +17,7 @@ export function fetchMember(dispatch: IDispatch) {
       const action: IAction = {
         type: actionTypes.FETCH_MEMBER_SUCCESS,
         payload: {
-          requests: requests.map(transformUserResponse),
+          members: requests.map(transformUserResponse),
         },
       };
       dispatch(action);

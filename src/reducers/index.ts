@@ -272,6 +272,17 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
 
+    case (actionTypes.FETCH_MEMBER): {
+      break;
+    }
+    case (actionTypes.FETCH_MEMBER_SUCCESS): {
+      newState.members = payload.members;
+      break;
+    }
+    case (actionTypes.FETCH_MEMBER_FAILURE): {
+      break;
+    }
+
     // REQUEST
     case (actionTypes.FETCH_REQUEST): {
       newState.ui.isLoadingRequests = true;

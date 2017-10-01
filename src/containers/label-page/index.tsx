@@ -150,7 +150,6 @@ export default class LabelPage extends Container<any, any> {
             onChange={this.handleChangeNameInput}
             placeholder="Enter label name"
           />
-          <button>{(labelId) ? 'Update!' : 'Create!'}</button>
         </form>
       </section>
     );

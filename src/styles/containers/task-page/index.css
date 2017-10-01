@@ -1,9 +1,4 @@
 .task-page {
-  /* WIP */
-  path {
-    stroke: black;
-  }
-
   $height: 56px;
 
   .task-page--header {
@@ -12,12 +7,21 @@
     width: 100%;
     height: $height;
     box-shadow: $shadow;
+    background-color: $color-white;
 
     a,
     button {
+      background-color: $color-white;
       display: inline-block;
-      width: $height;
       height: $height;
+      svg {
+        height: $height;
+        padding: 6px 8px 8px;
+        path {
+          stroke-width: 3;
+          stroke: $color-text-primary;
+        }
+      }
     }
   }
 
@@ -28,16 +32,17 @@
     .icon {
       display: inline-block;
       height: $height;
-      padding: 4px;
+      padding: 6px 8px 8px;
       path {
-        stroke: black;
+        stroke-width: 3;
+        stroke: $color-text-primary;
       }
     }
     select {
       display: inline-block;
       vertical-align: top;
       background: transparent;
-      width: calc(100% - $height);
+      width: calc(100% - $height - 4px);
       height: $height;
     }
   }

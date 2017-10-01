@@ -27,6 +27,10 @@ export default class LabelPage extends Container<any, any> {
 
   private handleChangeMemberNameInput: any;
 
+  private handleFocusMemberNameInput: any;
+
+  private handleBlurMemberNameInput: any;
+
   private handleSubmitMemberNameForm: any;
 
   constructor(props: any) {
@@ -38,6 +42,7 @@ export default class LabelPage extends Container<any, any> {
       memberName: '',
       memberNameErrorMessage: '',
       labelRequests: [],
+      isMemberListShown: false,
     });
 
     this.actions = {
@@ -80,11 +85,28 @@ export default class LabelPage extends Container<any, any> {
       getUser: () => {
         getUser(this.dispatch);
       },
+      // Internal
+      setMemberName: (memberName) => {
+        const labelRequests = this.state.labelRequests.concat();
+        labelRequests.push({
+          member: {
+            name: memberName,
+          },
+        });
+        this.setState({
+          memberName: '',
+          memberNameErrorMessage: '',
+          labelRequests,
+          isMemberListShown: false,
+        });
+      },
     };
 
     this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
     this.handleSubmitLabelForm = this._handleSubmitLabelForm.bind(this);
     this.handleChangeMemberNameInput = this._handleChangeMemberNameInput.bind(this);
+    this.handleFocusMemberNameInput = this._handleFocusMemberNameInput.bind(this);
+    this.handleBlurMemberNameInput = this._handleBlurMemberNameInput.bind(this);
     this.handleSubmitMemberNameForm = this._handleSubmitMemberNameForm.bind(this);
   }
 
@@ -132,14 +154,41 @@ export default class LabelPage extends Container<any, any> {
               type="text"
               value={this.state.memberName}
               onChange={this.handleChangeMemberNameInput}
+              onFocus={this.handleFocusMemberNameInput}
+              onBlur={this.handleBlurMemberNameInput}
               placeholder="Search by member name"
             />
-            {(this.state.memberNameErrorMessage) ? <span>{this.state.memberNameErrorMessage}</span> : null}
-          </div>
-          <div>
-            <ul>{this.state.labelRequests.filter((request) => {
-              return (request.member.name !== profile.name);
-            }).map((request, index) => <li key={index}>{request.member.name}</li>)}</ul>
+            {(this.state.isMemberListShown) ? (
+              <div className="label-page--member-block--content">
+                {(this.state.memberNameErrorMessage) ? <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span> : null}
+                <h2>Members</h2>
+                {(filteredMembers.length !== 0) ? (
+                  <ul className="member-block--list">
+                    {filteredMembers.map((member) => {
+                      return (
+                        <SearchMemberListItem
+                          key={member.id}
+                          member={member}
+                          actions={this.actions}
+                        />
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <div
+                    className="label-page--member-block--content--no-result"
+                    onClick={this.handleSubmitMemberNameForm}
+                  >
+                    Add {this.state.memberName} as new member.
+                  </div>
+                )}
+              </div>
+            ) : null}
+            <ul>
+              {this.state.labelRequests.filter((request) => {
+                return (request.member.name !== profile.name);
+              }).map((request, index) => <li key={index}>{request.member.name}</li>)}
+            </ul>
           </div>
         </form>
         <form onSubmit={this.handleSubmitLabelForm}>
@@ -183,7 +232,21 @@ export default class LabelPage extends Container<any, any> {
   }
 
   private _handleChangeMemberNameInput(event: any) {
-    this.setState({memberName: event.currentTarget.value});
+    this.setState({
+      memberName: event.currentTarget.value,
+      memberNameErrorMessage: '',
+    });
+  }
+
+  private _handleFocusMemberNameInput(event: any) {
+    this.setState({isMemberListShown: true});
+  }
+
+  private _handleBlurMemberNameInput(event: any) {
+    this.setState({
+      memberName: '',
+      isMemberListShown: false,
+    });
   }
 
   private _handleSubmitMemberNameForm(event: any) {
@@ -203,6 +266,7 @@ export default class LabelPage extends Container<any, any> {
           memberName: '',
           memberNameErrorMessage: '',
           labelRequests,
+          isMemberListShown: false,
         });
       } else {
         this.setState({
@@ -210,5 +274,32 @@ export default class LabelPage extends Container<any, any> {
         });
       }
     });
+  }
+}
+
+class SearchMemberListItem extends React.Component<any, any> {
+  private handleClick: any;
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleClick = this._handleClick.bind(this);
+  }
+
+  public render() {
+    const member = this.props.member;
+    return (
+      <li
+        onClick={this.handleClick}
+      >
+        <Icon type="profile" />
+        <p>{member.name}</p>
+      </li>
+    );
+  }
+
+  private _handleClick() {
+    const member = this.props.member;
+    this.props.actions.setMemberName(member.name);
   }
 }

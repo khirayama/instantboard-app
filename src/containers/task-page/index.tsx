@@ -104,7 +104,7 @@ export default class TaskPage extends Container<any, any> {
       <section className="page task-page">
         <form onSubmit={this.handleSubmit}>
           <header className="task-page--header">
-            <Link to="/"><Icon type="arrow_back"/></Link>
+            <Link to="/"><Icon type="back"/></Link>
             <button><Icon type="send"/></button>
           </header>
           <div className="task-page--label-block">

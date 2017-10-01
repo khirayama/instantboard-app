@@ -13,7 +13,7 @@ import * as React from 'react';
  * - notification
  * - profile
  * - send
- * - arrow_back
+ * - back
  * - edit
 */
 

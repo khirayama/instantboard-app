@@ -121,7 +121,7 @@ export default class LabelPage extends Container<any, any> {
       <section className="page label-page">
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <header className="label-page--header">
-            <Link to="/"><Icon type="arrow_back"/></Link>
+            <Link to="/"><Icon type="back"/></Link>
             <button><Icon type="send"/></button>
           </header>
           <div className="label-page--member-block">

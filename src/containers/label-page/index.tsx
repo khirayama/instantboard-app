@@ -117,11 +117,13 @@ export default class LabelPage extends Container<any, any> {
     const labelId = this.state.labelId;
     const profile = this.state.profile || {};
 
+    const filteredMembers = this.state.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
+
     return (
       <section className="page label-page">
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <header className="label-page--header">
-            <Link to="/"><Icon type="back"/></Link>
+            <Link to="/labels"><Icon type="back"/></Link>
             <button><Icon type="send"/></button>
           </header>
           <div className="label-page--member-block">

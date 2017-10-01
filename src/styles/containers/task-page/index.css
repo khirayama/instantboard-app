@@ -1,4 +1,9 @@
 .task-page {
+  /* WIP */
+  path {
+    stroke: black;
+  }
+
   $height: 56px;
 
   .task-page--header {

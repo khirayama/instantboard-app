@@ -1,4 +1,9 @@
 .label-page {
+  /* WIP */
+  path {
+    stroke: black;
+  }
+
   $height: 56px;
 
   .label-page--header {

@@ -184,13 +184,19 @@ export default class LabelPage extends Container<any, any> {
                 )}
               </div>
             ) : null}
-            <ul>
-              {this.state.labelRequests.filter((request) => {
-                return (request.member.name !== profile.name);
-              }).map((request, index) => <li key={index}>{request.member.name}</li>)}
-            </ul>
           </div>
         </form>
+        <ul className="label-page--member-list">
+          {this.state.labelRequests.filter((request) => {
+            return (request.member.name !== profile.name);
+          }).map((request, index) => {
+            return (
+              <li key={index}>
+                {request.member.name}
+              </li>
+            );
+          })}
+        </ul>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input
             autoFocus
@@ -243,10 +249,13 @@ export default class LabelPage extends Container<any, any> {
   }
 
   private _handleBlurMemberNameInput(event: any) {
-    this.setState({
-      memberName: '',
-      isMemberListShown: false,
-    });
+    // Prevent to hide SearchMemberListItem for click.
+    setTimeout(() => {
+      this.setState({
+        memberName: '',
+        isMemberListShown: false,
+      });
+    }, 0);
   }
 
   private _handleSubmitMemberNameForm(event: any) {

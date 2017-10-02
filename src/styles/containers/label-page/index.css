@@ -84,6 +84,25 @@
     }
   }
 
+  .label-page--member-list {
+    padding: 8px 12px;
+    border-bottom: $border;
+    li {
+      display: inline-block;
+      border: $border;
+      border-radius: $radius;
+      padding: 4px 8px;
+      & + li {
+        margin-left: 8px;
+      }
+    }
+
+    &:empty {
+      border: 0;
+      padding: 0;
+    }
+  }
+
   input {
     padding: 12px;
   }

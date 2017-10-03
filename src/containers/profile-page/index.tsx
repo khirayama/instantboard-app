@@ -12,6 +12,7 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
+import FlatButton from '../../components/flat-button';
 import Icon from '../../components/icon';
 import poller from '../../utils/poller';
 import tokenManager from '../../utils/token-manager';
@@ -122,14 +123,16 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
               </p>
             )}
           </div>
-          <div
-            className="logout-button"
-            onClick={this.handleClickLogoutButton}
-          >LOG OUT</div>
-          <div
-            className="delete-account-button"
-            onClick={this.handleClickDeleteAccountButton}
-          >DELETE ACCOUNT</div>
+          <div className="profile-page--logout-button">
+            <FlatButton
+              onClick={this.handleClickLogoutButton}
+            >LOG OUT</FlatButton>
+          </div>
+          <div className="profile-page--delete-account-button">
+            <FlatButton
+              onClick={this.handleClickDeleteAccountButton}
+            >DELETE ACCOUNT</FlatButton>
+          </div>
         </TabNavigationContent>
         <TabNavigation
           index={3}

@@ -15,6 +15,7 @@ import Icon from '../../components/icon';
 import Link from '../../router/link';
 import {User} from '../../services';
 import Container from '../container';
+import SearchMemberListItem from './search-member-list-item';
 
 export default class LabelPage extends Container<any, any> {
   public static contextTypes = {
@@ -160,7 +161,9 @@ export default class LabelPage extends Container<any, any> {
             />
             {(this.state.isMemberListShown) ? (
               <div className="label-page--member-block--content">
-                {(this.state.memberNameErrorMessage) ? <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span> : null}
+                {(this.state.memberNameErrorMessage) ? (
+                  <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span>
+                ) : null}
                 <h2>Members</h2>
                 {(filteredMembers.length !== 0) ? (
                   <ul className="member-block--list">
@@ -283,32 +286,5 @@ export default class LabelPage extends Container<any, any> {
         });
       }
     });
-  }
-}
-
-class SearchMemberListItem extends React.Component<any, any> {
-  private handleClick: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.handleClick = this._handleClick.bind(this);
-  }
-
-  public render() {
-    const member = this.props.member;
-    return (
-      <li
-        onClick={this.handleClick}
-      >
-        <Icon type="profile" />
-        <p>{member.name}</p>
-      </li>
-    );
-  }
-
-  private _handleClick() {
-    const member = this.props.member;
-    this.props.actions.setMemberName(member.name);
   }
 }

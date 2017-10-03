@@ -8,24 +8,7 @@
   }
 
   .label-index-page--add-button {
-    display: inline-block;
     width: 100%;
-    color: $color-text-tertiary;
     padding: 4px 0;
-
-    .icon {
-      display: inline-block;
-      width: 40px;
-      padding: 4px;
-      path {
-        fill: $color-text-tertiary;
-      }
-    }
-    p {
-      display: inline-block;
-      vertical-align: top;
-      padding: 10px 0 0;
-      font-weight: bold;
-    }
   }
 }

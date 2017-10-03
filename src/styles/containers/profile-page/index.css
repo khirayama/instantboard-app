@@ -38,12 +38,13 @@
       }
     }
   }
-  .logout-button {
-    font-weight: bold;
+  .profile-page--logout-button {
     margin: 16px 0;
   }
-  .delete-account-button {
-    font-weight: bold;
+  .profile-page--delete-account-button {
     margin: 16px 0;
+    .flat-button {
+      color: $color-accent-attention;
+    }
   }
 }

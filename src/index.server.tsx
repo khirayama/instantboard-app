@@ -5,13 +5,13 @@ import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
+import Spinner from './components/spinner';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
 import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
-import Spinner from './components/spinner';
 
 import * as jwt from 'jwt-simple';
 import tokenManager from './utils/token-manager';

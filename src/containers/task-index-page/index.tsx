@@ -20,7 +20,6 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-import FloatingButton from '../../components/floating-button';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import {

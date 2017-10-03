@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
+import IconLink from '../../components/common/icon-link';
 import LoadingContent from '../../components/common/loading-content';
-import Icon from '../../components/icon';
 import {
   List,
   ListItem,
@@ -48,10 +48,11 @@ export default class TaskList extends React.Component<any, any> {
           })}
         </List>
         {(tasks.length !== 0) ? (
-          <Link className="task-list--add-button" to={`/tasks/new?label-id=${label.id}`}>
-            <Icon type="add" />
-            <p>ADD TASK</p>
-          </Link>
+          <IconLink
+            to={`/tasks/new?label-id=${label.id}`}
+            iconType="add"
+            className="task-list--add-button"
+          >ADD TASK</IconLink>
         ) : null }
         {backgroundElement}
       </span>

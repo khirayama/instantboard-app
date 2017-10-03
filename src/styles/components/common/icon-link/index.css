@@ -1,0 +1,18 @@
+.icon-link  {
+  display: inline-block;
+  color: $color-text-tertiary;
+
+  .icon {
+    width: 40px;
+    vertical-align: top;
+    path {
+      fill: $color-text-tertiary;
+    }
+  }
+  span {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px 0 0;
+    font-weight: $font-bold;
+  }
+}

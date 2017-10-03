@@ -9,19 +9,18 @@ import {
 import {
   pollRequest,
 } from '../../action-creators/request';
+import IconLink from '../../components/common/icon-link';
 import LoadingContent from '../../components/common/loading-content';
 import NoLabelContent from '../../components/common/no-label-content';
 import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/common/tab-navigation';
-import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import {
   List,
   ListItem,
 } from '../../components/list';
-import Link from '../../router/link';
 import poller from '../../utils/poller';
 import Container from '../container';
 import LabelListItem from './label-list-item';
@@ -93,10 +92,11 @@ export default class LabelIndexPage extends Container<any, any> {
             ))}
           </List>
           {(labels.length !== 0) ? (
-            <Link className="label-index-page--add-button" to="/labels/new">
-              <Icon type="add" />
-              <p>ADD LABEL</p>
-            </Link>
+            <IconLink
+              to="/labels/new"
+              iconType="add"
+              className="label-index-page--add-button"
+            >ADD LABEL</IconLink>
           ) : null}
           {backgroundElement}
         </TabNavigationContent>

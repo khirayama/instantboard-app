@@ -15,7 +15,7 @@ $height: 36px;
       position: relative;
       text-align: center;
       padding: 8px 12px;
-      font-weight: $font-weight-bold;
+      font-weight: $font-bold;
       background-color: $color-white;
       color: $color-text-secondary;
 

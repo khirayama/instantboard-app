@@ -16,6 +16,7 @@
 }
 
 .icon {
+  display: inline-block;
   min-width: 24px;
 
   /* Icon: check */

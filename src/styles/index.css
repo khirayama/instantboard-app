@@ -1,6 +1,7 @@
-@import "./reset";
 @import "./colors";
 @import "./vars";
+
+@import "./reset";
 @import "./application";
 
 @import "./components/**/*";

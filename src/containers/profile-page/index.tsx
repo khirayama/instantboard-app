@@ -103,38 +103,33 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     return (
       <section className="page profile-page">
         <TabNavigationContent>
-          <section className="profile-tab-content">
-            <div className="profile-tab-content--information">
-              <div className="profile-tab-content--name">
-                <div className="profile-tab-content--name--icon">
-                  <Icon type="profile" />
-                </div>
-                <div className="profile-tab-content--name--input">
-                  {(this.state.isEditing) ? (
-                    <form onSubmit={this.handleBlurNameInput}>
-                      <textarea
-                        autoFocus
-                        value={this.state.name}
-                        onBlur={this.handleBlurNameInput}
-                        onChange={this.handleChangeNameInput}
-                        onKeyDown={this.handleKeyDownNameInput}
-                      />
-                    </form>
-                  ) : (
-                    <p onClick={this.handleClickEditButton}>
-                      {profile.name}
-                      <Icon type="edit" />
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="logout-button" onClick={this.handleClickLogoutButton}>Logout</div>
-              <div
-                className="delete-account-button"
-                onClick={this.handleClickDeleteAccountButton}
-              >Delete account</div>
-            </div>
-          </section>
+          <div className="profile-tab-content--name--input">
+            <Icon type="profile" />
+            {(this.state.isEditing) ? (
+              <form onSubmit={this.handleBlurNameInput}>
+                <input
+                  autoFocus
+                  type="text"
+                  value={this.state.name}
+                  onBlur={this.handleBlurNameInput}
+                  onChange={this.handleChangeNameInput}
+                  onKeyDown={this.handleKeyDownNameInput}
+                />
+              </form>
+            ) : (
+              <p onClick={this.handleClickEditButton}>
+                {profile.name}
+              </p>
+            )}
+          </div>
+          <div
+            className="logout-button"
+            onClick={this.handleClickLogoutButton}
+          >LOG OUT</div>
+          <div
+            className="delete-account-button"
+            onClick={this.handleClickDeleteAccountButton}
+          >DELETE ACCOUNT</div>
         </TabNavigationContent>
         <TabNavigation
           index={3}

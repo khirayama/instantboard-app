@@ -1,72 +1,49 @@
 .profile-page {
-  .profile-tab-content {
-    $height: 44px;
+  padding: 32px;
+
+  .profile-tab-content--name--input {
+    $height: 48px;
+
+    display: inline-block;
     position: relative;
     width: 100%;
-    height: 100%;
-    .profile-tab-content--information {
+    height: $height;
+    overflow: hidden;
+
+    p, input {
+      display: inline-block;
+      background-color: transparent;
+      font-weight: bold;
+      width: 100%;
+      height: $height;
+      line-height: $height;
+      padding: 0 $height;
+      border-bottom: $border;
+      overflow: hidden;
+    }
+    .icon {
       position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-
-      .profile-tab-content--name {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        margin-bottom: 24px;
-
-        .profile-tab-content--name--icon {
-          display: inline-block;
-          height: $height;
-          position: absolute;
-          top: 0;
-          left: 0;
-          .icon {
-            /* color: $color-text-secondary; */
-            font-size: $height;
-          }
-        }
-
-        .profile-tab-content--name--input {
-          display: inline-block;
-          position: relative;
-
-          p, textarea {
-            display: inline-block;
-            background-color: transparent;
-            font-size: 2rem;
-            font-weight: bold;
-            padding-left: calc($height + 16px);
-            padding-right: $height;
-            vertical-align: top;
-            width: 100%;
-            min-height: 160px;
-            max-height: 320px;
-            word-break: break-all;
-            overflow: scroll;
-            resize: none;
-          }
-          .icon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 4px 0;
-            font-size: 36px;
-            vertical-align: text-top;
-            color: $color-text-secondary;
-            z-index: -1;
-          }
-        }
+      top: 0;
+      height: $height;
+      padding: 6px 0 0;
+      path {
+        stroke-width: 3px;
+        stroke: $color-text-secondary;
       }
-      .logout-button {
-        font-weight: bold;
-        margin-bottom: 16px;
+      &.icon__profile {
+        left: 0;
       }
-      .delete-account-button {
-        font-weight: bold;
+      &.icon__edit {
+        right: 0;
       }
     }
+  }
+  .logout-button {
+    font-weight: bold;
+    margin: 16px 0;
+  }
+  .delete-account-button {
+    font-weight: bold;
+    margin: 16px 0;
   }
 }

@@ -50,21 +50,27 @@ ul {
   list-style: none;
 }
 h1 {
+  font-weight: $font-bold;
   font-size: 2rem;
 }
 h2 {
+  font-weight: $font-bold;
   font-size: 1.8rem;
 }
 h3 {
+  font-weight: $font-bold;
   font-size: 1.6rem;
 }
 h4 {
+  font-weight: $font-bold;
   font-size: 1.4rem;
 }
 h5 {
+  font-weight: $font-bold;
   font-size: 1.2rem;
 }
 h6 {
+  font-weight: $font-bold;
   font-size: 1rem;
 }
 small {
@@ -91,4 +97,3 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-

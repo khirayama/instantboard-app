@@ -2,17 +2,26 @@
   position: relative;
   width: 100%;
   height: 100%;
-  .no-task-content--inner {
+
+  .flat-button {
+    color: $color-text-tertiary;
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    p {
-      color: $color-text-secondary;
-      font-weight: bold;
-      padding: 24px;
+
+    .icon {
+      width: 40px;
+      vertical-align: top;
+      path {
+        fill: $color-text-tertiary;
+      }
+    }
+    span {
+      display: inline-block;
+      vertical-align: top;
+      padding: 10px 0 0;
     }
   }
 }

@@ -92,10 +92,12 @@ export default class LabelIndexPage extends Container<any, any> {
                 />
             ))}
           </List>
-          <Link className="label-index-page--add-button" to="/labels/new">
-            <Icon type="add" />
-            <p>ADD LABEL</p>
-          </Link>
+          {(labels.length !== 0) ? (
+            <Link className="label-index-page--add-button" to="/labels/new">
+              <Icon type="add" />
+              <p>ADD LABEL</p>
+            </Link>
+          ) : null}
           {backgroundElement}
         </TabNavigationContent>
         <TabNavigation

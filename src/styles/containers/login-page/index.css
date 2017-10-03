@@ -5,36 +5,29 @@
     position: absolute;
     top: 40%;
     left: 50%;
-    width: 80%;
-    max-width: 240px;
+    width: 92%;
     text-align: center;
     transform: translate(-50%, -50%);
 
     .login-page--content--heading {
-      font-weight: bold;
-      font-size: 2rem;
       margin-bottom: 12px;
-      letter-spacing: -1px;
     }
 
     .login-page--content--description {
-      font-size: .8rem;
+      /* font-size: .8rem; */
       margin-bottom: 36px;
       color: $color-text-secondary;
     }
 
-    .login-page--content--login-button {
-      cursor: pointer;
-      display: inline-block;
-      padding: 6px 0;
-      width: 100%;
-      text-align: center;
-      border-radius: $radius;
-      background-color: $color-text-secondary;
-      font-weight: bold;
+    .login-page--flat-button {
+      display: block;
       color: $color-white;
-      margin-bottom: 16px;
-      &.login-page--content--login-button__facebook {
+      width: 100%;
+      max-width: 240px;
+      background-color: $color-text-secondary;
+      margin: 0 auto 16px;
+
+      &.login-page--flat-button__facebook {
         background-color: #3b5998; /* facebook color*/
       }
     }

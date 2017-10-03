@@ -47,10 +47,12 @@ export default class TaskList extends React.Component<any, any> {
             );
           })}
         </List>
-        <Link className="task-list--add-button" to={`/tasks/new?label-id=${label.id}`}>
-          <Icon type="add" />
-          <p>ADD TASK</p>
-        </Link>
+        {(tasks.length !== 0) ? (
+          <Link className="task-list--add-button" to={`/tasks/new?label-id=${label.id}`}>
+            <Icon type="add" />
+            <p>ADD TASK</p>
+          </Link>
+        ) : null }
         {backgroundElement}
       </span>
     );

@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import FloatingButton from '../../components/floating-button';
+import FlatButton from '../../components/flat-button';
+import Icon from '../../components/Icon';
 
 export default class NoTaskContent extends React.Component<any, any> {
   public static contextTypes = {
@@ -18,10 +19,10 @@ export default class NoTaskContent extends React.Component<any, any> {
   public render() {
     return (
       <div className="no-task-content">
-        <div className="no-task-content--inner">
-          <p>{'You\'re all done.'}</p>
-          <FloatingButton onClick={this.handleClickAddTaskButton}>ADD TASK</FloatingButton>
-        </div>
+        <FlatButton onClick={this.handleClickAddTaskButton}>
+          <Icon type="add"/>
+          <span>ADD TASK</span>
+        </FlatButton>
       </div>
     );
   }

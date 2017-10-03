@@ -3,6 +3,7 @@ import * as React from 'react';
 import queryString from '../../utils/query-string';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';
+import FlatButton from '../../components/flat-button';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
@@ -34,21 +35,17 @@ export default class LoginPage extends Container<any, any> {
         <section className="login-page--content">
           <h1 className="login-page--content--heading">Instantboard</h1>
           <p className="login-page--content--description">Sign up to manage and share your tasks.</p>
-          <div>
-            <a
-              className="login-page--content--login-button login-page--content--login-button__facebook"
-              href={`${API_SERVER_HOST}/auth/facebook`}
-              onClick={this.handleClickLoginButton}
-            >Log in with Facebook</a>
-          </div>
+          <FlatButton
+            className="login-page--flat-button login-page--flat-button__facebook"
+            onClick={this.handleClickLoginButton}
+            href={`${API_SERVER_HOST}/auth/facebook`}
+          >LOG IN WITH FACEBOOK</FlatButton>
           {(process.env.NODE_ENV !== 'production') ? (
-            <div>
-              <a
-                className="login-page--content--login-button"
-                href={`${API_SERVER_HOST}/auth/tester`}
-                onClick={this.handleClickLoginButton}
-              >Log in as tester</a>
-            </div>
+            <FlatButton
+              className="login-page--flat-button"
+              onClick={this.handleClickLoginButton}
+              href={`${API_SERVER_HOST}/auth/tester`}
+            >LOG IN AS TESTER</FlatButton>
           ) : null}
         </section>
       </section>

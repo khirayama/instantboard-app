@@ -3,7 +3,6 @@ module.exports = {
     'postcss-easy-import': {
       glob: true,
       onImport: sources => {
-        console.log('import');
         // global.watchCSS(sources, this.from);
       },
     },

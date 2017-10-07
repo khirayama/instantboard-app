@@ -35,7 +35,12 @@ export class List extends React.Component<any, any> {
 
   public getChildContext() {
     return {
-      listElement: () => this.listElement,
+      listElement: () => {
+        if (this.props.parentElement) {
+          return this.props.parentElement;
+        }
+        return this.listElement;
+      },
       onSort: this.props.onSort,
     };
   }

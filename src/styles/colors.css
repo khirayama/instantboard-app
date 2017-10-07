@@ -1,18 +1,44 @@
+/* $color-black: #000; */
 $color-white: #fff;
+$color-grey-50: #fafafa;
+$color-grey-100: #f5f5f5;
+/* $color-grey-200: #eeeeee; */
+$color-grey-300: #e0e0e0; /* rgba(0, 0, 0, .12) */
+/* $color-grey-400: #bdbdbd; */
+$color-grey-500: #9e9e9e; /* rgba(0, 0, 0, .38); */
+$color-grey-600: #757575; /* rgba(0, 0, 0, .54); */
+/* $color-grey-700: #616161; */
+$color-grey-800: #424242;
+$color-grey-900: #212121; /* rgba(0, 0, 0, .87); */
+$color-red-a700: #d50000;
 
-$color-accent-attention: #ef5350;
 
-$color-text: #424242;
-$color-text-primary: #262626;
-$color-text-secondary: #999;
-$color-text-tertiary: #bababa;
+$color-text: $color-grey-900;
+$color-text-secondary: $color-grey-600;
+$color-text-hint: $color-grey-500;
+$color-divider: $color-grey-300;
+$color-icon-active: $color-grey-800;
+$color-icon-inactive: $color-grey-500;
+$color-shadow: rgba(0, 0, 0, .12);
+$color-background: $color-grey-50;
+$color-background-bar: $color-white;
+$color-background-content: $color-white;
+$color-attention: $color-red-a700;
+$color-disabled: #ededed;
 
-$color-divider: #eee;
-$color-loader: #eee;
-$color-background: $color-white;
+/* Validation */
+/* $color-text: steelblue; */
+/* $color-text-secondary: royalblue; */
+/* $color-text-hint: dodgerblue; */
+/* $color-divider: limegreen; */
+/* $color-icon-active: gold; */
+/* $color-icon-inactive: darkorange; */
+/* $color-shadow: orange; */
+/* $color-background: gray; */
+/* $color-attention: magenta; */
 
-$color-ui-shadow: rgba(0, 0, 0, 0.1);
-
+/* Application */
+$color-facebook: #3b5998;
 $color-season-jan: rgb(255, 216, 120);
 $color-season-feb: rgb(243, 191, 136);
 $color-season-mar: rgb(249, 129, 143);

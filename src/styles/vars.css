@@ -4,11 +4,19 @@ $ease-out-expo: cubic-bezier(0.19, 1, 0.32, 1);
 $time-fast: 175ms;
 $time-basic: 200ms;
 
-$font-family: 'Noto Sans Japanese', sans-serif;
-$font-normal: 400;
-$font-bold: 700;
+$font-family: 'Noto Sans JP', 'Noto Sans Japanese', 'Helvetica Neue', sans-serif;
+$font-regular: 400;
+$font-medium: 500;
 $font-size: 16px;
 
 $radius: 2px;
-$shadow: 0 1px 1px 0 $color-ui-shadow;
+$shadow: 0 1px 1px 0 $color-shadow;
+$shadow-inverse: 0 -1px 1px 0 $color-shadow;
 $border: solid 1px $color-divider;
+
+$height-bar-high: 56px;
+$height-bar-low: 36px;
+$height-list-item: 56px;
+
+$margin-screen-edge: 12px;
+$margin-screen-edge-content: 48px;

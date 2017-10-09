@@ -37,7 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (process && process.env.NODE_ENV !== 'production') {
     const query = queryString.parse(location.search);
-    console.log(query);
     if (query.metrics) {
       applicationMainElement.insertAdjacentHTML(
         'beforeend',

@@ -1,7 +1,7 @@
 .task-list {
   width: 100%;
   height: auto;
-  overflow: scroll;
+  overflow: visible;
   -webkit-overflow-scrolling: touch;
 }
 

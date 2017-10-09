@@ -5,6 +5,7 @@
     .label-list {
       width: 100%;
       height: auto;
+      overflow: visible;
       -webkit-overflow-scrolling: touch;
     }
 

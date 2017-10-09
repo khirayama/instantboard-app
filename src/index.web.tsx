@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="layout-metrics--grid layout-metrics--screen-edge--content__right--edge__left"></div>
           <div class="layout-metrics--grid layout-metrics--screen-edge--content__right--edge__right"></div>
         </div>
-        `
+        `,
       );
     }
   }

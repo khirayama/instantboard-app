@@ -1,23 +1,21 @@
-$height: 36px;
-
 .recycle-table {
   width: 100%;
   height: 100%;
 
   .recycle-table-list {
     position: relative;
-    height: $height;
+    height: $height-bar-low;
     vertical-align: top;
     z-index: 1;
-    box-shadow: 0 1px 1px $color-ui-shadow;
+    box-shadow: $shadow;
 
     .recycle-table-list-item {
       position: relative;
       text-align: center;
       padding: 8px 12px;
-      font-weight: $font-bold;
-      background-color: $color-white;
-      color: $color-text-secondary;
+      font-weight: $font-medium;
+      background-color: $color-background;
+      color: $color-text-hint;
 
       &::after {
         position: absolute;
@@ -28,7 +26,7 @@ $height: 36px;
         height: 3px;
         content: '';
         transform: translateX(-50%);
-        background: $color-text-primary;
+        background: $color-text;
         transition-timing-function: $ease-out-expo;
         transition-duration: $time-basic;
         transition-property: width;
@@ -36,7 +34,7 @@ $height: 36px;
       }
 
       &.recycle-table-list-item__active {
-        color: $color-text-primary;
+        color: $color-text;
         &::after {
           width: 100%;
         }
@@ -45,7 +43,7 @@ $height: 36px;
   }
 
   .recycle-table-content-list {
-    height: calc(100% - $height);
+    height: calc(100% - $height-bar-low);
     will-change: left;
 
     .recycle-table-content-list--inner {

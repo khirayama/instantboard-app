@@ -1,5 +1,3 @@
-$height-tab-navigation-tab-list: 56px;
-
 .tab-navigation-tab-list {
   display: flex;
   position: absolute;
@@ -14,25 +12,24 @@ $height-tab-navigation-tab-list: 56px;
 
 .tab-navigation-content {
   width: 100%;
-  height: calc(100% - $height-tab-navigation-tab-list);
+  height: calc(100% - $height-bar-high);
 }
 
 .tab-navigation-tab-list {
-  background: $color-white;
-  box-shadow: 0 -1px 1px 1px $color-ui-shadow;
-  height: $height-tab-navigation-tab-list;
+  background-color: $color-background-content;
+  box-shadow: $shadow-inverse;
+  height: $height-bar-high;
   .tab-navigation-tab-list-item {
     text-align: center;
     position: relative;
     color: $color-text-secondary;
     .tab-navigation--icon {
       padding: 6px 0 8px;
-      height: $height-tab-navigation-tab-list;
+      height: $height-bar-high;
       path,
       circle,
       rect {
-        stroke-width: 3;
-        stroke: $color-text-secondary;
+        stroke: $color-icon-inactive;
       }
     }
     .tab-navigation--icon--badge {
@@ -42,7 +39,7 @@ $height-tab-navigation-tab-list: 56px;
       left: calc(50% + 6px);
       width: 8px;
       height: 8px;
-      background: $color-accent-attention;
+      background-color: $color-attention;
       z-index: 1;
       border-radius: 50%;
     }
@@ -51,7 +48,7 @@ $height-tab-navigation-tab-list: 56px;
         path,
         circle,
         rect {
-          stroke: $color-text-primary;
+          stroke: $color-icon-active;
         }
       }
     }

@@ -33,14 +33,14 @@
       cx: 50;
       cy: 50;
       r: 30;
-      fill: $color-white;
+      fill: $color-background;
       transition: .2s ease-out;
       transition-property: r;
     }
   }
   &.icon__active {
     .icon__check--circle {
-      fill: $color-white;
+      fill: $color-background;
     }
     .icon__check--circle--inner {
       r: 0;
@@ -63,7 +63,7 @@
   }
   &.icon__active {
     .icon__remove--rect {
-      fill: $color-white;
+      fill: $color-background;
     }
   }
 }

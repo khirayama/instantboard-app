@@ -1,27 +1,22 @@
 .task-list-item {
   display: flex;
   align-items: stretch;
-  background: $color-white;
+  background-color: $color-background-content;
+  min-height: $height-list-item;
+  transition: $time-basic $ease-out;
+  transition-property: background, color;
 
   .task-list-item--complete-button,
   .task-list-item--destroy-button {
     display: flex;
     align-items: center;
-    text-align: center;
-    font-weight: bold;
-    color: $color-text-secondary;
-  }
-  .task-list-item--complete-button {
-    padding: 8px;
-  }
-  .task-list-item--destroy-button {
     padding: 8px 12px;
   }
 
   .task-list-item--schedule--container {
     display: flex;
     align-items: center;
-    padding: 8px 12px 8px 0;
+    padding: 8px 8px 8px 0;
   }
 
   .task-list-item--content {
@@ -31,9 +26,9 @@
     padding: 12px 0;
   }
 
-  &__completed {
+  &.task-list-item__completed {
     color: $color-text-secondary;
-    background-color: $color-divider;
+    background-color: $color-disabled;
   }
 
   .task-list-item--schedule {
@@ -45,6 +40,7 @@
     text-align: center;
     border-radius: $radius;
     vertical-align: top;
+
     &--month {
       position: absolute;
       top: 3px;
@@ -56,6 +52,7 @@
       font-size: 8px;
       vertical-align: top;
     }
+
     &--date {
       position: absolute;
       display: inline-block;
@@ -65,9 +62,10 @@
       height: 18px;
       line-height: 18px;
       font-size: 18px;
-      font-weight: bold;
+      font-weight: $font-medium;
       vertical-align: top;
     }
+
     &--day {
       position: absolute;
       display: inline-block;
@@ -83,36 +81,47 @@
     &__jan {
       background-color: $color-season-jan;
     }
+
     &__feb {
       background-color: $color-season-feb;
     }
+
     &__mar {
       background-color: $color-season-mar;
     }
+
     &__apr {
       background-color: $color-season-apr;
     }
+
     &__may {
       background-color: $color-season-may;
     }
+
     &__jun {
       background-color: $color-season-jun;
     }
+
     &__jul {
       background-color: $color-season-jul;
     }
+
     &__aug {
       background-color: $color-season-aug;
     }
+
     &__sep {
       background-color: $color-season-sep;
     }
+
     &__oct {
       background-color: $color-season-oct;
     }
+
     &__nov {
       background-color: $color-season-nov;
     }
+
     &__dec {
       background-color: $color-season-dec;
     }

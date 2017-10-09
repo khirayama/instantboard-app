@@ -4,27 +4,32 @@
   .recycle-table-list {
     display: inline-block;
     width: 100%;
+    background-color: $color-background-content;
     overflow-x: scroll;
     overflow-y: hidden;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     .recycle-table-list--inner {
       display: inline-block;
       height: 100%;
       overflow: hidden;
+
       .recycle-table-list-item {
         display: inline-block;
         height: 100%;
         cursor: pointer;
         user-select: none;
-        /* &__active {} */
+        background-color: $color-background-content;
       }
     }
   }
 
   .recycle-table-content-list {
     overflow: hidden;
+
     .recycle-table-content-list--inner {
       display: flex;
       transition-timing-function: $ease-out;
@@ -34,18 +39,19 @@
 
       .recycle-table-content-list-item {
         flex: 1;
+
         .recycle-table-content-list-item--inner {
           width: 100%;
           height: 100%;
         }
       }
+
       .recycle-table-content-list-item__hidden {
+
         .recycle-table-content-list-item--inner {
           display: none;
         }
       }
-
-      /* &__moving {} */
     }
   }
 }

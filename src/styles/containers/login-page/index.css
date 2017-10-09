@@ -21,14 +21,14 @@
 
     .login-page--flat-button {
       display: block;
-      color: $color-white;
+      color: $color-background;
       width: 100%;
       max-width: 240px;
       background-color: $color-text-secondary;
       margin: 0 auto 16px;
 
       &.login-page--flat-button__facebook {
-        background-color: #3b5998; /* facebook color*/
+        background-color: $color-facebook;
       }
     }
   }

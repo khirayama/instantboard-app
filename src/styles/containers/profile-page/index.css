@@ -13,7 +13,7 @@
     p, input {
       display: inline-block;
       background-color: transparent;
-      font-weight: bold;
+      font-weight: $font-medium;
       width: 100%;
       height: $height;
       line-height: $height;
@@ -27,7 +27,6 @@
       height: $height;
       padding: 6px 0 0;
       path {
-        stroke-width: 3px;
         stroke: $color-text-secondary;
       }
       &.icon__profile {
@@ -44,7 +43,7 @@
   .profile-page--delete-account-button {
     margin: 16px 0;
     .flat-button {
-      color: $color-accent-attention;
+      color: $color-attention;
     }
   }
 }

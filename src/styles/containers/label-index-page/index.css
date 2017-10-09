@@ -1,14 +1,15 @@
 .label-index-page {
-  .label-list {
-    width: 100%;
-    height: auto;
-    background-color: $color-background;
+  .tab-navigation-content {
     overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-  }
 
-  .label-index-page--add-button {
-    width: 100%;
-    padding: 4px 0;
+    .label-list {
+      width: 100%;
+      height: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .label-index-page--add-button {
+      width: 100%;
+    }
   }
 }

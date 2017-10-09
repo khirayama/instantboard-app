@@ -1,18 +1,21 @@
 .icon-link  {
+  $size: 48px;
+
   display: inline-block;
-  color: $color-text-tertiary;
+  color: $color-text-hint;
 
   .icon {
-    width: 40px;
+    width: $size;
+    padding: 8px;
     vertical-align: top;
     path {
-      fill: $color-text-tertiary;
+      fill: $color-icon-inactive;
     }
   }
   span {
     display: inline-block;
     vertical-align: top;
-    padding: 10px 0 0;
-    font-weight: $font-bold;
+    font-weight: $font-medium;
+    line-height: $size;
   }
 }

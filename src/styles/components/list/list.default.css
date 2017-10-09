@@ -10,12 +10,12 @@
       &__holding {
         position: relative;
         z-index: 1;
-        box-shadow: 0 1px 1px 1px $color-ui-shadow;
+        box-shadow: $shadow;
         transition-property: box-shadow;
       }
 
       &__sorting {
-        box-shadow: 0 1px 1px 1px $color-ui-shadow;
+        box-shadow: $shadow;
         transition-property: box-shadow;
       }
 

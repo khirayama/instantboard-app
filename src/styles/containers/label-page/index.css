@@ -1,26 +1,23 @@
 .label-page {
-  $height: 56px;
-
   .label-page--header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: $height;
+    height: $height-bar-high;
     box-shadow: $shadow;
-    background-color: $color-white;
+    background-color: $color-background;
 
     a,
     button {
-      background-color: $color-white;
+      background-color: $color-background;
       display: inline-block;
-      width: $height;
-      height: $height;
+      width: $height-bar-high;
+      height: $height-bar-high;
       svg {
-        height: $height;
+        height: $height-bar-high;
         padding: 6px 8px 8px;
         path {
-          stroke-width: 3;
-          stroke: $color-text-primary;
+          stroke: $color-icon-active;
         }
       }
     }
@@ -29,29 +26,28 @@
   .label-page--member-block {
     position: relative;
     border-bottom: $border;
-    height: $height;
+    height: $height-bar-high;
 
     .icon {
       display: inline-block;
-      height: $height;
+      height: $height-bar-high;
       padding: 6px 8px 8px;
       path {
-        stroke-width: 3;
-        stroke: $color-text-primary;
+        stroke: $color-icon-active;
       }
     }
     input {
       display: inline-block;
       vertical-align: top;
       background: transparent;
-      width: calc(100% - $height - 4px);
-      height: $height;
+      width: calc(100% - $height-bar-high - 4px);
+      height: $height-bar-high;
     }
     .label-page--member-block--error {
       display: inline-block;
       width: 100%;
       padding: 4px 12px;
-      color: $color-accent-attention;
+      color: $color-attention;
     }
     .label-page--member-block--content {
       position: absolute;
@@ -59,20 +55,20 @@
       left: 0;
       width: 100%;
       z-index: 1;
-      background-color: $color-white;
+      background-color: $color-background;
       box-shadow: $shadow;
       h2 {
         padding: 12px;
         font-size: 1rem;
-        font-weight: bold;
+        font-weight: $font-medium;
         border-bottom: $border;
       }
       ul {
         li {
-          height: $height;
+          height: $height-bar-high;
           p {
             display: inline-block;
-            line-height: $height;
+            line-height: $height-bar-high;
             vertical-align: top;
           }
         }
@@ -103,7 +99,9 @@
     }
   }
 
-  input {
+  .label-page--label-name-input {
+    width: 100%;
     padding: 12px;
+    background-color: $color-background;
   }
 }

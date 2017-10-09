@@ -1,12 +1,12 @@
 const queryString = {
   parse: (query: string): any => {
-    const kvs: string[] = query.replace('?', '').split('&');
-    const result = {};
-    kvs.forEach((kv: string) => {
-      const kvArray = kv.split('=');
-      result[kvArray[0]] = kvArray[1];
-    });
-    return result;
+    const q: string[] = query.substring(1).split('&');
+
+    return q.reduce((result, kv) => {
+      const pair = kv.split('=');
+      result[pair[0]] = decodeURIComponent(pair[1]);
+      return result;
+    }, {});
   },
 };
 export default queryString;

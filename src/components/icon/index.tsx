@@ -20,7 +20,7 @@ import * as React from 'react';
 export default class Icon extends React.Component<any, any> {
   public render() {
     let icon: any = null;
-    const strokeWidth = 2;
+    const strokeWidth = 3;
 
     const type = this.props.type;
 

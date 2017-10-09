@@ -2,10 +2,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import IconLink from '../../components/common/icon-link';
 import LoadingContent from '../../components/common/loading-content';
-import {
-  List,
-  ListItem,
-} from '../../components/list';
+import {List} from '../../components/list';
 import Link from '../../router/link';
 import NoTaskContent from './no-task-content';
 import TaskListItem from './task-list-item';
@@ -31,9 +28,12 @@ export default class TaskList extends React.Component<any, any> {
       backgroundElement = <NoTaskContent label={label} />;
     }
 
+    const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[this.props.index];
+
     return (
       <span>
         <List
+          parentElement={parentElement}
           className="task-list"
           onSort={this.handleSortTaskList}
         >

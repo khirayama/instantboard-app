@@ -117,6 +117,7 @@ export default class TaskPage extends Container<any, any> {
           </div>
           <div>
             <input
+              className="task-page--task-content-input"
               autoFocus
               type="text"
               value={this.state.content}

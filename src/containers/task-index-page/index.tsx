@@ -122,6 +122,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
               ui={this.state.ui}
               label={label}
               tasks={groupedTasks}
+              index={index}
             />
           </RecycleTableContentListItem>
         );

@@ -202,6 +202,7 @@ export default class LabelPage extends Container<any, any> {
         </ul>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input
+            className="label-page--label-name-input"
             autoFocus
             type="text"
             value={this.state.labelName}

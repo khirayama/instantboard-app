@@ -75,12 +75,15 @@ export default class LabelIndexPage extends Container<any, any> {
 
     const badges = (this.state.requests.length) ? [2] : [];
 
+    const parentElement: any = window.document.querySelector('.tab-navigation-content');
+
     return (
       <section key="label-index-page" className="page label-index-page">
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0)}/>
         <TabNavigationContent>
           <List
             className="label-list"
+            parentElement={parentElement}
             onSort={this.handleSortLabelList}
           >
             {labels.map((label: ILabel) => (

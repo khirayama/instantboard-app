@@ -27,7 +27,6 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
 
   public componentWillMount() {
     if (typeof window === 'object' && window.history && window.history.pushState) {
-      this.log();
       window.addEventListener('popstate', () => {
         const path = window.location.pathname;
         const {route} = this.props.router.matchRoute(path);
@@ -41,10 +40,6 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   public log() {
     if (process && process.env.NODE_ENV === 'production') {
       if (typeof window === 'object' && window.ga) {
-        const title = window.document.title;
-        const page = window.location.href.replace(window.location.origin, '');
-        window.ga('set', 'title', title);
-        window.ga('set', 'page', page);
         window.ga('send', 'pageview');
       }
     }

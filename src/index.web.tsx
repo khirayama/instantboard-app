@@ -7,9 +7,13 @@ import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 import queryString from './utils/query-string';
+import Tracker from './utils/tracker';
 
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);
+const tracker = new Tracker(router);
+
+tracker.send();
 
 window.addEventListener('DOMContentLoaded', () => {
   if (process && process.env.NODE_ENV !== 'production') {
@@ -26,6 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
     <Navigator
       props={{store}}
       router={router}
+      tracker={tracker}
       path={path}
     />
   ), applicationMainElement);

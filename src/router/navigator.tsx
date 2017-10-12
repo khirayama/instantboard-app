@@ -1,8 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-declare var window: any;
-
 export default class Navigator extends React.Component<INavigatorProps, {path: string}> {
   public static childContextTypes = {
     move: PropTypes.func.isRequired,
@@ -32,16 +30,8 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
         const {route} = this.props.router.matchRoute(path);
         window.document.title = route.title;
         this.setState({path});
-        this.log();
+        this.props.tracker.send();
       });
-    }
-  }
-
-  public log() {
-    if (process && process.env.NODE_ENV === 'production') {
-      if (typeof window === 'object' && window.ga) {
-        window.ga('send', 'pageview');
-      }
     }
   }
 
@@ -78,7 +68,7 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
       window.document.title = route.title;
       window.history.pushState(null, route.title, path);
       this.setState({path});
-      this.log();
+      this.props.tracker.send();
     }
   }
 }

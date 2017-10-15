@@ -25,6 +25,10 @@
     flex: 1;
     padding: 12px 0;
     word-break: break-all;
+
+    .link-text {
+      text-decoration: underline;
+    }
   }
 
   &.task-list-item__completed {

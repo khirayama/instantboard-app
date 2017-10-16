@@ -107,19 +107,19 @@ export class ListItem extends React.Component<any, any> {
         onEnter={() => {
           const el = this.listItem;
           listHeight = el.offsetHeight;
-          el.style.maxHeight = '0px';
           el.style.minHeight = 'auto';
+          el.style.maxHeight = '0px';
           el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
         }}
         onEntering={() => {
           const el = this.listItem;
-          el.style.minHeight = listHeight + 'px';
           setTimeout(() => {
             el.style.maxHeight = listHeight + 'px';
           }, 0);
         }}
         onEntered={() => {
           const el = this.listItem;
+          el.style.minHeight = listHeight + 'px';
           el.style.maxHeight = '';
           el.style.transitionProperty = '';
           listHeight = 0;

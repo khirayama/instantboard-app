@@ -11,7 +11,7 @@ export function pollTask(dispatch: IDispatch) {
   return new Promise(resolve => {
     Task.fetch().then((tasks: ITaskResponse[]) => {
       const action: IAction = {
-        type: actionTypes.FETCH_TASK_SUCCESS,
+        type: actionTypes.POLL_TASK_SUCCESS,
         payload: {
           tasks: tasks.map(transformTaskResponse),
         },
@@ -20,7 +20,7 @@ export function pollTask(dispatch: IDispatch) {
       resolve(action);
     }).catch(() => {
       const action: IAction = {
-        type: actionTypes.FETCH_TASK_FAILURE,
+        type: actionTypes.POLL_TASK_FAILURE,
       };
       dispatch(action);
       resolve(action);

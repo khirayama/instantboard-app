@@ -10,7 +10,7 @@ export function pollRequest(dispatch: IDispatch, params) {
   return new Promise(resolve => {
     Request.fetch(params).then((requests: IRequestResponse[]) => {
       const action: IAction = {
-        type: actionTypes.FETCH_REQUEST_SUCCESS,
+        type: actionTypes.POLL_REQUEST_SUCCESS,
         payload: {
           requests: requests.map(transformRequestResponse),
         },
@@ -19,7 +19,7 @@ export function pollRequest(dispatch: IDispatch, params) {
       resolve(action);
     }).catch(() => {
       const action: IAction = {
-        type: actionTypes.FETCH_REQUEST_FAILURE,
+        type: actionTypes.POLL_REQUEST_FAILURE,
       };
       dispatch(action);
       resolve(action);

@@ -248,6 +248,16 @@ export default function (state: IState, action: IAction): IState {
       break;
     }
 
+    case (actionTypes.POLL_TASK_SUCCESS): {
+      if (!state.ui.isLoadingTasks) {
+        newState.tasks = payload.tasks;
+      }
+      break;
+    }
+    case (actionTypes.POLL_TASK_FAILURE): {
+      break;
+    }
+
     // USER
     case (actionTypes.GET_USER): {
       break;
@@ -311,6 +321,16 @@ export default function (state: IState, action: IAction): IState {
     }
     case (actionTypes.UPDATE_REQUEST_FAILURE): {
       newState.ui.isLoadingRequests = false;
+      break;
+    }
+
+    case (actionTypes.POLL_REQUEST_SUCCESS): {
+      if (!state.ui.isLoadingRequests) {
+        newState.requests = payload.requests;
+      }
+      break;
+    }
+    case (actionTypes.POLL_REQUEST_FAILURE): {
       break;
     }
 

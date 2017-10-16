@@ -74,14 +74,16 @@ export default class LoginPage extends Container<any, any> {
       `,
     );
 
-    win.addEventListener('beforeunload', (event) => {
-      // If don't use setTimeout,
-      // Service layer can't get token using tokenManager.get
-      if (tokenManager.get()) {
-        setTimeout(() => {
+    const intervalId = setInterval(() => {
+      if (win.closed) {
+        clearInterval(intervalId);
+
+        const token = tokenManager.get();
+
+        if (token !== null) {
           this.context.move('/');
-        }, 100);
+        }
       }
-    });
+    }, 500);
   }
 }

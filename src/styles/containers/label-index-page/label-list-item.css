@@ -2,7 +2,6 @@
   display: flex;
   align-items: stretch;
   background-color: $color-background-content;
-  min-height: $height-list-item;
   transition: $time-basic $ease-out;
   transition-property: background, color;
 
@@ -17,7 +16,7 @@
     display: flex;
     align-items: center;
     flex: 1;
-    padding: 8px 8px 8px 0;
+    padding: 16px 0;
   }
 
   &__unvisibled {

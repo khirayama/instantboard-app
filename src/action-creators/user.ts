@@ -1,8 +1,6 @@
 import actionTypes from '../constants/action-types';
 import {User} from '../services';
-import {
-  transformUserResponse,
-} from './transforms';
+import {transformUserResponse} from './transforms';
 
 export function getUser(dispatch: IDispatch) {
   const preAction: IAction = {

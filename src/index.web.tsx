@@ -7,6 +7,7 @@ import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 import queryString from './utils/query-string';
+import tokenManager from './utils/token-manager';
 import Tracker from './utils/tracker';
 
 const store: IStore = new Store(initialState, reducers);
@@ -14,6 +15,14 @@ const router = new Router(routes);
 const tracker = new Tracker(router);
 
 tracker.send();
+
+// Redirect
+if (window.location.pathname !== '/login') {
+  const token = tokenManager.get();
+  if (!token) {
+    window.location.href = '/login';
+  }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   if (process && process.env.NODE_ENV !== 'production') {

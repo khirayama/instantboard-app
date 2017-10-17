@@ -48,10 +48,12 @@ export default class Indicator extends React.Component<any, any> {
 
   private toggleClassName() {
     setTimeout(() => {
-      if (this.props.active) {
-        this.el.classList.add('indicator__active');
-      } else {
-        this.el.classList.remove('indicator__active');
+      if (this.el) {
+        if (this.props.active) {
+          this.el.classList.add('indicator__active');
+        } else {
+          this.el.classList.remove('indicator__active');
+        }
       }
     }, 0);
   }

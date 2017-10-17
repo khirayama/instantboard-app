@@ -21,7 +21,9 @@ export default class TaskPage extends Container<any, any> {
 
   private handleChangeLabelIdSelect: any;
 
-  private handleChangeContentInput: any;
+  private handleChangeContentTextarea: any;
+
+  private handleKeyDownContentTextarea: any;
 
   private handleSubmit: any;
 
@@ -55,7 +57,8 @@ export default class TaskPage extends Container<any, any> {
     };
 
     this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
-    this.handleChangeContentInput = this._handleChangeContentInput.bind(this);
+    this.handleChangeContentTextarea = this._handleChangeContentTextarea.bind(this);
+    this.handleKeyDownContentTextarea = this._handleKeyDownContentTextarea.bind(this);
     this.handleSubmit = this._handleSubmit.bind(this);
   }
 
@@ -121,12 +124,13 @@ export default class TaskPage extends Container<any, any> {
             ) : null}
           </div>
           <div>
-            <input
-              className="task-page--task-content-input"
+            <textarea
+              className="task-page--task-content-textarea"
               autoFocus
-              type="text"
+              rows={16}
               value={this.state.content}
-              onChange={this.handleChangeContentInput}
+              onChange={this.handleChangeContentTextarea}
+              onKeyDown={this.handleKeyDownContentTextarea}
               placeholder="Enter task text"
             />
           </div>
@@ -139,13 +143,25 @@ export default class TaskPage extends Container<any, any> {
     this.setState({labelId: event.currentTarget.value});
   }
 
-  private _handleChangeContentInput(event: any) {
+  private _handleChangeContentTextarea(event: any) {
     this.setState({content: event.currentTarget.value});
+  }
+
+  private _handleKeyDownContentTextarea(event: any) {
+    const ENTER_KEY_CODE = 13;
+
+    if (event.keyCode === ENTER_KEY_CODE) {
+      event.preventDefault();
+      this.submitTask();
+    }
   }
 
   private _handleSubmit(event: any) {
     event.preventDefault();
+    this.submitTask();
+  }
 
+  private submitTask() {
     const content = this.state.content.trim();
     const id = this.props.params.id;
 

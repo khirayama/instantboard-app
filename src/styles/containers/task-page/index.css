@@ -43,9 +43,10 @@
     }
   }
 
-  .task-page--task-content-input {
+  .task-page--task-content-textarea {
     width: 100%;
     padding: 12px;
     background-color: $color-background;
+    resize: none;
   }
 }

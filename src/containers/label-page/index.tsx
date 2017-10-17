@@ -23,7 +23,9 @@ export default class LabelPage extends Container<any, any> {
     move: PropTypes.func,
   };
 
-  private handleChangeNameInput: any;
+  private handleChangeNameTextarea: any;
+
+  private handleKeyDownNameTextarea: any;
 
   private handleSubmitLabelForm: any;
 
@@ -105,7 +107,8 @@ export default class LabelPage extends Container<any, any> {
       },
     };
 
-    this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
+    this.handleChangeNameTextarea = this._handleChangeNameTextarea.bind(this);
+    this.handleKeyDownNameTextarea = this._handleKeyDownNameTextarea.bind(this);
     this.handleSubmitLabelForm = this._handleSubmitLabelForm.bind(this);
     this.handleChangeMemberNameInput = this._handleChangeMemberNameInput.bind(this);
     this.handleFocusMemberNameInput = this._handleFocusMemberNameInput.bind(this);
@@ -206,12 +209,13 @@ export default class LabelPage extends Container<any, any> {
           })}
         </ul>
         <form onSubmit={this.handleSubmitLabelForm}>
-          <input
-            className="label-page--label-name-input"
+          <textarea
+            className="label-page--label-name-textarea"
             autoFocus
-            type="text"
+            rows={16}
             value={this.state.labelName}
-            onChange={this.handleChangeNameInput}
+            onChange={this.handleChangeNameTextarea}
+            onKeyDown={this.handleKeyDownNameTextarea}
             placeholder="Enter label name"
           />
         </form>
@@ -219,33 +223,22 @@ export default class LabelPage extends Container<any, any> {
     );
   }
 
-  private _handleChangeNameInput(event: any) {
+  private _handleChangeNameTextarea(event: any) {
     this.setState({labelName: event.currentTarget.value});
+  }
+
+  private _handleKeyDownNameTextarea(event: any) {
+    const ENTER_KEY_CODE = 13;
+
+    if (event.keyCode === ENTER_KEY_CODE) {
+      event.preventDefault();
+      this.submitLabel();
+    }
   }
 
   private _handleSubmitLabelForm(event: any) {
     event.preventDefault();
-
-    const labelName = this.state.labelName.trim();
-    const requests = this.state.labelRequests;
-    const id = this.state.labelId;
-
-    if (labelName && !this.state.uiBlocking) {
-      this.setState({uiBlocking: true});
-
-      if (id === undefined || id === null) {
-        this.actions.createLabel({
-          name: labelName,
-          requests,
-        });
-      } else {
-        this.actions.updateLabel({
-          id,
-          name: labelName,
-          requests,
-        });
-      }
-    }
+    this.submitLabel();
   }
 
   private _handleChangeMemberNameInput(event: any) {
@@ -294,5 +287,28 @@ export default class LabelPage extends Container<any, any> {
         });
       }
     });
+  }
+
+  private submitLabel() {
+    const labelName = this.state.labelName.trim();
+    const requests = this.state.labelRequests;
+    const id = this.state.labelId;
+
+    if (labelName && !this.state.uiBlocking) {
+      this.setState({uiBlocking: true});
+
+      if (id === undefined || id === null) {
+        this.actions.createLabel({
+          name: labelName,
+          requests,
+        });
+      } else {
+        this.actions.updateLabel({
+          id,
+          name: labelName,
+          requests,
+        });
+      }
+    }
   }
 }

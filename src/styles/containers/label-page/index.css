@@ -99,9 +99,10 @@
     }
   }
 
-  .label-page--label-name-input {
+  .label-page--label-name-textarea {
     width: 100%;
     padding: 12px;
     background-color: $color-background;
+    resize: none;
   }
 }

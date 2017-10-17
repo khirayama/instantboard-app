@@ -16,6 +16,7 @@ import Link from '../../router/link';
 import {User} from '../../services';
 import Container from '../container';
 import SearchMemberListItem from './search-member-list-item';
+import Indicator from '../../components/indicator';
 
 export default class LabelPage extends Container<any, any> {
   public static contextTypes = {
@@ -44,6 +45,7 @@ export default class LabelPage extends Container<any, any> {
       memberNameErrorMessage: '',
       labelRequests: [],
       isMemberListShown: false,
+      uiBlocking: false,
     });
 
     this.actions = {
@@ -139,11 +141,14 @@ export default class LabelPage extends Container<any, any> {
   public render() {
     const labelId = this.state.labelId;
     const profile = this.state.profile || {};
+    const ui = this.state.ui;
 
     const filteredMembers = this.state.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
 
     return (
       <section className="page label-page">
+        {(this.state.uiBlocking) ? <div className="ui-block" /> : null}
+        <Indicator active={(ui.isLoadingLabels)}/>
         <form onSubmit={this.handleSubmitLabelForm}>
           <header className="label-page--header">
             <Link to="/labels"><Icon type="back"/></Link>
@@ -225,7 +230,9 @@ export default class LabelPage extends Container<any, any> {
     const requests = this.state.labelRequests;
     const id = this.state.labelId;
 
-    if (labelName) {
+    if (labelName && !this.state.uiBlocking) {
+      this.setState({uiBlocking: true});
+
       if (id === undefined || id === null) {
         this.actions.createLabel({
           name: labelName,

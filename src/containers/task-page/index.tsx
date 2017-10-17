@@ -12,6 +12,7 @@ import Icon from '../../components/icon';
 import Link from '../../router/link';
 import queryString from '../../utils/query-string';
 import Container from '../container';
+import Indicator from '../../components/indicator';
 
 export default class TaskPage extends Container<any, any> {
   public static contextTypes = {
@@ -31,6 +32,7 @@ export default class TaskPage extends Container<any, any> {
       taskId: (props.params.id) ? Number(props.params.id) : null,
       content: '',
       labelId: null,
+      uiBlocking: false,
     });
 
     this.actions = {
@@ -99,9 +101,12 @@ export default class TaskPage extends Container<any, any> {
 
   public render() {
     const labels = this.state.labels;
+    const ui = this.state.ui;
 
     return (
       <section className="page task-page">
+        {(this.state.uiBlocking) ? <div className="ui-block" /> : null}
+        <Indicator active={(ui.isLoadingTasks)}/>
         <form onSubmit={this.handleSubmit}>
           <header className="task-page--header">
             <Link to="/"><Icon type="back"/></Link>
@@ -144,7 +149,9 @@ export default class TaskPage extends Container<any, any> {
     const content = this.state.content.trim();
     const id = this.props.params.id;
 
-    if (content) {
+    if (content && !this.state.uiBlocking) {
+      this.setState({uiBlocking: true});
+
       if (id === undefined || id === null) {
         this.actions.createTask({
           content,

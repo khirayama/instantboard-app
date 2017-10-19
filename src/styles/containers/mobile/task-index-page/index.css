@@ -1,0 +1,10 @@
+.task-index-page {
+  .recycle-table-list-item {
+    max-width: 240px;
+    overflow: hidden;
+  }
+
+  .recycle-table-content-list {
+    height: calc(100% - $height-bar-low)!important;
+  }
+}

@@ -5,5 +5,4 @@
 @import "./application";
 
 @import "./components/**/*";
-@import "./custom-components/**/*";
 @import "./containers/**/*";

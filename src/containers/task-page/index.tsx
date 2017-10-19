@@ -9,10 +9,10 @@ import {
   updateTask,
 } from '../../action-creators/task';
 import Icon from '../../components/icon';
+import Indicator from '../../components/indicator';
 import Link from '../../router/link';
 import queryString from '../../utils/query-string';
 import Container from '../container';
-import Indicator from '../../components/indicator';
 
 export default class TaskPage extends Container<any, any> {
   public static contextTypes = {

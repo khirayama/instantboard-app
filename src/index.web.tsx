@@ -42,12 +42,14 @@ window.addEventListener('DOMContentLoaded', () => {
   const applicationMainElement: any = window.document.querySelector('.application--main');
   const path = window.location.pathname;
   ReactDOM.render((
-    <Navigator
-      props={{store}}
-      router={router}
-      tracker={tracker}
-      path={path}
-    />
+    <div className={uiType}>
+      <Navigator
+        props={{store}}
+        router={router}
+        tracker={tracker}
+        path={path}
+      />
+    </div>
   ), applicationMainElement);
 
   const applicationLoadingElement: any = window.document.querySelector('.application--loader');

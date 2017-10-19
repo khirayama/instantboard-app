@@ -1,5 +1,5 @@
 import * as React from 'react';
-import IconLink from '../../components/common/icon-link';
+import IconLink from '../../../components/common/icon-link';
 
 export default class NoTaskContent extends React.Component<any, any> {
   public render() {

@@ -1,8 +1,8 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Icon from '../../components/icon';
-import {ListItem} from '../../components/list';
+import Icon from '../../../components/icon';
+import {ListItem} from '../../../components/list';
 
 export default class LabelListItem extends React.Component<any, any> {
   public static contextTypes = {

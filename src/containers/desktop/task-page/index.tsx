@@ -1,18 +1,16 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchLabel,
-} from '../../action-creators/label';
+import {fetchLabel} from '../../../action-creators/label';
 import {
   createTask,
   fetchTask,
   updateTask,
-} from '../../action-creators/task';
-import Icon from '../../components/icon';
-import Indicator from '../../components/indicator';
-import Link from '../../router/link';
-import queryString from '../../utils/query-string';
-import Container from '../container';
+} from '../../../action-creators/task';
+import Icon from '../../../components/icon';
+import Indicator from '../../../components/indicator';
+import Link from '../../../router/link';
+import queryString from '../../../utils/query-string';
+import Container from '../../container';
 
 export default class TaskPage extends Container<any, any> {
   public static contextTypes = {

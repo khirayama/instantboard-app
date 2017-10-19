@@ -1,9 +1,9 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import IconLink from '../../components/common/icon-link';
-import LoadingContent from '../../components/common/loading-content';
-import {List} from '../../components/list';
-import Link from '../../router/link';
+import IconLink from '../../../components/common/icon-link';
+import LoadingContent from '../../../components/common/loading-content';
+import {List} from '../../../components/list';
+import Link from '../../../router/link';
 import NoTaskContent from './no-task-content';
 import TaskListItem from './task-list-item';
 

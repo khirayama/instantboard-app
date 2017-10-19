@@ -3,34 +3,34 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   fetchLabel,
-} from '../../action-creators/label';
+} from '../../../action-creators/label';
 import {
   pollRequest,
-} from '../../action-creators/request';
+} from '../../../action-creators/request';
 import {
   destroyTask,
   fetchTask,
   pollTask,
   sortTask,
   updateTask,
-} from '../../action-creators/task';
-import LoadingContent from '../../components/common/loading-content';
-import NoLabelContent from '../../components/common/no-label-content';
+} from '../../../action-creators/task';
+import LoadingContent from '../../../components/common/loading-content';
+import NoLabelContent from '../../../components/common/no-label-content';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import Icon from '../../components/icon';
-import Indicator from '../../components/indicator';
+} from '../../../components/common/tab-navigation';
+import Icon from '../../../components/icon';
+import Indicator from '../../../components/indicator';
 import {
   RecycleTable,
   RecycleTableContentList,
   RecycleTableContentListItem,
   RecycleTableList,
   RecycleTableListItem,
-} from '../../components/recycle-table';
-import poller from '../../utils/poller';
-import Container from '../container';
+} from '../../../components/recycle-table';
+import poller from '../../../utils/poller';
+import Container from '../../container';
 import TaskList from './task-list';
 
 export default class TaskIndexPage extends Container<IContainerProps, IState> {

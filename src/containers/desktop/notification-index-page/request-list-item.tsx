@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ListItem} from '../../components/list';
+import {ListItem} from '../../../components/list';
 
 export default class RequestListItem extends React.Component<any, any> {
   private handleClickAcceptButton: any;

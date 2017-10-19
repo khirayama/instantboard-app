@@ -3,18 +3,18 @@ import * as React from 'react';
 import {
   fetchRequest,
   updateRequest,
-} from '../../action-creators/request';
+} from '../../../action-creators/request';
 import {
   pollRequest,
-} from '../../action-creators/request';
+} from '../../../action-creators/request';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import Indicator from '../../components/indicator';
-import {List} from '../../components/list';
-import poller from '../../utils/poller';
-import Container from '../container';
+} from '../../../components/common/tab-navigation';
+import Indicator from '../../../components/indicator';
+import {List} from '../../../components/list';
+import poller from '../../../utils/poller';
+import Container from '../../container';
 import NoNotificationContent from './no-notification-content';
 import RequestListItem from './request-list-item';
 

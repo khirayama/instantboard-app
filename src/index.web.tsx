@@ -3,12 +3,18 @@ import * as ReactDOM from 'react-dom';
 import reducers from './reducers';
 import Navigator from './router/navigator';
 import Router from './router/router';
-import routes from './router/routes';
+import routes from './router/mobile-routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 import queryString from './utils/query-string';
 import tokenManager from './utils/token-manager';
 import Tracker from './utils/tracker';
+
+// Check ui.type
+const uiType = (
+  window.ontouchstart !== undefined &&
+  window.innerWidth < window.innerHeight
+) ? 'mobile' : 'desktop';
 
 const store: IStore = new Store(initialState, reducers);
 const router = new Router(routes);

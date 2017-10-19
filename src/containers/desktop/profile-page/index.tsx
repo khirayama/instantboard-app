@@ -2,21 +2,21 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   pollRequest,
-} from '../../action-creators/request';
+} from '../../../action-creators/request';
 import {
   deleteUser,
   getUser,
   updateUser,
-} from '../../action-creators/user';
+} from '../../../action-creators/user';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import FlatButton from '../../components/flat-button';
-import Icon from '../../components/icon';
-import poller from '../../utils/poller';
-import tokenManager from '../../utils/token-manager';
-import Container from '../container';
+} from '../../../components/common/tab-navigation';
+import FlatButton from '../../../components/flat-button';
+import Icon from '../../../components/icon';
+import poller from '../../../utils/poller';
+import tokenManager from '../../../utils/token-manager';
+import Container from '../../container';
 
 interface IProfilePageState extends IState {
   isEditing: boolean;

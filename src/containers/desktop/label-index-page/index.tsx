@@ -5,24 +5,22 @@ import {
   fetchLabel,
   sortLabel,
   updateLabel,
-} from '../../action-creators/label';
-import {
-  pollRequest,
-} from '../../action-creators/request';
-import IconLink from '../../components/common/icon-link';
-import LoadingContent from '../../components/common/loading-content';
-import NoLabelContent from '../../components/common/no-label-content';
+} from '../../../action-creators/label';
+import {pollRequest} from '../../../action-creators/request';
+import IconLink from '../../../components/common/icon-link';
+import LoadingContent from '../../../components/common/loading-content';
+import NoLabelContent from '../../../components/common/no-label-content';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import Indicator from '../../components/indicator';
+} from '../../../components/common/tab-navigation';
+import Indicator from '../../../components/indicator';
 import {
   List,
   ListItem,
-} from '../../components/list';
-import poller from '../../utils/poller';
-import Container from '../container';
+} from '../../../components/list';
+import poller from '../../../utils/poller';
+import Container from '../../container';
 import LabelListItem from './label-list-item';
 
 export default class LabelIndexPage extends Container<any, any> {

@@ -1,10 +1,10 @@
-import LabelIndexPage from '../containers/label-index-page';
-import LabelPage from '../containers/label-page';
-import LoginPage from '../containers/login-page';
-import NotificationIndexPage from '../containers/notification-index-page';
-import ProfilePage from '../containers/profile-page';
-import TaskIndexPage from '../containers/task-index-page';
-import TaskPage from '../containers/task-page';
+import LabelIndexPage from '../containers/desktop/label-index-page';
+import LabelPage from '../containers/desktop/label-page';
+import LoginPage from '../containers/desktop/login-page';
+import NotificationIndexPage from '../containers/desktop/notification-index-page';
+import ProfilePage from '../containers/desktop/profile-page';
+import TaskIndexPage from '../containers/desktop/task-index-page';
+import TaskPage from '../containers/desktop/task-page';
 
 const routes: IRoute[] = [{
   path: '/login',

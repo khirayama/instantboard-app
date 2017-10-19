@@ -7,9 +7,6 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
 import Spinner from './components/spinner';
 import reducers from './reducers';
-import Navigator from './router/navigator';
-import Router from './router/router';
-import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 
@@ -18,7 +15,6 @@ import tokenManager from './utils/token-manager';
 
 const app = fastify();
 const store: IStore = new Store(initialState, reducers);
-const router = new Router(routes);
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -84,10 +80,8 @@ app.use(cookieParser());
 
 // For fastify
 app.use(serveStatic(path.join(__dirname, 'public')));
-router.getPaths().forEach((pathname) => {
-  app.get(pathname, (req, res) => {
-    res.type('text/html').send(html);
-  });
+app.get('*', (req, res) => {
+  res.type('text/html').send(html);
 });
 
 /* eslint-disable capitalized-comments */

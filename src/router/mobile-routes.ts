@@ -1,6 +1,6 @@
-import LoginPage from '../containers/common/login-page';
 import LabelIndexPage from '../containers/mobile/label-index-page';
 import LabelPage from '../containers/mobile/label-page';
+import LoginPage from '../containers/mobile/login-page';
 import NotificationIndexPage from '../containers/mobile/notification-index-page';
 import ProfilePage from '../containers/mobile/profile-page';
 import TaskIndexPage from '../containers/mobile/task-index-page';

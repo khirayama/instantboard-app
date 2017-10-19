@@ -1,11 +1,11 @@
-.task-list {
+.mobile .task-list {
   width: 100%;
   height: auto;
   overflow: visible;
   -webkit-overflow-scrolling: touch;
 }
 
-.task-list--add-button {
+.mobile .task-list--add-button {
   width: 100%;
 }
 

@@ -1,4 +1,4 @@
-.task-list-item {
+.mobile .task-list-item {
   display: flex;
   align-items: stretch;
   background-color: $color-background-content;

@@ -1,4 +1,4 @@
-.label-list-item {
+.mobile .label-list-item {
   display: flex;
   align-items: stretch;
   background-color: $color-background-content;

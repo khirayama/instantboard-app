@@ -35,6 +35,7 @@ export default class TaskListItem extends React.Component<any, any> {
       <ListItem
         {...props}
         className={classNames('task-list-item', {'task-list-item__completed': task.completed})}
+        onClick={this.handleClickTaskListItem}
       >
         <div className="task-list-item--complete-button" onClick={this.handleClickCompleteButton}>
           <Icon type="check" active={task.completed}/>
@@ -59,7 +60,7 @@ export default class TaskListItem extends React.Component<any, any> {
             </span>
           </span>
         ) : null}
-        <div className="task-list-item--content" onClick={this.handleClickTaskListItem}>
+        <div className="task-list-item--content">
           <div className="task-list-item--content--text"><LinkText>{task.text}</LinkText></div>
         </div>
         <div className="task-list-item--destroy-button" onClick={this.handleClickDestroyButton}>
@@ -69,7 +70,9 @@ export default class TaskListItem extends React.Component<any, any> {
     );
   }
 
-  private _handleClickCompleteButton() {
+  private _handleClickCompleteButton(event: any) {
+    event.stopPropagation();
+
     const task = this.props.task;
     const actions = this.props.actions;
 
@@ -85,7 +88,9 @@ export default class TaskListItem extends React.Component<any, any> {
     this.context.move(`/tasks/${task.id}/edit?label-id=${task.labelId}`);
   }
 
-  private _handleClickDestroyButton() {
+  private _handleClickDestroyButton(event: any) {
+    event.stopPropagation();
+
     const task = this.props.task;
     const actions = this.props.actions;
 

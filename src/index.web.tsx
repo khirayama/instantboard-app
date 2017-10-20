@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import reducers from './reducers';
-import routes from './router/mobile-routes';
+import mobileRoutes from './router/mobile-routes';
+import desktopRoutes from './router/desktop-routes';
 import Navigator from './router/navigator';
 import Router from './router/router';
 import initialState from './store/initial-state';
@@ -17,6 +18,7 @@ const uiType = (
 ) ? 'mobile' : 'desktop';
 
 const store: IStore = new Store(initialState, reducers);
+const routes = (uiType === 'mobile') ? mobileRoutes : desktopRoutes;
 const router = new Router(routes);
 const tracker = new Tracker(router);
 

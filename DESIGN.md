@@ -51,12 +51,12 @@ Mobile
 - Space between content areas: 8dp
 
 Desktop
+- Toolbar: 64dp
+- Subtitle: 48dp
 - Screen edge left and right margins: 24dp
 - Content left margin from screen edge: 80dp
-- Toolbar and list item: 64dp
+- List items: 64dp
 - Space between content areas: 8dp
-- Subtitle, list item, and slider: 48dp
-- Title: 80dp
 
 - button
   - height: 36dp

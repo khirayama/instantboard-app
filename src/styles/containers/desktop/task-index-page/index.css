@@ -5,6 +5,6 @@
   }
 
   .recycle-table-content-list {
-    height: calc(100% - $height-bar-low)!important;
+    height: calc(100% - $height-desktop-bar-low)!important;
   }
 }

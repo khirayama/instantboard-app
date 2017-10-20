@@ -70,67 +70,136 @@ textarea {
   height: 100%;
   background-color: rgba(0, 0, 0, .08);
   z-index: 10000000;
+}
+.desktop + .layout-metrics {
   .layout-metrics--grid {
     display: inline-block;
     position: absolute;
     opacity: .36;
     &.layout-metrics--bar-low__top {
-      top: $height-bar-low;
+      top: $height-desktop-bar-low;
       border-top: solid 1px $color-attention;
       width: 100%;
     }
     &.layout-metrics--bar-high__top {
-      top: $height-bar-high;
+      top: $height-desktop-bar-high;
       border-top: solid 1px $color-attention;
       width: 100%;
     }
     &.layout-metrics--bar-low__bottom {
-      bottom: $height-bar-low;
+      bottom: $height-desktop-bar-low;
       border-top: solid 1px $color-attention;
       width: 100%;
     }
     &.layout-metrics--bar-high__bottom {
-      bottom: $height-bar-high;
+      bottom: $height-desktop-bar-high;
       border-top: solid 1px $color-attention;
       width: 100%;
     }
     &.layout-metrics--screen-edge__left {
-      left: $margin-screen-edge;
+      left: $margin-desktop-screen-edge;
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge__right {
-      right: $margin-screen-edge;
+      right: $margin-desktop-screen-edge;
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__left {
-      left: $margin-screen-edge-content;
+      left: $margin-desktop-screen-edge-content;
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__left--edge__left {
-      left: calc($margin-screen-edge-content - $margin-screen-edge);
+      left: calc($margin-desktop-screen-edge-content - $margin-desktop-screen-edge);
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__left--edge__right {
-      left: calc($margin-screen-edge-content + $margin-screen-edge);
+      left: calc($margin-desktop-screen-edge-content + $margin-desktop-screen-edge);
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__right {
-      right: $margin-screen-edge-content;
+      right: $margin-desktop-screen-edge-content;
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__right--edge__left {
-      right: calc($margin-screen-edge-content + $margin-screen-edge);
+      right: calc($margin-desktop-screen-edge-content + $margin-desktop-screen-edge);
       border-left: solid 1px $color-attention;
       height: 100%;
     }
     &.layout-metrics--screen-edge--content__right--edge__right {
-      right: calc($margin-screen-edge-content - $margin-screen-edge);
+      right: calc($margin-desktop-screen-edge-content - $margin-desktop-screen-edge);
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+  }
+}
+.mobile + .layout-metrics {
+  .layout-metrics--grid {
+    display: inline-block;
+    position: absolute;
+    opacity: .36;
+    &.layout-metrics--bar-low__top {
+      top: $height-mobile-bar-low;
+      border-top: solid 1px $color-attention;
+      width: 100%;
+    }
+    &.layout-metrics--bar-high__top {
+      top: $height-mobile-bar-high;
+      border-top: solid 1px $color-attention;
+      width: 100%;
+    }
+    &.layout-metrics--bar-low__bottom {
+      bottom: $height-mobile-bar-low;
+      border-top: solid 1px $color-attention;
+      width: 100%;
+    }
+    &.layout-metrics--bar-high__bottom {
+      bottom: $height-mobile-bar-high;
+      border-top: solid 1px $color-attention;
+      width: 100%;
+    }
+    &.layout-metrics--screen-edge__left {
+      left: $margin-mobile-screen-edge;
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge__right {
+      right: $margin-mobile-screen-edge;
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__left {
+      left: $margin-mobile-screen-edge-content;
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__left--edge__left {
+      left: calc($margin-mobile-screen-edge-content - $margin-mobile-screen-edge);
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__left--edge__right {
+      left: calc($margin-mobile-screen-edge-content + $margin-mobile-screen-edge);
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__right {
+      right: $margin-mobile-screen-edge-content;
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__right--edge__left {
+      right: calc($margin-mobile-screen-edge-content + $margin-mobile-screen-edge);
+      border-left: solid 1px $color-attention;
+      height: 100%;
+    }
+    &.layout-metrics--screen-edge--content__right--edge__right {
+      right: calc($margin-mobile-screen-edge-content - $margin-mobile-screen-edge);
       border-left: solid 1px $color-attention;
       height: 100%;
     }

@@ -14,9 +14,14 @@ $shadow: 0 1px 1px 0 $color-shadow;
 $shadow-inverse: 0 -1px 1px 0 $color-shadow;
 $border: solid 1px $color-divider;
 
-$height-bar-high: 56px;
-$height-bar-low: 36px;
-$height-list-item: 56px;
+$height-desktop-bar-high: 64px;
+$height-desktop-bar-low: 48px;
+$margin-desktop-screen-edge: 24px;
+$margin-desktop-screen-edge-content: 80px;
+$height-desktop-list-item: 64px;
 
-$margin-screen-edge: 12px;
-$margin-screen-edge-content: 48px;
+$height-mobile-bar-high: 56px;
+$height-mobile-bar-low: 36px;
+$margin-mobile-screen-edge: 12px;
+$margin-mobile-screen-edge-content: 48px;
+$height-mobile-list-item: 56px;

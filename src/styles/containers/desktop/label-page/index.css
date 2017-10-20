@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: $height-bar-high;
+    height: $height-desktop-bar-high;
     box-shadow: $shadow;
     background-color: $color-background;
 
@@ -11,10 +11,10 @@
     button {
       background-color: $color-background;
       display: inline-block;
-      width: $height-bar-high;
-      height: $height-bar-high;
+      width: $height-desktop-bar-high;
+      height: $height-desktop-bar-high;
       svg {
-        height: $height-bar-high;
+        height: $height-desktop-bar-high;
         padding: 6px 8px 8px;
         path {
           stroke: $color-icon-active;
@@ -26,11 +26,11 @@
   .label-page--member-block {
     position: relative;
     border-bottom: $border;
-    height: $height-bar-high;
+    height: $height-desktop-bar-high;
 
     .icon {
       display: inline-block;
-      height: $height-bar-high;
+      height: $height-desktop-bar-high;
       padding: 6px 8px 8px;
       path {
         stroke: $color-icon-active;
@@ -40,8 +40,8 @@
       display: inline-block;
       vertical-align: top;
       background: transparent;
-      width: calc(100% - $height-bar-high - 4px);
-      height: $height-bar-high;
+      width: calc(100% - $height-desktop-bar-high - 4px);
+      height: $height-desktop-bar-high;
     }
     .label-page--member-block--error {
       display: inline-block;
@@ -65,10 +65,10 @@
       }
       ul {
         li {
-          height: $height-bar-high;
+          height: $height-desktop-bar-high;
           p {
             display: inline-block;
-            line-height: $height-bar-high;
+            line-height: $height-desktop-bar-high;
             vertical-align: top;
           }
         }

@@ -4,7 +4,7 @@
 
   .recycle-table-list {
     position: relative;
-    height: $height-bar-low;
+    height: $height-mobile-bar-low;
     vertical-align: top;
     z-index: 1;
     box-shadow: $shadow;
@@ -43,7 +43,7 @@
   }
 
   .recycle-table-content-list {
-    height: calc(100% - $height-bar-low);
+    height: calc(100% - $height-mobile-bar-low);
     will-change: left;
 
     .recycle-table-content-list--inner {

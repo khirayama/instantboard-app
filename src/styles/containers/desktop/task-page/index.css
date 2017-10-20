@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: $height-bar-high;
+    height: $height-desktop-bar-high;
     box-shadow: $shadow;
     background-color: $color-background;
 
@@ -11,9 +11,9 @@
     button {
       background-color: $color-background;
       display: inline-block;
-      height: $height-bar-high;
+      height: $height-desktop-bar-high;
       svg {
-        height: $height-bar-high;
+        height: $height-desktop-bar-high;
         padding: 6px 8px 8px;
         path {
           stroke: $color-icon-active;
@@ -24,11 +24,11 @@
 
   .task-page--label-block {
     border-bottom: $border;
-    height: $height-bar-high;
+    height: $height-desktop-bar-high;
 
     .icon {
       display: inline-block;
-      height: $height-bar-high;
+      height: $height-desktop-bar-high;
       padding: 6px 8px 8px;
       path {
         stroke: $color-icon-active;
@@ -38,8 +38,8 @@
       display: inline-block;
       vertical-align: top;
       background: transparent;
-      width: calc(100% - $height-bar-high - 2px - 12px);
-      height: $height-bar-high;
+      width: calc(100% - $height-desktop-bar-high - 2px - 12px);
+      height: $height-desktop-bar-high;
     }
   }
 

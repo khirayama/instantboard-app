@@ -1,38 +1,36 @@
-.tab-navigation-tab-list {
-  display: flex;
+.application-header {
   position: absolute;
+  top: 0;
   left: 0;
-  bottom: 0;
   width: 100%;
 }
 
-.tab-navigation-tab-list-item {
-  flex: 1;
-}
-
-.tab-navigation-content {
+.application-content {
+  position: absolute;
+  top: $height-desktop-bar-high;
   width: 100%;
-  height: calc(100% - $height-mobile-bar-high);
+  height: calc(100% - $height-desktop-bar-high);
 }
 
-.tab-navigation-tab-list {
+.application-header {
   background-color: $color-background-content;
   box-shadow: $shadow-inverse;
-  height: $height-mobile-bar-high;
-  .tab-navigation-tab-list-item {
+  height: $height-desktop-bar-high;
+  .application-header-item {
+    display: inline-block;
     text-align: center;
     position: relative;
     color: $color-text-secondary;
-    .tab-navigation--icon {
+    .application-header--icon {
       padding: 6px 0 8px;
-      height: $height-mobile-bar-high;
+      height: $height-desktop-bar-high;
       path,
       circle,
       rect {
         stroke: $color-icon-inactive;
       }
     }
-    .tab-navigation--icon--badge {
+    .application-header--icon--badge {
       display: inline-block;
       position: absolute;
       top: calc(50% - 18px);
@@ -43,8 +41,8 @@
       z-index: 1;
       border-radius: 50%;
     }
-    &.tab-navigation-tab-list-item__current {
-      .tab-navigation--icon {
+    &.application-header-item__current {
+      .application-header--icon {
         path,
         circle,
         rect {

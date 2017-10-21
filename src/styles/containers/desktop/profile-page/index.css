@@ -1,5 +1,7 @@
 .desktop .profile-page {
-  padding: 32px;
+  .application-content--inner {
+    padding: 32px;
+  }
 
   .profile-tab-content--name--input {
     $height: 48px;

@@ -1,4 +1,8 @@
 .desktop .notification-index-page {
+  .application-content--inner {
+    padding: 0 32px;
+  }
+
   .request-list {
     width: 100%;
     height: auto;

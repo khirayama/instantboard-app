@@ -20,7 +20,7 @@
       color: $color-text-secondary;
 
       .application-header--icon {
-        padding: 10px 12px 12px;
+        padding: 12px 12px 14px;
         height: $height-desktop-bar-high;
 
         path,
@@ -56,6 +56,13 @@
 .application-content {
   position: absolute;
   top: $height-desktop-bar-high;
+  left: 0;
   width: 100%;
   height: calc(100% - $height-desktop-bar-high);
+
+  .application-content--inner {
+    width: $width-content;
+    height: 100%;
+    margin: 0 auto;
+  }
 }

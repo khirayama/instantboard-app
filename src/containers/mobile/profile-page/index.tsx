@@ -137,7 +137,6 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
         <TabNavigation
           index={3}
           badges={badges}
-          addTabLinkPath="/tasks/new"
         />
       </section>
     );

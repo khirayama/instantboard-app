@@ -3,6 +3,54 @@
   top: 0;
   left: 0;
   width: 100%;
+  background-color: $color-background-content;
+  box-shadow: $shadow;
+  height: $height-desktop-bar-high;
+  padding: 0 24px;
+  z-index: 2;
+
+  .application-header--content {
+    width: $width-content;
+    margin: 0 auto;
+
+    .application-header-item {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      color: $color-text-secondary;
+
+      .application-header--icon {
+        padding: 10px 12px 12px;
+        height: $height-desktop-bar-high;
+
+        path,
+        circle,
+        rect {
+          stroke: $color-icon-inactive;
+        }
+      }
+      .application-header--icon--badge {
+        display: inline-block;
+        position: absolute;
+        top: calc(50% - 18px);
+        left: calc(50% + 6px);
+        width: 8px;
+        height: 8px;
+        background-color: $color-attention;
+        z-index: 1;
+        border-radius: 50%;
+      }
+      &.application-header-item__current {
+        .application-header--icon {
+          path,
+          circle,
+          rect {
+            stroke: $color-icon-active;
+          }
+        }
+      }
+    }
+  }
 }
 
 .application-content {
@@ -10,45 +58,4 @@
   top: $height-desktop-bar-high;
   width: 100%;
   height: calc(100% - $height-desktop-bar-high);
-}
-
-.application-header {
-  background-color: $color-background-content;
-  box-shadow: $shadow-inverse;
-  height: $height-desktop-bar-high;
-  .application-header-item {
-    display: inline-block;
-    text-align: center;
-    position: relative;
-    color: $color-text-secondary;
-    .application-header--icon {
-      padding: 6px 0 8px;
-      height: $height-desktop-bar-high;
-      path,
-      circle,
-      rect {
-        stroke: $color-icon-inactive;
-      }
-    }
-    .application-header--icon--badge {
-      display: inline-block;
-      position: absolute;
-      top: calc(50% - 18px);
-      left: calc(50% + 6px);
-      width: 8px;
-      height: 8px;
-      background-color: $color-attention;
-      z-index: 1;
-      border-radius: 50%;
-    }
-    &.application-header-item__current {
-      .application-header--icon {
-        path,
-        circle,
-        rect {
-          stroke: $color-icon-active;
-        }
-      }
-    }
-  }
 }

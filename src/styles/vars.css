@@ -14,6 +14,8 @@ $shadow: 0 1px 1px 0 $color-shadow;
 $shadow-inverse: 0 -1px 1px 0 $color-shadow;
 $border: solid 1px $color-divider;
 
+$width-content: 760px;
+
 $height-desktop-bar-high: 64px;
 $height-desktop-bar-low: 48px;
 $margin-desktop-screen-edge: 24px;

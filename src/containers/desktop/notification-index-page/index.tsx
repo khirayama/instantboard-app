@@ -8,9 +8,9 @@ import {
   pollRequest,
 } from '../../../action-creators/request';
 import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../../components/common/tab-navigation';
+  ApplicationContent,
+  ApplicationHeader,
+} from '../../../components/common/application-header';
 import Indicator from '../../../components/indicator';
 import {List} from '../../../components/list';
 import poller from '../../../utils/poller';
@@ -57,7 +57,11 @@ export default class NotificationIndexPage extends Container<any, any> {
     return (
       <section className="page notification-index-page">
         <Indicator active={(ui.isLoadingRequests && requests.length !== 0)}/>
-        <TabNavigationContent>
+        <ApplicationHeader
+          index={2}
+          badges={badges}
+        />
+        <ApplicationContent>
           <List className="request-list">
             {requests.map((request: IRequest) => {
               return (
@@ -70,12 +74,7 @@ export default class NotificationIndexPage extends Container<any, any> {
             })}
           </List>
           {(requests.length === 0) ? <NoNotificationContent/> : null}
-        </TabNavigationContent>
-        <TabNavigation
-          index={2}
-          badges={badges}
-          addTabLinkPath="/tasks/new"
-        />
+        </ApplicationContent>
       </section>
     );
   }

@@ -152,9 +152,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         <TabNavigation
           index={0}
           badges={badges}
-          addTabLinkPath={(currentLabel) ? `/tasks/new?label-id=${currentLabel.id}` : (
-            (labels.length === 0) ? '/labels/new' : '/tasks/new'
-          )}
         />
       </section>
     );

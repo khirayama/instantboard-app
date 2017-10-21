@@ -104,7 +104,6 @@ export default class LabelIndexPage extends Container<any, any> {
         <TabNavigation
           index={1}
           badges={badges}
-          addTabLinkPath="/labels/new"
         />
       </section>
     );

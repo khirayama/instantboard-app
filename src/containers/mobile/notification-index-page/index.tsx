@@ -74,7 +74,6 @@ export default class NotificationIndexPage extends Container<any, any> {
         <TabNavigation
           index={2}
           badges={badges}
-          addTabLinkPath="/tasks/new"
         />
       </section>
     );

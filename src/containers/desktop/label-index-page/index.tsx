@@ -7,13 +7,13 @@ import {
   updateLabel,
 } from '../../../action-creators/label';
 import {pollRequest} from '../../../action-creators/request';
+import {
+  ApplicationContent,
+  ApplicationHeader,
+} from '../../../components/common/application-header';
 import IconLink from '../../../components/common/icon-link';
 import LoadingContent from '../../../components/common/loading-content';
 import NoLabelContent from '../../../components/common/no-label-content';
-import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../../components/common/tab-navigation';
 import Indicator from '../../../components/indicator';
 import {
   List,
@@ -78,7 +78,11 @@ export default class LabelIndexPage extends Container<any, any> {
     return (
       <section key="label-index-page" className="page label-index-page">
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0)}/>
-        <TabNavigationContent>
+        <ApplicationHeader
+          index={1}
+          badges={badges}
+        />
+        <ApplicationContent>
           <List
             className="label-list"
             parentElement={parentElement}
@@ -100,12 +104,7 @@ export default class LabelIndexPage extends Container<any, any> {
             >ADD LABEL</IconLink>
           ) : null}
           {backgroundElement}
-        </TabNavigationContent>
-        <TabNavigation
-          index={1}
-          badges={badges}
-          addTabLinkPath="/labels/new"
-        />
+        </ApplicationContent>
       </section>
     );
   }

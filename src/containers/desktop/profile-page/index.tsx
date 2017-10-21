@@ -9,9 +9,9 @@ import {
   updateUser,
 } from '../../../action-creators/user';
 import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../../components/common/tab-navigation';
+  ApplicationContent,
+  ApplicationHeader,
+} from '../../../components/common/application-header';
 import FlatButton from '../../../components/flat-button';
 import Icon from '../../../components/icon';
 import poller from '../../../utils/poller';
@@ -103,7 +103,11 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
 
     return (
       <section className="page profile-page">
-        <TabNavigationContent>
+        <ApplicationHeader
+          index={3}
+          badges={badges}
+        />
+        <ApplicationContent>
           <div className="profile-tab-content--name--input">
             <Icon type="profile" />
             {(this.state.isEditing) ? (
@@ -133,12 +137,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
               onClick={this.handleClickDeleteAccountButton}
             >DELETE ACCOUNT</FlatButton>
           </div>
-        </TabNavigationContent>
-        <TabNavigation
-          index={3}
-          badges={badges}
-          addTabLinkPath="/tasks/new"
-        />
+        </ApplicationContent>
       </section>
     );
   }

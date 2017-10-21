@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import reducers from './reducers';
-import mobileRoutes from './router/mobile-routes';
 import desktopRoutes from './router/desktop-routes';
+import mobileRoutes from './router/mobile-routes';
 import Navigator from './router/navigator';
 import Router from './router/router';
 import initialState from './store/initial-state';

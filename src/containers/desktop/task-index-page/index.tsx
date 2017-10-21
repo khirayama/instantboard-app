@@ -14,12 +14,12 @@ import {
   sortTask,
   updateTask,
 } from '../../../action-creators/task';
+import {
+  ApplicationContent,
+  ApplicationHeader,
+} from '../../../components/common/application-header';
 import LoadingContent from '../../../components/common/loading-content';
 import NoLabelContent from '../../../components/common/no-label-content';
-import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../../components/common/tab-navigation';
 import Icon from '../../../components/icon';
 import Indicator from '../../../components/indicator';
 import {
@@ -142,20 +142,25 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
 
     const badges = (this.state.requests.length) ? [2] : [];
 
+        // <TabNavigationContent>{contentElement}</TabNavigationContent>
+        // <TabNavigation
+        //   index={0}
+        //   badges={badges}
+        //     (labels.length === 0) ? '/labels/new' : '/tasks/new'
+        //   )}
+        // />
+
     return (
       <section className="page task-index-page">
         <Indicator active={(
           (ui.isLoadingLabels && labels.length !== 0) ||
           (ui.isLoadingTasks && tasks.length !== 0)
         )}/>
-        <TabNavigationContent>{contentElement}</TabNavigationContent>
-        <TabNavigation
+        <ApplicationHeader
           index={0}
           badges={badges}
-          addTabLinkPath={(currentLabel) ? `/tasks/new?label-id=${currentLabel.id}` : (
-            (labels.length === 0) ? '/labels/new' : '/tasks/new'
-          )}
         />
+        <ApplicationContent>{contentElement}</ApplicationContent>
       </section>
     );
   }

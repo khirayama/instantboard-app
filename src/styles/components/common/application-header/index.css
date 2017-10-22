@@ -5,12 +5,12 @@
   width: 100%;
   background-color: $color-background-content;
   box-shadow: $shadow;
-  height: $height-desktop-bar-high;
-  padding: 0 24px;
   z-index: 2;
 
   .application-header--content {
-    width: $width-content;
+    width: $width-desktop-content-wide;
+    height: $height-desktop-bar-high;
+    padding: 0 24px;
     margin: 0 auto;
 
     .application-header-item {
@@ -18,9 +18,10 @@
       text-align: center;
       position: relative;
       color: $color-text-secondary;
+      height: $height-desktop-bar-high;
 
       .application-header--icon {
-        padding: 12px 12px 14px;
+        padding: 12px 10px 14px;
         height: $height-desktop-bar-high;
 
         path,
@@ -61,7 +62,7 @@
   height: calc(100% - $height-desktop-bar-high);
 
   .application-content--inner {
-    width: $width-content;
+    width: $width-desktop-content-wide;
     height: 100%;
     margin: 0 auto;
   }

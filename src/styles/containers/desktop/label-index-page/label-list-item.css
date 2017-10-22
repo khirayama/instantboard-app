@@ -1,6 +1,8 @@
 .desktop .label-list-item {
   display: flex;
   align-items: stretch;
+  border-right: $border;
+  border-left: $border;
   background-color: $color-background-content;
   transition: $time-basic $ease-out;
   transition-property: background, color;

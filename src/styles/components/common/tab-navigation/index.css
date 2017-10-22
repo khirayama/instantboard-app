@@ -1,28 +1,24 @@
-.tab-navigation-tab-list {
-  display: flex;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.tab-navigation-tab-list-item {
-  flex: 1;
-}
-
 .tab-navigation-content {
   width: 100%;
   height: calc(100% - $height-mobile-bar-high);
 }
 
 .tab-navigation-tab-list {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   background-color: $color-background-content;
   box-shadow: $shadow-inverse;
   height: $height-mobile-bar-high;
+
   .tab-navigation-tab-list-item {
+    flex: 1;
     text-align: center;
     position: relative;
     color: $color-text-secondary;
+
     .tab-navigation--icon {
       padding: 6px 0 8px;
       height: $height-mobile-bar-high;

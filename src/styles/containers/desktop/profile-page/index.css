@@ -1,6 +1,7 @@
 .desktop .profile-page {
   .application-content--inner {
-    padding: 32px;
+    width: $width-desktop-content-narrow;
+    padding: 48px 0;
   }
 
   .profile-tab-content--name--input {

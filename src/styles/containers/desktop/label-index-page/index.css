@@ -2,15 +2,21 @@
   .application-content {
     overflow: scroll;
 
-    .label-list {
-      width: 100%;
-      height: auto;
-      overflow: visible;
-      -webkit-overflow-scrolling: touch;
-    }
+    .application-content--inner {
+      width: $width-desktop-content-narrow;
+      padding: 48px 0;
 
-    .label-index-page--add-button {
-      width: 100%;
+      .label-list {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        border-top: $border;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .label-index-page--add-button {
+        width: 100%;
+      }
     }
   }
 }

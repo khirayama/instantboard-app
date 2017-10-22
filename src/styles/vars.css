@@ -14,7 +14,8 @@ $shadow: 0 1px 1px 0 $color-shadow;
 $shadow-inverse: 0 -1px 1px 0 $color-shadow;
 $border: solid 1px $color-divider;
 
-$width-content: 760px;
+$width-desktop-content-wide: 768px;
+$width-desktop-content-narrow: 480px;
 
 $height-desktop-bar-high: 64px;
 $height-desktop-bar-low: 48px;

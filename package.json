@@ -58,7 +58,6 @@
     "postcss-nested": "^2.1.2",
     "postcss-simple-vars": "^4.1.0",
     "prop-types": "^15.6.0",
-    "qs": "^6.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-transition-group": "^2.2.1",

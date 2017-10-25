@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as qs from 'qs';
 import tokenManager from '../utils/token-manager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
@@ -8,17 +7,7 @@ function createRequest(baseURL = '') {
   return axios.create({
     baseURL,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    transformRequest: (data) => {
-      return qs.stringify(data);
-    },
-    data: {},
-    params: {},
-    paramsSerializer: (params: any) => {
-      return qs.stringify(Object.assign(params, {
-        access_token: tokenManager.get(),
-      }));
+      Authorization: `Bearer ${tokenManager.get()}`,
     },
   });
 }

@@ -1,7 +1,24 @@
 import axios from 'axios';
+import * as qs from 'qs';
 import tokenManager from '../utils/token-manager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
+
+function createRequest(baseURL = '') {
+  return axios.create({
+    baseURL,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: {},
+    params: {},
+    paramsSerializer: (params: any) => {
+      return qs.stringify(Object.assign(params, {
+        token: tokenManager.get(),
+      }));
+    },
+  });
+}
 
 function handleRequestError(err: any, reject: any) {
   const status = err.response.status;
@@ -13,24 +30,10 @@ function handleRequestError(err: any, reject: any) {
   reject(data);
 }
 
-const searchReq = () => {
-  return axios.create({
-    baseURL: `${API_SERVER_HOST}/api/v1/search`,
-    headers: {
-      Authorization: `Bearer ${tokenManager.get()}`,
-    },
-  });
-};
+const searchReq = () => createRequest(`${API_SERVER_HOST}/api/v1/search`);
 
 const Label = {
-  req: () => {
-    return axios.create({
-      baseURL: `${API_SERVER_HOST}/api/v1/labels`,
-      headers: {
-        Authorization: `Bearer ${tokenManager.get()}`,
-      },
-    });
-  },
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/labels`),
 
   fetch: () => {
     return new Promise((resolve, reject) => {
@@ -84,14 +87,7 @@ const Label = {
 };
 
 const Task = {
-  req: () => {
-    return axios.create({
-      baseURL: `${API_SERVER_HOST}/api/v1/tasks`,
-      headers: {
-        Authorization: `Bearer ${tokenManager.get()}`,
-      },
-    });
-  },
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/tasks`),
 
   fetch: () => {
     return new Promise((resolve, reject) => {
@@ -145,14 +141,7 @@ const Task = {
 };
 
 const User = {
-  req: () => {
-    return axios.create({
-      baseURL: `${API_SERVER_HOST}/api/v1/user`,
-      headers: {
-        Authorization: `Bearer ${tokenManager.get()}`,
-      },
-    });
-  },
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/user`),
 
   get: () => {
     return new Promise((resolve, reject) => {
@@ -196,14 +185,7 @@ const User = {
 };
 
 const Member = {
-  req: () => {
-    return axios.create({
-      baseURL: `${API_SERVER_HOST}/api/v1/members`,
-      headers: {
-        Authorization: `Bearer ${tokenManager.get()}`,
-      },
-    });
-  },
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/members`),
 
   fetch: () => {
     return new Promise((resolve, reject) => {
@@ -217,14 +199,7 @@ const Member = {
 };
 
 const Request = {
-  req: () => {
-    return axios.create({
-      baseURL: `${API_SERVER_HOST}/api/v1/requests`,
-      headers: {
-        Authorization: `Bearer ${tokenManager.get()}`,
-      },
-    });
-  },
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
 
   fetch: params => {
     return new Promise((resolve, reject) => {

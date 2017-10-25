@@ -14,7 +14,7 @@ function createRequest(baseURL = '') {
     params: {},
     paramsSerializer: (params: any) => {
       return qs.stringify(Object.assign(params, {
-        token: tokenManager.get(),
+        access_token: tokenManager.get(),
       }));
     },
   });

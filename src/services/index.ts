@@ -10,6 +10,9 @@ function createRequest(baseURL = '') {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+    transformRequest: (data) => {
+      return qs.stringify(data);
+    },
     data: {},
     params: {},
     paramsSerializer: (params: any) => {

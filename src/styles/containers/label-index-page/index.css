@@ -1,0 +1,16 @@
+.label-index-page {
+  .tab-navigation-content {
+    overflow: scroll;
+
+    .label-list {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .label-index-page--add-button {
+      width: 100%;
+    }
+  }
+}

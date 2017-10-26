@@ -1,24 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import reducers from './reducers';
-import desktopRoutes from './router/desktop-routes';
-import mobileRoutes from './router/mobile-routes';
 import Navigator from './router/navigator';
 import Router from './router/router';
+import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/store';
 import queryString from './utils/query-string';
 import tokenManager from './utils/token-manager';
 import Tracker from './utils/tracker';
 
-// Check ui.type
-const uiType = (
-  window.ontouchstart !== undefined &&
-  window.innerWidth < window.innerHeight
-) ? 'mobile' : 'desktop';
-
 const store: IStore = new Store(initialState, reducers);
-const routes = (uiType === 'mobile') ? mobileRoutes : desktopRoutes;
 const router = new Router(routes);
 const tracker = new Tracker(router);
 
@@ -44,14 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const applicationMainElement: any = window.document.querySelector('.application--main');
   const path = window.location.pathname;
   ReactDOM.render((
-    <div className={uiType}>
-      <Navigator
-        props={{store}}
-        router={router}
-        tracker={tracker}
-        path={path}
-      />
-    </div>
+    <Navigator
+      props={{store}}
+      router={router}
+      tracker={tracker}
+      path={path}
+    />
   ), applicationMainElement);
 
   const applicationLoadingElement: any = window.document.querySelector('.application--loader');

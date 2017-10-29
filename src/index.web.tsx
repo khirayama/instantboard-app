@@ -56,18 +56,23 @@ window.addEventListener('DOMContentLoaded', () => {
         'beforeend',
         `
         <div class="layout-metrics">
-          <div class="layout-metrics--grid layout-metrics--bar-low__top"></div>
-          <div class="layout-metrics--grid layout-metrics--bar-high__top"></div>
-          <div class="layout-metrics--grid layout-metrics--bar-low__bottom"></div>
-          <div class="layout-metrics--grid layout-metrics--bar-high__bottom"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge__left"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge__right"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__left"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__left--edge__left"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__left--edge__right"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__right"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__right--edge__left"></div>
-          <div class="layout-metrics--grid layout-metrics--screen-edge--content__right--edge__right"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--bar layout-metrics--grid__high__top"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--bar layout-metrics--grid__low__top"></div>
+
+          <div class="layout-metrics--grid layout-metrics--grid--bar layout-metrics--grid__high__bottom"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--bar layout-metrics--grid__low__bottom"></div>
+
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge__left"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge__right"></div>
+
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__left"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__right"></div>
+
+          <div class="layout-metrics--grid layout-metrics--grid--content__left"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--content__right"></div>
+
+          <div class="layout-metrics--grid layout-metrics--grid--content--edge__left"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--content--edge__right"></div>
         </div>
         `,
       );

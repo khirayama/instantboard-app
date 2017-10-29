@@ -64,71 +64,101 @@ textarea {
   height: 100%;
   background-color: rgba(0, 0, 0, .08);
   z-index: 10000000;
-}
-.layout-metrics {
+
   .layout-metrics--grid {
     display: inline-block;
     position: absolute;
     opacity: .36;
-    &.layout-metrics--bar-low__top {
-      top: $height-mobile-bar-low;
+
+    &--bar {
       border-top: solid 1px $color-attention;
+      left: 0;
       width: 100%;
+      transform: translateY(-0.5px);
+      transition: ease-out 200ms 400ms;
+      transition-property: top, bottom;
     }
-    &.layout-metrics--bar-high__top {
+
+    &--line {
+      border-left: solid 1px $color-attention;
+      top: 0;
+      height: 100%;
+      transform: translateX(-0.5px);
+      transition: ease-out 200ms 400ms;
+      transition-property: left, right;
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint-narrow) {
+  .layout-metrics {
+    &--grid__high__top {
       top: $height-mobile-bar-high;
-      border-top: solid 1px $color-attention;
-      width: 100%;
     }
-    &.layout-metrics--bar-low__bottom {
-      bottom: $height-mobile-bar-low;
-      border-top: solid 1px $color-attention;
-      width: 100%;
+    &--grid__low__top {
+      top: $height-mobile-bar-low;
     }
-    &.layout-metrics--bar-high__bottom {
+
+    &--grid__high__bottom {
       bottom: $height-mobile-bar-high;
-      border-top: solid 1px $color-attention;
-      width: 100%;
     }
-    &.layout-metrics--screen-edge__left {
+    &--grid__low__bottom {
+      bottom: $height-mobile-bar-low;
+    }
+
+    &--grid__screen-edge__left {
       left: $margin-mobile-screen-edge;
-      border-left: solid 1px $color-attention;
-      height: 100%;
     }
-    &.layout-metrics--screen-edge__right {
+    &--grid__screen-edge__right {
       right: $margin-mobile-screen-edge;
-      border-left: solid 1px $color-attention;
-      height: 100%;
     }
-    &.layout-metrics--screen-edge--content__left {
-      left: $margin-mobile-screen-edge-content;
-      border-left: solid 1px $color-attention;
-      height: 100%;
+  }
+}
+@media screen and (min-width: $breakpoint-narrow) and (max-width: $breakpoint-wide) {
+  .layout-metrics {
+    &--grid__high__top {
+      top: $height-desktop-bar-high;
     }
-    &.layout-metrics--screen-edge--content__left--edge__left {
-      left: calc($margin-mobile-screen-edge-content - $margin-mobile-screen-edge);
-      border-left: solid 1px $color-attention;
-      height: 100%;
+    &--grid__low__top {
+      top: $height-desktop-bar-low;
     }
-    &.layout-metrics--screen-edge--content__left--edge__right {
-      left: calc($margin-mobile-screen-edge-content + $margin-mobile-screen-edge);
-      border-left: solid 1px $color-attention;
-      height: 100%;
+
+    &--grid__high__bottom {
+      bottom: $height-desktop-bar-high;
     }
-    &.layout-metrics--screen-edge--content__right {
-      right: $margin-mobile-screen-edge-content;
-      border-left: solid 1px $color-attention;
-      height: 100%;
+    &--grid__low__bottom {
+      bottom: $height-desktop-bar-low;
     }
-    &.layout-metrics--screen-edge--content__right--edge__left {
-      right: calc($margin-mobile-screen-edge-content + $margin-mobile-screen-edge);
-      border-left: solid 1px $color-attention;
-      height: 100%;
+
+    &--grid__screen-edge__left {
+      left: $margin-desktop-screen-edge;
     }
-    &.layout-metrics--screen-edge--content__right--edge__right {
-      right: calc($margin-mobile-screen-edge-content - $margin-mobile-screen-edge);
-      border-left: solid 1px $color-attention;
-      height: 100%;
+    &--grid__screen-edge__right {
+      right: $margin-desktop-screen-edge;
+    }
+  }
+}
+@media screen and (min-width: $breakpoint-wide) {
+  .layout-metrics {
+    &--grid__high__top {
+      top: $height-desktop-bar-high;
+    }
+    &--grid__low__top {
+      top: $height-desktop-bar-low;
+    }
+
+    &--grid__high__bottom {
+      bottom: $height-desktop-bar-high;
+    }
+    &--grid__low__bottom {
+      bottom: $height-desktop-bar-low;
+    }
+
+    &--grid__screen-edge__left {
+      left: $margin-desktop-screen-edge;
+    }
+    &--grid__screen-edge__right {
+      right: $margin-desktop-screen-edge;
     }
   }
 }

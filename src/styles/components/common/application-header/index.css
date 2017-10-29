@@ -8,7 +8,7 @@
   z-index: 2;
 
   .application-header--content {
-    width: $width-desktop-content-wide;
+    width: $breakpoint-wide;
     height: $height-desktop-bar-high;
     padding: 0 24px;
     margin: 0 auto;
@@ -62,7 +62,7 @@
   height: calc(100% - $height-desktop-bar-high);
 
   .application-content--inner {
-    width: $width-desktop-content-wide;
+    width: $breakpoint-wide;
     height: 100%;
     margin: 0 auto;
   }

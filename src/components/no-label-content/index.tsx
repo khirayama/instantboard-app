@@ -1,5 +1,5 @@
 import * as React from 'react';
-import IconLink from '../../common/icon-link';
+import IconLink from '../icon-link';
 
 export default class NoLabelContent extends React.Component<any, any> {
   public render() {

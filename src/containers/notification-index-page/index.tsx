@@ -7,12 +7,12 @@ import {
 import {
   pollRequest,
 } from '../../action-creators/request';
+import Indicator from '../../components/indicator';
+import {List} from '../../components/list';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import Indicator from '../../components/indicator';
-import {List} from '../../components/list';
+} from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import Container from '../container';
 import NoNotificationContent from './no-notification-content';

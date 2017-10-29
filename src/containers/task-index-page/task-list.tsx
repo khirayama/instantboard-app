@@ -1,8 +1,8 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import IconLink from '../../components/common/icon-link';
-import LoadingContent from '../../components/common/loading-content';
+import IconLink from '../../components/icon-link';
 import {List} from '../../components/list';
+import LoadingContent from '../../components/loading-content';
 import Link from '../../router/link';
 import NoTaskContent from './no-task-content';
 import TaskListItem from './task-list-item';

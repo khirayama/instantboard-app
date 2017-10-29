@@ -14,14 +14,10 @@ import {
   sortTask,
   updateTask,
 } from '../../action-creators/task';
-import LoadingContent from '../../components/common/loading-content';
-import NoLabelContent from '../../components/common/no-label-content';
-import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../components/common/tab-navigation';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
+import LoadingContent from '../../components/loading-content';
+import NoLabelContent from '../../components/no-label-content';
 import {
   RecycleTable,
   RecycleTableContentList,
@@ -29,6 +25,10 @@ import {
   RecycleTableList,
   RecycleTableListItem,
 } from '../../components/recycle-table';
+import {
+  TabNavigation,
+  TabNavigationContent,
+} from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import Container from '../container';
 import TaskList from './task-list';

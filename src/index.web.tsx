@@ -65,8 +65,10 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge__left"></div>
           <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge__right"></div>
 
-          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__left"></div>
-          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__right"></div>
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__left">
+          </div>
+          <div class="layout-metrics--grid layout-metrics--grid--line layout-metrics--grid__screen-edge-content__right">
+          </div>
 
           <div class="layout-metrics--grid layout-metrics--grid--content__left"></div>
           <div class="layout-metrics--grid layout-metrics--grid--content__right"></div>

@@ -8,12 +8,12 @@ import {
   getUser,
   updateUser,
 } from '../../action-creators/user';
+import FlatButton from '../../components/flat-button';
+import Icon from '../../components/icon';
 import {
   TabNavigation,
   TabNavigationContent,
-} from '../../components/common/tab-navigation';
-import FlatButton from '../../components/flat-button';
-import Icon from '../../components/icon';
+} from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import tokenManager from '../../utils/token-manager';
 import Container from '../container';

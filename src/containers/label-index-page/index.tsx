@@ -7,21 +7,21 @@ import {
   updateLabel,
 } from '../../action-creators/label';
 import {pollRequest} from '../../action-creators/request';
-import IconLink from '../../components/common/icon-link';
-import LoadingContent from '../../components/common/loading-content';
-import NoLabelContent from '../../components/common/no-label-content';
-import {
-  TabNavigation,
-  TabNavigationContent,
-} from '../../components/common/tab-navigation';
+import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
+import LabelListItem from '../../components/label-list-item';
 import {
   List,
   ListItem,
 } from '../../components/list';
+import LoadingContent from '../../components/loading-content';
+import NoLabelContent from '../../components/no-label-content';
+import {
+  TabNavigation,
+  TabNavigationContent,
+} from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import Container from '../container';
-import LabelListItem from './label-list-item';
 
 export default class LabelIndexPage extends Container<any, any> {
   private handleSortLabelList: any;

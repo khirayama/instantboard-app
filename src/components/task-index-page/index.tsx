@@ -38,7 +38,7 @@ export default class TaskIndexPage extends React.Component<any, any> {
 
   public componentDidMount() {
     this.props.actions.fetchTask();
-    this.props.actions.fetchLabel().then((action: IAction) =>{
+    this.props.actions.fetchLabel().then((action: IAction) => {
       const labels = action.payload.labels;
       for (const label of labels) {
         if (label.requests.length > 1) {

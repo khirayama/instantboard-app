@@ -6,9 +6,9 @@ import {
 import {
   pollRequest,
 } from '../../action-creators/request';
+import NotificationIndexPage from '../../components/notification-index-page';
 import poller from '../../utils/poller';
 import Container from '../container';
-import NotificationIndexPage from '../../components/notification-index-page';
 
 export default class NotificationIndexPageContainer extends Container<any, any> {
   constructor(props: any) {

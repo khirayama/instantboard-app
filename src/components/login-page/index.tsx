@@ -3,11 +3,10 @@ import * as React from 'react';
 import FlatButton from '../../components/flat-button';
 import queryString from '../../utils/query-string';
 import tokenManager from '../../utils/token-manager';
-import Container from '../container';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-export default class LoginPage extends Container<any, any> {
+export default class LoginPage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

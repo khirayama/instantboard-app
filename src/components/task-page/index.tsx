@@ -1,18 +1,11 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {fetchLabel} from '../../action-creators/label';
-import {
-  createTask,
-  fetchTask,
-  updateTask,
-} from '../../action-creators/task';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import Link from '../../router/link';
 import queryString from '../../utils/query-string';
-import Container from '../container';
 
-export default class TaskPage extends Container<any, any> {
+export default class TaskPage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -28,30 +21,11 @@ export default class TaskPage extends Container<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = Object.assign({}, this.state, {
+    this.state = {
       taskId: (props.params.id) ? Number(props.params.id) : null,
       content: '',
       labelId: null,
       uiBlocking: false,
-    });
-
-    this.actions = {
-      fetchLabel: () => {
-        fetchLabel(this.dispatch);
-      },
-      fetchTask: () => {
-        fetchTask(this.dispatch);
-      },
-      createTask: (task: ITaskRequest) => {
-        createTask(this.dispatch, task).then(() => {
-          this.context.move('/');
-        });
-      },
-      updateTask: (task: ITaskRequest) => {
-        updateTask(this.dispatch, task).then(() => {
-          this.context.move('/');
-        });
-      },
     };
 
     this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
@@ -61,15 +35,15 @@ export default class TaskPage extends Container<any, any> {
   }
 
   public componentDidMount() {
-    this.actions.fetchLabel();
-    this.actions.fetchTask();
+    this.props.actions.fetchLabel();
+    this.props.actions.fetchTask();
   }
 
-  public componentDidUpdate(prevProps, prevState) {
-    const ui = this.state.ui;
-    const prevUi = prevState.ui;
-    const tasks = this.state.tasks;
-    const labels = this.state.labels;
+  public componentDidUpdate(prevProps) {
+    const ui = this.props.ui;
+    const prevUi = prevProps.ui;
+    const tasks = this.props.tasks;
+    const labels = this.props.labels;
 
     let selectedLabelId: number|null = null;
     if (typeof window === 'object') {
@@ -101,8 +75,8 @@ export default class TaskPage extends Container<any, any> {
   }
 
   public render() {
-    const labels = this.state.labels;
-    const ui = this.state.ui;
+    const ui = this.props.ui;
+    const labels = this.props.labels;
 
     return (
       <section className="page task-page">
@@ -167,15 +141,19 @@ export default class TaskPage extends Container<any, any> {
       this.setState({uiBlocking: true});
 
       if (id === undefined || id === null) {
-        this.actions.createTask({
+        this.props.actions.createTask({
           content,
           labelId: this.state.labelId,
+        }).then(() => {
+          this.context.move('/');
         });
       } else {
-        this.actions.updateTask({
+        this.props.actions.updateTask({
           id,
           content,
           labelId: this.state.labelId,
+        }).then(() => {
+          this.context.move('/');
         });
       }
     }

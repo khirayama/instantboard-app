@@ -1,12 +1,5 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchRequest,
-  updateRequest,
-} from '../../action-creators/request';
-import {
-  pollRequest,
-} from '../../action-creators/request';
 import Indicator from '../../components/indicator';
 import {List} from '../../components/list';
 import NoNotificationContent from '../../components/no-notification-content';
@@ -16,43 +9,25 @@ import {
   TabNavigationContent,
 } from '../../components/tab-navigation';
 import poller from '../../utils/poller';
-import Container from '../container';
 
-export default class NotificationIndexPage extends Container<any, any> {
+export default class NotificationIndexPage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
 
-  constructor(props: any) {
-    super(props);
-
-    this.actions = {
-      pollRequest: () => {
-        pollRequest(this.dispatch, {status: 'pending'});
-      },
-      fetchRequest: () => {
-        fetchRequest(this.dispatch, {status: 'pending'});
-      },
-      updateRequest: (request: IRequestRequest) => {
-        updateRequest(this.dispatch, request);
-      },
-    };
-  }
-
   public componentDidMount() {
-    this.actions.fetchRequest();
-    poller.add(this.actions.pollRequest, 5000);
+    this.props.actions.fetchRequest();
+    poller.add(this.props.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.actions.pollRequest);
-    super.componentWillUnmount();
+    poller.remove(this.props.actions.pollRequest);
   }
 
   public render() {
-    const ui = this.state.ui;
-    const requests = this.state.requests;
-    const badges = (this.state.requests.length) ? [2] : [];
+    const ui = this.props.ui;
+    const requests = this.props.requests;
+    const badges = (requests.length) ? [2] : [];
 
     return (
       <section className="page notification-index-page">
@@ -63,7 +38,7 @@ export default class NotificationIndexPage extends Container<any, any> {
               return (
                 <RequestListItem
                   key={request.id}
-                  actions={this.actions}
+                  actions={this.props.actions}
                   request={request}
                 />
               );

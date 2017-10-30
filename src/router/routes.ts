@@ -1,46 +1,46 @@
-import LabelIndexPage from '../containers/label-index-page';
-import LabelPage from '../containers/label-page';
-import LoginPage from '../containers/login-page';
-import NotificationIndexPage from '../containers/notification-index-page';
-import ProfilePage from '../containers/profile-page';
-import TaskIndexPage from '../containers/task-index-page';
-import TaskPage from '../containers/task-page';
+import LabelIndexPageContainer from '../containers/label-index-page-container';
+import LabelPageContainer from '../containers/label-page-container';
+import LoginPageContainer from '../containers/login-page-container';
+import NotificationIndexPageContainer from '../containers/notification-index-page-container';
+import ProfilePageContainer from '../containers/profile-page-container';
+import TaskIndexPageContainer from '../containers/task-index-page-container';
+import TaskPageContainer from '../containers/task-page-container';
 
 const routes: IRoute[] = [{
   path: '/login',
   title: 'Login',
-  component: LoginPage,
+  component: LoginPageContainer,
 }, {
   path: '/',
   title: 'Instantboard',
-  component: TaskIndexPage,
+  component: TaskIndexPageContainer,
 }, {
   path: '/tasks/new',
   title: 'New Task',
-  component: TaskPage,
+  component: TaskPageContainer,
 }, {
   path: '/tasks/:id/edit',
   title: 'Edit Task',
-  component: TaskPage,
+  component: TaskPageContainer,
 }, {
   path: '/labels',
   title: 'Labels',
-  component: LabelIndexPage,
+  component: LabelIndexPageContainer,
 }, {
   path: '/labels/new',
   title: 'New Label',
-  component: LabelPage,
+  component: LabelPageContainer,
 }, {
   path: '/labels/:id/edit',
   title: 'Edit label',
-  component: LabelPage,
+  component: LabelPageContainer,
 }, {
   path: '/notifications',
   title: 'Notifications',
-  component: NotificationIndexPage,
+  component: NotificationIndexPageContainer,
 }, {
   path: '/profile',
   title: 'Profile',
-  component: ProfilePage,
+  component: ProfilePageContainer,
 }];
 export default routes;

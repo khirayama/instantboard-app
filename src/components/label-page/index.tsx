@@ -1,20 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  createLabel,
-  fetchLabel,
-  updateLabel,
-} from '../../action-creators/label';
-import {fetchMember} from '../../action-creators/member';
-import {getUser} from '../../action-creators/user';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Link from '../../router/link';
 import {User} from '../../services';
-import Container from '../container';
 
-export default class LabelPage extends Container<any, any> {
+export default class LabelPage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -36,7 +28,7 @@ export default class LabelPage extends Container<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = Object.assign({}, this.state, {
+    this.state = {
       labelId: (props.params.id) ? Number(props.params.id) : null,
       labelName: '',
       memberName: '',
@@ -44,63 +36,6 @@ export default class LabelPage extends Container<any, any> {
       labelRequests: [],
       isMemberListShown: false,
       uiBlocking: false,
-    });
-
-    this.actions = {
-      fetchMember: () => {
-        fetchMember(this.dispatch);
-      },
-      fetchLabel: () => {
-        fetchLabel(this.dispatch);
-      },
-      createLabel: (label: ILabelRequest) => {
-        createLabel(this.dispatch, label).then(() => {
-          this.context.move('/labels');
-        }).catch((result: any) => {
-          const newLabel = result.label;
-          const requests = result.requests;
-
-          if (newLabel.id) {
-            this.setState({
-              labelId: newLabel.id,
-              labelRequests: requests,
-            });
-          }
-        });
-      },
-      updateLabel: (label: ILabelRequest) => {
-        updateLabel(this.dispatch, label).then(() => {
-          this.context.move('/labels');
-        }).catch((result) => {
-          const newLabel = result.label;
-          const requests = result.requests;
-
-          if (newLabel.id) {
-            this.setState({
-              labelId: newLabel.id,
-              labelRequests: requests,
-            });
-          }
-        });
-      },
-      getUser: () => {
-        getUser(this.dispatch);
-      },
-      // Internal
-      setMemberName: (memberName) => {
-        const labelRequests = this.state.labelRequests.concat();
-        labelRequests.push({
-          member: {
-            name: memberName,
-          },
-        });
-        this.setState({
-          memberName: '',
-          memberNameErrorMessage: '',
-          labelRequests,
-          isMemberListShown: false,
-        });
-      },
     };
 
     this.handleChangeNameTextarea = this._handleChangeNameTextarea.bind(this);
@@ -113,15 +48,15 @@ export default class LabelPage extends Container<any, any> {
   }
 
   public componentDidMount() {
-    this.actions.getUser();
-    this.actions.fetchLabel();
-    this.actions.fetchMember();
+    this.props.actions.getUser();
+    this.props.actions.fetchLabel();
+    this.props.actions.fetchMember();
   }
 
-  public componentDidUpdate(prevProps, prevState) {
-    const ui = this.state.ui;
-    const prevUi = prevState.ui;
-    const labels = this.state.labels;
+  public componentDidUpdate(prevProps) {
+    const ui = this.props.ui;
+    const prevUi = prevProps.ui;
+    const labels = this.props.labels;
     const labelId = this.state.labelId;
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
@@ -138,21 +73,21 @@ export default class LabelPage extends Container<any, any> {
   }
 
   public render() {
+    const profile = this.props.profile || {};
+    const ui = this.props.ui;
     const labelId = this.state.labelId;
-    const profile = this.state.profile || {};
-    const ui = this.state.ui;
 
-    const filteredMembers = this.state.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
+    const filteredMembers = this.props.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
 
     return (
       <section className="page label-page">
         {(this.state.uiBlocking) ? <div className="ui-block" /> : null}
         <Indicator active={(ui.isLoadingLabels)}/>
-        <form onSubmit={this.handleSubmitLabelForm}>
-          <header className="label-page--header">
-            <Link to="/labels"><Icon type="back"/></Link>
-            <button><Icon type="send"/></button>
-          </header>
+        <header className="label-page--header">
+          <Link to="/labels"><Icon type="back"/></Link>
+          <button onClick={this.handleSubmitLabelForm}><Icon type="send"/></button>
+        </header>
+        <form onSubmit={this.handleSubmitMemberNameForm}>
           <div className="label-page--member-block">
             <Icon type="profile"/>
             <input
@@ -176,7 +111,7 @@ export default class LabelPage extends Container<any, any> {
                         <SearchMemberListItem
                           key={member.id}
                           member={member}
-                          actions={this.actions}
+                          actions={this.props.actions}
                         />
                       );
                     })}
@@ -184,7 +119,8 @@ export default class LabelPage extends Container<any, any> {
                 ) : (
                   <div
                     className="label-page--member-block--content--no-result"
-                    onClick={this.handleSubmitMemberNameForm}
+                    onTouchStart={this.handleSubmitMemberNameForm}
+                    onMouseDown={this.handleSubmitMemberNameForm}
                   >
                     Add {this.state.memberName} as new member.
                   </div>
@@ -249,13 +185,10 @@ export default class LabelPage extends Container<any, any> {
   }
 
   private _handleBlurMemberNameInput(event: any) {
-    // Prevent to hide SearchMemberListItem for click.
-    setTimeout(() => {
-      this.setState({
-        memberName: '',
-        isMemberListShown: false,
-      });
-    }, 0);
+    this.setState({
+      memberName: '',
+      isMemberListShown: false,
+    });
   }
 
   private _handleSubmitMemberNameForm(event: any) {
@@ -294,15 +227,34 @@ export default class LabelPage extends Container<any, any> {
       this.setState({uiBlocking: true});
 
       if (id === undefined || id === null) {
-        this.actions.createLabel({
+        this.props.actions.createLabel({
           name: labelName,
           requests,
+        }).then(() => {
+          this.context.move('/labels');
+        }).catch((result: any) => {
+          if (result.label.id) {
+            this.setState({
+              labelId: result.label.id,
+              labelRequests: result.requests,
+              uiBlocking: false,
+            });
+          }
         });
       } else {
-        this.actions.updateLabel({
+        this.props.actions.updateLabel({
           id,
           name: labelName,
           requests,
+        }).then(() => {
+          this.context.move('/labels');
+        }).catch((result: any) => {
+          if (result.label.id) {
+            this.setState({
+              labelId: result.label.id,
+              labelRequests: result.requests,
+            });
+          }
         });
       }
     }

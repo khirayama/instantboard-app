@@ -1,12 +1,5 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {
-  destroyLabel,
-  fetchLabel,
-  sortLabel,
-  updateLabel,
-} from '../../action-creators/label';
-import {pollRequest} from '../../action-creators/request';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
 import LabelListItem from '../../components/label-list-item';
@@ -21,48 +14,29 @@ import {
   TabNavigationContent,
 } from '../../components/tab-navigation';
 import poller from '../../utils/poller';
-import Container from '../container';
 
-export default class LabelIndexPage extends Container<any, any> {
+export default class LabelIndexPage extends React.Component<any, any> {
   private handleSortLabelList: any;
 
   constructor(props: any) {
     super(props);
 
-    this.actions = {
-      pollRequest: () => {
-        pollRequest(this.dispatch, {status: 'pending'});
-      },
-      fetchLabel: () => {
-        fetchLabel(this.dispatch);
-      },
-      updateLabel: (label: ILabel) => {
-        updateLabel(this.dispatch, label);
-      },
-      destroyLabel: (label: ILabel) => {
-        destroyLabel(this.dispatch, label);
-      },
-      sortLabel: (label: ILabel, to: number) => {
-        sortLabel(this.dispatch, label, to);
-      },
-    };
-
     this.handleSortLabelList = this._handleSortLabelList.bind(this);
   }
 
   public componentDidMount() {
-    this.actions.fetchLabel();
-    poller.add(this.actions.pollRequest, 5000);
+    this.props.actions.fetchLabel();
+    poller.add(this.props.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.actions.pollRequest);
-    super.componentWillUnmount();
+    poller.remove(this.props.actions.pollRequest);
   }
 
   public render() {
-    const ui = this.state.ui;
-    const labels = this.state.labels;
+    const ui = this.props.ui;
+    const labels = this.props.labels;
+    const requests = this.props.requests;
 
     let backgroundElement: any = null;
     if (ui.isLoadingLabels && labels.length === 0) {
@@ -71,7 +45,7 @@ export default class LabelIndexPage extends Container<any, any> {
       backgroundElement = <NoLabelContent/>;
     }
 
-    const badges = (this.state.requests.length) ? [2] : [];
+    const badges = (requests.length) ? [2] : [];
 
     const parentElement: any = window.document.querySelector('.tab-navigation-content');
 
@@ -87,7 +61,7 @@ export default class LabelIndexPage extends Container<any, any> {
             {labels.map((label: ILabel) => (
                 <LabelListItem
                   key={label.id}
-                  actions={this.actions}
+                  actions={this.props.actions}
                   label={label}
                 />
             ))}
@@ -110,11 +84,11 @@ export default class LabelIndexPage extends Container<any, any> {
   }
 
   private _handleSortLabelList(from: number, to: number) {
-    const labels = this.state.labels;
+    const labels = this.props.labels;
     const label = labels[from];
 
     if (label.priority !== to) {
-      this.actions.sortLabel(label, to);
+      this.props.actions.sortLabel(label, to);
     }
   }
 }

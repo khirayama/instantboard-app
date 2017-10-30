@@ -1,19 +1,6 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchLabel,
-} from '../../action-creators/label';
-import {
-  pollRequest,
-} from '../../action-creators/request';
-import {
-  destroyTask,
-  fetchTask,
-  pollTask,
-  sortTask,
-  updateTask,
-} from '../../action-creators/task';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import LoadingContent from '../../components/loading-content';
@@ -31,9 +18,8 @@ import {
 } from '../../components/tab-navigation';
 import TaskList from '../../components/task-list';
 import poller from '../../utils/poller';
-import Container from '../container';
 
-export default class TaskIndexPage extends Container<IContainerProps, IState> {
+export default class TaskIndexPage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -43,59 +29,37 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
   constructor(props: any) {
     super(props);
 
-    this.actions = {
-      pollTask: () => {
-        pollTask(this.dispatch);
-      },
-      pollRequest: () => {
-        pollRequest(this.dispatch, {status: 'pending'});
-      },
-      fetchLabel: () => {
-        fetchLabel(this.dispatch).then((action: IAction) => {
-          const labels = action.payload.labels;
-          for (const label of labels) {
-            if (label.requests.length > 1) {
-              poller.add(this.actions.pollTask, 5000);
-              break;
-            }
-          }
-        });
-      },
-      fetchTask: () => {
-        fetchTask(this.dispatch);
-      },
-      updateTask: (task) => {
-        updateTask(this.dispatch, task);
-      },
-      destroyTask: (task) => {
-        destroyTask(this.dispatch, task);
-      },
-      sortTask: (task: ITask, to: number) => {
-        sortTask(this.dispatch, task, to);
-      },
+    this.state = {
+      index: this.loadIndex(),
     };
-
-    this.state = Object.assign({}, this.state, {index: this.loadIndex()});
 
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
   }
 
   public componentDidMount() {
-    this.actions.fetchLabel();
-    this.actions.fetchTask();
-    poller.add(this.actions.pollRequest, 5000);
+    this.props.actions.fetchTask();
+    this.props.actions.fetchLabel().then((action: IAction) =>{
+      const labels = action.payload.labels;
+      for (const label of labels) {
+        if (label.requests.length > 1) {
+          poller.add(this.props.actions.pollTask, 5000);
+          break;
+        }
+      }
+    });
+    poller.add(this.props.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.actions.pollTask);
-    poller.remove(this.actions.pollRequest);
-    super.componentWillUnmount();
+    poller.remove(this.props.actions.pollTask);
+    poller.remove(this.props.actions.pollRequest);
   }
 
   public render() {
-    const ui = this.state.ui;
-    const labels = this.state.labels.filter((label: ILabel) => label.visibled);
-    const tasks = this.state.tasks;
+    const ui = this.props.ui;
+    const labels = this.props.labels.filter((label: ILabel) => label.visibled);
+    const tasks = this.props.tasks;
+    const requests = this.props.requests;
     const currentLabel: ILabel|undefined = labels[this.state.index];
 
     let contentElement: any = null;
@@ -118,8 +82,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
         return (
           <RecycleTableContentListItem key={label.id} index={index}>
             <TaskList
-              actions={this.actions}
-              ui={this.state.ui}
+              actions={this.props.actions}
+              ui={ui}
               label={label}
               tasks={groupedTasks}
               index={index}
@@ -140,7 +104,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       );
     }
 
-    const badges = (this.state.requests.length) ? [2] : [];
+    const badges = (requests.length) ? [2] : [];
 
     return (
       <section className="page task-index-page">

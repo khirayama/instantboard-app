@@ -1,13 +1,5 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  pollRequest,
-} from '../../action-creators/request';
-import {
-  deleteUser,
-  getUser,
-  updateUser,
-} from '../../action-creators/user';
 import FlatButton from '../../components/flat-button';
 import Icon from '../../components/icon';
 import {
@@ -16,14 +8,8 @@ import {
 } from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import tokenManager from '../../utils/token-manager';
-import Container from '../container';
 
-interface IProfilePageState extends IState {
-  isEditing: boolean;
-  name: string;
-}
-
-export default class ProfilePage extends Container<IContainerProps, IState> {
+export default class ProfilePage extends React.Component<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -43,27 +29,9 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   constructor(props: any) {
     super(props);
 
-    this.state = Object.assign({}, this.state, {
+    this.state = {
       isEditing: false,
-      name: (this.state.profile) ? this.state.profile.name : '',
-    });
-
-    this.actions = {
-      pollRequest: () => {
-        pollRequest(this.dispatch, {status: 'pending'});
-      },
-      getUser: () => {
-        getUser(this.dispatch);
-      },
-      updateUser: (profile) => {
-        updateUser(this.dispatch, profile);
-      },
-      deleteUser: () => {
-        deleteUser(this.dispatch).then(() => {
-          tokenManager.set('');
-          this.context.move('/login');
-        });
-      },
+      name: (props.profile) ? props.profile.name : '',
     };
 
     this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
@@ -75,31 +43,30 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   public componentDidMount() {
-    this.actions.getUser();
-    poller.add(this.actions.pollRequest, 5000);
+    this.props.actions.getUser();
+    poller.add(this.props.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.actions.pollRequest);
-    super.componentWillUnmount();
+    poller.remove(this.props.actions.pollRequest);
   }
 
-  public componentDidUpdate(prevProps, prevState) {
+  public componentDidUpdate(prevProps) {
     if (
-      !prevState.profile &&
-      this.state.profile &&
-      this.state.profile.name &&
-      this.state.profile.name !== this.state.name
+      !prevProps.profile &&
+      this.props.profile &&
+      this.props.profile.name &&
+      this.props.profile.name !== this.state.name
     ) {
       this.setState({
-        name: this.state.profile.name,
+        name: this.props.profile.name,
       });
     }
   }
 
   public render() {
-    const profile = this.state.profile || {};
-    const badges = (this.state.requests.length) ? [2] : [];
+    const profile = this.props.profile || {};
+    const badges = (this.props.requests.length) ? [2] : [];
 
     return (
       <section className="page profile-page">
@@ -152,7 +119,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   private _handleBlurNameInput() {
-    this.actions.updateUser({
+    this.props.actions.updateUser({
       name: this.state.name.trim(),
     });
     this.setState({isEditing: false});
@@ -166,7 +133,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     const metaKey = event.metaKey;
 
     if (keyCode === ENTER_KEY) {
-      this.actions.updateUser({
+      this.props.actions.updateUser({
         name: this.state.name.trim(),
       });
       this.setState({isEditing: false});
@@ -180,7 +147,10 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   private _handleClickDeleteAccountButton() {
     const isDelete = window.confirm('Delete account!?'); // eslint-disable-line
     if (isDelete) {
-      this.actions.deleteUser();
+      this.props.actions.deleteUser().then(() => {
+        tokenManager.set('');
+        this.context.move('/login');
+      });
     }
   }
 }

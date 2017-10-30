@@ -9,14 +9,14 @@ import {
 } from '../../action-creators/request';
 import Indicator from '../../components/indicator';
 import {List} from '../../components/list';
+import NoNotificationContent from '../../components/no-notification-content';
+import RequestListItem from '../../components/request-list-item';
 import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/tab-navigation';
 import poller from '../../utils/poller';
 import Container from '../container';
-import NoNotificationContent from './no-notification-content';
-import RequestListItem from './request-list-item';
 
 export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {

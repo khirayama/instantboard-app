@@ -9,10 +9,10 @@ import {fetchMember} from '../../action-creators/member';
 import {getUser} from '../../action-creators/user';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
+import SearchMemberListItem from '../../components/search-member-list-item';
 import Link from '../../router/link';
 import {User} from '../../services';
 import Container from '../container';
-import SearchMemberListItem from './search-member-list-item';
 
 export default class LabelPage extends Container<any, any> {
   public static contextTypes = {

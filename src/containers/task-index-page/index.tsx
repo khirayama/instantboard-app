@@ -29,9 +29,9 @@ import {
   TabNavigation,
   TabNavigationContent,
 } from '../../components/tab-navigation';
+import TaskList from '../../components/task-list';
 import poller from '../../utils/poller';
 import Container from '../container';
-import TaskList from './task-list';
 
 export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public static contextTypes = {

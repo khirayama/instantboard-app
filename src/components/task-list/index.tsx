@@ -4,8 +4,8 @@ import IconLink from '../../components/icon-link';
 import {List} from '../../components/list';
 import LoadingContent from '../../components/loading-content';
 import Link from '../../router/link';
-import NoTaskContent from './no-task-content';
-import TaskListItem from './task-list-item';
+import NoTaskContent from '../no-task-content';
+import TaskListItem from '../task-list-item';
 
 export default class TaskList extends React.Component<any, any> {
   private handleSortTaskList: any;

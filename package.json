@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/prop-types": "^15.5.2",
-    "@types/react": "^16.0.18",
+    "@types/react": "^16.0.19",
     "@types/react-dom": "^16.0.2",
     "axios": "^0.17.0",
     "browserify": "^14.5.0",
@@ -67,7 +67,7 @@
     "tslint": "^5.8.0",
     "typescript": "^2.5.3",
     "typescript-eslint-parser": "^8.0.1",
-    "uglify-es": "^3.1.5",
+    "uglify-es": "^3.1.6",
     "uglifyify": "^4.0.4",
     "watchify": "^3.9.0"
   }

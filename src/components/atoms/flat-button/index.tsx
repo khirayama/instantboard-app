@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Icon from '../../atoms/icon';
 
 export default class FlatButton extends React.Component<any, any> {
   public render() {

@@ -2,8 +2,8 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import poller from '../../../utils/poller';
 import tokenManager from '../../../utils/token-manager';
+import FlatButton from '../../atoms/flat-button';
 import Icon from '../../atoms/icon';
-import FlatButton from '../../molecules/flat-button';
 import TabNavigation from '../../molecules/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../molecules/tab-navigation/tab-navigation-content';
 

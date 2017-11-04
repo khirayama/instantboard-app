@@ -5,7 +5,7 @@ import {
   fetchTask,
   updateTask,
 } from '../../action-creators/task';
-import TaskPage from '../../components/task-page';
+import TaskPage from '../../components/pages/task-page';
 import Container from '../container';
 
 export default class TaskPageContainer extends Container<any, any> {

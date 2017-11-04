@@ -6,7 +6,7 @@ import {
 } from '../../action-creators/label';
 import {fetchMember} from '../../action-creators/member';
 import {getUser} from '../../action-creators/user';
-import LabelPage from '../../components/label-page';
+import LabelPage from '../../components/pages/label-page';
 import Container from '../container';
 
 export default class LabelPageContainer extends Container<any, any> {

@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
-import Spinner from './components/spinner';
+import Spinner from './components/atoms/spinner';
 import reducers from './reducers';
 import initialState from './store/initial-state';
 import Store from './store/store';

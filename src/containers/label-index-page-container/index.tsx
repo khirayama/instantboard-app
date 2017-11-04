@@ -7,7 +7,7 @@ import {
   updateLabel,
 } from '../../action-creators/label';
 import {pollRequest} from '../../action-creators/request';
-import LabelIndexPage from '../../components/label-index-page';
+import LabelIndexPage from '../../components/pages/label-index-page';
 import poller from '../../utils/poller';
 import Container from '../container';
 

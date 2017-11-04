@@ -7,7 +7,7 @@ import {
   getUser,
   updateUser,
 } from '../../action-creators/user';
-import ProfilePage from '../../components/profile-page';
+import ProfilePage from '../../components/pages/profile-page';
 import Container from '../container';
 
 export default class ProfilePageContainer extends Container<IContainerProps, IState> {

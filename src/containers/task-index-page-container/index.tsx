@@ -12,7 +12,7 @@ import {
   sortTask,
   updateTask,
 } from '../../action-creators/task';
-import TaskIndexPage from '../../components/task-index-page';
+import TaskIndexPage from '../../components/pages/task-index-page';
 import Container from '../container';
 
 export default class TaskIndexPageContainer extends Container<IContainerProps, IState> {

@@ -1,25 +1,7 @@
-/* http://google.github.io/material-design-icons/ */
-
-.visibility-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: solid 2px $color-divider;
-  background-color: $color-background;
-}
-
-.remove-icon {
-  width: 18px;
-  height: 2px;
-  border-radius: $radius;
-  background-color: $color-divider;
-}
-
 .icon {
   display: inline-block;
   min-width: 24px;
 
-  /* Icon: check */
   &.icon__check {
     .icon__check--circle {
       cx: 50;
@@ -37,17 +19,16 @@
       transition: .2s ease-out;
       transition-property: r;
     }
-  }
-  &.icon__active {
-    .icon__check--circle {
-      fill: $color-background;
-    }
-    .icon__check--circle--inner {
-      r: 0;
+    &.icon__active {
+      .icon__check--circle {
+        fill: $color-background;
+      }
+      .icon__check--circle--inner {
+        r: 0;
+      }
     }
   }
 
-  /* Icon: remove */
   &.icon__remove {
     .icon__remove--rect {
       $width: 64;
@@ -60,10 +41,10 @@
       transition: .2s ease-out;
       transition-property: fill;
     }
-  }
-  &.icon__active {
-    .icon__remove--rect {
-      fill: $color-background;
+    &.icon__active {
+      .icon__remove--rect {
+        fill: $color-background;
+      }
     }
   }
 }

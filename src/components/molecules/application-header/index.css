@@ -30,6 +30,7 @@
           stroke: $color-icon-inactive;
         }
       }
+
       .application-header--icon--badge {
         display: inline-block;
         position: absolute;
@@ -41,6 +42,7 @@
         z-index: 1;
         border-radius: 50%;
       }
+
       &.application-header-item__current {
         .application-header--icon {
           path,

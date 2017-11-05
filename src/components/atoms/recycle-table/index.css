@@ -1,12 +1,19 @@
 .recycle-table {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 
   .recycle-table-list {
     display: inline-block;
+    position: relative;
     width: 100%;
+    height: $height-mobile-bar-low;
+    vertical-align: top;
     background-color: $color-background-content;
     overflow-x: scroll;
     overflow-y: hidden;
+    z-index: 1;
+    box-shadow: $shadow;
 
     &::-webkit-scrollbar {
       display: none;
@@ -18,20 +25,52 @@
       overflow: hidden;
 
       .recycle-table-list-item {
+        position: relative;
         display: inline-block;
         height: 100%;
         cursor: pointer;
         user-select: none;
+        text-align: center;
+        padding: 8px 12px;
+        font-weight: $font-medium;
         background-color: $color-background-content;
+        color: $color-text-hint;
+
+        &::after {
+          position: absolute;
+          z-index: 0;
+          left: 50%;
+          bottom: 0;
+          width: 0;
+          height: 3px;
+          content: '';
+          transform: translateX(-50%);
+          background: $color-text;
+          transition-timing-function: $ease-out-expo;
+          transition-duration: $time-basic;
+          transition-property: width;
+          will-change: width;
+        }
+
+        &.recycle-table-list-item__active {
+          color: $color-text;
+
+          &::after {
+            width: 100%;
+          }
+        }
       }
     }
   }
 
   .recycle-table-content-list {
     overflow: hidden;
+    height: calc(100% - $height-mobile-bar-low);
+    will-change: left;
 
     .recycle-table-content-list--inner {
       display: flex;
+      height: 100%;
       transition-timing-function: $ease-out;
       transition-duration: $time-basic;
       transition-property: transform;
@@ -39,6 +78,10 @@
 
       .recycle-table-content-list-item {
         flex: 1;
+        overflow: scroll;
+        width: 100%;
+        height: 100%;
+        background: $color-background;
 
         .recycle-table-content-list-item--inner {
           width: 100%;

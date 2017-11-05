@@ -1,5 +1,6 @@
 .spinner {
   display: inline-block;
+
   .spinner-color1 {
     animation: spinner-color1 12s linear infinite alternate;
   }

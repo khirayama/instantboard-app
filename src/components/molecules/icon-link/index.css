@@ -8,10 +8,12 @@
     width: $size;
     padding: 8px;
     vertical-align: top;
+
     path {
       fill: $color-icon-inactive;
     }
   }
+
   span {
     display: inline-block;
     vertical-align: top;

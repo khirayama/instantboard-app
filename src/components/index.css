@@ -3,4 +3,8 @@
 @import "./reset";
 @import "./application";
 
-@import "./**/*";
+@import "./atoms/**/*";
+@import "./molecules/**/*";
+@import "./organisms/**/*";
+@import "./pages/**/*";
+@import "./templates/**/*";

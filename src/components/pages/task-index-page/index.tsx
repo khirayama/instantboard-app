@@ -2,18 +2,20 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import poller from '../../../utils/poller';
-import Icon from '../../atoms/icon';
 import Indicator from '../../atoms/indicator';
 import RecycleTable from '../../atoms/recycle-table/recycle-table';
 import RecycleTableContentList from '../../atoms/recycle-table/recycle-table-content-list';
 import RecycleTableContentListItem from '../../atoms/recycle-table/recycle-table-content-list-item';
 import RecycleTableList from '../../atoms/recycle-table/recycle-table-list';
 import RecycleTableListItem from '../../atoms/recycle-table/recycle-table-list-item';
+import IconLink from '../../molecules/icon-link';
 import LoadingContent from '../../molecules/loading-content';
 import TabNavigation from '../../molecules/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../molecules/tab-navigation/tab-navigation-content';
 import NoLabelContent from '../../organisms/no-label-content';
-import TaskList from '../../organisms/task-list';
+import NoTaskContent from '../../organisms/no-task-content';
+import TaskList from '../../task-list';
+import TaskListItem from '../../task-list-item';
 
 export default class TaskIndexPage extends React.Component<any, any> {
   public static contextTypes = {
@@ -21,6 +23,14 @@ export default class TaskIndexPage extends React.Component<any, any> {
   };
 
   private handleChangeIndex: any;
+
+  private handleSortTaskList: any;
+
+  private handleClickCompleteButton: any;
+
+  private handleClickTaskListItem: any;
+
+  private handleClickDestroyButton: any;
 
   constructor(props: any) {
     super(props);
@@ -30,6 +40,10 @@ export default class TaskIndexPage extends React.Component<any, any> {
     };
 
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
+    this.handleSortTaskList = this._handleSortTaskList.bind(this);
+    this.handleClickCompleteButton = this._handleClickCompleteButton.bind(this);
+    this.handleClickTaskListItem = this._handleClickTaskListItem.bind(this);
+    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
   }
 
   public componentDidMount() {
@@ -72,24 +86,53 @@ export default class TaskIndexPage extends React.Component<any, any> {
       contentElement = <NoLabelContent />;
     } else if (labels.length !== 0) {
       const recycleTableContents = labels.map((label: ILabel, index: number) => {
-        const groupedTasks = tasks.filter((task: ITask) => {
-          return (task.labelId === label.id);
-        });
+        const groupedTasks = tasks.filter((task: ITask) => (task.labelId === label.id));
+
+        let backgroundElement: any = null;
+        if (ui.isLoadingTasks && groupedTasks.length === 0) {
+          backgroundElement = <LoadingContent />;
+        } else if (groupedTasks.length === 0) {
+          backgroundElement = <NoTaskContent label={label} />;
+        }
+        const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
+
         return (
           <RecycleTableContentListItem key={label.id} index={index}>
             <TaskList
-              actions={this.props.actions}
-              ui={ui}
-              label={label}
+              className="task-list"
+              parentElement={parentElement}
               tasks={groupedTasks}
-              index={index}
-            />
+              onSort={this.handleSortTaskList}
+            >
+              {groupedTasks.map((task: any) => {
+                return (
+                  <TaskListItem
+                    key={task.id}
+                    task={task}
+                    onClickCompleteButton={this.handleClickCompleteButton}
+                    onClickTaskListItem={this.handleClickTaskListItem}
+                    onClickDestroyButton={this.handleClickDestroyButton}
+                  />
+                );
+              })}
+            </TaskList>
+            {(groupedTasks.length !== 0) ? (
+              <IconLink
+                to={`/tasks/new?label-id=${label.id}`}
+                iconType="add"
+                className="task-list--add-button"
+              >ADD TASK</IconLink>
+            ) : null }
+            {backgroundElement}
           </RecycleTableContentListItem>
         );
       });
 
       contentElement = (
-        <RecycleTable index={this.state.index} onChange={this.handleChangeIndex}>
+        <RecycleTable
+          index={this.state.index}
+          onChange={this.handleChangeIndex}
+        >
           <RecycleTableList>
             {labels.map((label: ILabel, index: number) => {
               return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
@@ -133,5 +176,31 @@ export default class TaskIndexPage extends React.Component<any, any> {
   private _handleChangeIndex(index: number): void {
     this.saveIndex(index);
     this.setState({index});
+  }
+
+  private _handleSortTaskList(from: number, to: number, taskListProps: any): void {
+    const task = taskListProps.tasks[from];
+
+    if (task.priority !== to) {
+      this.props.actions.sortTask(task, to);
+    }
+  }
+
+  private _handleClickCompleteButton(event: any, taskListItemProps: any): void {
+    event.stopPropagation();
+
+    this.props.actions.updateTask({
+      id: taskListItemProps.task.id,
+      completed: !taskListItemProps.task.completed,
+    });
+  }
+
+  private _handleClickTaskListItem(event: any, taskListItemProps: any): void {
+    this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
+  }
+
+  private _handleClickDestroyButton(event: any, taskListItemProps: any): void {
+    event.stopPropagation();
+    this.props.actions.destroyTask(taskListItemProps.task);
   }
 }

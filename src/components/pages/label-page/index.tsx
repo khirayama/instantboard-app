@@ -2,9 +2,9 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Link from '../../../router/link';
 import {User} from '../../../services';
-import Icon from '../../atoms/icon';
-import Indicator from '../../atoms/indicator';
-import SearchMemberListItem from '../../molecules/search-member-list-item';
+import Icon from '../../icon';
+import Indicator from '../../indicator';
+import SearchMemberListItem from '../../search-member-list-item';
 
 export default class LabelPage extends React.Component<any, any> {
   public static contextTypes = {

@@ -2,10 +2,10 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import poller from '../../../utils/poller';
 import tokenManager from '../../../utils/token-manager';
-import FlatButton from '../../atoms/flat-button';
-import Icon from '../../atoms/icon';
-import TabNavigation from '../../molecules/tab-navigation/tab-navigation';
-import TabNavigationContent from '../../molecules/tab-navigation/tab-navigation-content';
+import FlatButton from '../../flat-button';
+import Icon from '../../icon';
+import TabNavigation from '../../tab-navigation/tab-navigation';
+import TabNavigationContent from '../../tab-navigation/tab-navigation-content';
 
 export default class ProfilePage extends React.Component<any, any> {
   public static contextTypes = {

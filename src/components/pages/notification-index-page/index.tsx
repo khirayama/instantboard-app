@@ -1,12 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import poller from '../../../utils/poller';
-import Indicator from '../../atoms/indicator';
-import List from '../../atoms/list/list';
-import NoNotificationContent from '../../atoms/no-notification-content';
-import RequestListItem from '../../molecules/request-list-item';
-import TabNavigation from '../../molecules/tab-navigation/tab-navigation';
-import TabNavigationContent from '../../molecules/tab-navigation/tab-navigation-content';
+import Indicator from '../../indicator';
+import List from '../../list/list';
+import NoNotificationContent from '../../no-notification-content';
+import RequestListItem from '../../request-list-item';
+import TabNavigation from '../../tab-navigation/tab-navigation';
+import TabNavigationContent from '../../tab-navigation/tab-navigation-content';
 
 export default class NotificationIndexPage extends React.Component<any, any> {
   public static contextTypes = {

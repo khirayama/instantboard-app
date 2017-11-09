@@ -7,7 +7,7 @@ import {
   THRESHOLD_SCROLL_HEIGHT,
   TRANSITION_TIME,
   transitionProperties,
-} from '../../constants';
+} from '../constants';
 
 export default class ListItem extends React.Component<any, any> {
   private static contextTypes = {

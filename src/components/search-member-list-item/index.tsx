@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Icon from '../../atoms/icon';
+import Icon from '../icon';
 
 export default class SearchMemberListItem extends React.Component<any, any> {
   private handleClick: any;

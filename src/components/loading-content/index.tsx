@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Spinner from '../../atoms/spinner';
+import Spinner from '../spinner';
 
 export default class LoadingContent extends React.Component<any, any> {
   public render() {

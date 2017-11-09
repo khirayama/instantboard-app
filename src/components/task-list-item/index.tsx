@@ -1,8 +1,8 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
-import Icon from '../atoms/icon';
-import LinkText from '../atoms/link-text';
-import ListItem from '../atoms/list/list-item';
+import Icon from '../icon';
+import LinkText from '../link-text';
+import ListItem from '../list/list-item';
 
 export default class TaskListItem extends React.Component<any, any> {
   public render() {

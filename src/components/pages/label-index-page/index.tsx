@@ -1,15 +1,15 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 import poller from '../../../utils/poller';
-import Indicator from '../../atoms/indicator';
-import List from '../../atoms/list/list';
-import ListItem from '../../atoms/list/list-item';
-import IconLink from '../../molecules/icon-link';
-import LabelListItem from '../../molecules/label-list-item';
-import LoadingContent from '../../molecules/loading-content';
-import TabNavigation from '../../molecules/tab-navigation/tab-navigation';
-import TabNavigationContent from '../../molecules/tab-navigation/tab-navigation-content';
-import NoLabelContent from '../../organisms/no-label-content';
+import IconLink from '../../icon-link';
+import Indicator from '../../indicator';
+import LabelListItem from '../../label-list-item';
+import List from '../../list/list';
+import ListItem from '../../list/list-item';
+import LoadingContent from '../../loading-content';
+import NoLabelContent from '../../no-label-content';
+import TabNavigation from '../../tab-navigation/tab-navigation';
+import TabNavigationContent from '../../tab-navigation/tab-navigation-content';
 
 export default class LabelIndexPage extends React.Component<any, any> {
   private handleSortLabelList: any;

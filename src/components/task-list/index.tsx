@@ -1,5 +1,5 @@
 import * as React from 'react';
-import List from '../atoms/list/list';
+import List from '../list/list';
 
 export default class TaskList extends React.Component<any, any> {
   public render() {

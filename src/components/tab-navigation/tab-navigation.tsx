@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Icon from '../../atoms/icon';
+import Icon from '../icon';
 
 export default class TabNavigation extends React.Component<any, any> {
   public static contextTypes = {

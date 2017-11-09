@@ -2,8 +2,8 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Link from '../../../router/link';
 import queryString from '../../../utils/query-string';
-import Icon from '../../atoms/icon';
-import Indicator from '../../atoms/indicator';
+import Icon from '../../icon';
+import Indicator from '../../indicator';
 
 export default class TaskPage extends React.Component<any, any> {
   public static contextTypes = {

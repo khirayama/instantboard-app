@@ -1,43 +1,51 @@
 import * as classNames from 'classnames';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Icon from '../../atoms/icon';
 import LinkText from '../../atoms/link-text';
 import ListItem from '../../atoms/list/list-item';
 
 export default class TaskListItem extends React.Component<any, any> {
-  public static contextTypes = {
-    move: PropTypes.func,
-  };
-
-  private handleClickCompleteButton: any;
-
-  private handleClickTaskListItem: any;
-
-  private handleClickDestroyButton: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.handleClickCompleteButton = this._handleClickCompleteButton.bind(this);
-    this.handleClickTaskListItem = this._handleClickTaskListItem.bind(this);
-    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
-  }
-
   public render() {
     const task = this.props.task;
+
+    const handleClickCompleteButton = (event: any) => {
+      if (this.props.onClickCompleteButton) {
+        this.props.onClickCompleteButton(event, this.props, this.state);
+      }
+    };
+
+    const handleClickTaskListItem = (event: any) => {
+      if (this.props.onClickTaskListItem) {
+        this.props.onClickTaskListItem(event, this.props, this.state);
+      }
+    };
+
+    const handleClickDestroyButton = (event: any) => {
+      if (this.props.onClickDestroyButton) {
+        this.props.onClickDestroyButton(event, this.props, this.state);
+      }
+    };
+
     const props = Object.assign({}, this.props);
 
-    delete props.actions;
     delete props.task;
+    delete props.onClickCompleteButton;
+    delete props.onClickTaskListItem;
+    delete props.onClickDestroyButton;
 
     return (
       <ListItem
         {...props}
-        className={classNames('task-list-item', {'task-list-item__completed': task.completed})}
-        onClick={this.handleClickTaskListItem}
+        className={classNames(
+          'task-list-item',
+          {'task-list-item__completed': task.completed},
+        )}
+        onClick={handleClickTaskListItem}
       >
-        <div className="task-list-item--complete-button" onClick={this.handleClickCompleteButton}>
+        <div
+          className="task-list-item--complete-button"
+          onClick={handleClickCompleteButton}
+        >
           <Icon type="check" active={task.completed}/>
         </div>
         {(task.schedule) ? (
@@ -61,39 +69,17 @@ export default class TaskListItem extends React.Component<any, any> {
           </span>
         ) : null}
         <div className="task-list-item--content">
-          <div className="task-list-item--content--text"><LinkText>{task.text}</LinkText></div>
+          <div className="task-list-item--content--text">
+            <LinkText>{task.text}</LinkText>
+          </div>
         </div>
-        <div className="task-list-item--destroy-button" onClick={this.handleClickDestroyButton}>
+        <div
+          className="task-list-item--destroy-button"
+          onClick={handleClickDestroyButton}
+        >
           <Icon type="remove" active={task.completed}/>
         </div>
       </ListItem>
     );
-  }
-
-  private _handleClickCompleteButton(event: any) {
-    event.stopPropagation();
-
-    const task = this.props.task;
-    const actions = this.props.actions;
-
-    actions.updateTask({
-      id: task.id,
-      completed: !task.completed,
-    });
-  }
-
-  private _handleClickTaskListItem() {
-    const task = this.props.task;
-
-    this.context.move(`/tasks/${task.id}/edit?label-id=${task.labelId}`);
-  }
-
-  private _handleClickDestroyButton(event: any) {
-    event.stopPropagation();
-
-    const task = this.props.task;
-    const actions = this.props.actions;
-
-    actions.destroyTask(task);
   }
 }

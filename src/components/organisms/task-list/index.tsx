@@ -1,6 +1,5 @@
-import * as classNames from 'classnames';
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Link from '../../../router/link';
 import List from '../../atoms/list/list';
 import IconLink from '../../molecules/icon-link';
 import LoadingContent from '../../molecules/loading-content';
@@ -8,13 +7,9 @@ import NoTaskContent from '../no-task-content';
 import TaskListItem from '../task-list-item';
 
 export default class TaskList extends React.Component<any, any> {
-  private handleSortTaskList: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.handleSortTaskList = this._handleSortTaskList.bind(this);
-  }
+  public static contextTypes = {
+    move: PropTypes.func,
+  };
 
   public render() {
     const ui = this.props.ui;
@@ -30,19 +25,49 @@ export default class TaskList extends React.Component<any, any> {
 
     const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[this.props.index];
 
+    const handleSortTaskList = (from: number, to: number) => {
+      const tasks = this.props.tasks;
+      const task = tasks[from];
+
+      if (task.priority !== to) {
+        this.props.actions.sortTask(task, to);
+      }
+    };
+
+    const handleClickCompleteButton = (event: any, props: any) => {
+      event.stopPropagation();
+
+      this.props.actions.updateTask({
+        id: props.task.id,
+        completed: !props.task.completed,
+      });
+    };
+
+    const handleClickTaskListItem = (event: any, props: any) => {
+      this.context.move(`/tasks/${props.task.id}/edit?label-id=${props.task.labelId}`);
+    };
+
+    const handleClickDestroyButton = (event: any, props: any) => {
+      event.stopPropagation();
+
+      this.props.actions.destroyTask(props.task);
+    };
+
     return (
       <span>
         <List
           parentElement={parentElement}
           className="task-list"
-          onSort={this.handleSortTaskList}
+          onSort={handleSortTaskList}
         >
           {tasks.map((task: any) => {
             return (
               <TaskListItem
                 key={task.id}
-                actions={this.props.actions}
                 task={task}
+                onClickCompleteButton={handleClickCompleteButton}
+                onClickTaskListItem={handleClickTaskListItem}
+                onClickDestroyButton={handleClickDestroyButton}
               />
             );
           })}
@@ -57,14 +82,5 @@ export default class TaskList extends React.Component<any, any> {
         {backgroundElement}
       </span>
     );
-  }
-
-  private _handleSortTaskList(from: number, to: number) {
-    const tasks = this.props.tasks;
-    const task = tasks[from];
-
-    if (task.priority !== to) {
-      this.props.actions.sortTask(task, to);
-    }
   }
 }

@@ -1,7 +1,7 @@
 ## PWA Client
 
-- Hosting on github
-- Useable without login
+- [ ] Support http/2
+- [ ] Migrate Google Cloud Platform
 
 ```
 # Build container image

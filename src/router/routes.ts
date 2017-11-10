@@ -1,10 +1,10 @@
-import LabelIndexPageContainer from '../containers/label-index-page-container';
-import LabelPageContainer from '../containers/label-page-container';
-import LoginPageContainer from '../containers/login-page-container';
-import NotificationIndexPageContainer from '../containers/notification-index-page-container';
-import ProfilePageContainer from '../containers/profile-page-container';
-import TaskIndexPageContainer from '../containers/task-index-page-container';
-import TaskPageContainer from '../containers/task-page-container';
+import LabelIndexPageContainer from '../presentations/containers/label-index-page-container';
+import LabelPageContainer from '../presentations/containers/label-page-container';
+import LoginPageContainer from '../presentations/containers/login-page-container';
+import NotificationIndexPageContainer from '../presentations/containers/notification-index-page-container';
+import ProfilePageContainer from '../presentations/containers/profile-page-container';
+import TaskIndexPageContainer from '../presentations/containers/task-index-page-container';
+import TaskPageContainer from '../presentations/containers/task-page-container';
 
 const routes: IRoute[] = [{
   path: '/login',

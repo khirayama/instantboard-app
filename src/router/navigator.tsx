@@ -46,8 +46,9 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
     }
 
     const {route, params} = router.matchRoute(pathname);
+    const component = (!~route.component.toString().indexOf('class')) ? route.component() : route.component;
     if (route) {
-      return React.createElement(route.component, Object.assign({}, props, {params}));
+      return React.createElement(component, Object.assign({}, props, {params}));
     }
     return null;
   }

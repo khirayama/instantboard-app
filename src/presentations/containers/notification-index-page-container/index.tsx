@@ -6,8 +6,8 @@ import {
 import {
   pollRequest,
 } from '../../../action-creators/request';
-import NotificationIndexPage from '../../pages/notification-index-page';
 import poller from '../../../utils/poller';
+import NotificationIndexPage from '../../pages/notification-index-page';
 import Container from '../container';
 
 export default class NotificationIndexPageContainer extends Container<any, any> {

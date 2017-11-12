@@ -7,8 +7,8 @@ import {
   updateLabel,
 } from '../../../action-creators/label';
 import {pollRequest} from '../../../action-creators/request';
-import LabelIndexPage from '../../pages/label-index-page';
 import poller from '../../../utils/poller';
+import LabelIndexPage from '../../pages/label-index-page';
 import Container from '../container';
 
 export default class LabelIndexPageContainer extends Container<any, any> {

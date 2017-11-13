@@ -1,15 +1,17 @@
 .task-page {
   .task-page--header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: $height-mobile-bar-high;
     box-shadow: $shadow;
-    background-color: $color-background;
+    background-color: $color-background-content;
+    z-index: 1;
 
     a,
     button {
-      background-color: $color-background;
+      background-color: $color-background-content;
       display: inline-block;
       height: $height-mobile-bar-high;
       svg {
@@ -25,6 +27,7 @@
   .task-page--label-block {
     border-bottom: $border;
     height: $height-mobile-bar-high;
+    background-color: $color-background;
 
     .icon {
       display: inline-block;

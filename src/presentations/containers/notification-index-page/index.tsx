@@ -1,5 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import {
+  fetchRequest,
+  updateRequest,
+} from '../../../action-creators/request';
+import {
+  pollRequest,
+} from '../../../action-creators/request';
 import poller from '../../../utils/poller';
 import Indicator from '../../components/indicator';
 import List from '../../components/list/list';
@@ -7,24 +14,43 @@ import NoNotificationContent from '../../components/no-notification-content';
 import RequestListItem from '../../components/request-list-item';
 import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
+import Container from '../container';
 
-export default class NotificationIndexPage extends React.Component<any, any> {
+export default class NotificationIndexPageContainer extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
 
   public componentDidMount() {
-    this.props.actions.fetchRequest();
-    poller.add(this.props.actions.pollRequest, 5000);
+    this.actions.fetchRequest();
+    poller.add(this.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.props.actions.pollRequest);
+    poller.remove(this.actions.pollRequest);
+
+    super.componentWillUnmount();
+  }
+
+  constructor(props: any) {
+    super(props);
+
+    this.actions = {
+      pollRequest: () => {
+        return pollRequest(this.dispatch, {status: 'pending'});
+      },
+      fetchRequest: () => {
+        return fetchRequest(this.dispatch, {status: 'pending'});
+      },
+      updateRequest: (request: IRequestRequest) => {
+        return updateRequest(this.dispatch, request);
+      },
+    };
   }
 
   public render() {
-    const ui = this.props.ui;
-    const requests = this.props.requests;
+    const ui = this.state.ui;
+    const requests = this.state.requests;
     const badges = (requests.length) ? [2] : [];
 
     return (

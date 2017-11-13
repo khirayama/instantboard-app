@@ -1,6 +1,19 @@
 import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import {
+  fetchLabel,
+} from '../../../action-creators/label';
+import {
+  pollRequest,
+} from '../../../action-creators/request';
+import {
+  destroyTask,
+  fetchTask,
+  pollTask,
+  sortTask,
+  updateTask,
+} from '../../../action-creators/task';
 import poller from '../../../utils/poller';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
@@ -16,8 +29,9 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
+import Container from '../container';
 
-export default class TaskIndexPage extends React.Component<any, any> {
+export default class TaskIndexPageContainer extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -35,8 +49,34 @@ export default class TaskIndexPage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
+    const initialState = {
       index: this.loadIndex(),
+    };
+
+    this.state = Object.assign({}, this.state, initialState);
+
+    this.actions = {
+      pollTask: () => {
+        return pollTask(this.dispatch);
+      },
+      pollRequest: () => {
+        return pollRequest(this.dispatch, {status: 'pending'});
+      },
+      fetchLabel: () => {
+        return fetchLabel(this.dispatch);
+      },
+      fetchTask: () => {
+        return fetchTask(this.dispatch);
+      },
+      updateTask: (task) => {
+        return updateTask(this.dispatch, task);
+      },
+      destroyTask: (task) => {
+        return destroyTask(this.dispatch, task);
+      },
+      sortTask: (task: ITask, to: number) => {
+        return sortTask(this.dispatch, task, to);
+      },
     };
 
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
@@ -47,29 +87,32 @@ export default class TaskIndexPage extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.props.actions.fetchTask();
-    this.props.actions.fetchLabel().then((action: IAction) => {
+    this.actions.fetchTask();
+    this.actions.fetchLabel().then((action: IAction) => {
       const labels = action.payload.labels;
       for (const label of labels) {
         if (label.requests.length > 1) {
-          poller.add(this.props.actions.pollTask, 5000);
+          poller.add(this.actions.pollTask, 5000);
           break;
         }
       }
     });
-    poller.add(this.props.actions.pollRequest, 5000);
+    poller.add(this.actions.pollRequest, 5000);
   }
 
   public componentWillUnmount() {
-    poller.remove(this.props.actions.pollTask);
-    poller.remove(this.props.actions.pollRequest);
+    poller.remove(this.actions.pollTask);
+    poller.remove(this.actions.pollRequest);
+
+    super.componentWillUnmount();
   }
 
+
   public render() {
-    const ui = this.props.ui;
-    const labels = this.props.labels.filter((label: ILabel) => label.visibled);
-    const tasks = this.props.tasks;
-    const requests = this.props.requests;
+    const ui = this.state.ui;
+    const labels = this.state.labels.filter((label: ILabel) => label.visibled);
+    const tasks = this.state.tasks;
+    const requests = this.state.requests;
     const currentLabel: ILabel|undefined = labels[this.state.index];
 
     let contentElement: any = null;
@@ -182,14 +225,14 @@ export default class TaskIndexPage extends React.Component<any, any> {
     const task = taskListProps.tasks[from];
 
     if (task.priority !== to) {
-      this.props.actions.sortTask(task, to);
+      this.actions.sortTask(task, to);
     }
   }
 
   private _handleClickCompleteButton(event: any, taskListItemProps: any): void {
     event.stopPropagation();
 
-    this.props.actions.updateTask({
+    this.actions.updateTask({
       id: taskListItemProps.task.id,
       completed: !taskListItemProps.task.completed,
     });
@@ -201,6 +244,6 @@ export default class TaskIndexPage extends React.Component<any, any> {
 
   private _handleClickDestroyButton(event: any, taskListItemProps: any): void {
     event.stopPropagation();
-    this.props.actions.destroyTask(taskListItemProps.task);
+    this.actions.destroyTask(taskListItemProps.task);
   }
 }

@@ -1,12 +1,26 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import {
+  createLabel,
+  fetchLabel,
+  updateLabel,
+} from '../../../action-creators/label';
+import {
+  fetchMember,
+} from '../../../action-creators/member';
+import {
+  getUser,
+} from '../../../action-creators/user';
+import Container from '../container';
 import Link from '../../../router/link';
-import {User} from '../../../services';
+import {
+  User,
+} from '../../../services';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 
-export default class LabelPage extends React.Component<any, any> {
+export default class LabelPageContainer extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -28,7 +42,7 @@ export default class LabelPage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
+    const initialState = {
       labelId: (props.params.id) ? Number(props.params.id) : null,
       labelName: '',
       memberName: '',
@@ -36,6 +50,26 @@ export default class LabelPage extends React.Component<any, any> {
       labelRequests: [],
       isMemberListShown: false,
       uiBlocking: false,
+    };
+
+    this.state = Object.assign({}, this.state, initialState);
+
+    this.actions = {
+      fetchMember: () => {
+        return fetchMember(this.dispatch);
+      },
+      fetchLabel: () => {
+        return fetchLabel(this.dispatch);
+      },
+      createLabel: (label: ILabelRequest) => {
+        return createLabel(this.dispatch, label);
+      },
+      updateLabel: (label: ILabelRequest) => {
+        return updateLabel(this.dispatch, label);
+      },
+      getUser: () => {
+        return getUser(this.dispatch);
+      },
     };
 
     this.handleChangeNameTextarea = this._handleChangeNameTextarea.bind(this);
@@ -48,15 +82,15 @@ export default class LabelPage extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.props.actions.getUser();
-    this.props.actions.fetchLabel();
-    this.props.actions.fetchMember();
+    this.actions.getUser();
+    this.actions.fetchLabel();
+    this.actions.fetchMember();
   }
 
-  public componentDidUpdate(prevProps) {
-    const ui = this.props.ui;
-    const prevUi = prevProps.ui;
-    const labels = this.props.labels;
+  public componentDidUpdate(prevProps, prevState) {
+    const ui = this.state.ui;
+    const prevUi = prevState.ui;
+    const labels = this.state.labels;
     const labelId = this.state.labelId;
 
     if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
@@ -72,12 +106,13 @@ export default class LabelPage extends React.Component<any, any> {
     }
   }
 
+
   public render() {
-    const profile = this.props.profile || {};
-    const ui = this.props.ui;
+    const profile = this.state.profile || {};
+    const ui = this.state.ui;
     const labelId = this.state.labelId;
 
-    const filteredMembers = this.props.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
+    const filteredMembers = this.state.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
 
     return (
       <section className="page label-page">
@@ -227,7 +262,7 @@ export default class LabelPage extends React.Component<any, any> {
       this.setState({uiBlocking: true});
 
       if (id === undefined || id === null) {
-        this.props.actions.createLabel({
+        this.actions.createLabel({
           name: labelName,
           requests,
         }).then(() => {
@@ -242,7 +277,7 @@ export default class LabelPage extends React.Component<any, any> {
           }
         });
       } else {
-        this.props.actions.updateLabel({
+        this.actions.updateLabel({
           id,
           name: labelName,
           requests,

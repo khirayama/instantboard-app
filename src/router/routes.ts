@@ -1,46 +1,46 @@
-import LabelIndexPageContainer from '../presentations/containers/label-index-page-container';
-import LabelPageContainer from '../presentations/containers/label-page-container';
-import LoginPageContainer from '../presentations/containers/login-page-container';
-import NotificationIndexPageContainer from '../presentations/containers/notification-index-page-container';
-import ProfilePageContainer from '../presentations/containers/profile-page-container';
-import TaskIndexPageContainer from '../presentations/containers/task-index-page-container';
-import TaskPageContainer from '../presentations/containers/task-page-container';
+import LabelIndexPage from '../presentations/containers/label-index-page';
+import LabelPage from '../presentations/containers/label-page';
+import LoginPage from '../presentations/containers/login-page';
+import NotificationIndexPage from '../presentations/containers/notification-index-page';
+import ProfilePage from '../presentations/containers/profile-page';
+import TaskIndexPage from '../presentations/containers/task-index-page';
+import TaskPage from '../presentations/containers/task-page';
 
 const routes: IRoute[] = [{
   path: '/login',
   title: 'Login',
-  component: LoginPageContainer,
+  component: LoginPage,
 }, {
   path: '/',
   title: 'Instantboard',
-  component: TaskIndexPageContainer,
+  component: TaskIndexPage,
 }, {
   path: '/tasks/new',
   title: 'New Task',
-  component: TaskPageContainer,
+  component: TaskPage,
 }, {
   path: '/tasks/:id/edit',
   title: 'Edit Task',
-  component: TaskPageContainer,
+  component: TaskPage,
 }, {
   path: '/labels',
   title: 'Labels',
-  component: LabelIndexPageContainer,
+  component: LabelIndexPage,
 }, {
   path: '/labels/new',
   title: 'New Label',
-  component: LabelPageContainer,
+  component: LabelPage,
 }, {
   path: '/labels/:id/edit',
   title: 'Edit label',
-  component: LabelPageContainer,
+  component: LabelPage,
 }, {
   path: '/notifications',
   title: 'Notifications',
-  component: NotificationIndexPageContainer,
+  component: NotificationIndexPage,
 }, {
   path: '/profile',
   title: 'Profile',
-  component: ProfilePageContainer,
+  component: ProfilePage,
 }];
 export default routes;

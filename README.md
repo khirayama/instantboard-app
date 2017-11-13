@@ -2,7 +2,7 @@
 
 - [ ] Support http/2
 - [ ] Migrate Google Cloud Platform
-- [ ] Integrate Container and page
+- [x] Integrate Container and page
 - [ ] Refactor presentational components
 
 ```

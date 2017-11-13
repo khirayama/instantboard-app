@@ -107,7 +107,6 @@ export default class TaskIndexPageContainer extends Container<IContainerProps, I
     super.componentWillUnmount();
   }
 
-
   public render() {
     const ui = this.state.ui;
     const labels = this.state.labels.filter((label: ILabel) => label.visibled);

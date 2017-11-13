@@ -2,23 +2,26 @@ import * as React from 'react';
 import ListItem from '../list/list-item';
 
 export default class RequestListItem extends React.Component<any, any> {
-  private handleClickAcceptButton: any;
-
-  private handleClickRefuseButton: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.handleClickAcceptButton = this._handleClickAcceptButton.bind(this);
-    this.handleClickRefuseButton = this._handleClickAcceptButton.bind(this);
-  }
-
   public render() {
     const request = this.props.request;
+
+    const handleClickAcceptButton = (event: any) => {
+      if (this.props.onClickCompleteButton) {
+        this.props.onClickAcceptButton(event, this.props, this.state);
+      }
+    };
+
+    const handleClickRefuseButton = (event: any) => {
+      if (this.props.onClickTaskListItem) {
+        this.props.onClickRefuseButton(event, this.props, this.state);
+      }
+    };
+
     const props = Object.assign({}, this.props);
 
-    delete props.actions;
     delete props.request;
+    delete props.onClickAcceptButton;
+    delete props.onClickRefuseButton;
 
     return (
       <ListItem
@@ -32,38 +35,18 @@ export default class RequestListItem extends React.Component<any, any> {
         <div className="request-list-item--button-container">
           <div
             className="request-list-item--accept-button"
-            onClick={this.handleClickAcceptButton}
+            onClick={handleClickAcceptButton}
           >
             Accept
           </div>
           <div
             className="request-list-item--refuse-button"
-            onClick={this.handleClickRefuseButton}
+            onClick={handleClickRefuseButton}
           >
             Refuse
           </div>
         </div>
       </ListItem>
     );
-  }
-
-  private _handleClickAcceptButton() {
-    const actions = this.props.actions;
-    const request = this.props.request;
-
-    actions.updateRequest({
-      id: request.id,
-      status: 'accepted',
-    });
-  }
-
-  private _handleClickRefuseButton() {
-    const actions = this.props.actions;
-    const request = this.props.request;
-
-    actions.updateRequest({
-      id: request.id,
-      status: 'refused',
-    });
   }
 }

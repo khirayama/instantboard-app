@@ -100,7 +100,6 @@ export default class TaskPageContainer extends Container<any, any> {
     }
   }
 
-
   public render() {
     const ui = this.state.ui;
     const labels = this.state.labels;
@@ -162,7 +161,7 @@ export default class TaskPageContainer extends Container<any, any> {
 
   private submitTask() {
     const content = this.state.content.trim();
-    const id = this.state.params.id;
+    const id = this.props.params.id;
 
     if (content && !this.state.uiBlocking) {
       this.setState({uiBlocking: true});

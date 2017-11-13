@@ -11,7 +11,6 @@ import {
 import {
   getUser,
 } from '../../../action-creators/user';
-import Container from '../container';
 import Link from '../../../router/link';
 import {
   User,
@@ -19,6 +18,7 @@ import {
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
+import Container from '../container';
 
 export default class LabelPageContainer extends Container<any, any> {
   public static contextTypes = {
@@ -105,7 +105,6 @@ export default class LabelPageContainer extends Container<any, any> {
       }
     }
   }
-
 
   public render() {
     const profile = this.state.profile || {};

@@ -1,4 +1,5 @@
 import * as classNames from 'classnames';
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
   destroyLabel,
@@ -14,7 +15,6 @@ import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
 import LabelListItem from '../../components/label-list-item';
 import List from '../../components/list/list';
-import ListItem from '../../components/list/list-item';
 import LoadingContent from '../../components/loading-content';
 import NoLabelContent from '../../components/no-label-content';
 import TabNavigation from '../../components/tab-navigation/tab-navigation';
@@ -22,7 +22,17 @@ import TabNavigationContent from '../../components/tab-navigation/tab-navigation
 import Container from '../container';
 
 export default class LabelIndexPage extends Container<any, any> {
+  public static contextTypes = {
+    move: PropTypes.func,
+  };
+
   private handleSortLabelList: any;
+
+  private handleClickVisibleButton: any;
+
+  private handleClickLabelListItem: any;
+
+  private handleClickDestroyButton: any;
 
   constructor(props: any) {
     super(props);
@@ -46,6 +56,9 @@ export default class LabelIndexPage extends Container<any, any> {
     };
 
     this.handleSortLabelList = this._handleSortLabelList.bind(this);
+    this.handleClickVisibleButton = this._handleClickVisibleButton.bind(this);
+    this.handleClickLabelListItem = this._handleClickLabelListItem.bind(this);
+    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
   }
 
   public componentDidMount() {
@@ -58,7 +71,6 @@ export default class LabelIndexPage extends Container<any, any> {
 
     poller.remove(this.actions.pollRequest);
   }
-
 
   public render() {
     const labels = this.state.labels;
@@ -88,8 +100,10 @@ export default class LabelIndexPage extends Container<any, any> {
             {labels.map((label: ILabel) => (
                 <LabelListItem
                   key={label.id}
-                  actions={this.actions}
                   label={label}
+                  onClickVisibleButton={this.handleClickVisibleButton}
+                  onClickLabelListItem={this.handleClickLabelListItem}
+                  onClickDestroyButton={this.handleClickDestroyButton}
                 />
             ))}
           </List>
@@ -117,5 +131,20 @@ export default class LabelIndexPage extends Container<any, any> {
     if (label.priority !== to) {
       this.actions.sortLabel(label, to);
     }
+  }
+
+  private _handleClickVisibleButton(event: any, labelListItemProps: any) {
+    this.actions.updateLabel({
+      id: labelListItemProps.label.id,
+      visibled: !labelListItemProps.label.visibled,
+    });
+  }
+
+  private _handleClickLabelListItem(event: any, labelListItemProps: any) {
+    this.context.move(`/labels/${labelListItemProps.label.id}/edit`);
+  }
+
+  private _handleClickDestroyButton(event: any, labelListItemProps: any) {
+    this.actions.destroyLabel(labelListItemProps.label);
   }
 }

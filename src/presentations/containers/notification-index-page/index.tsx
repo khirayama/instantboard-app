@@ -21,16 +21,9 @@ export default class NotificationIndexPageContainer extends Container<any, any> 
     move: PropTypes.func,
   };
 
-  public componentDidMount() {
-    this.actions.fetchRequest();
-    poller.add(this.actions.pollRequest, 5000);
-  }
+  private handleClickAcceptButton: any;
 
-  public componentWillUnmount() {
-    poller.remove(this.actions.pollRequest);
-
-    super.componentWillUnmount();
-  }
+  private handleClickRefuseButton: any;
 
   constructor(props: any) {
     super(props);
@@ -46,6 +39,20 @@ export default class NotificationIndexPageContainer extends Container<any, any> 
         return updateRequest(this.dispatch, request);
       },
     };
+
+    this.handleClickAcceptButton = this._handleClickAcceptButton.bind(this);
+    this.handleClickRefuseButton = this._handleClickRefuseButton.bind(this);
+  }
+
+  public componentDidMount() {
+    this.actions.fetchRequest();
+    poller.add(this.actions.pollRequest, 5000);
+  }
+
+  public componentWillUnmount() {
+    poller.remove(this.actions.pollRequest);
+
+    super.componentWillUnmount();
   }
 
   public render() {
@@ -62,8 +69,9 @@ export default class NotificationIndexPageContainer extends Container<any, any> 
               return (
                 <RequestListItem
                   key={request.id}
-                  actions={this.props.actions}
                   request={request}
+                  onClickAcceptButton={this.handleClickAcceptButton}
+                  onClickRefuseButton={this.handleClickRefuseButton}
                 />
               );
             })}
@@ -76,5 +84,19 @@ export default class NotificationIndexPageContainer extends Container<any, any> 
         />
       </section>
     );
+  }
+
+  private _handleClickAcceptButton(event: any, requestListItemProps: any) {
+    this.actions.updateRequest({
+      id: requestListItemProps.request.id,
+      status: 'accepted',
+    });
+  }
+
+  private _handleClickRefuseButton(event: any, requestListItemProps: any) {
+    this.actions.updateRequest({
+      id: requestListItemProps.request.id,
+      status: 'refused',
+    });
   }
 }

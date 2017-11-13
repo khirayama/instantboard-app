@@ -41,8 +41,8 @@ export default class ListItem extends React.Component<any, any> {
 
   private handleTouchEnd: any;
 
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
 
     this.pointer = {
       startX: null,

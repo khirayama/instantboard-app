@@ -16,7 +16,7 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class ProfilePageContainer extends Container<IContainerProps, IState> {
+export default class ProfilePage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };

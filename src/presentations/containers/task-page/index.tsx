@@ -14,7 +14,7 @@ import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import Container from '../container';
 
-export default class TaskPageContainer extends Container<any, any> {
+export default class TaskPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

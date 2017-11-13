@@ -20,7 +20,7 @@ import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
-export default class LabelPageContainer extends Container<any, any> {
+export default class LabelPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

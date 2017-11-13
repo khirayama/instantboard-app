@@ -31,7 +31,7 @@ import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
 import Container from '../container';
 
-export default class TaskIndexPageContainer extends Container<IContainerProps, IState> {
+export default class TaskIndexPage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };

@@ -16,7 +16,7 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class NotificationIndexPageContainer extends Container<any, any> {
+export default class NotificationIndexPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

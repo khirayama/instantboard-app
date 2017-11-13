@@ -1,11 +1,6 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 export default class LinkText extends React.Component<any, any> {
-  private static propTypes = {
-    children: PropTypes.string.isRequired,
-  };
-
   private handleClick: any;
 
   constructor(props: any) {

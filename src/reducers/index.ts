@@ -249,9 +249,7 @@ export default function (state: IState, action: IAction): IState {
     }
 
     case (actionTypes.POLL_TASK_SUCCESS): {
-      if (!state.ui.isLoadingTasks) {
-        newState.tasks = payload.tasks;
-      }
+      newState.tasks = (state.ui.isLoadingTasks) ? newState.tasks : payload.tasks;
       break;
     }
     case (actionTypes.POLL_TASK_FAILURE): {
@@ -325,9 +323,7 @@ export default function (state: IState, action: IAction): IState {
     }
 
     case (actionTypes.POLL_REQUEST_SUCCESS): {
-      if (!state.ui.isLoadingRequests) {
-        newState.requests = payload.requests;
-      }
+      newState.requests = (state.ui.isLoadingRequests) ? newState.requests : payload.requests;
       break;
     }
     case (actionTypes.POLL_REQUEST_FAILURE): {

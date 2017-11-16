@@ -11,7 +11,8 @@ export default class LinkText extends React.Component<any, any> {
 
   public render() {
     const pattern = /((?:https?:|ftp:|)\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gim;
-    const texts = this.props.children.split(pattern).filter((text: string) => Boolean(text.trim()));
+    const children: any = this.props.children;
+    const texts = children.split(pattern).filter((text: string) => Boolean(text.trim()));
 
     const textElements = texts.map((text: string) => {
       if (text.match(pattern) !== null) {

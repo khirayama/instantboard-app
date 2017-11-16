@@ -75,7 +75,7 @@ export default class LoginPage extends Container<any, any> {
     );
 
     const intervalId = setInterval(() => {
-      if (win.closed) {
+      if (win && win.closed) {
         clearInterval(intervalId);
 
         const token = tokenManager.get();

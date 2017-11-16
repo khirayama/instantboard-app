@@ -13,7 +13,7 @@ export function fetchMember(dispatch: IDispatch) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Member.fetch().then((requests: IUserResponse[]) => {
+    Member.fetch().then((requests: any) => {
       const action: IAction = {
         type: actionTypes.FETCH_MEMBER_SUCCESS,
         payload: {

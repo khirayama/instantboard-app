@@ -5,10 +5,6 @@ import {
   THRESHOLD_DELTAX,
 } from '../../constants';
 
-interface IRecycleTableContentList {
-  children: any;
-}
-
 export default class RecycleTableContentList extends React.Component<any, any> {
   private static childContextTypes = {
     handleTouchStart: PropTypes.func,
@@ -33,7 +29,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
 
   private handleTouchEnd: any;
 
-  constructor(props: IRecycleTableContentList) {
+  constructor(props: any) {
     super(props);
 
     this.touch = {
@@ -118,11 +114,12 @@ export default class RecycleTableContentList extends React.Component<any, any> {
 
   public _calcFilteredDiff() {
     const diff = this._calcDiff();
+    const children: any = this.props.children;
 
     if (this.touch.endX !== null && this.touch.endY !== null) {
       if (
         (this.context.currentIndex === 0 && diff.x > 0) ||
-        (this.context.currentIndex === this.props.children.length - 1 && diff.x < 0)
+        (this.context.currentIndex === children.length - 1 && diff.x < 0)
       ) {
         diff.x = 0;
         diff.delta.x = 0;
@@ -164,6 +161,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
 
   public _updateTouchMoveView() {
     const diff = this._calcFilteredDiff();
+    const children: any = this.props.children;
 
     if (
       this.touch.moving &&
@@ -171,7 +169,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       (Math.abs(diff.delta.x) > Math.abs(diff.delta.y)) &&
       (Math.abs(diff.x) > Math.abs(diff.y))
     ) {
-      const translateX = this.context.currentIndex * 100 / this.props.children.length;
+      const translateX = this.context.currentIndex * 100 / children.length;
       this.recycleTableContentList.classList.add('recycle-table-content-list__moving');
       this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}% + ${diff.x}px))`;
       this.recycleTableContentList.style.transitionProperty = 'none';
@@ -179,20 +177,23 @@ export default class RecycleTableContentList extends React.Component<any, any> {
   }
 
   public _updateTouchEndView() {
+    const children: any = this.props.children;
+
     if (this.recycleTableContentList.classList.contains('recycle-table-content-list__moving')) {
       this.recycleTableContentList.classList.remove('recycle-table-content-list__moving');
     }
 
-    const translateX = this.context.currentIndex * 100 / this.props.children.length;
+    const translateX = this.context.currentIndex * 100 / children.length;
     this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}%))`;
     this.recycleTableContentList.style.transitionProperty = 'transform';
   }
 
   public render() {
     const diff = this._calcFilteredDiff();
+    const children: any = this.props.children;
     const style = {
-      width: (this.props.children.length * 100) + '%',
-      transform: `translateX(calc(-${this.context.currentIndex * 100 / this.props.children.length}% + ${diff.x}px))`,
+      width: (children.length * 100) + '%',
+      transform: `translateX(calc(-${this.context.currentIndex * 100 / children.length}% + ${diff.x}px))`,
     };
 
     return (

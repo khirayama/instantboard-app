@@ -8,7 +8,7 @@ import {
 
 export function pollRequest(dispatch: IDispatch, params) {
   return new Promise(resolve => {
-    Request.fetch(params).then((requests: IRequestResponse[]) => {
+    Request.fetch(params).then((requests: any) => {
       const action: IAction = {
         type: actionTypes.POLL_REQUEST_SUCCESS,
         payload: {
@@ -34,7 +34,7 @@ export function fetchRequest(dispatch: IDispatch, params) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Request.fetch(params).then((requests: IRequestResponse[]) => {
+    Request.fetch(params).then((requests: any) => {
       const action: IAction = {
         type: actionTypes.FETCH_REQUEST_SUCCESS,
         payload: {
@@ -60,7 +60,7 @@ export function updateRequest(dispatch: IDispatch, params) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Request.update(params).then((request: IRequestResponse) => {
+    Request.update(params).then((request: any) => {
       const action = {
         type: actionTypes.UPDATE_REQUEST_SUCCESS,
         payload: {

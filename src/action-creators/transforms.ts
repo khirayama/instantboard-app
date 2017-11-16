@@ -12,7 +12,7 @@ export function transformSchedule(schedule: any): ISchedule|null {
 
 export function transformRequestResponse(request: IRequestResponse): IRequest {
   return {
-    id: request.id || null,
+    id: request.id,
     status: request.status || 'accepts',
     member: {
       id: request.member.id,

@@ -26,8 +26,7 @@ export default class TaskListItem extends React.Component<any, any> {
       }
     };
 
-    const props = Object.assign({}, this.props);
-
+    const props: any = Object.assign({}, this.props);
     delete props.task;
     delete props.onClickCompleteButton;
     delete props.onClickTaskListItem;

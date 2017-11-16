@@ -9,7 +9,7 @@ import {
 
 export function pollTask(dispatch: IDispatch) {
   return new Promise(resolve => {
-    Task.fetch().then((tasks: ITaskResponse[]) => {
+    Task.fetch().then((tasks: any) => {
       const action: IAction = {
         type: actionTypes.POLL_TASK_SUCCESS,
         payload: {
@@ -35,7 +35,7 @@ export function fetchTask(dispatch: IDispatch) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Task.fetch().then((tasks: ITaskResponse[]) => {
+    Task.fetch().then((tasks: any) => {
       const action: IAction = {
         type: actionTypes.FETCH_TASK_SUCCESS,
         payload: {
@@ -61,7 +61,7 @@ export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Task.create(task).then((newTask: ITaskResponse) => {
+    Task.create(task).then((newTask: any) => {
       const action: IAction = {
         type: actionTypes.CREATE_TASK_SUCCESS,
         payload: {
@@ -87,7 +87,7 @@ export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Task.update(task).then((newTask: ITaskResponse) => {
+    Task.update(task).then((newTask: any) => {
       const action: IAction = {
         type: actionTypes.UPDATE_TASK_SUCCESS,
         payload: {
@@ -143,7 +143,7 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Task.sort(task, to).then((tasks: ITaskResponse[]) => {
+    Task.sort(task, to).then((tasks: any) => {
       const action: IAction = {
         type: actionTypes.SORT_TASK_SUCCESS,
         payload: {

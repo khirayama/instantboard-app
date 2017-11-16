@@ -9,7 +9,7 @@ export function getUser(dispatch: IDispatch) {
   dispatch(preAction);
 
   return new Promise((resolve, reject) => {
-    User.get().then((user: IUserResponse) => {
+    User.get().then((user: any) => {
       const action: IAction = {
         type: actionTypes.GET_USER_SUCCES,
         payload: {
@@ -38,7 +38,7 @@ export function updateUser(dispatch: IDispatch, user: IUserRequest) {
   dispatch(preAction);
 
   return new Promise((resolve, reject) => {
-    User.update(user).then((newUser: IUserResponse) => {
+    User.update(user).then((newUser: any) => {
       const action: IAction = {
         type: actionTypes.UPDATE_USER_SUCCES,
         payload: {

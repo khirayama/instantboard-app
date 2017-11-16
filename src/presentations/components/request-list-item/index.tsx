@@ -17,8 +17,7 @@ export default class RequestListItem extends React.Component<any, any> {
       }
     };
 
-    const props = Object.assign({}, this.props);
-
+    const props: any = Object.assign({}, this.props);
     delete props.request;
     delete props.onClickAcceptButton;
     delete props.onClickRefuseButton;

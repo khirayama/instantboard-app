@@ -15,7 +15,7 @@ export function fetchLabel(dispatch: IDispatch) {
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Label.fetch().then((labels: ILabelResponse[]) => {
+    Label.fetch().then((labels: any) => {
       const action: IAction = {
         type: actionTypes.FETCH_LABEL_SUCCESS,
         payload: {
@@ -41,7 +41,7 @@ export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
   dispatch(preAction);
 
   return new Promise((resolve, reject) => {
-    Label.create(label).then((newLabel: ILabelResponse) => {
+    Label.create(label).then((newLabel: any) => {
       const transformedLabel = transformLabelResponse(newLabel);
       const action: IAction = {
         type: actionTypes.CREATE_LABEL_SUCCESS,
@@ -105,7 +105,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
   dispatch(preAction);
 
   return new Promise((resolve, reject) => {
-    Label.update(label).then((newLabel: ILabelResponse) => {
+    Label.update(label).then((newLabel: any) => {
       const transformedLabel = transformLabelResponse(newLabel);
       const action: IAction = {
         type: actionTypes.UPDATE_LABEL_SUCCESS,
@@ -197,7 +197,7 @@ export function sortLabel(dispatch: IDispatch, label: ILabelRequest, to: number)
   dispatch(preAction);
 
   return new Promise(resolve => {
-    Label.sort(label, to).then((labels: ILabelResponse[]) => {
+    Label.sort(label, to).then((labels: any) => {
       const action: IAction = {
         type: actionTypes.SORT_LABEL_SUCCESS,
         payload: {

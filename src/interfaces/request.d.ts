@@ -1,5 +1,5 @@
 interface IRequest {
-  id: number|null;
+  id: number;
   status: string;
   member: {
     id: number,

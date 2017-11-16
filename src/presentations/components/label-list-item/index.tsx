@@ -25,8 +25,7 @@ export default class LabelListItem extends React.Component<any, any> {
       }
     };
 
-    const props = Object.assign({}, this.props);
-
+    const props: any = Object.assign({}, this.props);
     delete props.label;
     delete props.onClickVisibleButton;
     delete props.onClickLabelListItem;

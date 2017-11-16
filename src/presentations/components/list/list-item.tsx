@@ -87,10 +87,9 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   public render() {
-    const props = Object.assign({}, this.props);
     const className = 'list-item';
+    const props: any = Object.assign({}, this.props);
     props.className = (props.className) ? props.className + ' ' + className : className;
-
     delete props.appear;
     delete props.enter;
     delete props.exit;

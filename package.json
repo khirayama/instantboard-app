@@ -50,7 +50,6 @@
     "eslint-plugin-react": "~7.4.0",
     "eslint-plugin-typescript": "~0.8.0",
     "fastify": "~0.34.0",
-    "jwt-simple": "~0.5.1",
     "nodemon": "~1.12.1",
     "npm-check-updates": "~2.13.0",
     "postcss-cli": "~4.1.1",

@@ -18,18 +18,20 @@ module.exports = {
       'error',
       'always-multiline',
     ],
-    // Break code for following rules when enable --fix option
-    'react/jsx-closing-bracket-location': 0,
-    'react/jsx-first-prop-new-line': 0,
-    'react/jsx-closing-tag-location': 0,
-    'react/jsx-tag-spacing': 0,
+    // For ignoring to use `className` props for components
     'react/forbid-component-props': 0,
-    'react/no-unescaped-entities': 0,
+
+    // Break code for following rules when enable --fix option
+    'react/jsx-first-prop-new-line': 0,
+    'react/jsx-closing-bracket-location': 0,
     'react/self-closing-comp': 0,
-    'react/void-dom-elements-no-children': 0,
     'react/jsx-indent': 0,
-    'react/jsx-indent-props': 0,
     'react/jsx-max-props-per-line': 0,
+    // 'react/jsx-closing-tag-location': 0,
+    // 'react/jsx-tag-spacing': 0,
+    // 'react/no-unescaped-entities': 0,
+    // 'react/void-dom-elements-no-children': 0,
+    // 'react/jsx-indent-props': 0,
 
     // Does not work following rules
     // https://github.com/eslint/typescript-eslint-parser#known-issues

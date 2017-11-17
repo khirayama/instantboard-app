@@ -100,7 +100,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
       <section className="page profile-page">
         <TabNavigationContent>
           <div className="profile-tab-content--name--input">
-            <Icon type="profile" />
+            <Icon type="profile"/>
             {(this.state.isEditing) ? (
               <form onSubmit={this.handleBlurNameInput}>
                 <input
@@ -121,12 +121,14 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
           <div className="profile-page--logout-button">
             <FlatButton
               onClick={this.handleClickLogoutButton}
-            >LOG OUT</FlatButton>
+            >LOG OUT
+            </FlatButton>
           </div>
           <div className="profile-page--delete-account-button">
             <FlatButton
               onClick={this.handleClickDeleteAccountButton}
-            >DELETE ACCOUNT</FlatButton>
+            >DELETE ACCOUNT
+            </FlatButton>
           </div>
         </TabNavigationContent>
         <TabNavigation

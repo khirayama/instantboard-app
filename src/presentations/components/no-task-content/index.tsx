@@ -10,7 +10,8 @@ export default class NoTaskContent extends React.Component<any, any> {
         <IconLink
           to={`/tasks/new?label-id=${label.id}`}
           iconType="add"
-        >ADD TASK</IconLink>
+        >ADD TASK
+        </IconLink>
       </div>
     );
   }

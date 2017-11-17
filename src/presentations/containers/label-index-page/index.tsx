@@ -111,7 +111,8 @@ export default class LabelIndexPage extends Container<any, any> {
               to="/labels/new"
               iconType="add"
               className="label-index-page--add-button"
-            >ADD LABEL</IconLink>
+            >ADD LABEL
+            </IconLink>
           )}
           {backgroundElement}
         </TabNavigationContent>

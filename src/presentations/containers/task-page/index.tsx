@@ -108,7 +108,7 @@ export default class TaskPage extends Container<any, any> {
 
     return (
       <section className="page task-page">
-        {(this.state.uiBlocking) ? <div className="ui-block" /> : null}
+        {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
         <Indicator active={(ui.isLoadingTasks)}/>
         <form onSubmit={this.handleSubmit}>
           <header className="task-page--header">

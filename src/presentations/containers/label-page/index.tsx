@@ -116,7 +116,7 @@ export default class LabelPage extends Container<any, any> {
 
     return (
       <section className="page label-page">
-        {(this.state.uiBlocking) ? <div className="ui-block" /> : null}
+        {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
         <Indicator active={(ui.isLoadingLabels)}/>
         <header className="label-page--header">
           <Link to="/labels"><Icon type="back"/></Link>

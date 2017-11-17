@@ -17,7 +17,8 @@ export default class TaskList extends React.Component<any, any> {
       <List
         {...props}
         onSort={handleSort}
-      >{this.props.children}</List>
+      >{this.props.children}
+      </List>
     );
   }
 }

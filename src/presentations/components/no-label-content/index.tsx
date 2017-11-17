@@ -8,7 +8,8 @@ export default class NoLabelContent extends React.Component<any, any> {
         <IconLink
           to="/labels/new"
           iconType="add"
-        >ADD LABEL</IconLink>
+        >ADD LABEL
+        </IconLink>
       </div>
     );
   }

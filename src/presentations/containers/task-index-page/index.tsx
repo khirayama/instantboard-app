@@ -121,18 +121,18 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
     if (ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <LoadingContent />;
+      contentElement = <LoadingContent/>;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <NoLabelContent />;
+      contentElement = <NoLabelContent/>;
     } else if (labels.length !== 0) {
       const recycleTableContents = labels.map((label: ILabel, index: number) => {
         const groupedTasks = tasks.filter((task: ITask) => (task.labelId === label.id));
 
         let backgroundElement: any = null;
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
-          backgroundElement = <LoadingContent />;
+          backgroundElement = <LoadingContent/>;
         } else if (groupedTasks.length === 0) {
-          backgroundElement = <NoTaskContent label={label} />;
+          backgroundElement = <NoTaskContent label={label}/>;
         }
         const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
@@ -161,7 +161,8 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
                 to={`/tasks/new?label-id=${label.id}`}
                 iconType="add"
                 className="task-list--add-button"
-              >ADD TASK</IconLink>
+              >ADD TASK
+              </IconLink>
             ) }
             {backgroundElement}
           </RecycleTableContentListItem>

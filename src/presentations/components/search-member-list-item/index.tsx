@@ -16,7 +16,7 @@ export default class SearchMemberListItem extends React.Component<any, any> {
       <li
         onClick={this.handleClick}
       >
-        <Icon type="profile" />
+        <Icon type="profile"/>
         <p>{member.name}</p>
       </li>
     );

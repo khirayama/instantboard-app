@@ -50,7 +50,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
       getUser: () => {
         return getUser(this.dispatch);
       },
-      updateUser: (profile) => {
+      updateUser: profile => {
         return updateUser(this.dispatch, profile);
       },
       deleteUser: () => {

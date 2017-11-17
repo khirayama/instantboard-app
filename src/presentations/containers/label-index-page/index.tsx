@@ -98,13 +98,13 @@ export default class LabelIndexPage extends Container<any, any> {
             onSort={this.handleSortLabelList}
           >
             {labels.map((label: ILabel) => (
-                <LabelListItem
-                  key={label.id}
-                  label={label}
-                  onClickVisibleButton={this.handleClickVisibleButton}
-                  onClickLabelListItem={this.handleClickLabelListItem}
-                  onClickDestroyButton={this.handleClickDestroyButton}
-                />
+              <LabelListItem
+                key={label.id}
+                label={label}
+                onClickVisibleButton={this.handleClickVisibleButton}
+                onClickLabelListItem={this.handleClickLabelListItem}
+                onClickDestroyButton={this.handleClickDestroyButton}
+              />
             ))}
           </List>
           {(labels.length !== 0) ? (

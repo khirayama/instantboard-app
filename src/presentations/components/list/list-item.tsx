@@ -140,7 +140,7 @@ export default class ListItem extends React.Component<any, any> {
         onExited={() => {
           this.props.onExited();
         }}
-        >
+      >
         <li
           {...props}
           ref={this.setListItem}

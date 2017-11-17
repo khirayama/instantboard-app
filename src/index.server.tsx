@@ -22,7 +22,7 @@ const APP_SERVER_PORT = Number(process.env.PORT || '3000');
 
 function minifyHTML(htmlString) {
   const parts = htmlString.split('\n');
-  const minifiedParts = parts.map((part) => part.trim());
+  const minifiedParts = parts.map(part => part.trim());
   return minifiedParts.join('');
 }
 

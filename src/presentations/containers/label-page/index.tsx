@@ -111,7 +111,7 @@ export default class LabelPage extends Container<any, any> {
     const ui = this.state.ui;
     const labelId = this.state.labelId;
 
-    const filteredMembers = this.state.members.filter((member) => (member.name.indexOf(this.state.memberName) !== -1));
+    const filteredMembers = this.state.members.filter(member => (member.name.indexOf(this.state.memberName) !== -1));
 
     return (
       <section className="page label-page">
@@ -140,7 +140,7 @@ export default class LabelPage extends Container<any, any> {
                 <h2>Members</h2>
                 {(filteredMembers.length !== 0) ? (
                   <ul className="member-block--list">
-                    {filteredMembers.map((member) => {
+                    {filteredMembers.map(member => {
                       return (
                         <SearchMemberListItem
                           key={member.id}
@@ -164,7 +164,7 @@ export default class LabelPage extends Container<any, any> {
           </div>
         </form>
         <ul className="label-page--member-list">
-          {this.state.labelRequests.filter((request) => {
+          {this.state.labelRequests.filter(request => {
             return (request.member.name !== profile.name);
           }).map((request, index) => {
             return (

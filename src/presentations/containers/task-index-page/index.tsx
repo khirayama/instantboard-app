@@ -68,10 +68,10 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
       fetchTask: () => {
         return fetchTask(this.dispatch);
       },
-      updateTask: (task) => {
+      updateTask: task => {
         return updateTask(this.dispatch, task);
       },
-      destroyTask: (task) => {
+      destroyTask: task => {
         return destroyTask(this.dispatch, task);
       },
       sortTask: (task: ITask, to: number) => {

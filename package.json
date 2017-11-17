@@ -25,8 +25,8 @@
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/index.server.js'",
     "lint": "tslint 'src/**/*.+(ts|tsx)'",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)'",
-    "lint:beta": "eslint --ext .ts --ignore-path .gitignore --ignore-path src/**/*.d.ts src",
-    "lint:fix:beta": "eslint --ext .ts --ignore-path .gitignore --ignore-path src/**/*.d.ts --fix src",
+    "lint:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts src",
+    "lint:fix:beta": "eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts --fix src",
     "check": "npm-check-updates"
   },
   "dependencies": {

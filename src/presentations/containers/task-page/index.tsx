@@ -66,38 +66,40 @@ export default class TaskPage extends Container<any, any> {
   }
 
   public componentDidUpdate(prevProps, prevState) {
-    const ui = this.state.ui;
-    const prevUi = prevState.ui;
-    const tasks = this.state.tasks;
-    const labels = this.state.labels;
+    this.onUpdate(() => {
+      const ui = this.state.ui;
+      const prevUi = prevState.ui;
+      const tasks = this.state.tasks;
+      const labels = this.state.labels;
 
-    let selectedLabelId: number|null = null;
-    if (typeof window === 'object') {
-      const query = queryString.parse(window.location.search);
-      if (query['label-id']) {
-        selectedLabelId = Number(query['label-id']);
-      }
-    }
-
-    if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0) {
-      let labelId = labels[0].id;
-      for (const label of labels) {
-        if (label.id === selectedLabelId) {
-          labelId = label.id;
-          break;
+      let selectedLabelId: number|null = null;
+      if (typeof window === 'object') {
+        const query = queryString.parse(window.location.search);
+        if (query['label-id']) {
+          selectedLabelId = Number(query['label-id']);
         }
       }
-      this.setState({labelId});
-    }
 
-    if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && this.state.taskId) {
-      for (const task of tasks) {
-        if (task.id === this.state.taskId) {
-          this.setState({content: task.content});
-          break;
+      if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0) {
+        let labelId = labels[0].id;
+        for (const label of labels) {
+          if (label.id === selectedLabelId) {
+            labelId = label.id;
+            break;
+          }
+        }
+        this.setState({labelId});
+      }
+
+      if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && this.state.taskId) {
+        for (const task of tasks) {
+          if (task.id === this.state.taskId) {
+            this.setState({content: task.content});
+            break;
+          }
         }
       }
-    }
+    });
   }
 
   public render() {
@@ -135,6 +137,10 @@ export default class TaskPage extends Container<any, any> {
         </form>
       </section>
     );
+  }
+
+  private onUpdate(callback) {
+    callback();
   }
 
   private _handleChangeLabelIdSelect(event: any) {

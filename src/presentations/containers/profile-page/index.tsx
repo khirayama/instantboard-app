@@ -78,16 +78,18 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
   }
 
   public componentDidUpdate(prevProps, prevState) {
-    if (
-      !prevState.profile &&
-      this.state.profile &&
-      this.state.profile.name &&
-      this.state.profile.name !== this.state.name
-    ) {
-      this.setState({
-        name: this.state.profile.name,
-      });
-    }
+    this.onUpdate(() => {
+      if (
+        !prevState.profile &&
+        this.state.profile &&
+        this.state.profile.name &&
+        this.state.profile.name !== this.state.name
+      ) {
+        this.setState({
+          name: this.state.profile.name,
+        });
+      }
+    });
   }
 
   public render() {
@@ -133,6 +135,10 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
         />
       </section>
     );
+  }
+
+  private onUpdate(callback) {
+    callback();
   }
 
   private _handleClickLogoutButton() {

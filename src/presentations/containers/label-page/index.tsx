@@ -88,22 +88,24 @@ export default class LabelPage extends Container<any, any> {
   }
 
   public componentDidUpdate(prevProps, prevState) {
-    const ui = this.state.ui;
-    const prevUi = prevState.ui;
-    const labels = this.state.labels;
-    const labelId = this.state.labelId;
+    this.onUpdate(() => {
+      const ui = this.state.ui;
+      const prevUi = prevState.ui;
+      const labels = this.state.labels;
+      const labelId = this.state.labelId;
 
-    if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
-      for (const label of labels) {
-        if (label.id === labelId) {
-          this.setState({
-            labelName: label.name,
-            labelRequests: label.requests,
-          });
-          break;
+      if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
+        for (const label of labels) {
+          if (label.id === labelId) {
+            this.setState({
+              labelName: label.name,
+              labelRequests: label.requests,
+            });
+            break;
+          }
         }
       }
-    }
+    });
   }
 
   public render() {
@@ -184,6 +186,10 @@ export default class LabelPage extends Container<any, any> {
         </form>
       </section>
     );
+  }
+
+  private onUpdate(callback): void {
+    callback();
   }
 
   private _handleChangeNameTextarea(event: any) {

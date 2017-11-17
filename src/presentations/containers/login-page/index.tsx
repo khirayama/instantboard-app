@@ -40,13 +40,13 @@ export default class LoginPage extends Container<any, any> {
             onClick={this.handleClickLoginButton}
             href={`${API_SERVER_HOST}/auth/facebook`}
           >LOG IN WITH FACEBOOK</FlatButton>
-          {(process.env.NODE_ENV !== 'production') ? (
+          {(process.env.NODE_ENV === 'production') ? null : (
             <FlatButton
               className="login-page--flat-button"
               onClick={this.handleClickLoginButton}
               href={`${API_SERVER_HOST}/auth/tester`}
             >LOG IN AS TESTER</FlatButton>
-          ) : null}
+          )}
         </section>
       </section>
     );

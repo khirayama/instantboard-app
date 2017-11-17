@@ -6,17 +6,8 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
 import Spinner from './presentations/components/spinner';
-import reducers from './reducers';
-import initialState from './store/initial-state';
-import Store from './store/store';
-
-import * as jwt from 'jwt-simple';
-import tokenManager from './utils/token-manager';
 
 const app = fastify();
-const store: IStore = new Store(initialState, reducers);
-
-const SECRET_KEY = process.env.SECRET_KEY;
 
 const APP_SERVER_PORT = Number(process.env.PORT || '3000');
 

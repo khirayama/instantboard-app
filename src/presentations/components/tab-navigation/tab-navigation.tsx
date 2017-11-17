@@ -18,7 +18,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
         >
           <Icon type="list" className="tab-navigation--icon"/>
-          {(badges.indexOf(0) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
+          {(badges.indexOf(0) === -1) ? null : (<span className="tab-navigation--icon--badge"/>)}
         </Link>
         <Link
           to="/labels"
@@ -28,7 +28,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
         >
           <Icon type="label" className="tab-navigation--icon"/>
-          {(badges.indexOf(1) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
+          {(badges.indexOf(1) === -1) ? null : (<span className="tab-navigation--icon--badge"/>)}
         </Link>
         <Link
           to="/notifications"
@@ -38,7 +38,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
         >
           <Icon type="notification" className="tab-navigation--icon"/>
-          {(badges.indexOf(2) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
+          {(badges.indexOf(2) === -1) ? null : (<span className="tab-navigation--icon--badge"/>)}
         </Link>
         <Link
           to="/profile"
@@ -48,7 +48,7 @@ export default class TabNavigation extends React.Component<any, any> {
           )}
         >
           <Icon type="profile" className="tab-navigation--icon"/>
-          {(badges.indexOf(3) !== -1) ? (<span className="tab-navigation--icon--badge"/>) : null}
+          {(badges.indexOf(3) === -1) ? null : (<span className="tab-navigation--icon--badge"/>)}
         </Link>
       </div>
     );

@@ -20,13 +20,11 @@ export default class Indicator extends React.Component<any, any> {
   }
 
   public render() {
-    const active = this.props.active;
-
     return (
       <div
         key="indicator"
-        className="indicator"
         ref={this.setElement}
+        className="indicator"
       >
         <svg>
           <defs>

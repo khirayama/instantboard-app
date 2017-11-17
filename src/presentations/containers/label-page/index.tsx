@@ -109,7 +109,6 @@ export default class LabelPage extends Container<any, any> {
   public render() {
     const profile = this.state.profile || {};
     const ui = this.state.ui;
-    const labelId = this.state.labelId;
 
     const filteredMembers = this.state.members.filter(member => (member.name.indexOf(this.state.memberName) !== -1));
 
@@ -138,7 +137,15 @@ export default class LabelPage extends Container<any, any> {
                   <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span>
                 ) : null}
                 <h2>Members</h2>
-                {(filteredMembers.length !== 0) ? (
+                {(filteredMembers.length === 0) ? (
+                  <div
+                    className="label-page--member-block--content--no-result"
+                    onTouchStart={this.handleSubmitMemberNameForm}
+                    onMouseDown={this.handleSubmitMemberNameForm}
+                  >
+                    Add {this.state.memberName} as new member.
+                  </div>
+                ) : (
                   <ul className="member-block--list">
                     {filteredMembers.map(member => {
                       return (
@@ -150,14 +157,6 @@ export default class LabelPage extends Container<any, any> {
                       );
                     })}
                   </ul>
-                ) : (
-                  <div
-                    className="label-page--member-block--content--no-result"
-                    onTouchStart={this.handleSubmitMemberNameForm}
-                    onMouseDown={this.handleSubmitMemberNameForm}
-                  >
-                    Add {this.state.memberName} as new member.
-                  </div>
                 )}
               </div>
             ) : null}
@@ -166,11 +165,9 @@ export default class LabelPage extends Container<any, any> {
         <ul className="label-page--member-list">
           {this.state.labelRequests.filter(request => {
             return (request.member.name !== profile.name);
-          }).map((request, index) => {
+          }).map((request: IRequest) => {
             return (
-              <li key={index}>
-                {request.member.name}
-              </li>
+              <li key={request.id}>{request.member.name}</li>
             );
           })}
         </ul>
@@ -214,11 +211,11 @@ export default class LabelPage extends Container<any, any> {
     });
   }
 
-  private _handleFocusMemberNameInput(event: any) {
+  private _handleFocusMemberNameInput() {
     this.setState({isMemberListShown: true});
   }
 
-  private _handleBlurMemberNameInput(event: any) {
+  private _handleBlurMemberNameInput() {
     this.setState({
       memberName: '',
       isMemberListShown: false,

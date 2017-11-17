@@ -98,48 +98,60 @@ export default class ListItem extends React.Component<any, any> {
 
     let listHeight: number = 0;
 
+    const handleEnter = () => {
+      const el = this.listItem;
+      listHeight = el.offsetHeight;
+      el.style.minHeight = 'auto';
+      el.style.maxHeight = '0px';
+      el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
+    };
+
+    const handleEntering = () => {
+      const el = this.listItem;
+      setTimeout(() => {
+        el.style.maxHeight = listHeight + 'px';
+      }, 0);
+    };
+
+    const handleEntered = () => {
+      const el = this.listItem;
+      el.style.minHeight = listHeight + 'px';
+      el.style.maxHeight = '';
+      el.style.transitionProperty = '';
+      listHeight = 0;
+    };
+
+    const handleExit = () => {
+      const el = this.listItem;
+      listHeight = el.offsetHeight;
+
+      el.style.height = listHeight + 'px';
+      el.style.minHeight = 'auto';
+      el.style.transitionProperty = transitionProperties.HEIGHT;
+    };
+
+    const handleExiting = () => {
+      const el = this.listItem;
+      setTimeout(() => {
+        el.style.height = '0px';
+      }, 0);
+    };
+
+    const handleExited = () => {
+      this.props.onExited();
+    };
+
     return (
       <Transition
-        in={this.props.in}
         key={this.props.key}
+        in={this.props.in}
         timeout={TRANSITION_TIME}
-        onEnter={() => {
-          const el = this.listItem;
-          listHeight = el.offsetHeight;
-          el.style.minHeight = 'auto';
-          el.style.maxHeight = '0px';
-          el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
-        }}
-        onEntering={() => {
-          const el = this.listItem;
-          setTimeout(() => {
-            el.style.maxHeight = listHeight + 'px';
-          }, 0);
-        }}
-        onEntered={() => {
-          const el = this.listItem;
-          el.style.minHeight = listHeight + 'px';
-          el.style.maxHeight = '';
-          el.style.transitionProperty = '';
-          listHeight = 0;
-        }}
-        onExit={() => {
-          const el = this.listItem;
-          listHeight = el.offsetHeight;
-
-          el.style.height = listHeight + 'px';
-          el.style.minHeight = 'auto';
-          el.style.transitionProperty = transitionProperties.HEIGHT;
-        }}
-        onExiting={() => {
-          const el = this.listItem;
-          setTimeout(() => {
-            el.style.height = '0px';
-          }, 0);
-        }}
-        onExited={() => {
-          this.props.onExited();
-        }}
+        onEnter={handleEnter}
+        onEntering={handleEntering}
+        onEntered={handleEntered}
+        onExit={handleExit}
+        onExiting={handleExiting}
+        onExited={handleExited}
       >
         <li
           {...props}

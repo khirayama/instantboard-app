@@ -1,4 +1,3 @@
-import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
@@ -112,7 +111,6 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     const labels = this.state.labels.filter((label: ILabel) => label.visibled);
     const tasks = this.state.tasks;
     const requests = this.state.requests;
-    const currentLabel: ILabel|undefined = labels[this.state.index];
 
     let contentElement: any = null;
 
@@ -158,13 +156,13 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
                 );
               })}
             </TaskList>
-            {(groupedTasks.length !== 0) ? (
+            {(groupedTasks.length === 0) ? null : (
               <IconLink
                 to={`/tasks/new?label-id=${label.id}`}
                 iconType="add"
                 className="task-list--add-button"
               >ADD TASK</IconLink>
-            ) : null }
+            ) }
             {backgroundElement}
           </RecycleTableContentListItem>
         );

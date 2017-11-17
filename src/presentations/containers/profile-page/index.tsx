@@ -155,8 +155,6 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     const ENTER_KEY = 13;
 
     const keyCode = event.keyCode;
-    const shiftKey = event.shiftKey;
-    const metaKey = event.metaKey;
 
     if (keyCode === ENTER_KEY) {
       this.actions.updateUser({

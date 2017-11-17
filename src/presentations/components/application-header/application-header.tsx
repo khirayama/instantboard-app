@@ -19,7 +19,7 @@ export default class ApplicationHeader extends React.Component<any, any> {
             )}
           >
             <Icon type="list" className="application-header--icon"/>
-            {(badges.indexOf(0) !== -1) ? (<span className="application-header--icon--badge"/>) : null}
+            {(badges.indexOf(0) === -1) ? null : (<span className="application-header--icon--badge"/>)}
           </Link>
           <Link
             to="/labels"
@@ -29,7 +29,7 @@ export default class ApplicationHeader extends React.Component<any, any> {
             )}
           >
             <Icon type="label" className="application-header--icon"/>
-            {(badges.indexOf(1) !== -1) ? (<span className="application-header--icon--badge"/>) : null}
+            {(badges.indexOf(1) === -1) ? null : (<span className="application-header--icon--badge"/>)}
           </Link>
           <Link
             to="/notifications"
@@ -39,7 +39,7 @@ export default class ApplicationHeader extends React.Component<any, any> {
             )}
           >
             <Icon type="notification" className="application-header--icon"/>
-            {(badges.indexOf(2) !== -1) ? (<span className="application-header--icon--badge"/>) : null}
+            {(badges.indexOf(2) === -1) ? null : (<span className="application-header--icon--badge"/>)}
           </Link>
           <Link
             to="/profile"
@@ -49,7 +49,7 @@ export default class ApplicationHeader extends React.Component<any, any> {
             )}
           >
             <Icon type="profile" className="application-header--icon"/>
-            {(badges.indexOf(3) !== -1) ? (<span className="application-header--icon--badge"/>) : null}
+            {(badges.indexOf(3) === -1) ? null : (<span className="application-header--icon--badge"/>)}
           </Link>
         </div>
       </div>

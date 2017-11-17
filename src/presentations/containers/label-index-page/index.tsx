@@ -1,4 +1,3 @@
-import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
@@ -107,13 +106,13 @@ export default class LabelIndexPage extends Container<any, any> {
               />
             ))}
           </List>
-          {(labels.length !== 0) ? (
+          {(labels.length === 0) ? null : (
             <IconLink
               to="/labels/new"
               iconType="add"
               className="label-index-page--add-button"
             >ADD LABEL</IconLink>
-          ) : null}
+          )}
           {backgroundElement}
         </TabNavigationContent>
         <TabNavigation

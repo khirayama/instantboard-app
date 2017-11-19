@@ -1,5 +1,4 @@
 import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
 import * as fastify from 'fastify';
 import * as path from 'path';
 import * as React from 'react';
@@ -67,7 +66,6 @@ app.use(compression({
   level: 9,
   memLevel: 9,
 }));
-app.use(cookieParser());
 
 // For fastify
 app.use(serveStatic(path.join(__dirname, 'public')));

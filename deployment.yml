@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: instantboard-client
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: instantboard-client
+    spec:
+      containers:
+        - name: instantboard-client
+          image: khirayam/instantboard-client
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          imagePullPolicy: IfNotPresent

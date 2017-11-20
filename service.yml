@@ -5,10 +5,11 @@ metadata:
   labels:
     run: instantboard-client
 spec:
-  type: NodePort
+  # type: NodePort
+  type: LoadBalancer
   selector:
     run: instantboard-client
   ports:
-    - port: 3000
+    - port: 80
       targetPort: 3000
       protocol: TCP

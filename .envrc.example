@@ -1,3 +1,1 @@
-export SECRET_KEY=
-
 export API_SERVER_HOST=

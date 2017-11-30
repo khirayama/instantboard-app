@@ -12,7 +12,7 @@
     "clean": "rm -rf dist",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
-    "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.client.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle > ./dist/public/bundle.js",
+    "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.client.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle safari10=true > ./dist/public/bundle.js",
     "bundle:scripts:analyze": "rm -rf tmp* && NODE_ENV=production browserify --debug ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.client.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle --source-map \"content=inline\" -o ./tmp.js && source-map-explorer tmp.js tmp.js.map",
     "bundle:scripts:watch": "watchify ./src/index.web.tsx -t envify -p [tsify -p ./tsconfig.client.json] -o ./dist/public/bundle.js",
     "build:styles": "postcss -c .postcssrc.js src/presentations/index.css -o dist/public/index.css",

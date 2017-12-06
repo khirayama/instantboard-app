@@ -62,7 +62,7 @@
       box-shadow: $shadow;
       h2 {
         padding: 12px;
-        font-size: 1rem;
+        font-size: $font-size;
         font-weight: $font-medium;
         border-bottom: $border;
       }

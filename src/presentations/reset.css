@@ -51,30 +51,30 @@ ul {
 }
 h1 {
   font-weight: $font-medium;
-  font-size: 2rem;
+  font-size: $font-size-xx-large;
 }
 h2 {
   font-weight: $font-medium;
-  font-size: 1.8rem;
+  font-size: $font-size-x-large;
 }
 h3 {
   font-weight: $font-medium;
-  font-size: 1.6rem;
+  font-size: $font-size-large;
 }
 h4 {
   font-weight: $font-medium;
-  font-size: 1.4rem;
+  font-size: $font-size-medium;
 }
 h5 {
   font-weight: $font-medium;
-  font-size: 1.2rem;
+  font-size: $font-size-small;
 }
 h6 {
   font-weight: $font-medium;
-  font-size: 1rem;
+  font-size: $font-size-x-small;
 }
 small {
-  font-size: 0.8rem;
+  font-size: $font-size-x-small;
 }
 input,
 textarea,

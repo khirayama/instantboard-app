@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding: 18px 12px;
+
   & + .request-list-item {
     border-top: $border;
   }
@@ -9,7 +10,7 @@
   .request-list-item--information-container {
     display: inline-block;
     .request-list-item--label-name {
-      font-size: 1.2rem;
+      font-size: $font-size-large;
       font-weight: $font-medium;
     }
     .request-list-item--description {

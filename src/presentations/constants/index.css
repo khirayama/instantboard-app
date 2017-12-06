@@ -7,7 +7,14 @@ $time-basic: 200ms;
 $font-family: 'Noto Sans JP', 'Noto Sans Japanese', 'Helvetica Neue', sans-serif;
 $font-regular: 400;
 $font-medium: 500;
-$font-size: 16px;
+/* 112px / 56px / 45px / 34px / 24px / 20px / 16px / 14px / 12px */
+$font-size-xx-large: 34px;
+$font-size-x-large: 24px;
+$font-size-large: 20px;
+$font-size-medium: 16px;
+$font-size-small: 14px;
+$font-size-x-small: 12px;
+$font-size: $font-size-medium;
 
 $radius: 2px;
 $shadow: 0 1px 1px 0 $color-shadow;

@@ -17,24 +17,27 @@
 
 ## Typography
 
+https://material.io/guidelines/style/typography.html#typography-styles
+
 - navigation
-  - 1.25rem(20sp)
+  - 20sp
   - medium
 
 - button
   - all caps
-  - 1rem(16sp)
+  - 16sp
   - medium
 
 - body
-  - 1rem(16sp)
+  - 16sp
   - regular
 
 - caption
-  - 0.75rem(12sp)
+  - 12sp
   - regular
 
 - Avoid bold. It's too heavy.
+- light 300 / regular 400 / medium 500
 
 ## Layout
 

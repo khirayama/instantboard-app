@@ -1,4 +1,6 @@
 import * as React from 'react';
+import FlatButton from '../flat-button';
+import Icon from '../icon';
 import ListItem from '../list/list-item';
 
 export default class RequestListItem extends React.Component<any, any> {
@@ -6,13 +8,13 @@ export default class RequestListItem extends React.Component<any, any> {
     const request = this.props.request;
 
     const handleClickAcceptButton = (event: any) => {
-      if (this.props.onClickCompleteButton) {
+      if (this.props.onClickAcceptButton) {
         this.props.onClickAcceptButton(event, this.props, this.state);
       }
     };
 
     const handleClickRefuseButton = (event: any) => {
-      if (this.props.onClickTaskListItem) {
+      if (this.props.onClickRefuseButton) {
         this.props.onClickRefuseButton(event, this.props, this.state);
       }
     };
@@ -23,26 +25,23 @@ export default class RequestListItem extends React.Component<any, any> {
     delete props.onClickRefuseButton;
 
     return (
-      <ListItem
-        {...props}
-        className="request-list-item"
-      >
-        <div className="request-list-item--information-container">
-          <div className="request-list-item--label-name">{request.label.name}</div>
-          <div className="request-list-item--description">From {request.member.name}</div>
-        </div>
-        <div className="request-list-item--button-container">
-          <div
-            className="request-list-item--accept-button"
-            onClick={handleClickAcceptButton}
-          >
-            Accept
+      <ListItem {...props}>
+        <div className="request-list-item">
+          <div className="request-list-item--information-container">
+            <div className="request-list-item--label-name">{request.label.name}</div>
+            <div className="request-list-item--description">From {request.member.name}</div>
           </div>
-          <div
-            className="request-list-item--refuse-button"
-            onClick={handleClickRefuseButton}
-          >
-            Refuse
+          <div className="request-list-item--button-container">
+            <FlatButton
+              className="request-list-item--accept-button"
+              onClick={handleClickAcceptButton}
+            >ACCEPT
+            </FlatButton>
+            <FlatButton
+              className="request-list-item--refuse-button"
+              onClick={handleClickRefuseButton}
+            ><Icon type="remove"/>
+            </FlatButton>
           </div>
         </div>
       </ListItem>

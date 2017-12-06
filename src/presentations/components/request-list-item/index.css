@@ -1,7 +1,6 @@
 .request-list-item {
   display: flex;
   justify-content: space-between;
-  padding: 18px 12px;
 
   & + .request-list-item {
     border-top: $border;
@@ -9,6 +8,8 @@
 
   .request-list-item--information-container {
     display: inline-block;
+    padding: 12px;
+
     .request-list-item--label-name {
       font-size: $font-size-large;
       font-weight: $font-medium;
@@ -18,28 +19,10 @@
       word-break: break-all;
     }
   }
+
   .request-list-item--button-container {
-    display: inline-block;
+    display: flex;
     min-width: 160px;
-    text-align: right;
-    .request-list-item--accept-button {
-      display: inline-block;
-      padding: 4px 8px;
-      text-align: center;
-      border-radius: $radius;
-      background-color: $color-background;
-      color: $color-background;
-    }
-    .request-list-item--refuse-button {
-      display: inline-block;
-      padding: 4px 8px;
-      border: $border;
-      text-align: center;
-      border-radius: $radius;
-    }
-    .request-list-item--accept-button +
-    .request-list-item--refuse-button {
-      margin-left: 8px;
-    }
+    justify-content: flex-end;
   }
 }

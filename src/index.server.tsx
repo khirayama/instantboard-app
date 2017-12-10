@@ -67,7 +67,6 @@ app.use(compression({
   memLevel: 9,
 }));
 
-// For fastify
 app.use(serveStatic(path.join(__dirname, 'public')));
 app.get('*', (req, res) => {
   res.type('text/html').send(html);

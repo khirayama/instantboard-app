@@ -25,8 +25,8 @@ function template() {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="/index.css">
-  <script src="/bundle.js" defer></script>
+  <link rel="preload" rel="stylesheet" href="/index.css">
+  <script async src="/bundle.js"></script>
 
   <link rel="manifest" href="/manifest.json">
 

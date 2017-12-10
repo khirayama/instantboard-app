@@ -28,6 +28,8 @@ function template() {
   <link rel="preload" href="/index.css" as="style">
   <link rel="preload" href="/bundle.js" as="script">
 
+  <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
+
   <link rel="stylesheet" href="/index.css">
   <script src="/bundle.js" defer></script>
 

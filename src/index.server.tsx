@@ -26,9 +26,10 @@ function template() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
   <link rel="preload" href="/index.css" as="style">
+  <link rel="preload" href="/bundle.js" as="script">
 
   <link rel="stylesheet" href="/index.css">
-  <script async src="/bundle.js"></script>
+  <script src="/bundle.js" defer></script>
 
   <link rel="manifest" href="/manifest.json">
 

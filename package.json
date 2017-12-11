@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@types/prop-types": "15.5.2",
-    "@types/react": "16.0.27",
+    "@types/react": "16.0.28",
     "@types/react-dom": "16.0.3",
     "axios": "0.17.1",
     "browserify": "14.5.0",
@@ -39,7 +39,7 @@
     "cpx": "1.5.0",
     "cssnano": "3.10.0",
     "envify": "4.1.0",
-    "eslint": "4.12.1",
+    "eslint": "4.13.1",
     "eslint-config-xo-react": "0.14.0",
     "eslint-config-xo-space": "0.17.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
@@ -51,7 +51,7 @@
     "npm-check-updates": "2.13.0",
     "postcss-cli": "4.1.1",
     "postcss-easy-import": "3.0.0",
-    "postcss-nested": "2.1.2",
+    "postcss-nested": "3.0.0",
     "postcss-simple-vars": "4.1.0",
     "prop-types": "15.6.0",
     "react": "16.2.0",
@@ -62,8 +62,8 @@
     "tsify": "3.0.4",
     "tslint": "5.8.0",
     "typescript": "2.6.2",
-    "typescript-eslint-parser": "9.0.1",
-    "uglify-es": "3.2.1",
+    "typescript-eslint-parser": "10.0.0",
+    "uglify-es": "3.2.2",
     "uglifyify": "4.0.5",
     "watchify": "3.9.0"
   }

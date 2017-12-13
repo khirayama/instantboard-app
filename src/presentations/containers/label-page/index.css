@@ -35,10 +35,12 @@
       display: inline-block;
       height: $height-mobile-bar-high;
       padding: 6px 8px 8px;
+
       path {
         stroke: $color-icon-active;
       }
     }
+
     input {
       display: inline-block;
       vertical-align: top;
@@ -46,12 +48,30 @@
       width: calc(100% - $height-mobile-bar-high - 4px);
       height: $height-mobile-bar-high;
     }
+
     .label-page--member-block--error {
       display: inline-block;
       width: 100%;
       padding: 4px 12px;
       color: $color-attention;
     }
+
+    .label-page--member-block--header {
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        display: inline-block;
+        vertical-align: top;
+        height: 24px;
+
+        .icon {
+          height: 100%;
+          padding: 0;
+        }
+      }
+    }
+
     .label-page--member-block--content {
       position: absolute;
       top: 100%;
@@ -60,23 +80,24 @@
       z-index: 1;
       background-color: $color-background;
       box-shadow: $shadow;
+
       h2 {
         padding: 12px;
         font-size: $font-size;
         font-weight: $font-medium;
         border-bottom: $border;
       }
-      ul {
-        li {
-          height: $height-mobile-bar-high;
-          p {
-            display: inline-block;
-            line-height: $height-mobile-bar-high;
-            vertical-align: top;
-          }
+
+      ul li {
+        height: $height-mobile-bar-high;
+
+        p {
+          display: inline-block;
+          line-height: $height-mobile-bar-high;
+          vertical-align: top;
         }
       }
-      /* No members */
+
       .label-page--member-block--content--no-result {
         padding: 12px;
       }
@@ -102,7 +123,7 @@
     }
   }
 
-  .label-page--label-name-textarea {
+  .label-page--label-name-input {
     width: 100%;
     padding: 12px;
     background-color: $color-background;

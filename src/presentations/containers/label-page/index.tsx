@@ -25,9 +25,11 @@ export default class LabelPage extends Container<any, any> {
     move: PropTypes.func,
   };
 
-  private handleChangeNameTextarea: any;
+  private handleChangeNameInput: any;
 
-  private handleKeyDownNameTextarea: any;
+  private handleKeyDownNameInput: any;
+
+  private handleSearchMemberListItemClick: any;
 
   private handleSubmitLabelForm: any;
 
@@ -35,9 +37,9 @@ export default class LabelPage extends Container<any, any> {
 
   private handleFocusMemberNameInput: any;
 
-  private handleBlurMemberNameInput: any;
-
   private handleSubmitMemberNameForm: any;
+
+  private handleMemberListCloseButtonClick: any;
 
   constructor(props: any) {
     super(props);
@@ -72,13 +74,14 @@ export default class LabelPage extends Container<any, any> {
       },
     };
 
-    this.handleChangeNameTextarea = this._handleChangeNameTextarea.bind(this);
-    this.handleKeyDownNameTextarea = this._handleKeyDownNameTextarea.bind(this);
+    this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
+    this.handleKeyDownNameInput = this._handleKeyDownNameInput.bind(this);
+    this.handleSearchMemberListItemClick = this._handleSearchMemberListItemClick.bind(this);
     this.handleSubmitLabelForm = this._handleSubmitLabelForm.bind(this);
     this.handleChangeMemberNameInput = this._handleChangeMemberNameInput.bind(this);
     this.handleFocusMemberNameInput = this._handleFocusMemberNameInput.bind(this);
-    this.handleBlurMemberNameInput = this._handleBlurMemberNameInput.bind(this);
     this.handleSubmitMemberNameForm = this._handleSubmitMemberNameForm.bind(this);
+    this.handleMemberListCloseButtonClick = this._handleMemberListCloseButtonClick.bind(this);
   }
 
   public componentDidMount() {
@@ -130,7 +133,6 @@ export default class LabelPage extends Container<any, any> {
               value={this.state.memberName}
               onChange={this.handleChangeMemberNameInput}
               onFocus={this.handleFocusMemberNameInput}
-              onBlur={this.handleBlurMemberNameInput}
               placeholder="Search by member name"
             />
             {(this.state.isMemberListShown) ? (
@@ -138,12 +140,13 @@ export default class LabelPage extends Container<any, any> {
                 {(this.state.memberNameErrorMessage) ? (
                   <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span>
                 ) : null}
-                <h2>Members</h2>
+                <h2 className="label-page--member-block--header">Members
+                  <span onClick={this.handleMemberListCloseButtonClick}><Icon type="close"/></span>
+                </h2>
                 {(filteredMembers.length === 0) ? (
                   <div
                     className="label-page--member-block--content--no-result"
-                    onTouchStart={this.handleSubmitMemberNameForm}
-                    onMouseDown={this.handleSubmitMemberNameForm}
+                    onClick={this.handleSubmitMemberNameForm}
                   >
                     Add {this.state.memberName} as new member.
                   </div>
@@ -154,7 +157,7 @@ export default class LabelPage extends Container<any, any> {
                         <SearchMemberListItem
                           key={member.id}
                           member={member}
-                          actions={this.props.actions}
+                          onClick={this.handleSearchMemberListItemClick}
                         />
                       );
                     })}
@@ -169,18 +172,18 @@ export default class LabelPage extends Container<any, any> {
             return (request.member.name !== profile.name);
           }).map((request: IRequest) => {
             return (
-              <li key={request.id}>{request.member.name}</li>
+              <li key={request.id || request.member.id}>{request.member.name}</li>
             );
           })}
         </ul>
         <form onSubmit={this.handleSubmitLabelForm}>
-          <textarea
-            className="label-page--label-name-textarea"
+          <input
+            type="text"
+            className="label-page--label-name-input"
             autoFocus
-            rows={16}
             value={this.state.labelName}
-            onChange={this.handleChangeNameTextarea}
-            onKeyDown={this.handleKeyDownNameTextarea}
+            onChange={this.handleChangeNameInput}
+            onKeyDown={this.handleKeyDownNameInput}
             placeholder="Enter label name"
           />
         </form>
@@ -192,11 +195,11 @@ export default class LabelPage extends Container<any, any> {
     callback();
   }
 
-  private _handleChangeNameTextarea(event: any) {
+  private _handleChangeNameInput(event: any) {
     this.setState({labelName: event.currentTarget.value});
   }
 
-  private _handleKeyDownNameTextarea(event: any) {
+  private _handleKeyDownNameInput(event: any) {
     const ENTER_KEY_CODE = 13;
 
     if (event.keyCode === ENTER_KEY_CODE) {
@@ -221,11 +224,25 @@ export default class LabelPage extends Container<any, any> {
     this.setState({isMemberListShown: true});
   }
 
-  private _handleBlurMemberNameInput() {
-    this.setState({
-      memberName: '',
-      isMemberListShown: false,
+  private _handleSearchMemberListItemClick(event: any, props: any) {
+    const labelRequests = this.state.labelRequests.concat();
+    let isIncluded = false;
+    labelRequests.forEach((labelRequest: any) => {
+      if (labelRequest.member.name === props.member.name) {
+        isIncluded = true;
+      }
     });
+    if (!isIncluded) {
+      labelRequests.push({
+        member: props.member,
+      });
+      this.setState({
+        memberName: '',
+        memberNameErrorMessage: '',
+        labelRequests,
+        isMemberListShown: false,
+      });
+    }
   }
 
   private _handleSubmitMemberNameForm(event: any) {
@@ -236,23 +253,33 @@ export default class LabelPage extends Container<any, any> {
     User.search({name: memberName}).then((users: any) => {
       if (users.length && users[0].name === memberName) {
         const labelRequests = this.state.labelRequests.concat();
-        labelRequests.push({
-          member: {
-            name: memberName,
-          },
+        let isIncluded = false;
+        labelRequests.forEach((labelRequest: any) => {
+          if (labelRequest.member.name === memberName) {
+            isIncluded = true;
+          }
         });
-        this.setState({
-          memberName: '',
-          memberNameErrorMessage: '',
-          labelRequests,
-          isMemberListShown: false,
-        });
+        if (!isIncluded) {
+          labelRequests.push({
+            member: memberName,
+          });
+          this.setState({
+            memberName: '',
+            memberNameErrorMessage: '',
+            labelRequests,
+            isMemberListShown: false,
+          });
+        }
       } else {
         this.setState({
           memberNameErrorMessage: `${memberName} is not existed.`,
         });
       }
     });
+  }
+
+  private _handleMemberListCloseButtonClick() {
+    this.setState({isMemberListShown: false});
   }
 
   private submitLabel() {

@@ -10,6 +10,7 @@ import * as React from 'react';
  * - list
  * - label
  * - add
+ * - close
  * - notification
  * - profile
  * - send
@@ -75,6 +76,15 @@ export default class Icon extends React.Component<any, any> {
               d="M55,45 L66,45 C68.7614237,45 71,47.2385763 71,50 C71,52.7614237 68.7614237,55 66,55 L55,55 L55,66 C55,68.7614237 52.7614237,71 50,71 C47.2385763,71 45,68.7614237 45,66 L45,55 L34,55 C31.2385763,55 29,52.7614237 29,50 C29,47.2385763 31.2385763,45 34,45 L45,45 L45,34 C45,31.2385763 47.2385763,29 50,29 C52.7614237,29 55,31.2385763 55,34 L55,45 Z M30,19 C23.9248678,19 19,23.9248678 19,30 L19,70 C19,76.0751322 23.9248678,81 30,81 L70,81 C76.0751322,81 81,76.0751322 81,70 L81,30 C81,23.9248678 76.0751322,19 70,19 L30,19 Z"
             >
             </path>
+          </g>
+        );
+        break;
+      }
+      case 'close': {
+        // TODO: Create new icon for close. For now, I use remove icon instead of it.
+        icon = (
+          <g stroke="none" fill="none">
+            <rect className="icon__close--rect"/>
           </g>
         );
         break;

@@ -10,6 +10,9 @@
     display: flex;
     align-items: center;
     padding: 8px 12px;
+    svg {
+      width: 24px;
+    }
   }
 
   .label-list-item--content {

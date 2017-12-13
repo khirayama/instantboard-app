@@ -24,5 +24,8 @@
     display: flex;
     min-width: 160px;
     justify-content: flex-end;
+    svg {
+      width: 24px;
+    }
   }
 }

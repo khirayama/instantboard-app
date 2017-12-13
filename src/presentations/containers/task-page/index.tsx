@@ -21,9 +21,9 @@ export default class TaskPage extends Container<any, any> {
 
   private handleChangeLabelIdSelect: any;
 
-  private handleChangeContentTextarea: any;
+  private handleChangeContentInput: any;
 
-  private handleKeyDownContentTextarea: any;
+  private handleKeyDownContentInput: any;
 
   private handleSubmit: any;
 
@@ -55,8 +55,8 @@ export default class TaskPage extends Container<any, any> {
     };
 
     this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
-    this.handleChangeContentTextarea = this._handleChangeContentTextarea.bind(this);
-    this.handleKeyDownContentTextarea = this._handleKeyDownContentTextarea.bind(this);
+    this.handleChangeContentInput = this._handleChangeContentInput.bind(this);
+    this.handleKeyDownContentInput = this._handleKeyDownContentInput.bind(this);
     this.handleSubmit = this._handleSubmit.bind(this);
   }
 
@@ -124,13 +124,13 @@ export default class TaskPage extends Container<any, any> {
             ) : null}
           </div>
           <div>
-            <textarea
-              className="task-page--task-content-textarea"
+            <input
+              type="text"
+              className="task-page--task-content-input"
               autoFocus
-              rows={16}
               value={this.state.content}
-              onChange={this.handleChangeContentTextarea}
-              onKeyDown={this.handleKeyDownContentTextarea}
+              onChange={this.handleChangeContentInput}
+              onKeyDown={this.handleKeyDownContentInput}
               placeholder="Enter task text"
             />
           </div>
@@ -147,11 +147,11 @@ export default class TaskPage extends Container<any, any> {
     this.setState({labelId: event.currentTarget.value});
   }
 
-  private _handleChangeContentTextarea(event: any) {
+  private _handleChangeContentInput(event: any) {
     this.setState({content: event.currentTarget.value});
   }
 
-  private _handleKeyDownContentTextarea(event: any) {
+  private _handleKeyDownContentInput(event: any) {
     const ENTER_KEY_CODE = 13;
 
     if (event.keyCode === ENTER_KEY_CODE) {

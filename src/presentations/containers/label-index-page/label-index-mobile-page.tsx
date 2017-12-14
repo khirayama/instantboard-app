@@ -20,7 +20,7 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class LabelIndexPage extends Container<any, any> {
+export default class LabelIndexMobilePage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -88,7 +88,7 @@ export default class LabelIndexPage extends Container<any, any> {
     const parentElement: any = window.document.querySelector('.tab-navigation-content');
 
     return (
-      <section key="label-index-page" className="page label-index-page">
+      <section key="label-index-mobile-page" className="page label-index-mobile-page">
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0)}/>
         <TabNavigationContent>
           <List
@@ -110,7 +110,7 @@ export default class LabelIndexPage extends Container<any, any> {
             <IconLink
               to="/labels/new"
               iconType="add"
-              className="label-index-page--add-button"
+              className="label-index-mobile-page--add-button"
             >ADD LABEL
             </IconLink>
           )}

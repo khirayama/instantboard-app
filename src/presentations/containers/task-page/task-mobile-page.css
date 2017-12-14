@@ -1,5 +1,5 @@
-.task-page {
-  .task-page--header {
+.task-mobile-page {
+  .task-mobile-page--header {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@
     }
   }
 
-  .task-page--label-block {
+  .task-mobile-page--label-block {
     border-bottom: $border;
     height: $height-mobile-bar-high;
     background-color: $color-background;
@@ -46,7 +46,7 @@
     }
   }
 
-  .task-page--task-content-input {
+  .task-mobile-page--task-content-input {
     width: 100%;
     padding: 12px;
     background-color: $color-background;

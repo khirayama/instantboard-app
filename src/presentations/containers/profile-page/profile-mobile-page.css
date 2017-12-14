@@ -1,4 +1,4 @@
-.profile-page {
+.profile-mobile-page {
   padding: 32px;
 
   .profile-tab-content--name--input {
@@ -37,10 +37,10 @@
       }
     }
   }
-  .profile-page--logout-button {
+  .profile-mobile-page--logout-button {
     margin: 16px 0;
   }
-  .profile-page--delete-account-button {
+  .profile-mobile-page--delete-account-button {
     margin: 16px 0;
     .flat-button {
       color: $color-attention;

@@ -20,7 +20,7 @@ import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
-export default class LabelPage extends Container<any, any> {
+export default class LabelMobilePage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -118,15 +118,15 @@ export default class LabelPage extends Container<any, any> {
     const filteredMembers = this.state.members.filter(member => (member.name.indexOf(this.state.memberName) !== -1));
 
     return (
-      <section className="page label-page">
+      <section className="page label-mobile-page">
         {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
         <Indicator active={(ui.isLoadingLabels)}/>
-        <header className="label-page--header">
+        <header className="label-mobile-page--header">
           <Link to="/labels"><Icon type="back"/></Link>
           <button onClick={this.handleSubmitLabelForm}><Icon type="send"/></button>
         </header>
         <form onSubmit={this.handleSubmitMemberNameForm}>
-          <div className="label-page--member-block">
+          <div className="label-mobile-page--member-block">
             <Icon type="profile"/>
             <input
               type="text"
@@ -136,16 +136,16 @@ export default class LabelPage extends Container<any, any> {
               placeholder="Search by member name"
             />
             {(this.state.isMemberListShown) ? (
-              <div className="label-page--member-block--content">
+              <div className="label-mobile-page--member-block--content">
                 {(this.state.memberNameErrorMessage) ? (
-                  <span className="label-page--member-block--error">{this.state.memberNameErrorMessage}</span>
+                  <span className="label-mobile-page--member-block--error">{this.state.memberNameErrorMessage}</span>
                 ) : null}
-                <h2 className="label-page--member-block--header">Members
+                <h2 className="label-mobile-page--member-block--header">Members
                   <span onClick={this.handleMemberListCloseButtonClick}><Icon type="close"/></span>
                 </h2>
                 {(filteredMembers.length === 0) ? (
                   <div
-                    className="label-page--member-block--content--no-result"
+                    className="label-mobile-page--member-block--content--no-result"
                     onClick={this.handleSubmitMemberNameForm}
                   >
                     Add {this.state.memberName} as new member.
@@ -167,7 +167,7 @@ export default class LabelPage extends Container<any, any> {
             ) : null}
           </div>
         </form>
-        <ul className="label-page--member-list">
+        <ul className="label-mobile-page--member-list">
           {this.state.labelRequests.filter(request => {
             return (request.member.name !== profile.name);
           }).map((request: IRequest) => {
@@ -179,7 +179,7 @@ export default class LabelPage extends Container<any, any> {
         <form onSubmit={this.handleSubmitLabelForm}>
           <input
             type="text"
-            className="label-page--label-name-input"
+            className="label-mobile-page--label-name-input"
             autoFocus
             value={this.state.labelName}
             onChange={this.handleChangeNameInput}

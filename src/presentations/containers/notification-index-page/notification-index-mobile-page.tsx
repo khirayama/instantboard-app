@@ -16,7 +16,7 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class NotificationIndexPage extends Container<any, any> {
+export default class NotificationIndexMobilePage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -61,7 +61,7 @@ export default class NotificationIndexPage extends Container<any, any> {
     const badges = (requests.length) ? [2] : [];
 
     return (
-      <section className="page notification-index-page">
+      <section className="page notification-index-mobile-page">
         <Indicator active={(ui.isLoadingRequests && requests.length !== 0)}/>
         <TabNavigationContent>
           <List className="request-list">

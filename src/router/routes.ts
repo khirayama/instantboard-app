@@ -1,46 +1,69 @@
-import LabelIndexPage from '../presentations/containers/label-index-page';
-import LabelPage from '../presentations/containers/label-page';
-import LoginPage from '../presentations/containers/login-page';
-import NotificationIndexPage from '../presentations/containers/notification-index-page';
-import ProfilePage from '../presentations/containers/profile-page';
-import TaskIndexPage from '../presentations/containers/task-index-page';
-import TaskPage from '../presentations/containers/task-page';
+import LabelIndexMobilePage from '../presentations/containers/label-index-page/label-index-mobile-page';
+import LabelMobilePage from '../presentations/containers/label-page/label-mobile-page';
+import LoginMobilePage from '../presentations/containers/login-page/login-mobile-page';
+import NotificationIndexMobilePage from '../presentations/containers/notification-index-page/notification-index-mobile-page'; // Tslint:disable
+import ProfileMobilePage from '../presentations/containers/profile-page/profile-mobile-page';
+import TaskIndexDesktopPage from '../presentations/containers/task-index-page/task-index-desktop-page';
+import TaskIndexMobilePage from '../presentations/containers/task-index-page/task-index-mobile-page';
+import TaskMobilePage from '../presentations/containers/task-page/task-mobile-page';
+
+function isMobileUI() {
+  return window.innerWidth < 980;
+}
 
 const routes: IRoute[] = [{
   path: '/login',
   title: 'Login',
-  component: LoginPage,
+  component: () => {
+    return LoginMobilePage;
+  },
 }, {
   path: '/',
   title: 'Instantboard',
-  component: TaskIndexPage,
+  component: () => {
+    return (isMobileUI()) ? TaskIndexMobilePage : TaskIndexDesktopPage;
+  },
 }, {
   path: '/tasks/new',
   title: 'New Task',
-  component: TaskPage,
+  component: () => {
+    return TaskMobilePage;
+  },
 }, {
   path: '/tasks/:id/edit',
   title: 'Edit Task',
-  component: TaskPage,
+  component: () => {
+    return TaskMobilePage;
+  },
 }, {
   path: '/labels',
   title: 'Labels',
-  component: LabelIndexPage,
+  component: () => {
+    return LabelIndexMobilePage;
+  },
 }, {
   path: '/labels/new',
   title: 'New Label',
-  component: LabelPage,
+  component: () => {
+    return LabelMobilePage;
+  },
 }, {
   path: '/labels/:id/edit',
   title: 'Edit label',
-  component: LabelPage,
+  component: () => {
+    return LabelMobilePage;
+  },
 }, {
   path: '/notifications',
   title: 'Notifications',
-  component: NotificationIndexPage,
+  component: () => {
+    return NotificationIndexMobilePage;
+  },
 }, {
   path: '/profile',
   title: 'Profile',
-  component: ProfilePage,
+  component: () => {
+    return ProfileMobilePage;
+  },
 }];
 export default routes;

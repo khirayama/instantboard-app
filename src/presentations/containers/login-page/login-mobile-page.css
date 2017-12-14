@@ -1,7 +1,7 @@
-.login-page {
+.login-mobile-page {
   position: relative;
 
-  .login-page--content {
+  .login-mobile-page--content {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -9,16 +9,16 @@
     text-align: center;
     transform: translate(-50%, -50%);
 
-    .login-page--content--heading {
+    .login-mobile-page--content--heading {
       margin-bottom: 12px;
     }
 
-    .login-page--content--description {
+    .login-mobile-page--content--description {
       margin-bottom: 36px;
       color: $color-text-secondary;
     }
 
-    .login-page--flat-button {
+    .login-mobile-page--flat-button {
       display: block;
       color: $color-background;
       width: 100%;
@@ -26,7 +26,7 @@
       background-color: $color-text-secondary;
       margin: 0 auto 16px;
 
-      &.login-page--flat-button__facebook {
+      &.login-mobile-page--flat-button__facebook {
         background-color: $color-facebook;
       }
     }

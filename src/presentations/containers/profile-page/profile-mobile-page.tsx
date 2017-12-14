@@ -16,7 +16,7 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class ProfilePage extends Container<IContainerProps, IState> {
+export default class ProfileMobilePage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -97,7 +97,7 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
     const badges = (this.state.requests.length) ? [2] : [];
 
     return (
-      <section className="page profile-page">
+      <section className="page profile-mobile-page">
         <TabNavigationContent>
           <div className="profile-tab-content--name--input">
             <Icon type="profile"/>
@@ -118,13 +118,13 @@ export default class ProfilePage extends Container<IContainerProps, IState> {
               </p>
             )}
           </div>
-          <div className="profile-page--logout-button">
+          <div className="profile-mobile-page--logout-button">
             <FlatButton
               onClick={this.handleClickLogoutButton}
             >LOG OUT
             </FlatButton>
           </div>
-          <div className="profile-page--delete-account-button">
+          <div className="profile-mobile-page--delete-account-button">
             <FlatButton
               onClick={this.handleClickDeleteAccountButton}
             >DELETE ACCOUNT

@@ -1,4 +1,4 @@
-.label-index-page {
+.label-index-mobile-page {
   .tab-navigation-content {
     overflow: scroll;
 
@@ -9,7 +9,7 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .label-index-page--add-button {
+    .label-index-mobile-page--add-button {
       width: 100%;
     }
   }

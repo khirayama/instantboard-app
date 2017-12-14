@@ -1,5 +1,5 @@
-.label-page {
-  .label-page--header {
+.label-mobile-page {
+  .label-mobile-page--header {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -25,7 +25,7 @@
     }
   }
 
-  .label-page--member-block {
+  .label-mobile-page--member-block {
     position: relative;
     border-bottom: $border;
     height: $height-mobile-bar-high;
@@ -49,14 +49,14 @@
       height: $height-mobile-bar-high;
     }
 
-    .label-page--member-block--error {
+    .label-mobile-page--member-block--error {
       display: inline-block;
       width: 100%;
       padding: 4px 12px;
       color: $color-attention;
     }
 
-    .label-page--member-block--header {
+    .label-mobile-page--member-block--header {
       display: flex;
       justify-content: space-between;
 
@@ -72,7 +72,7 @@
       }
     }
 
-    .label-page--member-block--content {
+    .label-mobile-page--member-block--content {
       position: absolute;
       top: 100%;
       left: 0;
@@ -98,13 +98,13 @@
         }
       }
 
-      .label-page--member-block--content--no-result {
+      .label-mobile-page--member-block--content--no-result {
         padding: 12px;
       }
     }
   }
 
-  .label-page--member-list {
+  .label-mobile-page--member-list {
     padding: 8px 12px;
     border-bottom: $border;
     li {
@@ -123,7 +123,7 @@
     }
   }
 
-  .label-page--label-name-input {
+  .label-mobile-page--label-name-input {
     width: 100%;
     padding: 12px;
     background-color: $color-background;

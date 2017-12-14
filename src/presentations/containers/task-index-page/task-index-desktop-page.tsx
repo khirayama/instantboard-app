@@ -30,7 +30,7 @@ import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
 import Container from '../container';
 
-export default class TaskIndexPage extends Container<IContainerProps, IState> {
+export default class TaskIndexDesktopPage extends Container<IContainerProps, IState> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -187,7 +187,7 @@ export default class TaskIndexPage extends Container<IContainerProps, IState> {
     const badges = (requests.length) ? [2] : [];
 
     return (
-      <section className="page task-index-page">
+      <section className="page task-index-desktop-page">
         <Indicator active={(
           (ui.isLoadingLabels && labels.length !== 0) ||
           (ui.isLoadingTasks && tasks.length !== 0)

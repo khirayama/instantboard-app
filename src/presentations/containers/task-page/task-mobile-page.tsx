@@ -14,7 +14,7 @@ import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import Container from '../container';
 
-export default class TaskPage extends Container<any, any> {
+export default class TaskMobilePage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -107,15 +107,15 @@ export default class TaskPage extends Container<any, any> {
     const labels = this.state.labels;
 
     return (
-      <section className="page task-page">
+      <section className="page task-mobile-page">
         {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
         <Indicator active={(ui.isLoadingTasks)}/>
         <form onSubmit={this.handleSubmit}>
-          <header className="task-page--header">
+          <header className="task-mobile-page--header">
             <Link to="/"><Icon type="back"/></Link>
             <button><Icon type="send"/></button>
           </header>
-          <div className="task-page--label-block">
+          <div className="task-mobile-page--label-block">
             <Link to="/labels"><Icon type="label"/></Link>
             {(this.state.labelId) ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
@@ -126,7 +126,7 @@ export default class TaskPage extends Container<any, any> {
           <div>
             <input
               type="text"
-              className="task-page--task-content-input"
+              className="task-mobile-page--task-content-input"
               autoFocus
               value={this.state.content}
               onChange={this.handleChangeContentInput}

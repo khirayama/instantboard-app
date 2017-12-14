@@ -7,7 +7,7 @@ import Container from '../container';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-export default class LoginPage extends Container<any, any> {
+export default class LoginMobilePage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };
@@ -31,19 +31,19 @@ export default class LoginPage extends Container<any, any> {
 
   public render() {
     return (
-      <section className="page login-page">
-        <section className="login-page--content">
-          <h1 className="login-page--content--heading">Instantboard</h1>
-          <p className="login-page--content--description">Sign up to manage and share your tasks.</p>
+      <section className="page login-mobile-page">
+        <section className="login-mobile-page--content">
+          <h1 className="login-mobile-page--content--heading">Instantboard</h1>
+          <p className="login-mobile-page--content--description">Sign up to manage and share your tasks.</p>
           <FlatButton
-            className="login-page--flat-button login-page--flat-button__facebook"
+            className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"
             onClick={this.handleClickLoginButton}
             href={`${API_SERVER_HOST}/auth/facebook`}
           >LOG IN WITH FACEBOOK
           </FlatButton>
           {(process.env.NODE_ENV === 'production') ? null : (
             <FlatButton
-              className="login-page--flat-button"
+              className="login-mobile-page--flat-button"
               onClick={this.handleClickLoginButton}
               href={`${API_SERVER_HOST}/auth/tester`}
             >LOG IN AS TESTER

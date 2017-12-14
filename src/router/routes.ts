@@ -1,4 +1,5 @@
 import LabelIndexMobilePage from '../presentations/containers/label-index-page/label-index-mobile-page';
+import LabelIndexDesktopPage from '../presentations/containers/label-index-page/label-index-desktop-page';
 import LabelMobilePage from '../presentations/containers/label-page/label-mobile-page';
 import LoginMobilePage from '../presentations/containers/login-page/login-mobile-page';
 import NotificationIndexMobilePage from '../presentations/containers/notification-index-page/notification-index-mobile-page'; /* tslint:disable-line */ /* eslint-disable-line */
@@ -39,7 +40,7 @@ const routes: IRoute[] = [{
   path: '/labels',
   title: 'Labels',
   component: () => {
-    return LabelIndexMobilePage;
+    return (isMobileUI()) ? LabelIndexMobilePage : LabelIndexDesktopPage;
   },
 }, {
   path: '/labels/new',

@@ -10,8 +10,8 @@
   .application-header--content {
     width: $breakpoint-wide;
     height: $height-desktop-bar-high;
-    padding: 0 24px;
     margin: 0 auto;
+    text-align: right;
 
     .application-header-item {
       display: inline-block;

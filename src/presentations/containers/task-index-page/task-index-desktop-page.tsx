@@ -24,8 +24,8 @@ import RecycleTableContentList from '../../components/recycle-table/recycle-tabl
 import RecycleTableContentListItem from '../../components/recycle-table/recycle-table-content-list-item';
 import RecycleTableList from '../../components/recycle-table/recycle-table-list';
 import RecycleTableListItem from '../../components/recycle-table/recycle-table-list-item';
-import TabNavigation from '../../components/tab-navigation/tab-navigation';
-import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
+import ApplicationHeader from '../../components/application-header/application-header';
+import ApplicationContent from '../../components/application-header/application-content';
 import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
 import Container from '../container';
@@ -192,11 +192,11 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
           (ui.isLoadingLabels && labels.length !== 0) ||
           (ui.isLoadingTasks && tasks.length !== 0)
         )}/>
-        <TabNavigationContent>{contentElement}</TabNavigationContent>
-        <TabNavigation
+        <ApplicationHeader
           index={0}
           badges={badges}
         />
+        <ApplicationContent>{contentElement}</ApplicationContent>
       </section>
     );
   }

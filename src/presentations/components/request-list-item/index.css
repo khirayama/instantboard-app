@@ -1,6 +1,11 @@
 .request-list-item {
   display: flex;
   justify-content: space-between;
+  background-color: $color-white;
+
+  .flat-button {
+    background-color: $color-white;
+  }
 
   & + .request-list-item {
     border-top: $border;

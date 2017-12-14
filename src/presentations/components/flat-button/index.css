@@ -5,5 +5,5 @@
   cursor: pointer;
   padding: 8px 12px;
   font-weight: $font-medium;
-  background-color: $color-background;
+  background-color: inherit;
 }

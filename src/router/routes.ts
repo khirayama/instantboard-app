@@ -1,7 +1,7 @@
 import LabelIndexMobilePage from '../presentations/containers/label-index-page/label-index-mobile-page';
 import LabelMobilePage from '../presentations/containers/label-page/label-mobile-page';
 import LoginMobilePage from '../presentations/containers/login-page/login-mobile-page';
-import NotificationIndexMobilePage from '../presentations/containers/notification-index-page/notification-index-mobile-page'; // Tslint:disable
+import NotificationIndexMobilePage from '../presentations/containers/notification-index-page/notification-index-mobile-page'; /* tslint:disable-line */ /* eslint-disable-line */
 import ProfileMobilePage from '../presentations/containers/profile-page/profile-mobile-page';
 import TaskIndexDesktopPage from '../presentations/containers/task-index-page/task-index-desktop-page';
 import TaskIndexMobilePage from '../presentations/containers/task-index-page/task-index-mobile-page';

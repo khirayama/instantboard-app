@@ -8,7 +8,7 @@ import TaskIndexMobilePage from '../presentations/containers/task-index-page/tas
 import TaskMobilePage from '../presentations/containers/task-page/task-mobile-page';
 
 function isMobileUI() {
-  return window.innerWidth < 980;
+  return window.innerWidth < 568;
 }
 
 const routes: IRoute[] = [{

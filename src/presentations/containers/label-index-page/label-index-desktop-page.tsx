@@ -20,7 +20,7 @@ import ApplicationHeader from '../../components/application-header/application-h
 import ApplicationContent from '../../components/application-header/application-content';
 import Container from '../container';
 
-export default class LabelIndexMobilePage extends Container<any, any> {
+export default class LabelIndexDesktopPage extends Container<any, any> {
   public static contextTypes = {
     move: PropTypes.func,
   };

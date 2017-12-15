@@ -3,7 +3,9 @@ import LabelIndexDesktopPage from '../presentations/containers/label-index-page/
 import LabelMobilePage from '../presentations/containers/label-page/label-mobile-page';
 import LoginMobilePage from '../presentations/containers/login-page/login-mobile-page';
 import NotificationIndexMobilePage from '../presentations/containers/notification-index-page/notification-index-mobile-page'; /* tslint:disable-line */ /* eslint-disable-line */
+import NotificationIndexDesktopPage from '../presentations/containers/notification-index-page/notification-index-desktop-page'; /* tslint:disable-line */ /* eslint-disable-line */
 import ProfileMobilePage from '../presentations/containers/profile-page/profile-mobile-page';
+import ProfileDesktopPage from '../presentations/containers/profile-page/profile-desktop-page';
 import TaskIndexDesktopPage from '../presentations/containers/task-index-page/task-index-desktop-page';
 import TaskIndexMobilePage from '../presentations/containers/task-index-page/task-index-mobile-page';
 import TaskMobilePage from '../presentations/containers/task-page/task-mobile-page';
@@ -58,13 +60,13 @@ const routes: IRoute[] = [{
   path: '/notifications',
   title: 'Notifications',
   component: () => {
-    return NotificationIndexMobilePage;
+    return (isMobileUI()) ? NotificationIndexMobilePage : NotificationIndexDesktopPage;
   },
 }, {
   path: '/profile',
   title: 'Profile',
   component: () => {
-    return ProfileMobilePage;
+    return (isMobileUI()) ? ProfileMobilePage : ProfileDesktopPage;
   },
 }];
 export default routes;

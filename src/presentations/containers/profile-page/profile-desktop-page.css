@@ -1,0 +1,49 @@
+.profile-desktop-page {
+  padding: 32px;
+
+  .profile-tab-content--name--input {
+    $height: 48px;
+
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: $height;
+    overflow: hidden;
+
+    p, input {
+      display: inline-block;
+      background-color: transparent;
+      font-weight: $font-medium;
+      width: 100%;
+      height: $height;
+      line-height: $height;
+      padding: 0 $height;
+      border-bottom: $border;
+      overflow: hidden;
+    }
+    .icon {
+      position: absolute;
+      top: 0;
+      height: $height;
+      padding: 6px 0 0;
+      path {
+        stroke: $color-text-secondary;
+      }
+      &.icon__profile {
+        left: 0;
+      }
+      &.icon__edit {
+        right: 0;
+      }
+    }
+  }
+  .profile-desktop-page--logout-button {
+    margin: 16px 0;
+  }
+  .profile-desktop-page--delete-account-button {
+    margin: 16px 0;
+    .flat-button {
+      color: $color-attention;
+    }
+  }
+}

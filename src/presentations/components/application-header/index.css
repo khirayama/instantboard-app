@@ -21,7 +21,7 @@
       height: $height-desktop-bar-high;
 
       .application-header--icon {
-        padding: 12px 10px 14px;
+        padding: 12px 12px 14px;
         height: $height-desktop-bar-high;
 
         path,

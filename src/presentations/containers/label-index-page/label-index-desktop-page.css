@@ -1,4 +1,9 @@
 .label-index-desktop-page {
+
+  .application-content--inner {
+    padding: 60px 16px;
+  }
+
   .tab-navigation-content {
     overflow: scroll;
 

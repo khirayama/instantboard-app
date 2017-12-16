@@ -1,4 +1,9 @@
 .task-index-desktop-page {
+
+  .application-content--inner {
+    padding: 60px 16px;
+  }
+
   .recycle-table-list-item {
     max-width: 240px;
     overflow: hidden;

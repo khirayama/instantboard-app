@@ -1,5 +1,7 @@
 .profile-desktop-page {
-  padding: 32px;
+  .application-content--inner {
+    padding: 60px 16px;
+  }
 
   .profile-tab-content--name--input {
     $height: 48px;
@@ -37,11 +39,14 @@
       }
     }
   }
+
   .profile-desktop-page--logout-button {
-    margin: 16px 0;
+    margin: 32px 0;
   }
+
   .profile-desktop-page--delete-account-button {
-    margin: 16px 0;
+    margin: 32px 0;
+
     .flat-button {
       color: $color-attention;
     }

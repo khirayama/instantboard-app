@@ -1,9 +1,13 @@
 .notification-index-desktop-page {
+
+  .application-content--inner {
+    padding: 60px 16px;
+  }
+
   .request-list {
     width: 100%;
     height: auto;
     max-height: 100%;
     overflow: scroll;
-    border-bottom: $border;
   }
 }

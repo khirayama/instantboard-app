@@ -62,6 +62,7 @@
   left: 0;
   width: 100%;
   height: calc(100% - $height-desktop-bar-high);
+  overflow: scroll;
 
   .application-content--inner {
     width: $breakpoint-wide;

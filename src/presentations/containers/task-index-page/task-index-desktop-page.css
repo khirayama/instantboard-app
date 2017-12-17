@@ -1,9 +1,12 @@
 .task-index-desktop-page {
   $width-side: 188px;
 
-  .application-content .application-content--inner {
-    width: calc($width-desktop-content + $width-side);
+  .application-content {
     padding: 60px 0;
+
+    .application-content--inner {
+      width: calc($width-desktop-content + $width-side);
+    }
   }
 
   .layered-parent-list {

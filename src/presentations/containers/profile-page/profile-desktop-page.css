@@ -1,7 +1,11 @@
 .profile-desktop-page {
-  .application-content--inner {
-    max-width: $width-desktop-content;
+
+  .application-content {
     padding: 60px 0;
+
+    .application-content--inner {
+      max-width: $width-desktop-content;
+    }
   }
 
   .profile-tab-content--name--input {

@@ -1,7 +1,8 @@
 .label-index-desktop-page {
 
   .application-content--inner {
-    padding: 60px 16px;
+    max-width: $width-desktop-content;
+    padding: 60px 0;
   }
 
   .tab-navigation-content {

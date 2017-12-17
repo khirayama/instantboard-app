@@ -10,12 +10,10 @@ import {
 } from '../../../action-creators/user';
 import poller from '../../../utils/poller';
 import tokenManager from '../../../utils/token-manager';
+import ApplicationContent from '../../components/application-header/application-content';
+import ApplicationHeader from '../../components/application-header/application-header';
 import FlatButton from '../../components/flat-button';
 import Icon from '../../components/icon';
-import TabNavigation from '../../components/tab-navigation/tab-navigation';
-import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
-import ApplicationHeader from '../../components/application-header/application-header';
-import ApplicationContent from '../../components/application-header/application-content';
 import Container from '../container';
 
 export default class ProfileDesktopPage extends Container<IContainerProps, IState> {

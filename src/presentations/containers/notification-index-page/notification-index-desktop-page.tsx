@@ -8,12 +8,12 @@ import {
   pollRequest,
 } from '../../../action-creators/request';
 import poller from '../../../utils/poller';
+import ApplicationContent from '../../components/application-header/application-content';
+import ApplicationHeader from '../../components/application-header/application-header';
 import Indicator from '../../components/indicator';
 import List from '../../components/list/list';
 import NoNotificationContent from '../../components/no-notification-content';
 import RequestListItem from '../../components/request-list-item';
-import ApplicationHeader from '../../components/application-header/application-header';
-import ApplicationContent from '../../components/application-header/application-content';
 import Container from '../container';
 
 export default class NotificationIndexDesktopPage extends Container<any, any> {

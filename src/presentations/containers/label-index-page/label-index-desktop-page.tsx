@@ -10,14 +10,14 @@ import {
   pollRequest,
 } from '../../../action-creators/request';
 import poller from '../../../utils/poller';
+import ApplicationContent from '../../components/application-header/application-content';
+import ApplicationHeader from '../../components/application-header/application-header';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
 import LabelListItem from '../../components/label-list-item';
 import List from '../../components/list/list';
 import LoadingContent from '../../components/loading-content';
 import NoLabelContent from '../../components/no-label-content';
-import ApplicationHeader from '../../components/application-header/application-header';
-import ApplicationContent from '../../components/application-header/application-content';
 import Container from '../container';
 
 export default class LabelIndexDesktopPage extends Container<any, any> {

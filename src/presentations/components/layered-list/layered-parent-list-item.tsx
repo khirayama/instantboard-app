@@ -25,7 +25,8 @@ export default class LayeredParentListItem extends React.Component<any, any> {
           'layered-parent-list-item',
           {'layered-parent-list-item__active': (index === this.context.currentIndex)},
         )}
-      onClick={this.handleClick}>{this.props.children}</li>
+        onClick={this.handleClick}>{this.props.children}
+      </li>
     );
   }
 

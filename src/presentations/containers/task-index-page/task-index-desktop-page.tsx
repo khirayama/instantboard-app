@@ -14,18 +14,19 @@ import {
   updateTask,
 } from '../../../action-creators/task';
 import poller from '../../../utils/poller';
+import ApplicationContent from '../../components/application-header/application-content';
+import ApplicationHeader from '../../components/application-header/application-header';
+import Icon from '../../components/icon';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
+import LayeredChildList from '../../components/layered-list/layered-child-list';
+import LayeredChildListItem from '../../components/layered-list/layered-child-list-item';
+import LayeredList from '../../components/layered-list/layered-list';
+import LayeredParentList from '../../components/layered-list/layered-parent-list';
+import LayeredParentListItem from '../../components/layered-list/layered-parent-list-item';
 import LoadingContent from '../../components/loading-content';
 import NoLabelContent from '../../components/no-label-content';
 import NoTaskContent from '../../components/no-task-content';
-import RecycleTable from '../../components/recycle-table/recycle-table';
-import RecycleTableContentList from '../../components/recycle-table/recycle-table-content-list';
-import RecycleTableContentListItem from '../../components/recycle-table/recycle-table-content-list-item';
-import RecycleTableList from '../../components/recycle-table/recycle-table-list';
-import RecycleTableListItem from '../../components/recycle-table/recycle-table-list-item';
-import ApplicationHeader from '../../components/application-header/application-header';
-import ApplicationContent from '../../components/application-header/application-content';
 import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
 import Container from '../container';
@@ -116,7 +117,7 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
 
     // Loading label - Show loading content
     //   No labels - Show no labels content
-    //   Labels - Show recycle table view
+    //   Labels - Show layerd list view
     //     Loading tasks - Show skeleton
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
@@ -125,7 +126,7 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = <NoLabelContent/>;
     } else if (labels.length !== 0) {
-      const recycleTableContents = labels.map((label: ILabel, index: number) => {
+      const layeredListContents = labels.map((label: ILabel, index: number) => {
         const groupedTasks = tasks.filter((task: ITask) => (task.labelId === label.id));
 
         let backgroundElement: any = null;
@@ -134,13 +135,11 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
         } else if (groupedTasks.length === 0) {
           backgroundElement = <NoTaskContent label={label}/>;
         }
-        const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
         return (
-          <RecycleTableContentListItem key={label.id} index={index}>
+          <LayeredChildListItem key={label.id} index={index}>
             <TaskList
               className="task-list"
-              parentElement={parentElement}
               tasks={groupedTasks}
               onSort={this.handleSortTaskList}
             >
@@ -165,22 +164,28 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
               </IconLink>
             ) }
             {backgroundElement}
-          </RecycleTableContentListItem>
+          </LayeredChildListItem>
         );
       });
 
       contentElement = (
-        <RecycleTable
+        <LayeredList
           index={this.state.index}
           onChange={this.handleChangeIndex}
         >
-          <RecycleTableList>
+          <LayeredParentList>
             {labels.map((label: ILabel, index: number) => {
-              return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
+              return (
+                <LayeredParentListItem
+                  key={label.id}
+                  index={index}
+                ><Icon type="label"/>{label.name}
+                </LayeredParentListItem>
+              );
             })}
-          </RecycleTableList>
-          <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
-        </RecycleTable>
+          </LayeredParentList>
+          <LayeredChildList>{layeredListContents}</LayeredChildList>
+        </LayeredList>
       );
     }
 
@@ -203,14 +208,14 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
 
   private loadIndex(): number {
     if (typeof window === 'object') {
-      return JSON.parse(window.sessionStorage.getItem('__recycle-table-index') || '0');
+      return JSON.parse(window.sessionStorage.getItem('__layered-list-index') || '0');
     }
     return 0;
   }
 
   private saveIndex(index: number): void {
     if (typeof window === 'object') {
-      window.sessionStorage.setItem('__recycle-table-index', JSON.stringify(index));
+      window.sessionStorage.setItem('__layered-list-index', JSON.stringify(index));
     }
   }
 

@@ -1,15 +1,41 @@
 .task-index-desktop-page {
+  $width-side: 188px;
 
-  .application-content--inner {
-    padding: 60px 16px;
+  .application-content .application-content--inner {
+    width: calc($width-desktop-content + $width-side);
+    padding: 60px 0;
   }
 
-  .recycle-table-list-item {
-    max-width: 240px;
+  .layered-parent-list {
+    display: inline-block;
+    width: $width-side;
+
+    li {
+      padding: 4px 0;
+      font-weight: $font-medium;
+
+      svg {
+        vertical-align: middle;
+        height: 30px;
+        margin-right: 4px;
+
+        path,
+        circle,
+        rect {
+          stroke: $color-icon-inactive;
+        }
+      }
+    }
+  }
+
+  .layered-child-list {
+    vertical-align: top;
+    display: inline-block;
+    width: $width-desktop-content;
     overflow: hidden;
-  }
 
-  .recycle-table-content-list {
-    height: calc(100% - $height-mobile-bar-low)!important;
+    .no-task-content {
+      min-height: 320px;
+    }
   }
 }

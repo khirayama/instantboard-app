@@ -1,3 +1,4 @@
+import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
@@ -16,14 +17,15 @@ export default class LayeredParentListItem extends React.Component<any, any> {
   }
 
   public render() {
-    const props: any = Object.assign({}, this.props, {
-      index: undefined,
-    });
-    const className = 'layered-parent-list-item';
-    props.className = (props.className) ? props.className + ' ' + className : className;
+    const index: number = Number(this.props.index);
 
     return (
-      <li {...props} onClick={this.handleClick}>{this.props.children}</li>
+      <li
+        className={classNames(
+          'layered-parent-list-item',
+          {'layered-parent-list-item__active': (index === this.context.currentIndex)},
+        )}
+      onClick={this.handleClick}>{this.props.children}</li>
     );
   }
 

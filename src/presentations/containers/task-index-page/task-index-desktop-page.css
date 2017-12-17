@@ -10,9 +10,10 @@
     display: inline-block;
     width: $width-side;
 
-    li {
+    .layered-parent-list-item {
       padding: 4px 0;
       font-weight: $font-medium;
+      color: $color-text-hint;
 
       svg {
         vertical-align: middle;
@@ -23,6 +24,17 @@
         circle,
         rect {
           stroke: $color-icon-inactive;
+        }
+      }
+    }
+    .layered-parent-list-item__active {
+      color: $color-text;
+
+      svg {
+        path,
+        circle,
+        rect {
+          stroke: $color-icon-active;
         }
       }
     }

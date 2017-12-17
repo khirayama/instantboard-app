@@ -6,23 +6,28 @@ import ListItem from '../list/list-item';
 
 export default class TaskListItem extends React.Component<any, any> {
   public render() {
-    const task = this.props.task;
+    const {
+      task,
+      onClickCompleteButton,
+      onClickTaskListItem,
+      onClickDestroyButton,
+    } = this.props;
 
     const handleClickCompleteButton = (event: any) => {
-      if (this.props.onClickCompleteButton) {
-        this.props.onClickCompleteButton(event, this.props, this.state);
+      if (onClickCompleteButton) {
+        onClickCompleteButton(event, this.props, this.state);
       }
     };
 
     const handleClickTaskListItem = (event: any) => {
-      if (this.props.onClickTaskListItem) {
-        this.props.onClickTaskListItem(event, this.props, this.state);
+      if (onClickTaskListItem) {
+        onClickTaskListItem(event, this.props, this.state);
       }
     };
 
     const handleClickDestroyButton = (event: any) => {
-      if (this.props.onClickDestroyButton) {
-        this.props.onClickDestroyButton(event, this.props, this.state);
+      if (onClickDestroyButton) {
+        onClickDestroyButton(event, this.props, this.state);
       }
     };
 
@@ -69,7 +74,9 @@ export default class TaskListItem extends React.Component<any, any> {
         ) : null}
         <div className="task-list-item--content">
           <div className="task-list-item--content--text">
-            <LinkText>{task.text}</LinkText>
+            <LinkText>
+              {task.text}
+            </LinkText>
           </div>
         </div>
         <div

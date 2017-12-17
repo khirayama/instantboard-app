@@ -3,18 +3,20 @@ import Icon from '../icon';
 
 export default class SearchMemberListItem extends React.Component<any, any> {
   public render() {
-    const member = this.props.member;
+    const {member, onClick} = this.props;
 
     const handleClick = (event: any) => {
-      if (this.props.onClick) {
-        this.props.onClick(event, this.props, this.state);
+      if (onClick) {
+        onClick(event, this.props, this.state);
       }
     };
 
     return (
       <li onClick={handleClick}>
         <Icon type="profile"/>
-        <p>{member.name}</p>
+        <p>
+          {member.name}
+        </p>
       </li>
     );
   }

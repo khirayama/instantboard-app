@@ -3,14 +3,15 @@ import IconLink from '../icon-link';
 
 export default class NoTaskContent extends React.Component<any, any> {
   public render() {
-    const label = this.props.label;
+    const {label} = this.props;
 
     return (
       <div className="no-task-content">
         <IconLink
           to={`/tasks/new?label-id=${label.id}`}
           iconType="add"
-        >ADD TASK
+        >
+          {'ADD TASK'}
         </IconLink>
       </div>
     );

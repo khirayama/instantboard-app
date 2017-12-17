@@ -30,8 +30,9 @@ export default class TaskMobilePage extends Container<any, any> {
   constructor(props: any) {
     super(props);
 
+    const {params} = props;
     const initialState = {
-      taskId: (props.params.id) ? Number(props.params.id) : null,
+      taskId: (params.id) ? Number(params.id) : null,
       content: '',
       labelId: null,
       uiBlocking: false,
@@ -112,14 +113,24 @@ export default class TaskMobilePage extends Container<any, any> {
         <Indicator active={(ui.isLoadingTasks)}/>
         <form onSubmit={this.handleSubmit}>
           <header className="task-mobile-page--header">
-            <Link to="/"><Icon type="back"/></Link>
-            <button><Icon type="send"/></button>
+            <Link to="/">
+              <Icon type="back"/>
+            </Link>
+            <button type="submit">
+              <Icon type="send"/>
+            </button>
           </header>
           <div className="task-mobile-page--label-block">
-            <Link to="/labels"><Icon type="label"/></Link>
+            <Link to="/labels">
+              <Icon type="label"/>
+            </Link>
             {(this.state.labelId) ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
-                {labels.map((label: any) => <option key={label.id} value={label.id}>{label.name}</option>)}
+                {labels.map((label: any) => (
+                  <option key={label.id} value={label.id}>
+                    {label.name}
+                  </option>
+                ))}
               </select>
             ) : null}
           </div>

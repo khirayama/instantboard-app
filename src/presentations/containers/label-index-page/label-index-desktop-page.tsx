@@ -115,7 +115,8 @@ export default class LabelIndexDesktopPage extends Container<any, any> {
               to="/labels/new"
               iconType="add"
               className="label-index-desktop-page--add-button"
-            >ADD LABEL
+            >
+              {'ADD LABEL'}
             </IconLink>
           )}
           {backgroundElement}

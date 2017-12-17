@@ -5,17 +5,21 @@ import ListItem from '../list/list-item';
 
 export default class RequestListItem extends React.Component<any, any> {
   public render() {
-    const request = this.props.request;
+    const {
+      request,
+      onClickAcceptButton,
+      onClickRefuseButton,
+    } = this.props;
 
     const handleClickAcceptButton = (event: any) => {
-      if (this.props.onClickAcceptButton) {
-        this.props.onClickAcceptButton(event, this.props, this.state);
+      if (onClickAcceptButton) {
+        onClickAcceptButton(event, this.props, this.state);
       }
     };
 
     const handleClickRefuseButton = (event: any) => {
-      if (this.props.onClickRefuseButton) {
-        this.props.onClickRefuseButton(event, this.props, this.state);
+      if (onClickRefuseButton) {
+        onClickRefuseButton(event, this.props, this.state);
       }
     };
 
@@ -28,19 +32,26 @@ export default class RequestListItem extends React.Component<any, any> {
       <ListItem {...props}>
         <div className="request-list-item">
           <div className="request-list-item--information-container">
-            <div className="request-list-item--label-name">{request.label.name}</div>
-            <div className="request-list-item--description">From {request.member.name}</div>
+            <div className="request-list-item--label-name">
+              {request.label.name}
+            </div>
+            <div className="request-list-item--description">
+              {'From'}
+              {request.member.name}
+            </div>
           </div>
           <div className="request-list-item--button-container">
             <FlatButton
               className="request-list-item--accept-button"
               onClick={handleClickAcceptButton}
-            >ACCEPT
+            >
+              {'ACCEPT'}
             </FlatButton>
             <FlatButton
               className="request-list-item--refuse-button"
               onClick={handleClickRefuseButton}
-            ><Icon type="remove"/>
+            >
+              <Icon type="remove"/>
             </FlatButton>
           </div>
         </div>

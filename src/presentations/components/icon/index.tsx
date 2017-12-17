@@ -20,10 +20,9 @@ import * as React from 'react';
 
 export default class Icon extends React.Component<any, any> {
   public render() {
+    const {className, active, type} = this.props;
     let icon: any = null;
     const strokeWidth = 3;
-
-    const type = this.props.type;
 
     switch (type) {
       case 'check': {
@@ -159,8 +158,8 @@ export default class Icon extends React.Component<any, any> {
       <svg className={classNames(
         'icon',
         `icon__${type}`,
-        {[iconActiveClassName]: this.props.active},
-        this.props.className,
+        {[iconActiveClassName]: active},
+        className,
       )} viewBox="0 0 100 100">
         {icon}
       </svg>

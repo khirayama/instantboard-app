@@ -34,26 +34,28 @@ export default class List extends React.Component<any, any> {
   }
 
   public getChildContext() {
+    const {parentElement, onSort} = this.props;
     return {
       listElement: () => {
-        if (this.props.parentElement) {
-          return this.props.parentElement;
+        if (parentElement) {
+          return parentElement;
         }
         return this.listElement;
       },
-      onSort: this.props.onSort,
+      onSort,
     };
   }
 
   public render() {
+    const {children, className} = this.props;
     return (
       <section
         ref={this.setListElement}
-        className={classNames('list', this.props.className || '')}
+        className={classNames('list', className || '')}
       >
         <div className="list-content">
           <TransitionGroup component="ul">
-            {this.props.children}
+            {children}
           </TransitionGroup>
         </div>
       </section>

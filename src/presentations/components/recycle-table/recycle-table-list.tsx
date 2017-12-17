@@ -31,10 +31,11 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
   }
 
   public _adjustIndex() {
+    const {currentIndex, setCurrentIndex} = this.context;
     const el = this.recycleTableList;
     const listItems = el.querySelectorAll('.recycle-table-list-item');
-    if (listItems.length - 1 < this.context.currentIndex) {
-      this.context.setCurrentIndex(listItems.length - 1);
+    if (listItems.length - 1 < currentIndex) {
+      setCurrentIndex(listItems.length - 1);
     }
   }
 
@@ -63,6 +64,7 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
   }
 
   public render() {
+    const {children} = this.props;
     return (
       <section
         ref={this.setRecycleTableList}
@@ -70,7 +72,7 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
         style={{visibility: 'hidden'}}
       >
         <section className="recycle-table-list--inner">
-          {this.props.children}
+          {children}
         </section>
       </section>
     );

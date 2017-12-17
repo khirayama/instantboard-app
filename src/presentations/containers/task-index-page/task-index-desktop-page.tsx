@@ -160,7 +160,8 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
                 to={`/tasks/new?label-id=${label.id}`}
                 iconType="add"
                 className="task-list--add-button"
-              >ADD TASK
+              >
+                {'ADD TASK'}
               </IconLink>
             ) }
             {backgroundElement}
@@ -179,12 +180,16 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
                 <LayeredParentListItem
                   key={label.id}
                   index={index}
-                ><Icon type="label"/>{label.name}
+                >
+                  <Icon type="label"/>
+                  {label.name}
                 </LayeredParentListItem>
               );
             })}
           </LayeredParentList>
-          <LayeredChildList>{layeredListContents}</LayeredChildList>
+          <LayeredChildList>
+            {layeredListContents}
+          </LayeredChildList>
         </LayeredList>
       );
     }
@@ -201,7 +206,9 @@ export default class TaskIndexDesktopPage extends Container<IContainerProps, ISt
           index={0}
           badges={badges}
         />
-        <ApplicationContent>{contentElement}</ApplicationContent>
+        <ApplicationContent>
+          {contentElement}
+        </ApplicationContent>
       </section>
     );
   }

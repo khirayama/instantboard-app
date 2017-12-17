@@ -26,19 +26,19 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   public componentWillMount() {
     if (typeof window === 'object' && window.history && window.history.pushState) {
       window.addEventListener('popstate', () => {
+        const {router, tracker} = this.props;
         const path = window.location.pathname;
-        const {route} = this.props.router.matchRoute(path);
+        const {route} = router.matchRoute(path);
         window.document.title = route.title;
         this.setState({path});
-        this.props.tracker.send();
+        tracker.send();
       });
     }
   }
 
   public render() {
-    const props = this.props.props;
-    const router: IRouter = this.props.router;
-    const path: string = this.state.path;
+    const {props, router} = this.props;
+    const {path} = this.state;
 
     let pathname = path;
     if (pathname.indexOf('?') !== -1) {
@@ -54,6 +54,7 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
   }
 
   private _move(path: string): void {
+    const {router, tracker} = this.props;
     let pathname = path;
     let search = '';
     if (pathname.indexOf('?') !== -1) {
@@ -65,11 +66,11 @@ export default class Navigator extends React.Component<INavigatorProps, {path: s
       window.location.pathname !== pathname ||
       window.location.search.replace('?', '') !== search
     ) {
-      const {route} = this.props.router.matchRoute(pathname);
+      const {route} = router.matchRoute(pathname);
       window.document.title = route.title;
       window.history.pushState(null, route.title, path);
       this.setState({path});
-      this.props.tracker.send();
+      tracker.send();
     }
   }
 }

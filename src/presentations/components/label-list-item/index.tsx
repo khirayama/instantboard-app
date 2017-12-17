@@ -5,23 +5,28 @@ import ListItem from '../list/list-item';
 
 export default class LabelListItem extends React.Component<any, any> {
   public render() {
-    const label = this.props.label;
+    const {
+      label,
+      onClickVisibleButton,
+      onClickLabelListItem,
+      onClickDestroyButton,
+    } = this.props;
 
     const handleClickVisibleButton = (event: any) => {
-      if (this.props.onClickVisibleButton) {
-        this.props.onClickVisibleButton(event, this.props, this.state);
+      if (onClickVisibleButton) {
+        onClickVisibleButton(event, this.props, this.state);
       }
     };
 
     const handleClickLabelListItem = (event: any) => {
-      if (this.props.onClickLabelListItem) {
-        this.props.onClickLabelListItem(event, this.props, this.state);
+      if (onClickLabelListItem) {
+        onClickLabelListItem(event, this.props, this.state);
       }
     };
 
     const handleClickDestroyButton = (event: any) => {
-      if (this.props.onClickDestroyButton) {
-        this.props.onClickDestroyButton(event, this.props, this.state);
+      if (onClickDestroyButton) {
+        onClickDestroyButton(event, this.props, this.state);
       }
     };
 
@@ -46,7 +51,9 @@ export default class LabelListItem extends React.Component<any, any> {
           className="label-list-item--content"
           onClick={handleClickLabelListItem}
         >
-          <div className="label-list-item--content--text">{label.name}</div>
+          <div className="label-list-item--content--text">
+            {label.name}
+          </div>
         </div>
         <div
           className="label-list-item--destroy-button"

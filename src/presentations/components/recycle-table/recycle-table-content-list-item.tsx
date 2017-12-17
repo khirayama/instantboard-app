@@ -16,24 +16,33 @@ export default class RecycleTableContentListItem extends React.Component<IRecycl
   };
 
   public render() {
+    const {
+      currentIndex,
+      handleTouchStart,
+      handleTouchMove,
+      handleTouchEnd,
+    } = this.context;
+    const {index, children} = this.props;
     let isHidden = false;
     if (
-      this.props.index < this.context.currentIndex - 1 ||
-      this.context.currentIndex + 1 < this.props.index
+      index < currentIndex - 1 ||
+      currentIndex + 1 < index
     ) {
       isHidden = true;
     }
     return (
       <section
-        onTouchStart={this.context.handleTouchStart}
-        onTouchMove={this.context.handleTouchMove}
-        onTouchEnd={this.context.handleTouchEnd}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         className={classNames(
           'recycle-table-content-list-item',
           {'recycle-table-content-list-item__hidden': isHidden},
         )}
       >
-        <section className="recycle-table-content-list-item--inner">{this.props.children}</section>
+        <section className="recycle-table-content-list-item--inner">
+          {children}
+        </section>
       </section>
     );
   }

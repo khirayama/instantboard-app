@@ -20,13 +20,16 @@ export default class LayeredList extends React.Component<any, any> {
   }
 
   public getChildContext() {
+    const {currentIndex} = this.state;
+
     return {
-      currentIndex: this.state.currentIndex,
+      currentIndex,
       setCurrentIndex: this.setCurrentIndex,
     };
   }
 
   public render() {
+    const {children} = this.props;
     const props: any = Object.assign({}, this.props, {
       index: undefined,
     });
@@ -34,14 +37,18 @@ export default class LayeredList extends React.Component<any, any> {
     props.className = (props.className) ? props.className + ' ' + className : className;
 
     return (
-      <div {...props}>{this.props.children}</div>
+      <div {...props}>
+        {children}
+      </div>
     );
   }
 
   private _setCurrentIndex(index: number) {
+    const {onChange} = this.props;
+
     this.setState({currentIndex: index});
-    if (this.props.onChange) {
-      this.props.onChange(index);
+    if (onChange) {
+      onChange(index);
     }
   }
 }

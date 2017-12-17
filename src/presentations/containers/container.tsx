@@ -18,13 +18,13 @@ export default class Container<P extends IContainerProps, S extends IState> exte
   }
 
   public componentWillMount() {
-    const store = this.props.store;
+    const {store} = this.props;
 
     store.addChangeListener(this.handleStateUpdate);
   }
 
   public componentWillUnmount() {
-    const store = this.props.store;
+    const {store} = this.props;
 
     store.removeChangeListener(this.handleStateUpdate);
   }

@@ -36,9 +36,10 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
   constructor(props: any) {
     super(props);
 
+    const {profile} = props;
     const initialState = {
       isEditing: false,
-      name: (props.profile) ? props.profile.name : '',
+      name: (profile) ? profile.name : '',
     };
 
     this.state = Object.assign({}, this.state, initialState);
@@ -50,8 +51,8 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
       getUser: () => {
         return getUser(this.dispatch);
       },
-      updateUser: profile => {
-        return updateUser(this.dispatch, profile);
+      updateUser: newProfile => {
+        return updateUser(this.dispatch, newProfile);
       },
       deleteUser: () => {
         return deleteUser(this.dispatch);
@@ -79,14 +80,15 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
 
   public componentDidUpdate(prevProps, prevState) {
     this.onUpdate(() => {
+      const {profile, name} = this.state;
       if (
         !prevState.profile &&
-        this.state.profile &&
-        this.state.profile.name &&
-        this.state.profile.name !== this.state.name
+        profile &&
+        profile.name &&
+        profile.name !== name
       ) {
         this.setState({
-          name: this.state.profile.name,
+          name: profile.name,
         });
       }
     });
@@ -125,13 +127,15 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
           <div className="profile-desktop-page--logout-button">
             <FlatButton
               onClick={this.handleClickLogoutButton}
-            >LOG OUT
+            >
+              {'LOG OUT'}
             </FlatButton>
           </div>
           <div className="profile-desktop-page--delete-account-button">
             <FlatButton
               onClick={this.handleClickDeleteAccountButton}
-            >DELETE ACCOUNT
+            >
+              {'DELETE ACCOUNT'}
             </FlatButton>
           </div>
         </ApplicationContent>

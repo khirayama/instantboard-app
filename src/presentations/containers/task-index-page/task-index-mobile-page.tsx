@@ -161,7 +161,8 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
                 to={`/tasks/new?label-id=${label.id}`}
                 iconType="add"
                 className="task-list--add-button"
-              >ADD TASK
+              >
+                {'ADD TASK'}
               </IconLink>
             ) }
             {backgroundElement}
@@ -176,10 +177,16 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
         >
           <RecycleTableList>
             {labels.map((label: ILabel, index: number) => {
-              return <RecycleTableListItem key={label.id} index={index}>{label.name}</RecycleTableListItem>;
+              return (
+                <RecycleTableListItem key={label.id} index={index}>
+                  {label.name}
+                </RecycleTableListItem>
+              );
             })}
           </RecycleTableList>
-          <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
+          <RecycleTableContentList>
+            {recycleTableContents}
+          </RecycleTableContentList>
         </RecycleTable>
       );
     }
@@ -192,7 +199,9 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
           (ui.isLoadingLabels && labels.length !== 0) ||
           (ui.isLoadingTasks && tasks.length !== 0)
         )}/>
-        <TabNavigationContent>{contentElement}</TabNavigationContent>
+        <TabNavigationContent>
+          {contentElement}
+        </TabNavigationContent>
         <TabNavigation
           index={0}
           badges={badges}

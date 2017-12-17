@@ -15,13 +15,14 @@ export default class Link extends React.Component<ILinkProps, any> {
   }
 
   public render() {
+    const {children, className, to} = this.props;
     return (
       <a
-        href={this.props.to}
-        className={this.props.className}
+        href={to}
+        className={className}
         onClick={this.handleClick}
       >
-        {this.props.children}
+        {children}
       </a>
     );
   }
@@ -30,7 +31,8 @@ export default class Link extends React.Component<ILinkProps, any> {
     event.preventDefault();
     event.stopPropagation();
 
-    const path = this.props.to;
-    this.context.move(path);
+    const {move} = this.context;
+    const {to} = this.props;
+    move(to);
   }
 }

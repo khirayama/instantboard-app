@@ -111,7 +111,8 @@ export default class LabelIndexMobilePage extends Container<any, any> {
               to="/labels/new"
               iconType="add"
               className="label-index-mobile-page--add-button"
-            >ADD LABEL
+            >
+              {'ADD LABEL'}
             </IconLink>
           )}
           {backgroundElement}

@@ -33,20 +33,26 @@ export default class LoginMobilePage extends Container<any, any> {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
-          <h1 className="login-mobile-page--content--heading">Instantboard</h1>
-          <p className="login-mobile-page--content--description">Sign up to manage and share your tasks.</p>
+          <h1 className="login-mobile-page--content--heading">
+            {'Instantboard'}
+          </h1>
+          <p className="login-mobile-page--content--description">
+            {'Sign up to manage and share your tasks.'}
+          </p>
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"
             onClick={this.handleClickLoginButton}
             href={`${API_SERVER_HOST}/auth/facebook`}
-          >LOG IN WITH FACEBOOK
+          >
+            {'LOG IN WITH FACEBOOK'}
           </FlatButton>
           {(process.env.NODE_ENV === 'production') ? null : (
             <FlatButton
               className="login-mobile-page--flat-button"
               onClick={this.handleClickLoginButton}
               href={`${API_SERVER_HOST}/auth/tester`}
-            >LOG IN AS TESTER
+            >
+              {'LOG IN AS TESTER'}
             </FlatButton>
           )}
         </section>

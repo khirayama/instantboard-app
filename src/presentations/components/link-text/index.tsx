@@ -11,7 +11,7 @@ export default class LinkText extends React.Component<any, any> {
 
   public render() {
     const pattern = /((?:https?:|ftp:|)\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gim;
-    const children: any = this.props.children;
+    const {children}: {children?: any} = this.props;
     const texts = children.split(pattern).filter((text: string) => Boolean(text.trim()));
 
     const textElements = texts.map((text: string) => {
@@ -32,7 +32,11 @@ export default class LinkText extends React.Component<any, any> {
       return text;
     });
 
-    return <span>{textElements}</span>;
+    return (
+      <span>
+        {textElements}
+      </span>
+    );
   }
 
   private _handleClick(event: any) {

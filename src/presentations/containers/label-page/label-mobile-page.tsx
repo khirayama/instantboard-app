@@ -44,8 +44,9 @@ export default class LabelMobilePage extends Container<any, any> {
   constructor(props: any) {
     super(props);
 
+    const {params} = props;
     const initialState = {
-      labelId: (props.params.id) ? Number(props.params.id) : null,
+      labelId: (params.id) ? Number(params.id) : null,
       labelName: '',
       memberName: '',
       memberNameErrorMessage: '',
@@ -122,8 +123,15 @@ export default class LabelMobilePage extends Container<any, any> {
         {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
         <Indicator active={(ui.isLoadingLabels)}/>
         <header className="label-mobile-page--header">
-          <Link to="/labels"><Icon type="back"/></Link>
-          <button onClick={this.handleSubmitLabelForm}><Icon type="send"/></button>
+          <Link to="/labels">
+            <Icon type="back"/>
+          </Link>
+          <button
+            type="submit"
+            onClick={this.handleSubmitLabelForm}
+          >
+            <Icon type="send"/>
+          </button>
         </header>
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <div className="label-mobile-page--member-block">
@@ -138,17 +146,24 @@ export default class LabelMobilePage extends Container<any, any> {
             {(this.state.isMemberListShown) ? (
               <div className="label-mobile-page--member-block--content">
                 {(this.state.memberNameErrorMessage) ? (
-                  <span className="label-mobile-page--member-block--error">{this.state.memberNameErrorMessage}</span>
+                  <span className="label-mobile-page--member-block--error">
+                    {this.state.memberNameErrorMessage}
+                  </span>
                 ) : null}
-                <h2 className="label-mobile-page--member-block--header">Members
-                  <span onClick={this.handleMemberListCloseButtonClick}><Icon type="close"/></span>
+                <h2 className="label-mobile-page--member-block--header">
+                  {'Members'}
+                  <span onClick={this.handleMemberListCloseButtonClick}>
+                    <Icon type="close"/>
+                  </span>
                 </h2>
                 {(filteredMembers.length === 0) ? (
                   <div
                     className="label-mobile-page--member-block--content--no-result"
                     onClick={this.handleSubmitMemberNameForm}
                   >
-                    Add {this.state.memberName} as new member.
+                    {'Add '}
+                    {this.state.memberName}
+                    {' as new member.'}
                   </div>
                 ) : (
                   <ul className="member-block--list">
@@ -172,7 +187,9 @@ export default class LabelMobilePage extends Container<any, any> {
             return (request.member.name !== profile.name);
           }).map((request: IRequest) => {
             return (
-              <li key={request.id || request.member.id}>{request.member.name}</li>
+              <li key={request.id || request.member.id}>
+                {request.member.name}
+              </li>
             );
           })}
         </ul>
@@ -225,16 +242,17 @@ export default class LabelMobilePage extends Container<any, any> {
   }
 
   private _handleSearchMemberListItemClick(event: any, props: any) {
+    const {member} = props;
     const labelRequests = this.state.labelRequests.concat();
     let isIncluded = false;
     labelRequests.forEach((labelRequest: any) => {
-      if (labelRequest.member.name === props.member.name) {
+      if (labelRequest.member.name === member.name) {
         isIncluded = true;
       }
     });
     if (!isIncluded) {
       labelRequests.push({
-        member: props.member,
+        member,
       });
       this.setState({
         memberName: '',

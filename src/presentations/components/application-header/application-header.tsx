@@ -5,8 +5,8 @@ import Icon from '../icon';
 
 export default class ApplicationHeader extends React.Component<any, any> {
   public render() {
-    const currentIndex = this.props.index || 0;
-    const badges = this.props.badges || [];
+    const {index, badges} = this.props;
+    const currentIndex = index || 0;
 
     return (
       <div className="application-header">

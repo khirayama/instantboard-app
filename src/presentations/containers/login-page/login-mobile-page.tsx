@@ -21,11 +21,19 @@ export default class LoginMobilePage extends Container<any, any> {
   }
 
   public componentWillMount() {
-    if (typeof window === 'object' && window.opener) {
+    if (typeof window === 'object') {
       const query = queryString.parse(window.location.search);
       const token = query.token;
-      tokenManager.set(token);
-      window.close();
+
+      if (token) {
+        tokenManager.set(token);
+
+        if (window.opener) {
+          window.close();
+        } else {
+          this.context.move('/');
+        }
+      }
     }
   }
 

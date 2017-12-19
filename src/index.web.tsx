@@ -10,15 +10,15 @@ import queryString from './utils/query-string';
 import tokenManager from './utils/token-manager';
 import Tracker from './utils/tracker';
 
-const store: IStore = new Store(initialState, reducers);
-const router = new Router(routes);
-const tracker = new Tracker(router);
+const store: Store = new Store(initialState, reducers);
+const router: Router = new Router(routes);
+const tracker: Tracker = new Tracker(router);
 
 tracker.send();
 
 // Redirect
 if (window.location.pathname !== '/login') {
-  const token = tokenManager.get();
+  const token: string|null = tokenManager.get();
   if (!token) {
     window.location.href = '/login';
   }
@@ -33,25 +33,28 @@ window.addEventListener('DOMContentLoaded', () => {
     /* eslint-enable capitalized-comments */
   }
 
-  const applicationMainElement: any = window.document.querySelector('.application--main');
-  const path = window.location.pathname;
-  ReactDOM.render((
-    <Navigator
-      props={{store}}
-      router={router}
-      tracker={tracker}
-      path={path}
-    />
-  ), applicationMainElement);
+  const applicationMainElement: HTMLElement|null = window.document.querySelector('.application--main');
+  if (applicationMainElement !== null) {
+    const path: string = window.location.pathname;
+    ReactDOM.render((
+      <Navigator
+        props={{store}}
+        router={router}
+        tracker={tracker}
+        path={path}
+      />
+    ), applicationMainElement);
+  }
 
-  const applicationLoadingElement: any = window.document.querySelector('.application--loader');
-  if (applicationLoadingElement !== null) {
+  const applicationLoadingElement: HTMLElement|null = window.document.querySelector('.application--loader');
+  if (applicationLoadingElement !== null && applicationLoadingElement.parentNode) {
     applicationLoadingElement.parentNode.removeChild(applicationLoadingElement);
   }
 
   if (process && process.env.NODE_ENV !== 'production') {
-    const query = queryString.parse(location.search);
-    if (query.metrics) {
+    const query: any = queryString.parse(location.search);
+
+    if (query.metrics && applicationMainElement !== null) {
       applicationMainElement.insertAdjacentHTML(
         'beforeend',
         `

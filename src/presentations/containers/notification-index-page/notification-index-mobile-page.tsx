@@ -16,26 +16,28 @@ import TabNavigation from '../../components/tab-navigation/tab-navigation';
 import TabNavigationContent from '../../components/tab-navigation/tab-navigation-content';
 import Container from '../container';
 
-export default class NotificationIndexMobilePage extends Container<any, any> {
-  public static contextTypes = {
+export default class NotificationIndexMobilePage extends Container<{}, {}> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
-  private handleClickAcceptButton: any;
+  private handleClickAcceptButton: (event: React.MouseEvent<HTMLDivElement>) => void;
 
-  private handleClickRefuseButton: any;
+  private handleClickRefuseButton: (event: React.MouseEvent<HTMLDivElement>) => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
+    this.state = this.getState();
+
     this.actions = {
-      pollRequest: () => {
+      pollRequest: (): Promise<{}> => {
         return pollRequest(this.dispatch, {status: 'pending'});
       },
-      fetchRequest: () => {
+      fetchRequest: (): Promise<{}> => {
         return fetchRequest(this.dispatch, {status: 'pending'});
       },
-      updateRequest: (request: IRequestRequest) => {
+      updateRequest: (request: IRequestRequest): Promise<{}> => {
         return updateRequest(this.dispatch, request);
       },
     };
@@ -56,16 +58,16 @@ export default class NotificationIndexMobilePage extends Container<any, any> {
   }
 
   public render() {
-    const ui = this.state.ui;
-    const requests = this.state.requests;
-    const badges = (requests.length) ? [2] : [];
+    const ui: IUI = this.state.ui;
+    const requests: IRequest[] = this.state.requests;
+    const badges: number[] = (requests.length) ? [2] : [];
 
     return (
       <section className="page notification-index-mobile-page">
         <Indicator active={(ui.isLoadingRequests && requests.length !== 0)}/>
         <TabNavigationContent>
           <List className="request-list">
-            {requests.map((request: IRequest) => {
+            {requests.map((request: IRequest): React.ReactNode => {
               return (
                 <RequestListItem
                   key={request.id}
@@ -86,14 +88,14 @@ export default class NotificationIndexMobilePage extends Container<any, any> {
     );
   }
 
-  private _handleClickAcceptButton(event: any, requestListItemProps: any) {
+  private _handleClickAcceptButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'accepted',
     });
   }
 
-  private _handleClickRefuseButton(event: any, requestListItemProps: any) {
+  private _handleClickRefuseButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'refused',

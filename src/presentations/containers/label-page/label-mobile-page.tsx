@@ -20,8 +20,18 @@ import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
-export default class LabelMobilePage extends Container<any, any> {
-  public static contextTypes = {
+interface ILableMobilePageState {
+  labelId: number|null;
+  labelName: string;
+  memberName: string;
+  memberNameErrorMessage: string;
+  labelRequests: any[];
+  isMemberListShown: boolean;
+  uiBlocking: boolean;
+}
+
+export default class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
@@ -41,11 +51,11 @@ export default class LabelMobilePage extends Container<any, any> {
 
   private handleMemberListCloseButtonClick: any;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
-    const {params} = props;
-    const initialState = {
+    const {params}: {params: {id: string}} = props;
+    const initialState: ILableMobilePageState = {
       labelId: (params.id) ? Number(params.id) : null,
       labelName: '',
       memberName: '',
@@ -55,7 +65,7 @@ export default class LabelMobilePage extends Container<any, any> {
       uiBlocking: false,
     };
 
-    this.state = Object.assign({}, this.state, initialState);
+    this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
       fetchMember: () => {
@@ -113,7 +123,7 @@ export default class LabelMobilePage extends Container<any, any> {
   }
 
   public render() {
-    const profile = this.state.profile || {};
+    const profile = this.state.profile;
     const ui = this.state.ui;
 
     const filteredMembers = this.state.members.filter(member => (member.name.indexOf(this.state.memberName) !== -1));
@@ -184,7 +194,7 @@ export default class LabelMobilePage extends Container<any, any> {
         </form>
         <ul className="label-mobile-page--member-list">
           {this.state.labelRequests.filter(request => {
-            return (request.member.name !== profile.name);
+            return profile !== null && (request.member.name !== profile.name);
           }).map((request: IRequest) => {
             return (
               <li key={request.id || request.member.id}>
@@ -279,7 +289,7 @@ export default class LabelMobilePage extends Container<any, any> {
         });
         if (!isIncluded) {
           labelRequests.push({
-            member: memberName,
+            member: {id: 0, name: memberName},
           });
           this.setState({
             memberName: '',

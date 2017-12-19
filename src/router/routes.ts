@@ -10,7 +10,7 @@ import TaskIndexDesktopPage from '../presentations/containers/task-index-page/ta
 import TaskIndexMobilePage from '../presentations/containers/task-index-page/task-index-mobile-page';
 import TaskMobilePage from '../presentations/containers/task-page/task-mobile-page';
 
-function isMobileUI() {
+function isMobileUI(): boolean {
   return window.innerWidth < 568;
 }
 
@@ -69,4 +69,5 @@ const routes: IRoute[] = [{
     return (isMobileUI()) ? ProfileMobilePage : ProfileDesktopPage;
   },
 }];
+
 export default routes;

@@ -30,50 +30,54 @@ import TaskList from '../../components/task-list';
 import TaskListItem from '../../components/task-list-item';
 import Container from '../container';
 
-export default class TaskIndexMobilePage extends Container<IContainerProps, IState> {
-  public static contextTypes = {
+interface ITaskIndexMobilePageState {
+  index: number;
+}
+
+export default class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMobilePageState & IState> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
-  private handleChangeIndex: any;
+  private handleChangeIndex: (index: number) => void;
 
-  private handleSortTaskList: any;
+  private handleSortTaskList: (from: number, to: number, taskListProps: any) => void;
 
-  private handleClickCompleteButton: any;
+  private handleClickCompleteButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
-  private handleClickTaskListItem: any;
+  private handleClickTaskListItem: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
-  private handleClickDestroyButton: any;
+  private handleClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
-    const initialState = {
+    const initialState: ITaskIndexMobilePageState = {
       index: this.loadIndex(),
     };
 
-    this.state = Object.assign({}, this.state, initialState);
+    this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
-      pollTask: () => {
+      pollTask: (): Promise<{}> => {
         return pollTask(this.dispatch);
       },
-      pollRequest: () => {
+      pollRequest: (): Promise<{}> => {
         return pollRequest(this.dispatch, {status: 'pending'});
       },
-      fetchLabel: () => {
+      fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
       },
-      fetchTask: () => {
+      fetchTask: (): Promise<{}> => {
         return fetchTask(this.dispatch);
       },
-      updateTask: task => {
+      updateTask: (task: ITask): Promise<{}> => {
         return updateTask(this.dispatch, task);
       },
-      destroyTask: task => {
+      destroyTask: (task: ITask): Promise<{}> => {
         return destroyTask(this.dispatch, task);
       },
-      sortTask: (task: ITask, to: number) => {
+      sortTask: (task: ITask, to: number): Promise<{}> => {
         return sortTask(this.dispatch, task, to);
       },
     };
@@ -107,12 +111,12 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
   }
 
   public render() {
-    const ui = this.state.ui;
-    const labels = this.state.labels.filter((label: ILabel) => label.visibled);
-    const tasks = this.state.tasks;
-    const requests = this.state.requests;
+    const ui: IUI = this.state.ui;
+    const labels: ILabel[] = this.state.labels.filter((label: ILabel) => label.visibled);
+    const tasks: ITask[] = this.state.tasks;
+    const requests: IRequest[] = this.state.requests;
 
-    let contentElement: any = null;
+    let contentElement: React.ReactNode|null = null;
 
     // Loading label - Show loading content
     //   No labels - Show no labels content
@@ -125,16 +129,16 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = <NoLabelContent/>;
     } else if (labels.length !== 0) {
-      const recycleTableContents = labels.map((label: ILabel, index: number) => {
-        const groupedTasks = tasks.filter((task: ITask) => (task.labelId === label.id));
+      const recycleTableContents: React.ReactNode = labels.map((label: ILabel, index: number) => {
+        const groupedTasks: ITask[] = tasks.filter((task: ITask) => (task.labelId === label.id));
 
-        let backgroundElement: any = null;
+        let backgroundElement: React.ReactNode|null = null;
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
           backgroundElement = <LoadingContent/>;
         } else if (groupedTasks.length === 0) {
           backgroundElement = <NoTaskContent label={label}/>;
         }
-        const parentElement: any = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
+        const parentElement: Element = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
         return (
           <RecycleTableContentListItem key={label.id} index={index}>
@@ -144,7 +148,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
               tasks={groupedTasks}
               onSort={this.handleSortTaskList}
             >
-              {groupedTasks.map((task: any) => {
+              {groupedTasks.map((task: ITask): React.ReactNode => {
                 return (
                   <TaskListItem
                     key={task.id}
@@ -176,7 +180,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
           onChange={this.handleChangeIndex}
         >
           <RecycleTableList>
-            {labels.map((label: ILabel, index: number) => {
+            {labels.map((label: ILabel, index: number): React.ReactNode => {
               return (
                 <RecycleTableListItem key={label.id} index={index}>
                   {label.name}
@@ -191,7 +195,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
       );
     }
 
-    const badges = (requests.length) ? [2] : [];
+    const badges: number[] = (requests.length) ? [2] : [];
 
     return (
       <section className="page task-index-mobile-page">
@@ -229,14 +233,14 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
   }
 
   private _handleSortTaskList(from: number, to: number, taskListProps: any): void {
-    const task = taskListProps.tasks[from];
+    const task: ITask = taskListProps.tasks[from];
 
     if (task.priority !== to) {
       this.actions.sortTask(task, to);
     }
   }
 
-  private _handleClickCompleteButton(event: any, taskListItemProps: any): void {
+  private _handleClickCompleteButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.updateTask({
@@ -245,11 +249,11 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ISta
     });
   }
 
-  private _handleClickTaskListItem(event: any, taskListItemProps: any): void {
+  private _handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
   }
 
-  private _handleClickDestroyButton(event: any, taskListItemProps: any): void {
+  private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
     this.actions.destroyTask(taskListItemProps.task);
   }

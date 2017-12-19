@@ -3,7 +3,7 @@ import actionTypes from '../constants/action-types';
 
 export default function (state: IState, action: IAction): IState {
   const newState: IState = JSON.parse(JSON.stringify(state));
-  const payload = action.payload;
+  const payload: any = action.payload;
 
   switch (action.type) {
     // LABEL
@@ -73,9 +73,9 @@ export default function (state: IState, action: IAction): IState {
     case (actionTypes.SORT_LABEL): {
       // Uncomfortable to immediate update UI.
       newState.labels = (() => {
-        let labels = state.labels;
-        const newLabel = payload.label;
-        const priority = payload.priority;
+        let labels: ILabel[] = state.labels;
+        const newLabel: ILabel = payload.label;
+        const priority: number = payload.priority;
 
         if (newLabel.priority > priority) {
           labels = labels.map(label => {
@@ -192,9 +192,9 @@ export default function (state: IState, action: IAction): IState {
     case (actionTypes.SORT_TASK): {
       // Uncomfortable to immediate update UI.
       newState.tasks = (() => {
-        let tasks = state.tasks;
-        const newTask = payload.task;
-        const priority = payload.priority;
+        let tasks: ITask[] = state.tasks;
+        const newTask: ITask = payload.task;
+        const priority: number = payload.priority;
 
         if (newTask.priority > priority) {
           tasks = tasks.map(task => {

@@ -14,43 +14,50 @@ import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import Container from '../container';
 
-export default class TaskMobilePage extends Container<any, any> {
-  public static contextTypes = {
+interface ITaskMobilePageState {
+  taskId: number|null;
+  content: string;
+  labelId: number|null;
+  uiBlocking: boolean;
+}
+
+export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
-  private handleChangeLabelIdSelect: any;
+  private handleChangeLabelIdSelect: (event: React.FormEvent<HTMLSelectElement>) => void;
 
-  private handleChangeContentInput: any;
+  private handleChangeContentInput: (event: React.FormEvent<HTMLInputElement>) => void;
 
-  private handleKeyDownContentInput: any;
+  private handleKeyDownContentInput: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 
-  private handleSubmit: any;
+  private handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
-    const {params} = props;
-    const initialState = {
+    const {params}: {params: {id: string}} = props;
+    const initialState: ITaskMobilePageState = {
       taskId: (params.id) ? Number(params.id) : null,
       content: '',
       labelId: null,
       uiBlocking: false,
     };
 
-    this.state = Object.assign({}, this.state, initialState);
+    this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
-      fetchLabel: () => {
+      fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
       },
-      fetchTask: () => {
+      fetchTask: (): Promise<{}> => {
         return fetchTask(this.dispatch);
       },
-      createTask: (task: ITaskRequest) => {
+      createTask: (task: ITaskRequest): Promise<{}> => {
         return createTask(this.dispatch, task);
       },
-      updateTask: (task: ITaskRequest) => {
+      updateTask: (task: ITaskRequest): Promise<{}> => {
         return updateTask(this.dispatch, task);
       },
     };
@@ -61,28 +68,28 @@ export default class TaskMobilePage extends Container<any, any> {
     this.handleSubmit = this._handleSubmit.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.fetchLabel();
     this.actions.fetchTask();
   }
 
-  public componentDidUpdate(prevProps, prevState) {
-    this.onUpdate(() => {
-      const ui = this.state.ui;
-      const prevUi = prevState.ui;
-      const tasks = this.state.tasks;
-      const labels = this.state.labels;
+  public componentDidUpdate(prevProps, prevState): void {
+    this.onUpdate((): void => {
+      const prevUi: IUI = prevState.ui;
+      const ui: IUI = this.state.ui;
+      const tasks: ITask[] = this.state.tasks;
+      const labels: ILabel[] = this.state.labels;
 
       let selectedLabelId: number|null = null;
       if (typeof window === 'object') {
-        const query = queryString.parse(window.location.search);
+        const query: {} = queryString.parse(window.location.search);
         if (query['label-id']) {
           selectedLabelId = Number(query['label-id']);
         }
       }
 
       if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0) {
-        let labelId = labels[0].id;
+        let labelId: number = labels[0].id;
         for (const label of labels) {
           if (label.id === selectedLabelId) {
             labelId = label.id;
@@ -104,8 +111,8 @@ export default class TaskMobilePage extends Container<any, any> {
   }
 
   public render() {
-    const ui = this.state.ui;
-    const labels = this.state.labels;
+    const ui: IUI = this.state.ui;
+    const labels: ILabel[] = this.state.labels;
 
     return (
       <section className="page task-mobile-page">
@@ -126,7 +133,7 @@ export default class TaskMobilePage extends Container<any, any> {
             </Link>
             {(this.state.labelId) ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
-                {labels.map((label: any) => (
+                {labels.map((label: ILabel): React.ReactNode => (
                   <option key={label.id} value={label.id}>
                     {label.name}
                   </option>
@@ -150,20 +157,20 @@ export default class TaskMobilePage extends Container<any, any> {
     );
   }
 
-  private onUpdate(callback) {
+  private onUpdate(callback: () => void): void {
     callback();
   }
 
-  private _handleChangeLabelIdSelect(event: any) {
-    this.setState({labelId: event.currentTarget.value});
+  private _handleChangeLabelIdSelect(event: React.FormEvent<HTMLSelectElement>): void {
+    this.setState({labelId: Number(event.currentTarget.value)});
   }
 
-  private _handleChangeContentInput(event: any) {
+  private _handleChangeContentInput(event: React.FormEvent<HTMLInputElement>): void {
     this.setState({content: event.currentTarget.value});
   }
 
-  private _handleKeyDownContentInput(event: any) {
-    const ENTER_KEY_CODE = 13;
+  private _handleKeyDownContentInput(event: React.KeyboardEvent<HTMLInputElement>): void {
+    const ENTER_KEY_CODE: number = 13;
 
     if (event.keyCode === ENTER_KEY_CODE) {
       event.preventDefault();
@@ -171,19 +178,19 @@ export default class TaskMobilePage extends Container<any, any> {
     }
   }
 
-  private _handleSubmit(event: any) {
+  private _handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     this.submitTask();
   }
 
-  private submitTask() {
-    const content = this.state.content.trim();
-    const id = this.props.params.id;
+  private submitTask(): void {
+    const content: string = this.state.content.trim();
+    const id: number|null = (this.props.params.id === undefined) ? null : Number(this.props.params.id);
 
     if (content && !this.state.uiBlocking) {
       this.setState({uiBlocking: true});
 
-      if (id === undefined || id === null) {
+      if (id === null) {
         this.actions.createTask({
           content,
           labelId: this.state.labelId,

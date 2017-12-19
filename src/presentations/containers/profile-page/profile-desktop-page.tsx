@@ -16,45 +16,52 @@ import FlatButton from '../../components/flat-button';
 import Icon from '../../components/icon';
 import Container from '../container';
 
-export default class ProfileDesktopPage extends Container<IContainerProps, IState> {
-  public static contextTypes = {
+interface IProfileDesktopPageState {
+  isEditing: boolean;
+  name: string;
+}
+
+export default class ProfileDesktopPage extends Container<{}, IProfileDesktopPageState> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
-  private handleClickLogoutButton: any;
+  private handleClickLogoutButton: () => void;
 
-  private handleChangeNameInput: any;
+  private handleChangeNameInput: (event: React.FormEvent<HTMLInputElement>) => void;
 
-  private handleBlurNameInput: any;
+  private handleBlurNameInput: () => void;
 
-  private handleKeyDownNameInput: any;
+  private handleKeyDownNameInput: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 
-  private handleClickEditButton: any;
+  private handleClickEditButton: () => void;
 
-  private handleClickDeleteAccountButton: any;
+  private handleClickDeleteAccountButton: () => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
-    const {profile} = props;
-    const initialState = {
+    const state: IState = this.getState();
+
+    const {profile}: {profile: IUser|null} = state;
+    const initialState: IProfileDesktopPageState = {
       isEditing: false,
       name: (profile) ? profile.name : '',
     };
 
-    this.state = Object.assign({}, this.state, initialState);
+    this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
-      pollRequest: () => {
+      pollRequest: (): Promise<{}> => {
         return pollRequest(this.dispatch, {status: 'pending'});
       },
-      getUser: () => {
+      getUser: (): Promise<{}> => {
         return getUser(this.dispatch);
       },
-      updateUser: newProfile => {
+      updateUser: (newProfile: IUser): Promise<{}> => {
         return updateUser(this.dispatch, newProfile);
       },
-      deleteUser: () => {
+      deleteUser: (): Promise<{}> => {
         return deleteUser(this.dispatch);
       },
     };
@@ -78,9 +85,9 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
     super.componentWillUnmount();
   }
 
-  public componentDidUpdate(prevProps, prevState) {
+  public componentDidUpdate(prevProps: IContainerProps, prevState: IProfileDesktopPageState & IState) {
     this.onUpdate(() => {
-      const {profile, name} = this.state;
+      const {profile, name}: {profile: IUser|null, name: string} = this.state;
       if (
         !prevState.profile &&
         profile &&
@@ -95,8 +102,8 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
   }
 
   public render() {
-    const profile = this.state.profile || {};
-    const badges = (this.state.requests.length) ? [2] : [];
+    const profile: IUser|null = this.state.profile;
+    const badges: number[] = (this.state.requests.length) ? [2] : [];
 
     return (
       <section className="page profile-desktop-page">
@@ -120,7 +127,7 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
               </form>
             ) : (
               <p onClick={this.handleClickEditButton}>
-                {profile.name}
+                {(profile === null) ? null : profile.name}
               </p>
             )}
           </div>
@@ -143,30 +150,29 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
     );
   }
 
-  private onUpdate(callback) {
+  private onUpdate(callback: () => void) {
     callback();
   }
 
-  private _handleClickLogoutButton() {
+  private _handleClickLogoutButton(): void {
     tokenManager.set('');
     this.context.move('/login');
   }
 
-  private _handleChangeNameInput(event: any) {
+  private _handleChangeNameInput(event: React.FormEvent<HTMLInputElement>) {
     this.setState({name: event.currentTarget.value});
   }
 
-  private _handleBlurNameInput() {
+  private _handleBlurNameInput(): void {
     this.actions.updateUser({
       name: this.state.name.trim(),
     });
     this.setState({isEditing: false});
   }
 
-  private _handleKeyDownNameInput(event: any) {
-    const ENTER_KEY = 13;
-
-    const keyCode = event.keyCode;
+  private _handleKeyDownNameInput(event: React.KeyboardEvent<HTMLInputElement>): void {
+    const ENTER_KEY: number = 13;
+    const keyCode: number = event.keyCode;
 
     if (keyCode === ENTER_KEY) {
       this.actions.updateUser({
@@ -176,12 +182,12 @@ export default class ProfileDesktopPage extends Container<IContainerProps, IStat
     }
   }
 
-  private _handleClickEditButton() {
+  private _handleClickEditButton(): void {
     this.setState({isEditing: true});
   }
 
-  private _handleClickDeleteAccountButton() {
-    const isDelete = window.confirm('Delete account!?'); // eslint-disable-line
+  private _handleClickDeleteAccountButton(): void {
+    const isDelete: boolean = window.confirm('Delete account!?'); // eslint-disable-line
     if (isDelete) {
       this.actions.deleteUser().then(() => {
         tokenManager.set('');

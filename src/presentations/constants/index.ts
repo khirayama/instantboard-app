@@ -1,8 +1,8 @@
-export const TRANSITION_TIME = 175;
-export const THRESHOLD_DELTA = 0.8;
-export const THRESHOLD_HOLD_TIME = 500;
-export const THRESHOLD_SCROLL_HEIGHT = 60;
-export const THRESHOLD_DELTAX = 0.6;
+export const TRANSITION_TIME: number = 175;
+export const THRESHOLD_DELTA: number = 0.8;
+export const THRESHOLD_HOLD_TIME: number = 500;
+export const THRESHOLD_SCROLL_HEIGHT: number = 60;
+export const THRESHOLD_DELTAX: number = 0.6;
 
 export const transitionProperties = {
   NONE: 'none',

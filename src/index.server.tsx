@@ -6,18 +6,18 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
 import Spinner from './presentations/components/spinner';
 
-const app = fastify();
+const app: any = fastify();
 
-const APP_SERVER_PORT = Number(process.env.PORT || '3000');
+const APP_SERVER_PORT: number = Number(process.env.PORT || '3000');
 
-function minifyHTML(htmlString) {
-  const parts = htmlString.split('\n');
-  const minifiedParts = parts.map(part => part.trim());
+function minifyHTML(htmlString: string): string {
+  const parts: string[] = htmlString.split('\n');
+  const minifiedParts: string[] = parts.map(part => part.trim());
   return minifiedParts.join('');
 }
 
-function template() {
-  const htmlString = `
+function template(): string {
+  const htmlString: string = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +64,7 @@ function template() {
   return minifyHTML(htmlString);
 }
 
-const html = template();
+const html: string = template();
 
 app.use(compression({
   threshold: 0,
@@ -73,7 +73,7 @@ app.use(compression({
 }));
 
 app.use(serveStatic(path.join(__dirname, 'public')));
-app.get('*', (req, res) => {
+app.get('*', (req, res): void => {
   res.type('text/html').send(html);
 });
 

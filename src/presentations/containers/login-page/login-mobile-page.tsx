@@ -7,14 +7,14 @@ import Container from '../container';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-export default class LoginMobilePage extends Container<any, any> {
-  public static contextTypes = {
+export default class LoginMobilePage extends Container<{}, {}> {
+  public static contextTypes: {move: any} = {
     move: PropTypes.func,
   };
 
-  private handleClickLoginButton: any;
+  private handleClickLoginButton: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
     this.handleClickLoginButton = this._handleClickLoginButton.bind(this);
@@ -68,12 +68,13 @@ export default class LoginMobilePage extends Container<any, any> {
     );
   }
 
-  private _handleClickLoginButton(event: any) {
+  private _handleClickLoginButton(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
-    const position = 120;
-    const width = Math.max(window.parent.screen.width - (position * 2), 375);
-    const height = Math.max(window.parent.screen.height - (position * 2), 667);
-    const win = window.open(
+
+    const position: number = 120;
+    const width: number = Math.max(window.parent.screen.width - (position * 2), 375);
+    const height: number = Math.max(window.parent.screen.height - (position * 2), 667);
+    const win: Window|null = window.open(
       event.currentTarget.href,
       '_blank',
       `
@@ -90,11 +91,11 @@ export default class LoginMobilePage extends Container<any, any> {
       `,
     );
 
-    const intervalId = setInterval(() => {
+    const intervalId: number = window.setInterval((): void => {
       if (win && win.closed) {
-        clearInterval(intervalId);
+        window.clearInterval(intervalId);
 
-        const token = tokenManager.get();
+        const token: string|null = tokenManager.get();
 
         if (token !== null) {
           this.context.move('/');

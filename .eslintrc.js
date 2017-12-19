@@ -18,6 +18,8 @@ module.exports = {
       'error',
       'always-multiline',
     ],
+    'no-restricted-globals': 0,
+
     // For ignoring to use `className` props for components
     'react/forbid-component-props': 0,
 

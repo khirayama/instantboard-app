@@ -47,7 +47,7 @@
     "eslint-plugin-typescript": "0.8.1",
     "fastify": "0.36.0",
     "forever": "0.15.3",
-    "nodemon": "1.13.3",
+    "nodemon": "1.14.0",
     "npm-check-updates": "2.13.0",
     "postcss-cli": "4.1.1",
     "postcss-easy-import": "3.0.0",

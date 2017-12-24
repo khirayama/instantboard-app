@@ -1,3 +1,5 @@
+import * as crypto from 'crypto';
+import * as fs from 'fs';
 import * as compression from 'compression';
 import * as fastify from 'fastify';
 import * as path from 'path';
@@ -16,6 +18,11 @@ function minifyHTML(htmlString: string): string {
   return minifiedParts.join('');
 }
 
+const scriptContent: string = fs.readFileSync(path.join(__dirname, 'public', 'bundle.js'), 'utf-8');
+const scriptHash: string = crypto.createHash('sha1').update(scriptContent).digest('hex');
+const stylesheetContent: string = fs.readFileSync(path.join(__dirname, 'public', 'index.css'), 'utf-8');
+const stylesheetHash: string = crypto.createHash('sha1').update(stylesheetContent).digest('hex');
+
 function template(): string {
   const htmlString: string = `
 <!DOCTYPE html>
@@ -25,13 +32,13 @@ function template(): string {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <link rel="preload" href="/index.css" as="style">
-  <link rel="preload" href="/bundle.js" as="script">
+  <link rel="preload" href="/index.css?revision=${stylesheetHash}" as="style">
+  <link rel="preload" href="/bundle.js?revision=${scriptHash}" as="script">
 
   <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
 
-  <link rel="stylesheet" href="/index.css">
-  <script src="/bundle.js" defer></script>
+  <link rel="stylesheet" href="/index.css?revision=${stylesheetHash}">
+  <script src="/bundle.js?revision=${scriptHash}" defer></script>
 
   <link rel="manifest" href="/manifest.json">
 

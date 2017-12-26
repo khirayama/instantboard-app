@@ -1,7 +1,7 @@
-import * as crypto from 'crypto';
-import * as fs from 'fs';
 import * as compression from 'compression';
+import * as crypto from 'crypto';
 import * as fastify from 'fastify';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';

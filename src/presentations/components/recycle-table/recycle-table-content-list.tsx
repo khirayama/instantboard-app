@@ -196,10 +196,9 @@ export default class RecycleTableContentList extends React.Component<any, any> {
   public render() {
     const {currentIndex}: {currentIndex: number} = this.context;
     const {children}: {children?: any} = this.props;
-    const diff = this._calcFilteredDiff();
     const style = {
       width: (children.length * 100) + '%',
-      transform: `translateX(calc(-${currentIndex * 100 / children.length}% + ${diff.x}px))`,
+      transform: `translateX(calc(-${currentIndex * 100 / children.length}%))`,
     };
 
     return (

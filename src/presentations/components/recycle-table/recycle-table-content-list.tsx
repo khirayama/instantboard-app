@@ -198,7 +198,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     const {children}: {children?: any} = this.props;
     const style = {
       width: (children.length * 100) + '%',
-      transform: `translateX(calc(-${currentIndex * 100 / children.length}%))`,
+      transform: `translateX(-${currentIndex * 100 / children.length}%)`,
     };
 
     return (

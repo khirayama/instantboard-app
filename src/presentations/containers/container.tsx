@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as deepEqual from 'deep-equal';
 
 export default class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
   protected handleStateUpdate: () => void;
@@ -14,6 +15,10 @@ export default class Container<P, S> extends React.Component<P & IContainerProps
       this.setState(props.store.getState());
     };
     this.dispatch = props.store.dispatch.bind(props.store);
+  }
+
+  public shouldComponentUpdate(prevProps: IContainerProps, prevState: IState) {
+    return !deepEqual(this.props, prevProps) ||  !deepEqual(this.state, prevState);
   }
 
   public componentWillMount() {

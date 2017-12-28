@@ -17,6 +17,7 @@ export function transformRequestResponse(request: IRequestResponse): IRequest {
     member: {
       id: request.member.id,
       name: request.member.name,
+      email: request.member.email,
     },
     label: (request.label) ? {
       id: request.label.id,
@@ -53,6 +54,7 @@ export function transformUserResponse(user: IUserResponse): IUser {
   return {
     id: user.id,
     name: user.name || '',
+    email: user.email || '',
   };
 }
 

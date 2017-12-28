@@ -2,8 +2,9 @@ interface IRequest {
   id: number;
   status: string;
   member: {
-    id: number,
-    name: string,
+    id: number;
+    name: string;
+    email: string;
   };
   label: {
     id: number,
@@ -22,8 +23,9 @@ interface IRequestResponse {
   id: number;
   status: string;
   member: {
-    id: number,
-    name: string,
+    id: number;
+    name: string;
+    email: string;
   };
   label: {
     id: number,

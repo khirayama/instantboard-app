@@ -126,7 +126,12 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     const profile = this.state.profile;
     const ui = this.state.ui;
 
-    const filteredMembers = this.state.members.filter(member => (member.name.indexOf(this.state.memberName) !== -1));
+    const filteredMembers = this.state.members.filter(member => {
+      return (
+        (member.name.indexOf(this.state.memberName) !== -1) ||
+        (member.email.indexOf(this.state.memberName) !== -1)
+      );
+    });
 
     return (
       <section className="page label-mobile-page">

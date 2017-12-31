@@ -48,7 +48,7 @@
     "eslint-plugin-typescript": "0.8.1",
     "fastify": "0.37.0",
     "forever": "0.15.3",
-    "nodemon": "1.14.3",
+    "nodemon": "1.14.6",
     "npm-check-updates": "2.14.0",
     "postcss-cli": "4.1.1",
     "postcss-easy-import": "3.0.0",
@@ -64,7 +64,7 @@
     "tslint": "5.8.0",
     "typescript": "2.6.2",
     "typescript-eslint-parser": "11.0.0",
-    "uglify-es": "3.3.2",
+    "uglify-es": "3.3.4",
     "uglifyify": "4.0.5",
     "watchify": "3.9.0"
   }

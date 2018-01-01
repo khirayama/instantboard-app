@@ -283,7 +283,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
     const memberName = this.state.memberName.trim();
 
-    User.search({name: memberName}).then((users: any) => {
+    User.search({q: memberName}).then((users: any) => {
       if (users.length && users[0].name === memberName) {
         const labelRequests = this.state.labelRequests.concat();
         let isIncluded = false;

@@ -284,7 +284,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     const memberName = this.state.memberName.trim();
 
     User.search({q: memberName}).then((users: any) => {
-      if (users.length && users[0].name === memberName) {
+      if (users.length && (users[0].name === memberName || users[0].email === memberName)) {
         const labelRequests = this.state.labelRequests.concat();
         let isIncluded = false;
         labelRequests.forEach((labelRequest: any) => {
@@ -294,7 +294,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
         });
         if (!isIncluded) {
           labelRequests.push({
-            member: {id: 0, name: memberName},
+            member: {id: 0, name: users[0].name, email: users[0].email},
           });
           this.setState({
             memberName: '',

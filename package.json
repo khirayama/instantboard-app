@@ -10,6 +10,7 @@
   "scripts": {
     "start": "npm run server",
     "clean": "rm -rf dist",
+    "compress": "node bin/compress.js",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
     "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.web.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle safari10=true > ./dist/public/bundle.js",
@@ -20,7 +21,7 @@
     "copy:files": "cpx 'src/**/*.{json,woff2,png}' dist",
     "copy:files:watch": "cpx -w 'src/**/*.{json,woff2,png}' dist",
     "server": "forever --silent dist/index.server.js",
-    "build": "npm run clean && npm run compile:scripts && npm run build:styles && npm run bundle:scripts && npm run copy:files",
+    "build": "npm run clean && npm run compile:scripts && npm run build:styles && npm run bundle:scripts && npm run copy:files && npm run compress",
     "dev": "npm run clean && npm run compile:scripts && concurrently 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'nodemon dist/index.server.js'",
     "lint": "tslint 'src/**/*.+(ts|tsx)' && eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts src",
     "lint:fix": "tslint --fix 'src/**/*.+(ts|tsx)' && eslint --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts --fix src",

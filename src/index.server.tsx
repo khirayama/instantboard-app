@@ -7,6 +7,7 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as serveStatic from 'serve-static';
 import Spinner from './presentations/components/spinner';
+import staticCompression from './middleware/static-compression';
 
 const app: any = fastify();
 
@@ -72,6 +73,8 @@ function template(): string {
 }
 
 const html: string = template();
+
+app.use('/', staticCompression(path.join(__dirname, 'public')));
 
 app.use(compression({
   threshold: 0,

@@ -1,6 +1,5 @@
 const fs = require('fs');
 const zopfli = require('node-zopfli');
-console.log(Object.keys(zopfli));
 
 const options = {
   verbose: false,
@@ -26,7 +25,6 @@ function compressFiles(path) {
         filePath.endsWith('.jpeg') ||
         filePath.endsWith('.png')
       ) {
-        console.log(filePath);
         fs.createReadStream(filePath)
           .pipe(zopfli.createGzip(options))
           .pipe(fs.createWriteStream(filePath + '.gz'));

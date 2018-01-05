@@ -17,12 +17,68 @@ function minifyHTML(htmlString: string): string {
   return minifiedParts.join('');
 }
 
-const scriptContent: string = fs.readFileSync(path.join(__dirname, 'public', 'bundle.js'), 'utf-8');
-const scriptHash: string = crypto.createHash('sha1').update(scriptContent).digest('hex');
-const stylesheetContent: string = fs.readFileSync(path.join(__dirname, 'public', 'index.css'), 'utf-8');
-const stylesheetHash: string = crypto.createHash('sha1').update(stylesheetContent).digest('hex');
+function isTargetExtension(filePath) {
+  return (
+    filePath.endsWith('.js') ||
+    filePath.endsWith('.css')
+  );
+}
+
+interface IHash {
+  filePath: string;
+  value: string;
+}
+
+function createHashes(rootPath: string): IHash[] {
+  const fileNames: string[] = fs.readdirSync(rootPath);
+  let hashes: IHash[] = [];
+  for (let fileName of fileNames) {
+    const filePath: string = rootPath + '/' + fileName;
+    const stats: any = fs.statSync(filePath);
+    if (stats.isDirectory()) {
+      hashes = hashes.concat(createHashes(filePath));
+    } else if (isTargetExtension(filePath)) {
+      const content: string = fs.readFileSync(filePath, 'utf-8');
+      const hash: string = crypto.createHash('sha1').update(content).digest('hex');
+      hashes.push({filePath, value: hash});
+    }
+  }
+  return hashes;
+}
+
+function generateExternalFileTags(hashes: IHash[], options: {preload?: boolean, defer?: boolean, async?: boolean, rootFilePath?: string} = {}): string[] {
+  const tags: string[] = [];
+  for (let hash of hashes) {
+    const path = hash.filePath.replace((options.rootFilePath || ''), '');
+    if (path.endsWith('.css')) {
+      if (options.preload) {
+        tags.push(`<link rel="preload" href="${path}?revision=${hash.value}" as="style">`);
+      }
+      tags.push(`<link rel="stylesheet" href="${path}?revision=${hash.value}">`);
+    } else if (path.endsWith('.js')) {
+      if (options.preload) {
+        tags.push(`<link rel="preload" href="${path}?revision=${hash.value}" as="script">`);
+      }
+      const attrs: string[] = [];
+      if (options.defer) {
+        attrs.push('defer');
+      }
+      if (options.async) {
+        attrs.push('async');
+      }
+      tags.push(`<script src="${path}?revision=${hash.value}" ${attrs.join(' ')}></script>`);
+    }
+  }
+  return tags;
+}
 
 function template(): string {
+  const hashes = createHashes(path.join(__dirname, 'public'));
+  const externalFileTags = generateExternalFileTags(hashes, {
+    preload: true,
+    defer: true,
+    rootFilePath: path.join(__dirname, 'public'),
+  });
   const htmlString: string = `
 <!DOCTYPE html>
 <html lang="en">
@@ -30,17 +86,9 @@ function template(): string {
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-  <link rel="preload" href="/index.css?revision=${stylesheetHash}" as="style">
-  <link rel="preload" href="/bundle.js?revision=${scriptHash}" as="script">
-
   <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
-
-  <link rel="stylesheet" href="/index.css?revision=${stylesheetHash}">
-  <script src="/bundle.js?revision=${scriptHash}" defer></script>
-
   <link rel="manifest" href="/manifest.json">
-
+  ${externalFileTags.join('')}
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" sizes="192x192" href="/images/icon-android.png">
 

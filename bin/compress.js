@@ -19,6 +19,7 @@ function compressFiles(path) {
       if (stats.isDirectory()) {
         compressFiles(filePath);
       } else if (
+        filePath.endsWith('.html') ||
         filePath.endsWith('.js') ||
         filePath.endsWith('.css') ||
         filePath.endsWith('.jpg') ||

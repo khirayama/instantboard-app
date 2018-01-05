@@ -15,7 +15,9 @@ export default class SearchMemberListItem extends React.Component<any, any> {
       <li onClick={handleClick}>
         <Icon type="profile"/>
         <p>
-          {member.name} {`<${member.email}>`}
+          {member.name}
+          {' '}
+          {`<${member.email}>`}
         </p>
       </li>
     );

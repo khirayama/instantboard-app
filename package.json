@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm run server",
     "clean": "rm -rf dist",
-    "compress": "node bin/compress.js",
+    "compress": "node bin/compress.js ./dist/public",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
     "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.web.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle safari10=true > ./dist/public/bundle.js",
@@ -48,6 +48,7 @@
     "eslint-plugin-typescript": "0.8.1",
     "fastify": "0.37.0",
     "forever": "0.15.3",
+    "minimist": "1.2.0",
     "node-zopfli": "2.0.2",
     "nodemon": "1.14.7",
     "npm-check-updates": "2.14.0",

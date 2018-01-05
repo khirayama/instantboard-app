@@ -1,13 +1,11 @@
-import * as compression from 'compression';
 import * as crypto from 'crypto';
 import * as fastify from 'fastify';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import * as serveStatic from 'serve-static';
 import Spinner from './presentations/components/spinner';
-import staticCompression from './middleware/static-compression';
+import serveStaticCompression from './middleware/serve-static-compression';
 
 const app: any = fastify();
 
@@ -74,15 +72,7 @@ function template(): string {
 
 const html: string = template();
 
-app.use('/', staticCompression(path.join(__dirname, 'public')));
-
-app.use(compression({
-  threshold: 0,
-  level: 9,
-  memLevel: 9,
-}));
-
-app.use(serveStatic(path.join(__dirname, 'public')));
+app.use('/', serveStaticCompression(path.join(__dirname, 'public')));
 app.get('*', (req, res): void => {
   res.type('text/html').send(html);
 });

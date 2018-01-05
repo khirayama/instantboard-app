@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import Spinner from './presentations/components/spinner';
 import serveStaticCompression from './middleware/serve-static-compression';
+import Spinner from './presentations/components/spinner';
 
 const app: any = fastify();
 

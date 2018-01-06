@@ -32,7 +32,7 @@ interface IHash {
 function createHashes(rootPath: string): IHash[] {
   const fileNames: string[] = fs.readdirSync(rootPath);
   let hashes: IHash[] = [];
-  for (let fileName of fileNames) {
+  for (const fileName of fileNames) {
     const filePath: string = rootPath + '/' + fileName;
     const stats: any = fs.statSync(filePath);
     if (stats.isDirectory()) {
@@ -46,18 +46,26 @@ function createHashes(rootPath: string): IHash[] {
   return hashes;
 }
 
-function generateExternalFileTags(hashes: IHash[], options: {preload?: boolean, defer?: boolean, async?: boolean, rootFilePath?: string} = {}): string[] {
+interface IOptions {
+  preload?: boolean;
+  defer?: boolean;
+  async?: boolean;
+  rootFilePath?: string;
+}
+
+function generateExternalFileTags(hashes: IHash[], options: IOptions = {}): string[] {
   const tags: string[] = [];
-  for (let hash of hashes) {
-    const path = hash.filePath.replace((options.rootFilePath || ''), '');
-    if (path.endsWith('.css')) {
+
+  for (const hash of hashes) {
+    const filePath = hash.filePath.replace((options.rootFilePath || ''), '');
+    if (filePath.endsWith('.css')) {
       if (options.preload) {
-        tags.push(`<link rel="preload" href="${path}?revision=${hash.value}" as="style">`);
+        tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="style">`);
       }
-      tags.push(`<link rel="stylesheet" href="${path}?revision=${hash.value}">`);
-    } else if (path.endsWith('.js')) {
+      tags.push(`<link rel="stylesheet" href="${filePath}?revision=${hash.value}">`);
+    } else if (filePath.endsWith('.js')) {
       if (options.preload) {
-        tags.push(`<link rel="preload" href="${path}?revision=${hash.value}" as="script">`);
+        tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="script">`);
       }
       const attrs: string[] = [];
       if (options.defer) {
@@ -66,7 +74,7 @@ function generateExternalFileTags(hashes: IHash[], options: {preload?: boolean, 
       if (options.async) {
         attrs.push('async');
       }
-      tags.push(`<script src="${path}?revision=${hash.value}" ${attrs.join(' ')}></script>`);
+      tags.push(`<script src="${filePath}?revision=${hash.value}" ${attrs.join(' ')}></script>`);
     }
   }
   return tags;

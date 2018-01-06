@@ -36,7 +36,7 @@ export default class RequestListItem extends React.Component<any, any> {
               {request.label.name}
             </div>
             <div className="request-list-item--description">
-              {'From'}
+              {'From '}
               {request.member.name}
             </div>
           </div>

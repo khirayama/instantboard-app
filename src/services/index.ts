@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as http from 'http';
 import tokenManager from '../utils/token-manager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
@@ -9,6 +10,9 @@ function createRequest(baseURL = '') {
     headers: {
       Authorization: `Bearer ${tokenManager.get()}`,
     },
+    httpAgent: new http.Agent({
+      keepAlive: true,
+    }),
   });
 }
 

@@ -1,3 +1,4 @@
+import * as Fuse from 'fuse.js';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/label';
@@ -115,10 +116,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   public render() {
     const profile = this.state.profile;
     const ui = this.state.ui;
-
-    const filteredMembers = this.state.members.filter(member => {
-      return member.name.indexOf(this.state.memberName) !== -1 || member.email.indexOf(this.state.memberName) !== -1;
-    });
+    const filteredMembers = this.filterMembers(this.state.members, this.state.memberName);
 
     return (
       <section className="page label-mobile-page">
@@ -201,6 +199,21 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
         </form>
       </section>
     );
+  }
+
+  private filterMembers(members: IUser[], keyword: string): IUser[] {
+    const options = {
+      shouldSort: true,
+      threshold: 0.99,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: ['name', 'email'],
+    };
+    const fuse = new Fuse(members, options);
+    const filteredMembers: IUser[] = fuse.search(keyword);
+    return filteredMembers.length === 0 && keyword === '' ? members : filteredMembers;
   }
 
   private onUpdate(callback): void {

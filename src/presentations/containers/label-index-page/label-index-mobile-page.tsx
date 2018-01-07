@@ -64,7 +64,8 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
 
   public componentDidMount(): void {
     this.actions.fetchLabel();
-    poller.add(this.actions.pollRequest, 5000);
+    this.actions.pollRequest();
+    poller.add(this.actions.pollRequest, 3000);
   }
 
   public componentWillUnmount(): void {

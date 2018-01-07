@@ -96,12 +96,13 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
       const labels = action.payload.labels;
       for (const label of labels) {
         if (label.requests.length > 1) {
-          poller.add(this.actions.pollTask, 5000);
+          poller.add(this.actions.pollTask, 3000);
           break;
         }
       }
     });
-    poller.add(this.actions.pollRequest, 5000);
+    this.actions.pollRequest();
+    poller.add(this.actions.pollRequest, 3000);
   }
 
   public componentWillUnmount() {

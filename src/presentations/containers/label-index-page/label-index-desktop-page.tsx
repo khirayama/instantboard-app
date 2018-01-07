@@ -64,7 +64,8 @@ export default class LabelIndexDesktopPage extends Container<{}, IState> {
 
   public componentDidMount() {
     this.actions.fetchLabel();
-    poller.add(this.actions.pollRequest, 5000);
+    this.actions.pollRequest();
+    poller.add(this.actions.pollRequest, 3000);
   }
 
   public componentWillUnmount() {

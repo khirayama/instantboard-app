@@ -76,7 +76,8 @@ export default class ProfileDesktopPage extends Container<{}, IProfileDesktopPag
 
   public componentDidMount() {
     this.actions.getUser();
-    poller.add(this.actions.pollRequest, 5000);
+    this.actions.pollRequest();
+    poller.add(this.actions.pollRequest, 3000);
   }
 
   public componentWillUnmount() {

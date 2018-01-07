@@ -48,7 +48,8 @@ export default class NotificationIndexDesktopPage extends Container<{}, {}> {
 
   public componentDidMount() {
     this.actions.fetchRequest();
-    poller.add(this.actions.pollRequest, 5000);
+    this.actions.pollRequest();
+    poller.add(this.actions.pollRequest, 3000);
   }
 
   public componentWillUnmount() {

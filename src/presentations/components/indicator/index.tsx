@@ -21,20 +21,16 @@ export default class Indicator extends React.Component<any, any> {
 
   public render() {
     return (
-      <div
-        key="indicator"
-        ref={this.setElement}
-        className="indicator"
-      >
+      <div key="indicator" ref={this.setElement} className="indicator">
         <svg>
           <defs>
             <linearGradient id="indicator-gradient">
-              <stop className="indicator-color1" offset="0%"/>
-              <stop className="indicator-color2" offset="33.4%"/>
-              <stop className="indicator-color3" offset="100%"/>
+              <stop className="indicator-color1" offset="0%" />
+              <stop className="indicator-color2" offset="33.4%" />
+              <stop className="indicator-color3" offset="100%" />
             </linearGradient>
           </defs>
-          <rect id="indicator" x="0" y="0" width="100%" height="100%" fill="none"/>
+          <rect id="indicator" x="0" y="0" width="100%" height="100%" fill="none" />
         </svg>
       </div>
     );
@@ -46,7 +42,7 @@ export default class Indicator extends React.Component<any, any> {
 
   private toggleClassName() {
     setTimeout(() => {
-      const {active} = this.props;
+      const { active } = this.props;
       if (this.el) {
         if (active) {
           this.el.classList.add('indicator__active');

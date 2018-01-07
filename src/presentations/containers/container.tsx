@@ -22,19 +22,19 @@ export default class Container<P, S> extends React.Component<P & IContainerProps
   }
 
   public componentWillMount() {
-    const {store}: {store: IStore} = this.props;
+    const { store }: { store: IStore } = this.props;
 
     store.addChangeListener(this.handleStateUpdate);
   }
 
   public componentWillUnmount() {
-    const {store}: {store: IStore} = this.props;
+    const { store }: { store: IStore } = this.props;
 
     store.removeChangeListener(this.handleStateUpdate);
   }
 
   protected getState(): IState {
-    const {store}: {store: IStore} = this.props;
+    const { store }: { store: IStore } = this.props;
 
     return store.getState();
   }

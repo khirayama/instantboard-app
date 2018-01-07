@@ -7,15 +7,15 @@ interface IRequest {
     email: string;
   };
   label: {
-    id: number,
-    name: string,
-  }|null;
+    id: number;
+    name: string;
+  } | null;
 }
 
 interface IRequestRequest {
   id?: number;
   status?: string;
-  labelId: number|null;
+  labelId: number | null;
   memberName: string;
 }
 
@@ -28,7 +28,7 @@ interface IRequestResponse {
     email: string;
   };
   label: {
-    id: number,
-    name: string,
+    id: number;
+    name: string;
   };
 }

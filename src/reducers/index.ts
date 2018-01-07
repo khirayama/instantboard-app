@@ -1,45 +1,45 @@
 /* eslint-disable complexity */
 import actionTypes from '../constants/action-types';
 
-export default function (state: IState, action: IAction): IState {
+export default function(state: IState, action: IAction): IState {
   const newState: IState = JSON.parse(JSON.stringify(state));
   const payload: any = action.payload;
 
   switch (action.type) {
     // LABEL
-    case (actionTypes.FETCH_LABEL): {
+    case actionTypes.FETCH_LABEL: {
       newState.ui.isLoadingLabels = true;
       break;
     }
-    case (actionTypes.FETCH_LABEL_SUCCESS): {
+    case actionTypes.FETCH_LABEL_SUCCESS: {
       newState.labels = payload.labels;
       newState.ui.isLoadingLabels = false;
       break;
     }
-    case (actionTypes.FETCH_LABEL_FAILURE): {
+    case actionTypes.FETCH_LABEL_FAILURE: {
       newState.ui.isLoadingLabels = false;
       break;
     }
 
-    case (actionTypes.CREATE_LABEL): {
+    case actionTypes.CREATE_LABEL: {
       newState.ui.isLoadingLabels = true;
       break;
     }
-    case (actionTypes.CREATE_LABEL_SUCCESS): {
+    case actionTypes.CREATE_LABEL_SUCCESS: {
       newState.labels.push(payload.label);
       newState.ui.isLoadingLabels = false;
       break;
     }
-    case (actionTypes.CREATE_LABEL_FAILURE): {
+    case actionTypes.CREATE_LABEL_FAILURE: {
       newState.ui.isLoadingLabels = false;
       break;
     }
 
-    case (actionTypes.UPDATE_LABEL): {
+    case actionTypes.UPDATE_LABEL: {
       newState.ui.isLoadingLabels = true;
       break;
     }
-    case (actionTypes.UPDATE_LABEL_SUCCESS): {
+    case actionTypes.UPDATE_LABEL_SUCCESS: {
       newState.labels = newState.labels.map((label: ILabel) => {
         if (label.id === payload.label.id) {
           return payload.label;
@@ -49,28 +49,28 @@ export default function (state: IState, action: IAction): IState {
       newState.ui.isLoadingLabels = false;
       break;
     }
-    case (actionTypes.UPDATE_LABEL_FAILURE): {
+    case actionTypes.UPDATE_LABEL_FAILURE: {
       newState.ui.isLoadingLabels = false;
       break;
     }
 
-    case (actionTypes.DESTROY_LABEL): {
+    case actionTypes.DESTROY_LABEL: {
       newState.labels = newState.labels.filter((label: ILabel) => {
-        return (label.id !== payload.label.id);
+        return label.id !== payload.label.id;
       });
       newState.ui.isLoadingLabels = true;
       break;
     }
-    case (actionTypes.DESTROY_LABEL_SUCCESS): {
+    case actionTypes.DESTROY_LABEL_SUCCESS: {
       newState.ui.isLoadingLabels = false;
       break;
     }
-    case (actionTypes.DESTROY_LABEL_FAILURE): {
+    case actionTypes.DESTROY_LABEL_FAILURE: {
       newState.ui.isLoadingLabels = false;
       break;
     }
 
-    case (actionTypes.SORT_LABEL): {
+    case actionTypes.SORT_LABEL: {
       // Uncomfortable to immediate update UI.
       newState.labels = (() => {
         let labels: ILabel[] = state.labels;
@@ -81,10 +81,7 @@ export default function (state: IState, action: IAction): IState {
           labels = labels.map(label => {
             if (label.priority === newLabel.priority) {
               label.priority = priority;
-            } else if (
-              (priority <= label.priority) &&
-              (label.priority < newLabel.priority)
-            ) {
+            } else if (priority <= label.priority && label.priority < newLabel.priority) {
               label.priority += 1;
             }
             return label;
@@ -93,10 +90,7 @@ export default function (state: IState, action: IAction): IState {
           labels = labels.map(label => {
             if (label.priority === newLabel.priority) {
               label.priority = priority;
-            } else if (
-              (newLabel.priority < label.priority) &&
-              (label.priority <= priority)
-            ) {
+            } else if (newLabel.priority < label.priority && label.priority <= priority) {
               label.priority -= 1;
             }
             return label;
@@ -115,50 +109,50 @@ export default function (state: IState, action: IAction): IState {
       newState.ui.isLoadingLabels = true;
       break;
     }
-    case (actionTypes.SORT_LABEL_SUCCESS): {
+    case actionTypes.SORT_LABEL_SUCCESS: {
       newState.labels = payload.labels;
       newState.ui.isLoadingLabels = false;
       break;
     }
-    case (actionTypes.SORT_LABEL_FAILURE): {
+    case actionTypes.SORT_LABEL_FAILURE: {
       newState.ui.isLoadingLabels = false;
       break;
     }
 
     // TASK
-    case (actionTypes.FETCH_TASK): {
+    case actionTypes.FETCH_TASK: {
       newState.ui.isLoadingTasks = true;
       break;
     }
-    case (actionTypes.FETCH_TASK_SUCCESS): {
+    case actionTypes.FETCH_TASK_SUCCESS: {
       newState.tasks = payload.tasks;
       newState.ui.isLoadingTasks = false;
       break;
     }
-    case (actionTypes.FETCH_TASK_FAILURE): {
+    case actionTypes.FETCH_TASK_FAILURE: {
       newState.ui.isLoadingTasks = false;
       break;
     }
 
-    case (actionTypes.CREATE_TASK): {
+    case actionTypes.CREATE_TASK: {
       newState.ui.isLoadingTasks = true;
       break;
     }
-    case (actionTypes.CREATE_TASK_SUCCESS): {
+    case actionTypes.CREATE_TASK_SUCCESS: {
       newState.tasks.push(payload.task);
       newState.ui.isLoadingTasks = false;
       break;
     }
-    case (actionTypes.CREATE_TASK_FAILURE): {
+    case actionTypes.CREATE_TASK_FAILURE: {
       newState.ui.isLoadingTasks = false;
       break;
     }
 
-    case (actionTypes.UPDATE_TASK): {
+    case actionTypes.UPDATE_TASK: {
       newState.ui.isLoadingTasks = true;
       break;
     }
-    case (actionTypes.UPDATE_TASK_SUCCESS): {
+    case actionTypes.UPDATE_TASK_SUCCESS: {
       newState.tasks = newState.tasks.map((task: ITask) => {
         if (task.id === payload.task.id) {
           return payload.task;
@@ -168,28 +162,28 @@ export default function (state: IState, action: IAction): IState {
       newState.ui.isLoadingTasks = false;
       break;
     }
-    case (actionTypes.UPDATE_TASK_FAILURE): {
+    case actionTypes.UPDATE_TASK_FAILURE: {
       newState.ui.isLoadingTasks = false;
       break;
     }
 
-    case (actionTypes.DESTROY_TASK): {
+    case actionTypes.DESTROY_TASK: {
       newState.tasks = newState.tasks.filter((task: ITask) => {
-        return (task.id !== payload.task.id);
+        return task.id !== payload.task.id;
       });
       newState.ui.isLoadingTasks = true;
       break;
     }
-    case (actionTypes.DESTROY_TASK_SUCCESS): {
+    case actionTypes.DESTROY_TASK_SUCCESS: {
       newState.ui.isLoadingTasks = false;
       break;
     }
-    case (actionTypes.DESTROY_TASK_FAILURE): {
+    case actionTypes.DESTROY_TASK_FAILURE: {
       newState.ui.isLoadingTasks = false;
       break;
     }
 
-    case (actionTypes.SORT_TASK): {
+    case actionTypes.SORT_TASK: {
       // Uncomfortable to immediate update UI.
       newState.tasks = (() => {
         let tasks: ITask[] = state.tasks;
@@ -201,10 +195,7 @@ export default function (state: IState, action: IAction): IState {
             if (task.labelId === newTask.labelId) {
               if (task.priority === newTask.priority) {
                 task.priority = priority;
-              } else if (
-                (priority <= task.priority) &&
-                (task.priority < newTask.priority)
-              ) {
+              } else if (priority <= task.priority && task.priority < newTask.priority) {
                 task.priority += 1;
               }
             }
@@ -215,10 +206,7 @@ export default function (state: IState, action: IAction): IState {
             if (task.labelId === newTask.labelId) {
               if (task.priority === newTask.priority) {
                 task.priority = priority;
-              } else if (
-                (newTask.priority < task.priority) &&
-                (task.priority <= priority)
-              ) {
+              } else if (newTask.priority < task.priority && task.priority <= priority) {
                 task.priority -= 1;
               }
             }
@@ -238,95 +226,95 @@ export default function (state: IState, action: IAction): IState {
       newState.ui.isLoadingTasks = true;
       break;
     }
-    case (actionTypes.SORT_TASK_SUCCESS): {
+    case actionTypes.SORT_TASK_SUCCESS: {
       newState.tasks = payload.tasks;
       newState.ui.isLoadingTasks = false;
       break;
     }
-    case (actionTypes.SORT_TASK_FAILURE): {
+    case actionTypes.SORT_TASK_FAILURE: {
       newState.ui.isLoadingTasks = false;
       break;
     }
 
-    case (actionTypes.POLL_TASK_SUCCESS): {
-      newState.tasks = (state.ui.isLoadingTasks) ? newState.tasks : payload.tasks;
+    case actionTypes.POLL_TASK_SUCCESS: {
+      newState.tasks = state.ui.isLoadingTasks ? newState.tasks : payload.tasks;
       break;
     }
-    case (actionTypes.POLL_TASK_FAILURE): {
+    case actionTypes.POLL_TASK_FAILURE: {
       break;
     }
 
     // USER
-    case (actionTypes.GET_USER): {
+    case actionTypes.GET_USER: {
       break;
     }
-    case (actionTypes.GET_USER_SUCCES): {
+    case actionTypes.GET_USER_SUCCES: {
       newState.profile = payload.profile;
       break;
     }
-    case (actionTypes.GET_USER_FAILURE): {
+    case actionTypes.GET_USER_FAILURE: {
       break;
     }
 
-    case (actionTypes.UPDATE_USER): {
+    case actionTypes.UPDATE_USER: {
       newState.profile = Object.assign({}, state.profile, payload.profile);
       break;
     }
-    case (actionTypes.UPDATE_USER_SUCCES): {
+    case actionTypes.UPDATE_USER_SUCCES: {
       newState.profile = payload.profile;
       break;
     }
-    case (actionTypes.UPDATE_USER_FAILURE): {
+    case actionTypes.UPDATE_USER_FAILURE: {
       break;
     }
 
-    case (actionTypes.FETCH_MEMBER): {
+    case actionTypes.FETCH_MEMBER: {
       break;
     }
-    case (actionTypes.FETCH_MEMBER_SUCCESS): {
+    case actionTypes.FETCH_MEMBER_SUCCESS: {
       newState.members = payload.members;
       break;
     }
-    case (actionTypes.FETCH_MEMBER_FAILURE): {
+    case actionTypes.FETCH_MEMBER_FAILURE: {
       break;
     }
 
     // REQUEST
-    case (actionTypes.FETCH_REQUEST): {
+    case actionTypes.FETCH_REQUEST: {
       newState.ui.isLoadingRequests = true;
       break;
     }
-    case (actionTypes.FETCH_REQUEST_SUCCESS): {
+    case actionTypes.FETCH_REQUEST_SUCCESS: {
       newState.requests = payload.requests;
       newState.ui.isLoadingRequests = false;
       break;
     }
-    case (actionTypes.FETCH_REQUEST_FAILURE): {
+    case actionTypes.FETCH_REQUEST_FAILURE: {
       newState.ui.isLoadingRequests = false;
       break;
     }
 
-    case (actionTypes.UPDATE_REQUEST): {
+    case actionTypes.UPDATE_REQUEST: {
       newState.ui.isLoadingRequests = true;
       break;
     }
-    case (actionTypes.UPDATE_REQUEST_SUCCESS): {
+    case actionTypes.UPDATE_REQUEST_SUCCESS: {
       newState.requests = state.requests.filter(request => {
-        return (payload.request.id !== request.id);
+        return payload.request.id !== request.id;
       });
       newState.ui.isLoadingRequests = false;
       break;
     }
-    case (actionTypes.UPDATE_REQUEST_FAILURE): {
+    case actionTypes.UPDATE_REQUEST_FAILURE: {
       newState.ui.isLoadingRequests = false;
       break;
     }
 
-    case (actionTypes.POLL_REQUEST_SUCCESS): {
-      newState.requests = (state.ui.isLoadingRequests) ? newState.requests : payload.requests;
+    case actionTypes.POLL_REQUEST_SUCCESS: {
+      newState.requests = state.ui.isLoadingRequests ? newState.requests : payload.requests;
       break;
     }
-    case (actionTypes.POLL_REQUEST_FAILURE): {
+    case actionTypes.POLL_REQUEST_FAILURE: {
       break;
     }
 

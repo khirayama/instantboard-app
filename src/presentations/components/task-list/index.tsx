@@ -3,7 +3,7 @@ import List from '../list/list';
 
 export default class TaskList extends React.Component<any, any> {
   public render() {
-    const {children, onSort} = this.props;
+    const { children, onSort } = this.props;
     const handleSort = (from: number, to: number) => {
       if (onSort) {
         onSort(from, to, this.props, this.state);
@@ -15,10 +15,7 @@ export default class TaskList extends React.Component<any, any> {
     delete props.onSort;
 
     return (
-      <List
-        {...props}
-        onSort={handleSort}
-      >
+      <List {...props} onSort={handleSort}>
         {children}
       </List>
     );

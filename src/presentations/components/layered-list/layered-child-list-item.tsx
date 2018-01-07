@@ -7,20 +7,16 @@ export default class LayeredChildListItem extends React.Component<any, any> {
   };
 
   public render() {
-    const {currentIndex} = this.context;
-    const {children, index} = this.props;
+    const { currentIndex } = this.context;
+    const { children, index } = this.props;
     const props: any = Object.assign({}, this.props, {
       index: undefined,
     });
     const className = 'layered-child-list-item';
-    props.className = (props.className) ? props.className + ' ' + className : className;
+    props.className = props.className ? props.className + ' ' + className : className;
 
     if (Number(index) === currentIndex) {
-      return (
-        <li {...props}>
-          {children}
-        </li>
-      );
+      return <li {...props}>{children}</li>;
     }
     return null;
   }

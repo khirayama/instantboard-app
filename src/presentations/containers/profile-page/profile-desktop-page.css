@@ -1,5 +1,4 @@
 .profile-desktop-page {
-
   .application-content {
     padding: 60px 0;
 
@@ -17,7 +16,8 @@
     height: $height;
     overflow: hidden;
 
-    p, input {
+    p,
+    input {
       display: inline-block;
       background-color: transparent;
       font-weight: $font-medium;

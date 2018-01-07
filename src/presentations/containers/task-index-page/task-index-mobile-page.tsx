@@ -1,18 +1,8 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchLabel,
-} from '../../../action-creators/label';
-import {
-  pollRequest,
-} from '../../../action-creators/request';
-import {
-  destroyTask,
-  fetchTask,
-  pollTask,
-  sortTask,
-  updateTask,
-} from '../../../action-creators/task';
+import { fetchLabel } from '../../../action-creators/label';
+import { pollRequest } from '../../../action-creators/request';
+import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from '../../../action-creators/task';
 import poller from '../../../utils/poller';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
@@ -35,7 +25,7 @@ interface ITaskIndexMobilePageState {
 }
 
 export default class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMobilePageState & IState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -63,7 +53,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
         return pollTask(this.dispatch);
       },
       pollRequest: (): Promise<{}> => {
-        return pollRequest(this.dispatch, {status: 'pending'});
+        return pollRequest(this.dispatch, { status: 'pending' });
       },
       fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
@@ -117,7 +107,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     const tasks: ITask[] = this.state.tasks;
     const requests: IRequest[] = this.state.requests;
 
-    let contentElement: React.ReactNode|null = null;
+    let contentElement: React.ReactNode | null = null;
 
     // Loading label - Show loading content
     //   No labels - Show no labels content
@@ -126,18 +116,18 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
     if (ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <LoadingContent/>;
+      contentElement = <LoadingContent />;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <NoLabelContent/>;
+      contentElement = <NoLabelContent />;
     } else if (labels.length !== 0) {
       const recycleTableContents: React.ReactNode = labels.map((label: ILabel, index: number) => {
-        const groupedTasks: ITask[] = tasks.filter((task: ITask) => (task.labelId === label.id));
+        const groupedTasks: ITask[] = tasks.filter((task: ITask) => task.labelId === label.id);
 
-        let backgroundElement: React.ReactNode|null = null;
+        let backgroundElement: React.ReactNode | null = null;
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
-          backgroundElement = <LoadingContent/>;
+          backgroundElement = <LoadingContent />;
         } else if (groupedTasks.length === 0) {
-          backgroundElement = <NoTaskContent label={label}/>;
+          backgroundElement = <NoTaskContent label={label} />;
         }
         const parentElement: Element = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
@@ -161,25 +151,18 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
                 );
               })}
             </TaskList>
-            {(groupedTasks.length === 0) ? null : (
-              <IconLink
-                to={`/tasks/new?label-id=${label.id}`}
-                iconType="add"
-                className="task-list--add-button"
-              >
+            {groupedTasks.length === 0 ? null : (
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
                 {'ADD TASK'}
               </IconLink>
-            ) }
+            )}
             {backgroundElement}
           </RecycleTableContentListItem>
         );
       });
 
       contentElement = (
-        <RecycleTable
-          index={this.state.index}
-          onChange={this.handleChangeIndex}
-        >
+        <RecycleTable index={this.state.index} onChange={this.handleChangeIndex}>
           <RecycleTableList>
             {labels.map((label: ILabel, index: number): React.ReactNode => {
               return (
@@ -189,28 +172,18 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
               );
             })}
           </RecycleTableList>
-          <RecycleTableContentList>
-            {recycleTableContents}
-          </RecycleTableContentList>
+          <RecycleTableContentList>{recycleTableContents}</RecycleTableContentList>
         </RecycleTable>
       );
     }
 
-    const badges: number[] = (requests.length) ? [2] : [];
+    const badges: number[] = requests.length ? [2] : [];
 
     return (
       <section className="page task-index-mobile-page">
-        <Indicator active={(
-          (ui.isLoadingLabels && labels.length !== 0) ||
-          (ui.isLoadingTasks && tasks.length !== 0)
-        )}/>
-        <TabNavigationContent>
-          {contentElement}
-        </TabNavigationContent>
-        <TabNavigation
-          index={0}
-          badges={badges}
-        />
+        <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
+        <TabNavigationContent>{contentElement}</TabNavigationContent>
+        <TabNavigation index={0} badges={badges} />
       </section>
     );
   }
@@ -230,7 +203,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
 
   private _handleChangeIndex(index: number): void {
     this.saveIndex(index);
-    this.setState({index});
+    this.setState({ index });
   }
 
   private _handleSortTaskList(from: number, to: number, taskListProps: any): void {

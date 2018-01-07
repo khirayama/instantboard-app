@@ -18,10 +18,7 @@ function minifyHTML(htmlString: string): string {
 }
 
 function isTargetExtension(filePath) {
-  return (
-    filePath.endsWith('.js') ||
-    filePath.endsWith('.css')
-  );
+  return filePath.endsWith('.js') || filePath.endsWith('.css');
 }
 
 interface IHash {
@@ -39,8 +36,11 @@ function createHashes(rootPath: string): IHash[] {
       hashes = hashes.concat(createHashes(filePath));
     } else if (isTargetExtension(filePath)) {
       const content: string = fs.readFileSync(filePath, 'utf-8');
-      const hash: string = crypto.createHash('sha1').update(content).digest('hex');
-      hashes.push({filePath, value: hash});
+      const hash: string = crypto
+        .createHash('sha1')
+        .update(content)
+        .digest('hex');
+      hashes.push({ filePath, value: hash });
     }
   }
   return hashes;
@@ -57,7 +57,7 @@ function generateExternalFileTags(hashes: IHash[], options: IOptions = {}): stri
   const tags: string[] = [];
 
   for (const hash of hashes) {
-    const filePath = hash.filePath.replace((options.rootFilePath || ''), '');
+    const filePath = hash.filePath.replace(options.rootFilePath || '', '');
     if (filePath.endsWith('.css')) {
       if (options.preload) {
         tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="style">`);
@@ -117,7 +117,7 @@ function template(): string {
   <section class="application">
     <main class="application--main"></main>
     <div class="application--loader">
-      ${ReactDOMServer.renderToString(<Spinner/>)}
+      ${ReactDOMServer.renderToString(<Spinner />)}
     </div>
   </section>
 </body>

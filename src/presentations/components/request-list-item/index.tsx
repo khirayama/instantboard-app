@@ -5,11 +5,7 @@ import ListItem from '../list/list-item';
 
 export default class RequestListItem extends React.Component<any, any> {
   public render() {
-    const {
-      request,
-      onClickAcceptButton,
-      onClickRefuseButton,
-    } = this.props;
+    const { request, onClickAcceptButton, onClickRefuseButton } = this.props;
 
     const handleClickAcceptButton = (event: any) => {
       if (onClickAcceptButton) {
@@ -32,26 +28,18 @@ export default class RequestListItem extends React.Component<any, any> {
       <ListItem {...props}>
         <div className="request-list-item">
           <div className="request-list-item--information-container">
-            <div className="request-list-item--label-name">
-              {request.label.name}
-            </div>
+            <div className="request-list-item--label-name">{request.label.name}</div>
             <div className="request-list-item--description">
               {'From '}
               {request.member.name}
             </div>
           </div>
           <div className="request-list-item--button-container">
-            <FlatButton
-              className="request-list-item--accept-button"
-              onClick={handleClickAcceptButton}
-            >
+            <FlatButton className="request-list-item--accept-button" onClick={handleClickAcceptButton}>
               {'ACCEPT'}
             </FlatButton>
-            <FlatButton
-              className="request-list-item--refuse-button"
-              onClick={handleClickRefuseButton}
-            >
-              <Icon type="remove"/>
+            <FlatButton className="request-list-item--refuse-button" onClick={handleClickRefuseButton}>
+              <Icon type="remove" />
             </FlatButton>
           </div>
         </div>

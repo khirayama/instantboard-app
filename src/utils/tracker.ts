@@ -9,7 +9,7 @@ export default class Tracker {
 
   public send() {
     if (typeof window === 'object' && window.ga) {
-      const {route} = this.router.matchRoute(window.location.pathname);
+      const { route } = this.router.matchRoute(window.location.pathname);
       if (process && process.env.NODE_ENV === 'production') {
         window.ga('send', 'pageview', route.path);
       } else {

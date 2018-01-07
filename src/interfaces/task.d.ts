@@ -26,7 +26,7 @@ interface ITaskCreateRequest {
   content?: string;
   completed?: boolean;
   priority?: number;
-  schedule?: ISchedule| null;
+  schedule?: ISchedule | null;
 }
 
 interface ITaskRequest {
@@ -36,7 +36,7 @@ interface ITaskRequest {
   content?: string;
   completed?: boolean;
   priority?: number;
-  schedule?: ISchedule| null;
+  schedule?: ISchedule | null;
 }
 
 interface ITaskResponse {

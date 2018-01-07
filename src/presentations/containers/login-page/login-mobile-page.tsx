@@ -8,7 +8,7 @@ import Container from '../container';
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
 export default class LoginMobilePage extends Container<{}, {}> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -41,12 +41,8 @@ export default class LoginMobilePage extends Container<{}, {}> {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
-          <h1 className="login-mobile-page--content--heading">
-            {'Instantboard'}
-          </h1>
-          <p className="login-mobile-page--content--description">
-            {'Sign up to manage and share your tasks.'}
-          </p>
+          <h1 className="login-mobile-page--content--heading">Instantboard</h1>
+          <p className="login-mobile-page--content--description">Sign up to manage and share your tasks.</p>
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"
             onClick={this.handleClickLoginButton}
@@ -54,7 +50,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
           >
             {'LOG IN WITH FACEBOOK'}
           </FlatButton>
-          {(process.env.NODE_ENV === 'production') ? null : (
+          {process.env.NODE_ENV === 'production' ? null : (
             <FlatButton
               className="login-mobile-page--flat-button"
               onClick={this.handleClickLoginButton}
@@ -72,9 +68,9 @@ export default class LoginMobilePage extends Container<{}, {}> {
     event.preventDefault();
 
     const position: number = 120;
-    const width: number = Math.max(window.parent.screen.width - (position * 2), 375);
-    const height: number = Math.max(window.parent.screen.height - (position * 2), 667);
-    const win: Window|null = window.open(
+    const width: number = Math.max(window.parent.screen.width - position * 2, 375);
+    const height: number = Math.max(window.parent.screen.height - position * 2, 667);
+    const win: Window | null = window.open(
       event.currentTarget.href,
       '_blank',
       `
@@ -95,7 +91,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
       if (win && win.closed) {
         window.clearInterval(intervalId);
 
-        const token: string|null = tokenManager.get();
+        const token: string | null = tokenManager.get();
 
         if (token !== null) {
           this.context.move('/');

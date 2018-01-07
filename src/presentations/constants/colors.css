@@ -12,14 +12,13 @@ $color-grey-800: #424242;
 $color-grey-900: #212121; /* rgba(0, 0, 0, .87); */
 $color-red-a700: #d50000;
 
-
 $color-text: $color-grey-900;
 $color-text-secondary: $color-grey-600;
 $color-text-hint: $color-grey-500;
 $color-divider: $color-grey-300;
 $color-icon-active: $color-grey-800;
 $color-icon-inactive: $color-grey-500;
-$color-shadow: rgba(0, 0, 0, .12);
+$color-shadow: rgba(0, 0, 0, 0.12);
 $color-background: $color-grey-50;
 $color-background-bar: $color-white;
 $color-background-content: $color-white;

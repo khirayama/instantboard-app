@@ -31,7 +31,7 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
   }
 
   public _adjustIndex() {
-    const {currentIndex, setCurrentIndex} = this.context;
+    const { currentIndex, setCurrentIndex } = this.context;
     const el = this.recycleTableList;
     const listItems = el.querySelectorAll('.recycle-table-list-item');
     if (listItems.length - 1 < currentIndex) {
@@ -56,7 +56,7 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
 
       if (width && paddingLeft && paddingRight) {
         el.style.visibility = 'visible';
-        inner.style.width = (width + paddingLeft + paddingRight + 3) + 'px';
+        inner.style.width = width + paddingLeft + paddingRight + 3 + 'px';
         inner.style.paddingLeft = paddingLeft + 'px';
         inner.style.paddingRight = paddingRight + 'px';
       }
@@ -64,21 +64,15 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
   }
 
   public render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
-      <section
-        ref={this.setRecycleTableList}
-        className="recycle-table-list"
-        style={{visibility: 'hidden'}}
-      >
-        <section className="recycle-table-list--inner">
-          {children}
-        </section>
+      <section ref={this.setRecycleTableList} className="recycle-table-list" style={{ visibility: 'hidden' }}>
+        <section className="recycle-table-list--inner">{children}</section>
       </section>
     );
   }
 
-  private _setRecycleTableList(recycleTableList: HTMLElement|null) {
+  private _setRecycleTableList(recycleTableList: HTMLElement | null) {
     this.recycleTableList = recycleTableList;
   }
 }

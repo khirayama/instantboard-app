@@ -23,16 +23,13 @@ export default class RecycleTableListItem extends React.Component<IRecycleTableL
   }
 
   public render() {
-    const {currentIndex} = this.context;
-    const {index, children} = this.props;
+    const { currentIndex } = this.context;
+    const { index, children } = this.props;
 
     return (
       <button
         type="submit"
-        className={classNames(
-          'recycle-table-list-item',
-          {'recycle-table-list-item__active': (index === currentIndex)},
-        )}
+        className={classNames('recycle-table-list-item', { 'recycle-table-list-item__active': index === currentIndex })}
         onClick={this.handleClick}
       >
         {children}
@@ -41,8 +38,8 @@ export default class RecycleTableListItem extends React.Component<IRecycleTableL
   }
 
   private _handleClick() {
-    const {setCurrentIndex} = this.context;
-    const {onActive, index} = this.props;
+    const { setCurrentIndex } = this.context;
+    const { onActive, index } = this.props;
     setCurrentIndex(Number(index));
     if (onActive) {
       onActive(index);

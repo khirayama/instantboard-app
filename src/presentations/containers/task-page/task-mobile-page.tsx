@@ -1,13 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchLabel,
-} from '../../../action-creators/label';
-import {
-  createTask,
-  fetchTask,
-  updateTask,
-} from '../../../action-creators/task';
+import { fetchLabel } from '../../../action-creators/label';
+import { createTask, fetchTask, updateTask } from '../../../action-creators/task';
 import Link from '../../../router/link';
 import queryString from '../../../utils/query-string';
 import Icon from '../../components/icon';
@@ -15,14 +9,14 @@ import Indicator from '../../components/indicator';
 import Container from '../container';
 
 interface ITaskMobilePageState {
-  taskId: number|null;
+  taskId: number | null;
   content: string;
-  labelId: number|null;
+  labelId: number | null;
   uiBlocking: boolean;
 }
 
 export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -37,9 +31,9 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
   constructor(props: IContainerProps) {
     super(props);
 
-    const {params}: {params: {id: string}} = props;
+    const { params }: { params: { id: string } } = props;
     const initialState: ITaskMobilePageState = {
-      taskId: (params.id) ? Number(params.id) : null,
+      taskId: params.id ? Number(params.id) : null,
       content: '',
       labelId: null,
       uiBlocking: false,
@@ -80,7 +74,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       const tasks: ITask[] = this.state.tasks;
       const labels: ILabel[] = this.state.labels;
 
-      let selectedLabelId: number|null = null;
+      let selectedLabelId: number | null = null;
       if (typeof window === 'object') {
         const query: {} = queryString.parse(window.location.search);
         if (query['label-id']) {
@@ -96,13 +90,13 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
             break;
           }
         }
-        this.setState({labelId});
+        this.setState({ labelId });
       }
 
       if (prevUi.isLoadingTasks && !ui.isLoadingTasks && tasks.length !== 0 && this.state.taskId) {
         for (const task of tasks) {
           if (task.id === this.state.taskId) {
-            this.setState({content: task.content});
+            this.setState({ content: task.content });
             break;
           }
         }
@@ -116,22 +110,22 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
 
     return (
       <section className="page task-mobile-page">
-        {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
-        <Indicator active={(ui.isLoadingTasks)}/>
+        {this.state.uiBlocking ? <div className="ui-block" /> : null}
+        <Indicator active={ui.isLoadingTasks} />
         <form onSubmit={this.handleSubmit}>
           <header className="task-mobile-page--header">
             <Link to="/">
-              <Icon type="back"/>
+              <Icon type="back" />
             </Link>
             <button type="submit">
-              <Icon type="send"/>
+              <Icon type="send" />
             </button>
           </header>
           <div className="task-mobile-page--label-block">
             <Link to="/labels">
-              <Icon type="label"/>
+              <Icon type="label" />
             </Link>
-            {(this.state.labelId) ? (
+            {this.state.labelId ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
                 {labels.map((label: ILabel): React.ReactNode => (
                   <option key={label.id} value={label.id}>
@@ -162,11 +156,11 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
   }
 
   private _handleChangeLabelIdSelect(event: React.FormEvent<HTMLSelectElement>): void {
-    this.setState({labelId: Number(event.currentTarget.value)});
+    this.setState({ labelId: Number(event.currentTarget.value) });
   }
 
   private _handleChangeContentInput(event: React.FormEvent<HTMLInputElement>): void {
-    this.setState({content: event.currentTarget.value});
+    this.setState({ content: event.currentTarget.value });
   }
 
   private _handleKeyDownContentInput(event: React.KeyboardEvent<HTMLInputElement>): void {
@@ -185,26 +179,30 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
 
   private submitTask(): void {
     const content: string = this.state.content.trim();
-    const id: number|null = (this.props.params.id === undefined) ? null : Number(this.props.params.id);
+    const id: number | null = this.props.params.id === undefined ? null : Number(this.props.params.id);
 
     if (content && !this.state.uiBlocking) {
-      this.setState({uiBlocking: true});
+      this.setState({ uiBlocking: true });
 
       if (id === null) {
-        this.actions.createTask({
-          content,
-          labelId: this.state.labelId,
-        }).then(() => {
-          this.context.move('/');
-        });
+        this.actions
+          .createTask({
+            content,
+            labelId: this.state.labelId,
+          })
+          .then(() => {
+            this.context.move('/');
+          });
       } else {
-        this.actions.updateTask({
-          id,
-          content,
-          labelId: this.state.labelId,
-        }).then(() => {
-          this.context.move('/');
-        });
+        this.actions
+          .updateTask({
+            id,
+            content,
+            labelId: this.state.labelId,
+          })
+          .then(() => {
+            this.context.move('/');
+          });
       }
     }
   }

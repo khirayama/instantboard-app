@@ -34,7 +34,7 @@ export default class List extends React.Component<any, any> {
   }
 
   public getChildContext() {
-    const {parentElement, onSort} = this.props;
+    const { parentElement, onSort } = this.props;
     return {
       listElement: () => {
         if (parentElement) {
@@ -47,16 +47,11 @@ export default class List extends React.Component<any, any> {
   }
 
   public render() {
-    const {children, className} = this.props;
+    const { children, className } = this.props;
     return (
-      <section
-        ref={this.setListElement}
-        className={classNames('list', className || '')}
-      >
+      <section ref={this.setListElement} className={classNames('list', className || '')}>
         <div className="list-content">
-          <TransitionGroup component="ul">
-            {children}
-          </TransitionGroup>
+          <TransitionGroup component="ul">{children}</TransitionGroup>
         </div>
       </section>
     );

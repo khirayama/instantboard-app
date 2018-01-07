@@ -2,12 +2,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Transition from 'react-transition-group/Transition';
 
-import {
-  THRESHOLD_HOLD_TIME,
-  THRESHOLD_SCROLL_HEIGHT,
-  TRANSITION_TIME,
-  transitionProperties,
-} from '../../constants';
+import { THRESHOLD_HOLD_TIME, THRESHOLD_SCROLL_HEIGHT, TRANSITION_TIME, transitionProperties } from '../../constants';
 
 export default class ListItem extends React.Component<any, any> {
   private static contextTypes = {
@@ -87,10 +82,10 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   public render() {
-    const {children, key, onExited} = this.props;
+    const { children, key, onExited } = this.props;
     const className = 'list-item';
     const props: any = Object.assign({}, this.props);
-    props.className = (props.className) ? props.className + ' ' + className : className;
+    props.className = props.className ? props.className + ' ' + className : className;
     delete props.appear;
     delete props.enter;
     delete props.exit;
@@ -172,7 +167,7 @@ export default class ListItem extends React.Component<any, any> {
 
   // Handling event
   private _handleClick(event: any) {
-    const {onClick} = this.props;
+    const { onClick } = this.props;
 
     if (this.mouse.clickable && onClick) {
       onClick(event);
@@ -180,7 +175,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleMouseDown(event: any) {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
 
     this.mouse.down = true;
     this.pointer = Object.assign({}, this.pointer, {
@@ -192,7 +187,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleMouseMove(event: any) {
-    const {onSort} = this.context;
+    const { onSort } = this.context;
 
     if (this.mouse.down) {
       this.mouse.clickable = false;
@@ -209,11 +204,11 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleMouseUp() {
-    const {onSort} = this.context;
+    const { onSort } = this.context;
 
     this.updatePointerUpView();
 
-    const {currentIndex, targetIndex} = this.calcIndex();
+    const { currentIndex, targetIndex } = this.calcIndex();
 
     if (currentIndex !== null && targetIndex !== null && onSort) {
       onSort(currentIndex, targetIndex);
@@ -234,7 +229,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleTouchStart(event: any) {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     this.touch.timerId = setTimeout(this._handleTouchHold.bind(this), THRESHOLD_HOLD_TIME);
     this.pointer = Object.assign({}, this.pointer, {
       startX: event.touches[0].clientX,
@@ -245,7 +240,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleTouchMove(event: any) {
-    const {onSort} = this.context;
+    const { onSort } = this.context;
 
     if (this.touch.holding) {
       event.stopPropagation();
@@ -254,7 +249,7 @@ export default class ListItem extends React.Component<any, any> {
 
     const distance = Math.sqrt(
       Math.pow(event.touches[0].clientX - this.pointer.startX, 2) +
-      Math.pow(event.touches[0].clientY - this.pointer.startY, 2),
+        Math.pow(event.touches[0].clientY - this.pointer.startY, 2),
     );
 
     if (distance > 10) {
@@ -273,8 +268,8 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleTouchHold() {
-    const {onSort} = this.context;
-    const {onTouchHold} = this.props;
+    const { onSort } = this.context;
+    const { onTouchHold } = this.props;
     this.touch.holding = true;
 
     if (onTouchHold || onSort) {
@@ -287,12 +282,12 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private _handleTouchEnd() {
-    const {onSort} = this.context;
+    const { onSort } = this.context;
     clearTimeout(this.touch.timerId);
 
     this.updatePointerUpView();
 
-    const {currentIndex, targetIndex} = this.calcIndex();
+    const { currentIndex, targetIndex } = this.calcIndex();
     if (this.touch.holding && currentIndex !== null && targetIndex !== null && onSort) {
       onSort(currentIndex, targetIndex);
     }
@@ -312,7 +307,7 @@ export default class ListItem extends React.Component<any, any> {
 
   // Update views
   private updatePointerMoveView() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
 
     listElement().classList.add('list__sorting');
     this.listItem.classList.add('list-item__sorting');
@@ -323,7 +318,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private updatePointerUpView() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     if (this.listItem.classList.contains('list-item__holding')) {
       this.listItem.classList.remove('list-item__holding');
     }
@@ -348,7 +343,7 @@ export default class ListItem extends React.Component<any, any> {
 
   // Animation
   private moveCurrentListItemAnimation() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     const diff = this.calcDiff();
     const scrollDiff = this.pointer.startScrollTop - listElement().scrollTop;
 
@@ -357,12 +352,12 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private moveListItemAnimation() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     const listItemElements = listElement().querySelectorAll('.list-item');
 
     const height = this.listItem.offsetHeight;
 
-    const {currentIndex, targetIndex} = this.calcIndex();
+    const { currentIndex, targetIndex } = this.calcIndex();
 
     if (currentIndex !== null && targetIndex !== null) {
       if (currentIndex <= targetIndex) {
@@ -395,7 +390,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private scrollListView() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     const listContentElement = listElement().querySelector('.list-content');
     const listElementRect = listElement().getBoundingClientRect();
 
@@ -430,7 +425,7 @@ export default class ListItem extends React.Component<any, any> {
     let y = this.pointer.endY - this.pointer.startY;
     let time = this.pointer.endTime.getTime() - this.pointer.startTime.getTime();
 
-    time = (time < 0) ? 0 : time;
+    time = time < 0 ? 0 : time;
 
     if (this.pointer.endX === null || this.pointer.endY === null) {
       x = 0;
@@ -448,7 +443,7 @@ export default class ListItem extends React.Component<any, any> {
   }
 
   private calcIndex() {
-    const {listElement} = this.context;
+    const { listElement } = this.context;
     const listItemElements = listElement().querySelectorAll('.list-item');
 
     const scrollTop = listElement().scrollTop;
@@ -456,8 +451,8 @@ export default class ListItem extends React.Component<any, any> {
     const listTop = listRect.top;
     const listHeight = listRect.height;
 
-    let currentIndex: number|null = null;
-    let targetIndex: number|null = null;
+    let currentIndex: number | null = null;
+    let targetIndex: number | null = null;
 
     if (
       this.pointer.startX !== null &&
@@ -480,7 +475,8 @@ export default class ListItem extends React.Component<any, any> {
         } else if (listTop + listHeight < this.pointer.endY) {
           targetIndex = listItemElements.length - 1;
         } else if (
-          this.pointer.endX !== null && this.pointer.endY !== null &&
+          this.pointer.endX !== null &&
+          this.pointer.endY !== null &&
           targetRect.top - scrollTop < this.pointer.endY &&
           this.pointer.endY < targetRect.top + targetRect.height - scrollTop
         ) {

@@ -6,7 +6,7 @@ export default class LoadingContent extends React.Component<any, any> {
     return (
       <div className="loading-content">
         <div className="loading-content--spinner">
-          <Spinner/>
+          <Spinner />
         </div>
       </div>
     );

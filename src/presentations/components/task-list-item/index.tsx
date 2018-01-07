@@ -6,12 +6,7 @@ import ListItem from '../list/list-item';
 
 export default class TaskListItem extends React.Component<any, any> {
   public render() {
-    const {
-      task,
-      onClickCompleteButton,
-      onClickTaskListItem,
-      onClickDestroyButton,
-    } = this.props;
+    const { task, onClickCompleteButton, onClickTaskListItem, onClickDestroyButton } = this.props;
 
     const handleClickCompleteButton = (event: any) => {
       if (onClickCompleteButton) {
@@ -40,19 +35,13 @@ export default class TaskListItem extends React.Component<any, any> {
     return (
       <ListItem
         {...props}
-        className={classNames(
-          'task-list-item',
-          {'task-list-item__completed': task.completed},
-        )}
+        className={classNames('task-list-item', { 'task-list-item__completed': task.completed })}
         onClick={handleClickTaskListItem}
       >
-        <div
-          className="task-list-item--complete-button"
-          onClick={handleClickCompleteButton}
-        >
-          <Icon type="check" active={task.completed}/>
+        <div className="task-list-item--complete-button" onClick={handleClickCompleteButton}>
+          <Icon type="check" active={task.completed} />
         </div>
-        {(task.schedule) ? (
+        {task.schedule ? (
           <span className="task-list-item--schedule--container">
             <span
               className={classNames(
@@ -60,30 +49,19 @@ export default class TaskListItem extends React.Component<any, any> {
                 `task-list-item--schedule__${task.schedule.shortMonthName.toLowerCase()}`,
               )}
             >
-              <span className="task-list-item--schedule--month">
-                {task.schedule.shortMonthName}
-              </span>
-              <span className="task-list-item--schedule--date">
-                {task.schedule.date}
-              </span>
-              <span className="task-list-item--schedule--day">
-                {task.schedule.shortDayName}
-              </span>
+              <span className="task-list-item--schedule--month">{task.schedule.shortMonthName}</span>
+              <span className="task-list-item--schedule--date">{task.schedule.date}</span>
+              <span className="task-list-item--schedule--day">{task.schedule.shortDayName}</span>
             </span>
           </span>
         ) : null}
         <div className="task-list-item--content">
           <div className="task-list-item--content--text">
-            <LinkText>
-              {task.text}
-            </LinkText>
+            <LinkText>{task.text}</LinkText>
           </div>
         </div>
-        <div
-          className="task-list-item--destroy-button"
-          onClick={handleClickDestroyButton}
-        >
-          <Icon type="remove" active={task.completed}/>
+        <div className="task-list-item--destroy-button" onClick={handleClickDestroyButton}>
+          <Icon type="remove" active={task.completed} />
         </div>
       </ListItem>
     );

@@ -1,5 +1,5 @@
 interface IState {
-  profile: IUser|null;
+  profile: IUser | null;
   tasks: ITask[];
   labels: ILabel[];
   requests: IRequest[];

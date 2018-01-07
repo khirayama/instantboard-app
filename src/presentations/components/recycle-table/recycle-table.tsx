@@ -33,7 +33,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
   }
 
   public getChildContext() {
-    const {currentIndex} = this.state;
+    const { currentIndex } = this.state;
     return {
       currentIndex,
       setCurrentIndex: this.setCurrentIndex,
@@ -42,7 +42,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
 
   public componentDidUpdate() {
     if (this.timerId === null) {
-      const {currentIndex} = this.state;
+      const { currentIndex } = this.state;
       this._scrollToCenter(currentIndex, false);
     }
   }
@@ -60,7 +60,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
         const listItem = listItems[index];
         if (listItem) {
           const currentScrollLeft = list.scrollLeft;
-          const scrollLeft = listItem.offsetLeft - ((el.clientWidth - listItem.clientWidth) / 2);
+          const scrollLeft = listItem.offsetLeft - (el.clientWidth - listItem.clientWidth) / 2;
 
           const num = 5;
           const speed = (scrollLeft - currentScrollLeft) / num;
@@ -86,7 +86,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
       const listItems = list.querySelectorAll('.recycle-table-list-item');
       const listItem = listItems[index];
       if (listItem) {
-        const scrollLeft = listItem.offsetLeft - ((el.clientWidth - listItem.clientWidth) / 2);
+        const scrollLeft = listItem.offsetLeft - (el.clientWidth - listItem.clientWidth) / 2;
 
         list.scrollLeft = scrollLeft;
       }
@@ -95,8 +95,8 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
 
   public _setCurrentIndex(index: number) {
     if (this.timerId === null) {
-      const {onChange} = this.props;
-      this.setState({currentIndex: index});
+      const { onChange } = this.props;
+      this.setState({ currentIndex: index });
       this._scrollToCenter(index, true);
       if (onChange) {
         onChange(index);
@@ -105,12 +105,9 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
   }
 
   public render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
-      <section
-        ref={this.setElement}
-        className="recycle-table"
-      >
+      <section ref={this.setElement} className="recycle-table">
         {children}
       </section>
     );

@@ -6,14 +6,12 @@ export default class IconLink extends React.Component<any, any> {
   public render() {
     const props: any = Object.assign({}, this.props);
     const className = 'icon-link';
-    props.className = (props.className) ? props.className + ' ' + className : className;
+    props.className = props.className ? props.className + ' ' + className : className;
 
     return (
       <Link {...props}>
-        <Icon type={props.iconType}/>
-        <span>
-          {props.children}
-        </span>
+        <Icon type={props.iconType} />
+        <span>{props.children}</span>
       </Link>
     );
   }

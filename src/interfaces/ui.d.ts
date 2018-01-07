@@ -5,7 +5,7 @@ interface IUI {
   isLoadingMembers: boolean;
   errors: Array<{
     resourceName: string;
-    resourceId: string|null;
-    message: string|null;
+    resourceId: string | null;
+    message: string | null;
   }>;
 }

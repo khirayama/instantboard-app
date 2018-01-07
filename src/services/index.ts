@@ -33,51 +33,66 @@ const Label = {
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Label.req().get('/').then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Label.req()
+        .get('/')
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   create: (params: ILabelCreateRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req().post('/', params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Label.req()
+        .post('/', params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   update: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req().put(`/${params.id}`, params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Label.req()
+        .put(`/${params.id}`, params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   destroy: (params: ILabelRequest) => {
     return new Promise((resolve, reject) => {
-      Label.req().delete(`/${params.id}`).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Label.req()
+        .delete(`/${params.id}`)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   sort: (params: ILabelRequest, priority: number) => {
     return new Promise((resolve, reject) => {
-      Label.req().put(`/${params.id}/sort`, {priority}).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Label.req()
+        .put(`/${params.id}/sort`, { priority })
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 };
@@ -87,51 +102,66 @@ const Task = {
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Task.req().get('/').then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Task.req()
+        .get('/')
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   create: (params: ITaskCreateRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req().post('/', params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Task.req()
+        .post('/', params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   update: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req().put(`/${params.id}`, params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Task.req()
+        .put(`/${params.id}`, params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   destroy: (params: ITaskRequest) => {
     return new Promise((resolve, reject) => {
-      Task.req().delete(`/${params.id}`).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Task.req()
+        .delete(`/${params.id}`)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   sort: (params: ITaskRequest, priority: number) => {
     return new Promise((resolve, reject) => {
-      Task.req().put(`/${params.id}/sort`, {priority}).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Task.req()
+        .put(`/${params.id}/sort`, { priority })
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 };
@@ -141,41 +171,53 @@ const User = {
 
   get: () => {
     return new Promise((resolve, reject) => {
-      User.req().get('/').then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      User.req()
+        .get('/')
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   search: params => {
     return new Promise((resolve, reject) => {
-      searchReq().get('/users', {params}).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      searchReq()
+        .get('/users', { params })
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   update: params => {
     return new Promise((resolve, reject) => {
-      User.req().put('/', params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      User.req()
+        .put('/', params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   delete: () => {
     return new Promise((resolve, reject) => {
-      User.req().delete('/').then(() => {
-        resolve();
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      User.req()
+        .delete('/')
+        .then(() => {
+          resolve();
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 };
@@ -185,11 +227,14 @@ const Member = {
 
   fetch: () => {
     return new Promise((resolve, reject) => {
-      Member.req().get('/').then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Member.req()
+        .get('/')
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 };
@@ -199,49 +244,55 @@ const Request = {
 
   fetch: params => {
     return new Promise((resolve, reject) => {
-      Request.req().get('/', {params}).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Request.req()
+        .get('/', { params })
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   create: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req().post('/', params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Request.req()
+        .post('/', params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   update: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req().put(`/${params.id}`, params).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Request.req()
+        .put(`/${params.id}`, params)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 
   destroy: (params: IRequestRequest) => {
     return new Promise((resolve, reject) => {
-      Request.req().delete(`/${params.id}`).then(({data}) => {
-        resolve(data);
-      }).catch((err: any) => {
-        handleRequestError(err, reject);
-      });
+      Request.req()
+        .delete(`/${params.id}`)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err: any) => {
+          handleRequestError(err, reject);
+        });
     });
   },
 };
 
-export {
-  Label,
-  Task,
-  User,
-  Member,
-  Request,
-};
+export { Label, Task, User, Member, Request };

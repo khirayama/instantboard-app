@@ -1,27 +1,17 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  createLabel,
-  fetchLabel,
-  updateLabel,
-} from '../../../action-creators/label';
-import {
-  fetchMember,
-} from '../../../action-creators/member';
-import {
-  getUser,
-} from '../../../action-creators/user';
+import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/label';
+import { fetchMember } from '../../../action-creators/member';
+import { getUser } from '../../../action-creators/user';
 import Link from '../../../router/link';
-import {
-  User,
-} from '../../../services';
+import { User } from '../../../services';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
 interface ILableMobilePageState {
-  labelId: number|null;
+  labelId: number | null;
   labelName: string;
   memberName: string;
   memberNameErrorMessage: string;
@@ -31,7 +21,7 @@ interface ILableMobilePageState {
 }
 
 export default class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -54,9 +44,9 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   constructor(props: IContainerProps) {
     super(props);
 
-    const {params}: {params: {id: string}} = props;
+    const { params }: { params: { id: string } } = props;
     const initialState: ILableMobilePageState = {
-      labelId: (params.id) ? Number(params.id) : null,
+      labelId: params.id ? Number(params.id) : null,
       labelName: '',
       memberName: '',
       memberNameErrorMessage: '',
@@ -127,30 +117,24 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     const ui = this.state.ui;
 
     const filteredMembers = this.state.members.filter(member => {
-      return (
-        (member.name.indexOf(this.state.memberName) !== -1) ||
-        (member.email.indexOf(this.state.memberName) !== -1)
-      );
+      return member.name.indexOf(this.state.memberName) !== -1 || member.email.indexOf(this.state.memberName) !== -1;
     });
 
     return (
       <section className="page label-mobile-page">
-        {(this.state.uiBlocking) ? <div className="ui-block"/> : null}
-        <Indicator active={(ui.isLoadingLabels)}/>
+        {this.state.uiBlocking ? <div className="ui-block" /> : null}
+        <Indicator active={ui.isLoadingLabels} />
         <header className="label-mobile-page--header">
           <Link to="/labels">
-            <Icon type="back"/>
+            <Icon type="back" />
           </Link>
-          <button
-            type="submit"
-            onClick={this.handleSubmitLabelForm}
-          >
-            <Icon type="send"/>
+          <button type="submit" onClick={this.handleSubmitLabelForm}>
+            <Icon type="send" />
           </button>
         </header>
         <form onSubmit={this.handleSubmitMemberNameForm}>
           <div className="label-mobile-page--member-block">
-            <Icon type="profile"/>
+            <Icon type="profile" />
             <input
               type="text"
               value={this.state.memberName}
@@ -158,20 +142,18 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
               onFocus={this.handleFocusMemberNameInput}
               placeholder="Search by member name"
             />
-            {(this.state.isMemberListShown) ? (
+            {this.state.isMemberListShown ? (
               <div className="label-mobile-page--member-block--content">
-                {(this.state.memberNameErrorMessage) ? (
-                  <span className="label-mobile-page--member-block--error">
-                    {this.state.memberNameErrorMessage}
-                  </span>
+                {this.state.memberNameErrorMessage ? (
+                  <span className="label-mobile-page--member-block--error">{this.state.memberNameErrorMessage}</span>
                 ) : null}
                 <h2 className="label-mobile-page--member-block--header">
                   {'Members'}
                   <span onClick={this.handleMemberListCloseButtonClick}>
-                    <Icon type="close"/>
+                    <Icon type="close" />
                   </span>
                 </h2>
-                {(filteredMembers.length === 0) ? (
+                {filteredMembers.length === 0 ? (
                   <div
                     className="label-mobile-page--member-block--content--no-result"
                     onClick={this.handleSubmitMemberNameForm}
@@ -198,15 +180,13 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           </div>
         </form>
         <ul className="label-mobile-page--member-list">
-          {this.state.labelRequests.filter(request => {
-            return profile !== null && (request.member.name !== profile.name);
-          }).map((request: IRequest) => {
-            return (
-              <li key={request.id || request.member.id}>
-                {request.member.name}
-              </li>
-            );
-          })}
+          {this.state.labelRequests
+            .filter(request => {
+              return profile !== null && request.member.name !== profile.name;
+            })
+            .map((request: IRequest) => {
+              return <li key={request.id || request.member.id}>{request.member.name}</li>;
+            })}
         </ul>
         <form onSubmit={this.handleSubmitLabelForm}>
           <input
@@ -228,7 +208,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   private _handleChangeNameInput(event: any) {
-    this.setState({labelName: event.currentTarget.value});
+    this.setState({ labelName: event.currentTarget.value });
   }
 
   private _handleKeyDownNameInput(event: any) {
@@ -253,11 +233,11 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   private _handleFocusMemberNameInput() {
-    this.setState({isMemberListShown: true});
+    this.setState({ isMemberListShown: true });
   }
 
   private _handleSearchMemberListItemClick(event: any, props: any) {
-    const {member} = props;
+    const { member } = props;
     const labelRequests = this.state.labelRequests.concat();
     let isIncluded = false;
     labelRequests.forEach((labelRequest: any) => {
@@ -283,7 +263,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
     const memberName = this.state.memberName.trim();
 
-    User.search({q: memberName}).then((users: any) => {
+    User.search({ q: memberName }).then((users: any) => {
       if (users.length && (users[0].name === memberName || users[0].email === memberName)) {
         const labelRequests = this.state.labelRequests.concat();
         let isIncluded = false;
@@ -294,7 +274,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
         });
         if (!isIncluded) {
           labelRequests.push({
-            member: {id: 0, name: users[0].name, email: users[0].email},
+            member: { id: 0, name: users[0].name, email: users[0].email },
           });
           this.setState({
             memberName: '',
@@ -312,7 +292,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   private _handleMemberListCloseButtonClick() {
-    this.setState({isMemberListShown: false});
+    this.setState({ isMemberListShown: false });
   }
 
   private submitLabel() {
@@ -321,38 +301,44 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     const id = this.state.labelId;
 
     if (labelName && !this.state.uiBlocking) {
-      this.setState({uiBlocking: true});
+      this.setState({ uiBlocking: true });
 
       if (id === undefined || id === null) {
-        this.actions.createLabel({
-          name: labelName,
-          requests,
-        }).then(() => {
-          this.context.move('/labels');
-        }).catch((result: any) => {
-          if (result.label.id) {
-            this.setState({
-              labelId: result.label.id,
-              labelRequests: result.requests,
-              uiBlocking: false,
-            });
-          }
-        });
+        this.actions
+          .createLabel({
+            name: labelName,
+            requests,
+          })
+          .then(() => {
+            this.context.move('/labels');
+          })
+          .catch((result: any) => {
+            if (result.label.id) {
+              this.setState({
+                labelId: result.label.id,
+                labelRequests: result.requests,
+                uiBlocking: false,
+              });
+            }
+          });
       } else {
-        this.actions.updateLabel({
-          id,
-          name: labelName,
-          requests,
-        }).then(() => {
-          this.context.move('/labels');
-        }).catch((result: any) => {
-          if (result.label.id) {
-            this.setState({
-              labelId: result.label.id,
-              labelRequests: result.requests,
-            });
-          }
-        });
+        this.actions
+          .updateLabel({
+            id,
+            name: labelName,
+            requests,
+          })
+          .then(() => {
+            this.context.move('/labels');
+          })
+          .catch((result: any) => {
+            if (result.label.id) {
+              this.setState({
+                labelId: result.label.id,
+                labelRequests: result.requests,
+              });
+            }
+          });
       }
     }
   }

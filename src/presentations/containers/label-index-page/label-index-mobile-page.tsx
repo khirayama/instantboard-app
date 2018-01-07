@@ -1,14 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  destroyLabel,
-  fetchLabel,
-  sortLabel,
-  updateLabel,
-} from '../../../action-creators/label';
-import {
-  pollRequest,
-} from '../../../action-creators/request';
+import { destroyLabel, fetchLabel, sortLabel, updateLabel } from '../../../action-creators/label';
+import { pollRequest } from '../../../action-creators/request';
 import poller from '../../../utils/poller';
 import IconLink from '../../components/icon-link';
 import Indicator from '../../components/indicator';
@@ -21,7 +14,7 @@ import TabNavigationContent from '../../components/tab-navigation/tab-navigation
 import Container from '../container';
 
 export default class LabelIndexMobilePage extends Container<{}, IState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -40,7 +33,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
 
     this.actions = {
       pollRequest: (): Promise<{}> => {
-        return pollRequest(this.dispatch, {status: 'pending'});
+        return pollRequest(this.dispatch, { status: 'pending' });
       },
       fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
@@ -79,26 +72,22 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     const requests: IRequest[] = this.state.requests;
     const ui: IUI = this.state.ui;
 
-    let backgroundElement: React.ReactNode|null = null;
+    let backgroundElement: React.ReactNode | null = null;
     if (ui.isLoadingLabels && labels.length === 0) {
-      backgroundElement = <LoadingContent/>;
+      backgroundElement = <LoadingContent />;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      backgroundElement = <NoLabelContent/>;
+      backgroundElement = <NoLabelContent />;
     }
 
-    const badges: number[] = (requests.length) ? [2] : [];
+    const badges: number[] = requests.length ? [2] : [];
 
-    const parentElement: Element|null = window.document.querySelector('.tab-navigation-content');
+    const parentElement: Element | null = window.document.querySelector('.tab-navigation-content');
 
     return (
       <section key="label-index-mobile-page" className="page label-index-mobile-page">
-        <Indicator active={(ui.isLoadingLabels && labels.length !== 0)}/>
+        <Indicator active={ui.isLoadingLabels && labels.length !== 0} />
         <TabNavigationContent>
-          <List
-            className="label-list"
-            parentElement={parentElement}
-            onSort={this.handleSortLabelList}
-          >
+          <List className="label-list" parentElement={parentElement} onSort={this.handleSortLabelList}>
             {labels.map((label: ILabel): React.ReactNode => (
               <LabelListItem
                 key={label.id}
@@ -109,21 +98,14 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
               />
             ))}
           </List>
-          {(labels.length === 0) ? null : (
-            <IconLink
-              to="/labels/new"
-              iconType="add"
-              className="label-index-mobile-page--add-button"
-            >
+          {labels.length === 0 ? null : (
+            <IconLink to="/labels/new" iconType="add" className="label-index-mobile-page--add-button">
               {'ADD LABEL'}
             </IconLink>
           )}
           {backgroundElement}
         </TabNavigationContent>
-        <TabNavigation
-          index={1}
-          badges={badges}
-        />
+        <TabNavigation index={1} badges={badges} />
       </section>
     );
   }

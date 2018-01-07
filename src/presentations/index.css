@@ -1,7 +1,7 @@
-@import "./constants/**/*";
-@import "./reset";
+@import './constants/**/*';
+@import './reset';
 
-@import "./application";
+@import './application';
 
-@import "./containers/**/*";
-@import "./components/**/*";
+@import './containers/**/*';
+@import './components/**/*';

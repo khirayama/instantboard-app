@@ -1,18 +1,8 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  fetchLabel,
-} from '../../../action-creators/label';
-import {
-  pollRequest,
-} from '../../../action-creators/request';
-import {
-  destroyTask,
-  fetchTask,
-  pollTask,
-  sortTask,
-  updateTask,
-} from '../../../action-creators/task';
+import { fetchLabel } from '../../../action-creators/label';
+import { pollRequest } from '../../../action-creators/request';
+import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from '../../../action-creators/task';
 import poller from '../../../utils/poller';
 import ApplicationContent from '../../components/application-header/application-content';
 import ApplicationHeader from '../../components/application-header/application-header';
@@ -36,7 +26,7 @@ interface ITaskIndexDesktopPageState {
 }
 
 export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -64,7 +54,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
         return pollTask(this.dispatch);
       },
       pollRequest: (): Promise<{}> => {
-        return pollRequest(this.dispatch, {status: 'pending'});
+        return pollRequest(this.dispatch, { status: 'pending' });
       },
       fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
@@ -118,7 +108,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     const tasks: ITask[] = this.state.tasks;
     const requests: IRequest[] = this.state.requests;
 
-    let contentElement: React.ReactNode|null = null;
+    let contentElement: React.ReactNode | null = null;
 
     // Loading label - Show loading content
     //   No labels - Show no labels content
@@ -127,27 +117,23 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     //       No tasks - Show no tasks content
     //       Tasks - Show task list
     if (ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <LoadingContent/>;
+      contentElement = <LoadingContent />;
     } else if (!ui.isLoadingLabels && labels.length === 0) {
-      contentElement = <NoLabelContent/>;
+      contentElement = <NoLabelContent />;
     } else if (labels.length !== 0) {
       const layeredListContents = labels.map((label: ILabel, index: number) => {
-        const groupedTasks: ITask[] = tasks.filter((task: ITask) => (task.labelId === label.id));
+        const groupedTasks: ITask[] = tasks.filter((task: ITask) => task.labelId === label.id);
 
-        let backgroundElement: React.ReactNode|null = null;
+        let backgroundElement: React.ReactNode | null = null;
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
-          backgroundElement = <LoadingContent/>;
+          backgroundElement = <LoadingContent />;
         } else if (groupedTasks.length === 0) {
-          backgroundElement = <NoTaskContent label={label}/>;
+          backgroundElement = <NoTaskContent label={label} />;
         }
 
         return (
           <LayeredChildListItem key={label.id} index={index}>
-            <TaskList
-              className="task-list"
-              tasks={groupedTasks}
-              onSort={this.handleSortTaskList}
-            >
+            <TaskList className="task-list" tasks={groupedTasks} onSort={this.handleSortTaskList}>
               {groupedTasks.map((task: ITask): React.ReactNode => {
                 return (
                   <TaskListItem
@@ -160,60 +146,40 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
                 );
               })}
             </TaskList>
-            {(groupedTasks.length === 0) ? null : (
-              <IconLink
-                to={`/tasks/new?label-id=${label.id}`}
-                iconType="add"
-                className="task-list--add-button"
-              >
+            {groupedTasks.length === 0 ? null : (
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
                 {'ADD TASK'}
               </IconLink>
-            ) }
+            )}
             {backgroundElement}
           </LayeredChildListItem>
         );
       });
 
       contentElement = (
-        <LayeredList
-          index={this.state.index}
-          onChange={this.handleChangeIndex}
-        >
+        <LayeredList index={this.state.index} onChange={this.handleChangeIndex}>
           <LayeredParentList>
             {labels.map((label: ILabel, index: number) => {
               return (
-                <LayeredParentListItem
-                  key={label.id}
-                  index={index}
-                >
-                  <Icon type="label"/>
+                <LayeredParentListItem key={label.id} index={index}>
+                  <Icon type="label" />
                   {label.name}
                 </LayeredParentListItem>
               );
             })}
           </LayeredParentList>
-          <LayeredChildList>
-            {layeredListContents}
-          </LayeredChildList>
+          <LayeredChildList>{layeredListContents}</LayeredChildList>
         </LayeredList>
       );
     }
 
-    const badges: number[] = (requests.length) ? [2] : [];
+    const badges: number[] = requests.length ? [2] : [];
 
     return (
       <section className="page task-index-desktop-page">
-        <Indicator active={(
-          (ui.isLoadingLabels && labels.length !== 0) ||
-          (ui.isLoadingTasks && tasks.length !== 0)
-        )}/>
-        <ApplicationHeader
-          index={0}
-          badges={badges}
-        />
-        <ApplicationContent>
-          {contentElement}
-        </ApplicationContent>
+        <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
+        <ApplicationHeader index={0} badges={badges} />
+        <ApplicationContent>{contentElement}</ApplicationContent>
       </section>
     );
   }
@@ -233,7 +199,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
 
   private _handleChangeIndex(index: number): void {
     this.saveIndex(index);
-    this.setState({index});
+    this.setState({ index });
   }
 
   private _handleSortTaskList(from: number, to: number, taskListProps: any): void {

@@ -17,24 +17,24 @@ export default class LayeredParentListItem extends React.Component<any, any> {
   }
 
   public render() {
-    const {currentIndex} = this.context;
-    const {index, children} = this.props;
+    const { currentIndex } = this.context;
+    const { index, children } = this.props;
 
     return (
       <li
-        className={classNames(
-          'layered-parent-list-item',
-          {'layered-parent-list-item__active': (Number(index) === currentIndex)},
-        )}
-        onClick={this.handleClick}>
+        className={classNames('layered-parent-list-item', {
+          'layered-parent-list-item__active': Number(index) === currentIndex,
+        })}
+        onClick={this.handleClick}
+      >
         {children}
       </li>
     );
   }
 
   private _handleClick() {
-    const {setCurrentIndex} = this.context;
-    const {onActive, index} = this.props;
+    const { setCurrentIndex } = this.context;
+    const { onActive, index } = this.props;
 
     setCurrentIndex(Number(index));
     if (onActive) {

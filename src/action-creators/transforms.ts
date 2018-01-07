@@ -1,4 +1,4 @@
-export function transformSchedule(schedule: any): ISchedule|null {
+export function transformSchedule(schedule: any): ISchedule | null {
   if (schedule === null) {
     return null;
   }
@@ -19,10 +19,12 @@ export function transformRequestResponse(request: IRequestResponse): IRequest {
       name: request.member.name,
       email: request.member.email,
     },
-    label: (request.label) ? {
-      id: request.label.id,
-      name: request.label.name,
-    } : null,
+    label: request.label
+      ? {
+          id: request.label.id,
+          name: request.label.name,
+        }
+      : null,
   };
 }
 
@@ -64,7 +66,7 @@ export function transformLabelResponse(label: ILabelResponse): ILabel {
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
-    requests: (label.requests) ? label.requests.map(transformRequestResponse) : [],
+    requests: label.requests ? label.requests.map(transformRequestResponse) : [],
   };
 }
 
@@ -74,6 +76,6 @@ export function transformLabelRequest(label: ILabelRequest): ILabel {
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
-    requests: (label.requests) ? label.requests : [],
+    requests: label.requests ? label.requests : [],
   };
 }

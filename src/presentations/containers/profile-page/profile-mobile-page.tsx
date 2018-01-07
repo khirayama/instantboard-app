@@ -1,13 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  pollRequest,
-} from '../../../action-creators/request';
-import {
-  deleteUser,
-  getUser,
-  updateUser,
-} from '../../../action-creators/user';
+import { pollRequest } from '../../../action-creators/request';
+import { deleteUser, getUser, updateUser } from '../../../action-creators/user';
 import poller from '../../../utils/poller';
 import tokenManager from '../../../utils/token-manager';
 import FlatButton from '../../components/flat-button';
@@ -22,7 +16,7 @@ interface IProfileMobilePageState {
 }
 
 export default class ProfileMobilePage extends Container<{}, IProfileMobilePageState> {
-  public static contextTypes: {move: any} = {
+  public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
@@ -43,17 +37,17 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
 
     const state: IState = this.getState();
 
-    const {profile}: {profile: IUser|null} = state;
+    const { profile }: { profile: IUser | null } = state;
     const initialState: IProfileMobilePageState = {
       isEditing: false,
-      name: (profile) ? profile.name : '',
+      name: profile ? profile.name : '',
     };
 
     this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
       pollRequest: (): Promise<{}> => {
-        return pollRequest(this.dispatch, {status: 'pending'});
+        return pollRequest(this.dispatch, { status: 'pending' });
       },
       getUser: (): Promise<{}> => {
         return getUser(this.dispatch);
@@ -88,13 +82,8 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
 
   public componentDidUpdate(prevProps: IContainerProps, prevState: IProfileMobilePageState & IState) {
     this.onUpdate(() => {
-      const {profile, name}: {profile: IUser|null, name: string} = this.state;
-      if (
-        !prevState.profile &&
-        profile &&
-        profile.name &&
-        profile.name !== name
-      ) {
+      const { profile, name }: { profile: IUser | null; name: string } = this.state;
+      if (!prevState.profile && profile && profile.name && profile.name !== name) {
         this.setState({
           name: profile.name,
         });
@@ -103,15 +92,15 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
   }
 
   public render() {
-    const profile: IUser|null = this.state.profile;
-    const badges: number[] = (this.state.requests.length) ? [2] : [];
+    const profile: IUser | null = this.state.profile;
+    const badges: number[] = this.state.requests.length ? [2] : [];
 
     return (
       <section className="page profile-mobile-page">
         <TabNavigationContent>
           <div className="profile-tab-content--name--input">
-            <Icon type="profile"/>
-            {(this.state.isEditing) ? (
+            <Icon type="profile" />
+            {this.state.isEditing ? (
               <form onSubmit={this.handleBlurNameInput}>
                 <input
                   autoFocus
@@ -123,30 +112,17 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
                 />
               </form>
             ) : (
-              <p onClick={this.handleClickEditButton}>
-                {(profile === null) ? null : profile.name}
-              </p>
+              <p onClick={this.handleClickEditButton}>{profile === null ? null : profile.name}</p>
             )}
           </div>
           <div className="profile-mobile-page--logout-button">
-            <FlatButton
-              onClick={this.handleClickLogoutButton}
-            >
-              {'LOG OUT'}
-            </FlatButton>
+            <FlatButton onClick={this.handleClickLogoutButton}>LOG OUT</FlatButton>
           </div>
           <div className="profile-mobile-page--delete-account-button">
-            <FlatButton
-              onClick={this.handleClickDeleteAccountButton}
-            >
-              {'DELETE ACCOUNT'}
-            </FlatButton>
+            <FlatButton onClick={this.handleClickDeleteAccountButton}>DELETE ACCOUNT</FlatButton>
           </div>
         </TabNavigationContent>
-        <TabNavigation
-          index={3}
-          badges={badges}
-        />
+        <TabNavigation index={3} badges={badges} />
       </section>
     );
   }
@@ -161,14 +137,14 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
   }
 
   private _handleChangeNameInput(event: React.FormEvent<HTMLInputElement>) {
-    this.setState({name: event.currentTarget.value});
+    this.setState({ name: event.currentTarget.value });
   }
 
   private _handleBlurNameInput(): void {
     this.actions.updateUser({
       name: this.state.name.trim(),
     });
-    this.setState({isEditing: false});
+    this.setState({ isEditing: false });
   }
 
   private _handleKeyDownNameInput(event: React.KeyboardEvent<HTMLInputElement>): void {
@@ -179,12 +155,12 @@ export default class ProfileMobilePage extends Container<{}, IProfileMobilePageS
       this.actions.updateUser({
         name: this.state.name.trim(),
       });
-      this.setState({isEditing: false});
+      this.setState({ isEditing: false });
     }
   }
 
   private _handleClickEditButton() {
-    this.setState({isEditing: true});
+    this.setState({ isEditing: true });
   }
 
   private _handleClickDeleteAccountButton() {

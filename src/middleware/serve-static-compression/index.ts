@@ -1,12 +1,15 @@
 import * as serveStatic from 'serve-static';
 import Compression from './compression';
 import Compressions from './compressions';
-import {IFile, IOptions} from './interfaces';
+import { IFile, IOptions } from './interfaces';
 
 const mime: any = serveStatic.mime;
 
 function getPathname(url: string): string {
-  return (url.replace('//', '/').split('?')[0]).split('#')[0];
+  return url
+    .replace('//', '/')
+    .split('?')[0]
+    .split('#')[0];
 }
 
 function staticCompression(rootPath: string, options: IOptions = {}): (req: any, res: any, next: any) => void {
@@ -28,19 +31,22 @@ function staticCompression(rootPath: string, options: IOptions = {}): (req: any,
   return (req: any, res: any, next: any): void => {
     const acceptEncoding: string = req.headers['accept-encoding'];
     const pathname: string = getPathname(req.url);
-    const matchedFile: IFile|undefined = compressions.fileIndex[pathname];
+    const matchedFile: IFile | undefined = compressions.fileIndex[pathname];
 
     if (matchedFile !== undefined) {
       res.setHeader('Vary', 'Accept-Encoding');
 
-      const compression: Compression|null = compressions.findByAcceptedEncoding(acceptEncoding);
+      const compression: Compression | null = compressions.findByAcceptedEncoding(acceptEncoding);
 
       if (compression !== null) {
         const type: string = mime.lookup(pathname);
         const charset: string = mime.charsets.lookup(type);
-        const search: string = req.url.split('?').splice(1).join('?');
+        const search: string = req.url
+          .split('?')
+          .splice(1)
+          .join('?');
 
-        req.url = pathname + compression.fileExtension + ((search === '') ? search : '?' + search);
+        req.url = pathname + compression.fileExtension + (search === '' ? search : '?' + search);
         res.setHeader('Content-Encoding', compression.encodingName);
         res.setHeader('Content-Type', type + (charset ? '; charset=' + charset : ''));
       }

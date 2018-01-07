@@ -3,7 +3,7 @@ import Icon from '../icon';
 
 export default class SearchMemberListItem extends React.Component<any, any> {
   public render() {
-    const {member, onClick} = this.props;
+    const { member, onClick } = this.props;
 
     const handleClick = (event: any) => {
       if (onClick) {
@@ -13,11 +13,9 @@ export default class SearchMemberListItem extends React.Component<any, any> {
 
     return (
       <li onClick={handleClick}>
-        <Icon type="profile"/>
+        <Icon type="profile" />
         <p>
-          {member.name}
-          {' '}
-          {`<${member.email}>`}
+          {member.name} {`<${member.email}>`}
         </p>
       </li>
     );

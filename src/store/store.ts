@@ -6,9 +6,9 @@ export default class Store {
 
   private state: any = {};
 
-  private reducer: (state: any, action: any) => any = ((state: any) => state);
+  private reducer: (state: any, action: any) => any = (state: any) => state;
 
-  private debounce: number|null;
+  private debounce: number | null;
 
   private timerId: any;
 
@@ -59,7 +59,7 @@ export default class Store {
 
   private addListener(type: string, listener: any): Store {
     this.listeners[type] = this.listeners[type] || [];
-    this.listeners[type].push({listener});
+    this.listeners[type].push({ listener });
     return this;
   }
 

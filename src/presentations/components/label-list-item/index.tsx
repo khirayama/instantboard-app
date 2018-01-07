@@ -5,12 +5,7 @@ import ListItem from '../list/list-item';
 
 export default class LabelListItem extends React.Component<any, any> {
   public render() {
-    const {
-      label,
-      onClickVisibleButton,
-      onClickLabelListItem,
-      onClickDestroyButton,
-    } = this.props;
+    const { label, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
 
     const handleClickVisibleButton = (event: any) => {
       if (onClickVisibleButton) {
@@ -39,25 +34,17 @@ export default class LabelListItem extends React.Component<any, any> {
     return (
       <ListItem
         {...props}
-        className={classNames('label-list-item', {'label-list-item__unvisibled': !label.visibled})}
+        className={classNames('label-list-item', { 'label-list-item__unvisibled': !label.visibled })}
         onClick={handleClickLabelListItem}
       >
-        <div
-          className="label-list-item--visible-button"
-          onClick={handleClickVisibleButton}
-        >
-          <Icon type="check" active={!label.visibled}/>
+        <div className="label-list-item--visible-button" onClick={handleClickVisibleButton}>
+          <Icon type="check" active={!label.visibled} />
         </div>
         <div className="label-list-item--content">
-          <div className="label-list-item--content--text">
-            {label.name}
-          </div>
+          <div className="label-list-item--content--text">{label.name}</div>
         </div>
-        <div
-          className="label-list-item--destroy-button"
-          onClick={handleClickDestroyButton}
-        >
-          <Icon type="remove" active={!label.visibled}/>
+        <div className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
+          <Icon type="remove" active={!label.visibled} />
         </div>
       </ListItem>
     );

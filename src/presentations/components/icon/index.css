@@ -8,7 +8,7 @@
       cy: 50;
       r: 36;
       fill: $color-text-secondary;
-      transition: .2s ease-out;
+      transition: 0.2s ease-out;
       transition-property: fill;
     }
     .icon__check--circle--inner {
@@ -16,7 +16,7 @@
       cy: 50;
       r: 30;
       fill: $color-background;
-      transition: .2s ease-out;
+      transition: 0.2s ease-out;
       transition-property: r;
     }
     &.icon__active {
@@ -38,7 +38,7 @@
       width: $width%;
       height: $height%;
       fill: $color-text-secondary;
-      transition: .2s ease-out;
+      transition: 0.2s ease-out;
       transition-property: fill;
     }
     &.icon__active {
@@ -57,7 +57,7 @@
       width: $width%;
       height: $height%;
       fill: $color-text-secondary;
-      transition: .2s ease-out;
+      transition: 0.2s ease-out;
       transition-property: fill;
     }
     &.icon__active {

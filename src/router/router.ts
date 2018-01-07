@@ -1,7 +1,9 @@
-const PATH_REGEXP = new RegExp([
-  '(\\\\.)',
-  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))',
-].join('|'), 'g');
+const PATH_REGEXP = new RegExp(
+  ['(\\\\.)', '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'].join(
+    '|',
+  ),
+  'g',
+);
 
 export function _parse(str: string) {
   const tokens: any[] = [];
@@ -42,7 +44,7 @@ export function _parse(str: string) {
 export function _tokensToRegexp(tokens: any) {
   let route = '';
   const lastToken = tokens[tokens.length - 1];
-  const endsWithSlash = (typeof lastToken === 'string' && /\/$/.test(lastToken));
+  const endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken);
 
   tokens.forEach((token: any) => {
     if (typeof token === 'string') {
@@ -110,10 +112,10 @@ export default class Router {
 
   public matchRoute(path: string) {
     for (const route of this.routes) {
-      const {regexp, keys} = _pathToRegexp(route.path || '');
-      const {matches, params} = _exec(regexp, keys, path);
+      const { regexp, keys } = _pathToRegexp(route.path || '');
+      const { matches, params } = _exec(regexp, keys, path);
       if (matches) {
-        return {route, params};
+        return { route, params };
       }
     }
     return null;

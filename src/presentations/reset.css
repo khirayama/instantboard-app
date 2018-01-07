@@ -41,7 +41,7 @@ rect {
   font-size: inherit;
   line-height: 1.4;
   vertical-align: baseline;
-  font-feature-settings: "palt";
+  font-feature-settings: 'palt';
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-user-select: none;

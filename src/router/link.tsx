@@ -15,13 +15,9 @@ export default class Link extends React.Component<ILinkProps, any> {
   }
 
   public render() {
-    const {children, className, to} = this.props;
+    const { children, className, to } = this.props;
     return (
-      <a
-        href={to}
-        className={className}
-        onClick={this.handleClick}
-      >
+      <a href={to} className={className} onClick={this.handleClick}>
         {children}
       </a>
     );
@@ -31,8 +27,8 @@ export default class Link extends React.Component<ILinkProps, any> {
     event.preventDefault();
     event.stopPropagation();
 
-    const {move} = this.context;
-    const {to} = this.props;
+    const { move } = this.context;
+    const { to } = this.props;
     move(to);
   }
 }

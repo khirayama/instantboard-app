@@ -18,7 +18,7 @@ tracker.send();
 
 // Redirect
 if (window.location.pathname !== '/login') {
-  const token: string|null = tokenManager.get();
+  const token: string | null = tokenManager.get();
   if (!token) {
     window.location.href = '/login';
   }
@@ -33,20 +33,16 @@ window.addEventListener('DOMContentLoaded', () => {
     /* eslint-enable capitalized-comments */
   }
 
-  const applicationMainElement: HTMLElement|null = window.document.querySelector('.application--main');
+  const applicationMainElement: HTMLElement | null = window.document.querySelector('.application--main');
   if (applicationMainElement !== null) {
     const path: string = window.location.pathname;
-    ReactDOM.render((
-      <Navigator
-        props={{store}}
-        router={router}
-        tracker={tracker}
-        path={path}
-      />
-    ), applicationMainElement);
+    ReactDOM.render(
+      <Navigator props={{ store }} router={router} tracker={tracker} path={path} />,
+      applicationMainElement,
+    );
   }
 
-  const applicationLoadingElement: HTMLElement|null = window.document.querySelector('.application--loader');
+  const applicationLoadingElement: HTMLElement | null = window.document.querySelector('.application--loader');
   if (applicationLoadingElement !== null && applicationLoadingElement.parentNode) {
     applicationLoadingElement.parentNode.removeChild(applicationLoadingElement);
   }

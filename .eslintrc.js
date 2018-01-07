@@ -3,9 +3,9 @@ module.exports = {
   extends: [
     'eslint-config-xo-space/esnext',
     'eslint-config-xo-react/space',
-    'prettier',
-    'prettier/react',
-    'prettier/standard',
+    'eslint-config-prettier',
+    'eslint-config-prettier/react',
+    'eslint-config-prettier/standard',
   ],
   plugins: [
     'eslint-plugin-react',

@@ -1,13 +1,16 @@
 module.exports = {
   parser: 'typescript-eslint-parser',
+  extends: [
+    'eslint-config-xo-space/esnext',
+    'eslint-config-xo-react/space',
+    'prettier',
+    'prettier/react',
+    'prettier/standard',
+  ],
   plugins: [
     'eslint-plugin-react',
     'eslint-plugin-jsx-a11y',
     'eslint-plugin-typescript',
-  ],
-  extends: [
-    'eslint-config-xo-space/esnext',
-    'eslint-config-xo-react/space',
   ],
   env: {
     node: true,

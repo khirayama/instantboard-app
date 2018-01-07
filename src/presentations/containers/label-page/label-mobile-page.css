@@ -101,6 +101,18 @@
       .label-mobile-page--member-block--content--no-result {
         padding: 12px;
       }
+
+      .label-mobile-page--member-block--content--list {
+        li {
+          height: auto;
+
+          p {
+            width: calc(100% - $height-mobile-bar-high - 12px);
+            overflow: hidden;
+            word-break: break-all;
+          }
+        }
+      }
     }
   }
 

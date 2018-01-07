@@ -163,7 +163,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
                     {' as new member.'}
                   </div>
                 ) : (
-                  <ul className="member-block--list">
+                  <ul className="label-mobile-page--member-block--content--list">
                     {filteredMembers.map(member => {
                       return (
                         <SearchMemberListItem

@@ -3,12 +3,12 @@
 
   .profile-mobile-page--image {
     text-align: center;
-    padding: 42px 0 12px;
+    padding: 32px 0 12px;
 
     img {
       display: inline-block;
-      width: 120px;
-      height: 120px;
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
       border: $border;
       overflow: hidden;

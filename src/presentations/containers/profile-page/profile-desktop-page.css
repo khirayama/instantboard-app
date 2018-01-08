@@ -9,12 +9,12 @@
 
   .profile-desktop-page--image {
     text-align: center;
-    padding: 36px 0 12px;
+    padding: 36px 0 24px;
 
     img {
       display: inline-block;
-      width: 96px;
-      height: 96px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       border: $border;
       overflow: hidden;

@@ -1,3 +1,4 @@
+/* https://material.io/guidelines/style/color.html#color-color-palette */
 /* $color-black: #000; */
 $color-white: #fff;
 $color-grey-50: #fafafa;
@@ -11,6 +12,7 @@ $color-grey-600: #757575; /* rgba(0, 0, 0, .54); */
 $color-grey-800: #424242;
 $color-grey-900: #212121; /* rgba(0, 0, 0, .87); */
 $color-red-a700: #d50000;
+$color-green-a700: #00c853;
 
 $color-text: $color-grey-900;
 $color-text-secondary: $color-grey-600;
@@ -23,6 +25,7 @@ $color-background: $color-grey-50;
 $color-background-bar: $color-white;
 $color-background-content: $color-white;
 $color-attention: $color-red-a700;
+$color-positive: $color-green-a700;
 $color-disabled: #ededed;
 
 /* Validation */

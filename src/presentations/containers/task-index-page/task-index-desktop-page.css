@@ -1,5 +1,5 @@
 .task-index-desktop-page {
-  $width-side: 188px;
+  $width-side: 212px;
 
   .application-content {
     padding: 60px 0;
@@ -16,6 +16,7 @@
     .layered-parent-list-item {
       padding: 4px 0;
       font-weight: $font-medium;
+      word-break: break-all;
       color: $color-text-hint;
 
       svg {

@@ -5,7 +5,7 @@ import ListItem from '../list/list-item';
 
 export default class LabelListItem extends React.Component<any, any> {
   public render() {
-    const { label, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
+    const { label, profile, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
 
     const handleClickVisibleButton = (event: any) => {
       if (onClickVisibleButton) {
@@ -41,7 +41,28 @@ export default class LabelListItem extends React.Component<any, any> {
           <Icon type="check" active={!label.visibled} />
         </div>
         <div className="label-list-item--content">
-          <div className="label-list-item--content--text">{label.name}</div>
+          <div className="label-list-item--content--text">
+            {label.name}
+            {label.requests
+              .filter(request => {
+                if (profile === null) {
+                  return false;
+                }
+                return request.member.id !== profile.id;
+              })
+              .map(request => {
+                const member = request.member;
+                return (
+                  <img
+                    key={member.id}
+                    className={classNames('label-list-item--content--profile-image', {
+                      'label-list-item--content--profile-image__accepted': request.status === 'accepted',
+                    })}
+                    src={member.imageUrl}
+                  />
+                );
+              })}
+          </div>
         </div>
         <div className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled} />

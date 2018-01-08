@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { getUser } from '../../../action-creators/user';
 import { destroyLabel, fetchLabel, sortLabel, updateLabel } from '../../../action-creators/label';
 import { pollRequest } from '../../../action-creators/request';
 import poller from '../../../utils/poller';
@@ -35,6 +36,9 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
       pollRequest: (): Promise<{}> => {
         return pollRequest(this.dispatch, { status: 'pending' });
       },
+      getUser: (): Promise<{}> => {
+        return getUser(this.dispatch);
+      },
       fetchLabel: (): Promise<{}> => {
         return fetchLabel(this.dispatch);
       },
@@ -56,6 +60,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
   }
 
   public componentDidMount(): void {
+    this.actions.getUser();
     this.actions.fetchLabel();
     this.actions.pollRequest();
     poller.add(this.actions.pollRequest, 3000);
@@ -68,6 +73,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
   }
 
   public render() {
+    const profile: IUser | null = this.state.profile;
     const labels: ILabel[] = this.state.labels;
     const requests: IRequest[] = this.state.requests;
     const ui: IUI = this.state.ui;
@@ -92,6 +98,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
               <LabelListItem
                 key={label.id}
                 label={label}
+                profile={profile}
                 onClickVisibleButton={this.handleClickVisibleButton}
                 onClickLabelListItem={this.handleClickLabelListItem}
                 onClickDestroyButton={this.handleClickDestroyButton}

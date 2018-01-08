@@ -5,6 +5,7 @@ interface IRequest {
     id: number;
     name: string;
     email: string;
+    imageUrl: string;
   };
   label: {
     id: number;
@@ -26,6 +27,7 @@ interface IRequestResponse {
     id: number;
     name: string;
     email: string;
+    imageUrl: string;
   };
   label: {
     id: number;

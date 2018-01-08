@@ -18,6 +18,7 @@ export function transformRequestResponse(request: IRequestResponse): IRequest {
       id: request.member.id,
       name: request.member.name,
       email: request.member.email,
+      imageUrl: request.member.imageUrl,
     },
     label: request.label
       ? {
@@ -57,6 +58,7 @@ export function transformUserResponse(user: IUserResponse): IUser {
     id: user.id,
     name: user.name || '',
     email: user.email || '',
+    imageUrl: user.imageUrl || '',
   };
 }
 

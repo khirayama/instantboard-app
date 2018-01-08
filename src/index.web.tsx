@@ -26,11 +26,7 @@ if (window.location.pathname !== '/login') {
 
 window.addEventListener('DOMContentLoaded', () => {
   if (process && process.env.NODE_ENV !== 'production') {
-    /* eslint-disable capitalized-comments */
-    /* tslint:disable:no-console */
     console.log(`Start app at ${new Date()}.`);
-    /* tslint:enable:no-console */
-    /* eslint-enable capitalized-comments */
   }
 
   const applicationMainElement: HTMLElement | null = window.document.querySelector('.application--main');

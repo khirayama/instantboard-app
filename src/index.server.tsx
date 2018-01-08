@@ -133,9 +133,5 @@ app.get('*', (req, res): void => {
   res.type('text/html').send(html);
 });
 
-/* eslint-disable capitalized-comments */
-/* tslint:disable:no-console */
 console.log(`Start api app at ${new Date()}`);
-/* tslint:enable:no-console */
-/* eslint-enable capitalized-comments */
 app.listen(APP_SERVER_PORT);

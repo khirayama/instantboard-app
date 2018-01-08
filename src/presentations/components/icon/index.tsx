@@ -1,5 +1,3 @@
-/* eslint-disable capitalized-comments */
-/* tslint:disable:max-line-length */
 import * as classNames from 'classnames';
 import * as React from 'react';
 

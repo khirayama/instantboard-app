@@ -99,7 +99,13 @@
       }
 
       .label-mobile-page--member-block--content--no-result {
-        padding: 12px;
+        height: $height-mobile-bar-high;
+
+        p {
+          display: inline-block;
+          line-height: $height-mobile-bar-high;
+          vertical-align: top;
+        }
       }
     }
   }

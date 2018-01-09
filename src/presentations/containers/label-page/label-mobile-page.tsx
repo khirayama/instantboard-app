@@ -156,9 +156,8 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
                     className="label-mobile-page--member-block--content--no-result"
                     onClick={this.handleSubmitMemberNameForm}
                   >
-                    {'Add '}
-                    {this.state.memberName}
-                    {' as new member.'}
+                    <Icon type="profile" />
+                    <p>{`Add ${this.state.memberName} as new member.`}</p>
                   </div>
                 ) : (
                   <ul className="label-mobile-page--member-block--content--list">

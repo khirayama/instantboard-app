@@ -138,7 +138,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
               value={this.state.memberName}
               onChange={this.handleChangeMemberNameInput}
               onFocus={this.handleFocusMemberNameInput}
-              placeholder="Search by member name"
+              placeholder="Search by name or email"
             />
             {this.state.isMemberListShown ? (
               <div className="label-mobile-page--member-block--content">
@@ -204,7 +204,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   private filterMembers(members: IUser[], keyword: string): IUser[] {
     const options = {
       shouldSort: true,
-      threshold: 0.99,
+      threshold: 0.55,
       location: 0,
       distance: 100,
       maxPatternLength: 32,

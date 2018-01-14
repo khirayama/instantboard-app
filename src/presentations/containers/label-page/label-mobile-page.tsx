@@ -182,7 +182,16 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
               return profile !== null && request.member.name !== profile.name;
             })
             .map((request: IRequest) => {
-              return <li key={request.id || request.member.id}>{request.member.name}</li>;
+              const member = request.member;
+              return (
+                <li key={request.id || member.id}>
+                  <img src={member.imageUrl} />
+                  <p>{member.name}</p>
+                  <span>
+                    <Icon type="remove" />
+                  </span>
+                </li>
+              );
             })}
         </ul>
         <form onSubmit={this.handleSubmitLabelForm}>

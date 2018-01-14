@@ -113,11 +113,33 @@
   .label-mobile-page--member-list {
     padding: 8px 12px;
     border-bottom: $border;
+
     li {
       display: inline-block;
       border: $border;
       border-radius: $radius;
-      padding: 4px 8px;
+      padding: 4px;
+
+      img {
+        width: 24px;
+        height: 24px;
+        border: $border;
+        border-radius: 50%;
+        vertical-align: top;
+      }
+
+      p {
+        display: inline-block;
+        padding: 0 8px;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+        padding: 4px;
+        vertical-align: top;
+      }
+
       & + li {
         margin-left: 8px;
       }

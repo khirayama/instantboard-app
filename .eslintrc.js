@@ -27,11 +27,11 @@ module.exports = {
     'react/forbid-component-props': 0,
 
     // Break code for following rules when enable --fix option
-    'react/jsx-first-prop-new-line': 0,
-    'react/jsx-closing-bracket-location': 0,
-    'react/self-closing-comp': 0,
-    'react/jsx-indent': 0,
-    'react/jsx-max-props-per-line': 0,
+    // 'react/jsx-first-prop-new-line': 0,
+    // 'react/jsx-closing-bracket-location': 0,
+    // 'react/self-closing-comp': 0,
+    // 'react/jsx-indent': 0,
+    // 'react/jsx-max-props-per-line': 0,
     // 'react/jsx-closing-tag-location': 0,
     // 'react/jsx-tag-spacing': 0,
     // 'react/no-unescaped-entities': 0,

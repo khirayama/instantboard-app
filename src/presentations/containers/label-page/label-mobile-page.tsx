@@ -228,16 +228,16 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     callback();
   }
 
+  // For member name input
+  private _handleFocusMemberNameInput() {
+    this.setState({ isMemberListShown: true });
+  }
+
   private _handleChangeNameInput(event: any) {
     this.setState({ labelName: event.currentTarget.value });
   }
 
   private _handleKeyDownNameInput(event: any) {
-    this.submitLabel();
-  }
-
-  private _handleSubmitLabelForm(event: any) {
-    event.preventDefault();
     this.submitLabel();
   }
 
@@ -248,32 +248,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     });
   }
 
-  private _handleFocusMemberNameInput() {
-    this.setState({ isMemberListShown: true });
-  }
-
-  private _handleSearchMemberListItemClick(event: any, props: any) {
-    const { member } = props;
-    const labelRequests = this.state.labelRequests.concat();
-    let isIncluded = false;
-    labelRequests.forEach((labelRequest: any) => {
-      if (labelRequest.member.name === member.name) {
-        isIncluded = true;
-      }
-    });
-    if (!isIncluded) {
-      labelRequests.push({
-        member,
-      });
-      this.setState({
-        memberName: '',
-        memberNameErrorMessage: '',
-        labelRequests,
-        isMemberListShown: false,
-      });
-    }
-  }
-
+  // For member form
   private _handleSubmitMemberNameForm(event: any) {
     event.preventDefault();
 
@@ -307,8 +282,37 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     });
   }
 
+  // For member list
+  private _handleSearchMemberListItemClick(event: any, props: any) {
+    const { member } = props;
+    const labelRequests = this.state.labelRequests.concat();
+    let isIncluded = false;
+    labelRequests.forEach((labelRequest: any) => {
+      if (labelRequest.member.name === member.name) {
+        isIncluded = true;
+      }
+    });
+    if (!isIncluded) {
+      labelRequests.push({
+        member,
+      });
+      this.setState({
+        memberName: '',
+        memberNameErrorMessage: '',
+        labelRequests,
+        isMemberListShown: false,
+      });
+    }
+  }
+
   private _handleMemberListCloseButtonClick() {
     this.setState({ isMemberListShown: false });
+  }
+
+  // For submit label
+  private _handleSubmitLabelForm(event: any) {
+    event.preventDefault();
+    this.submitLabel();
   }
 
   private submitLabel() {

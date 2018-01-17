@@ -233,12 +233,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   private _handleKeyDownNameInput(event: any) {
-    const ENTER_KEY_CODE = 13;
-
-    if (event.keyCode === ENTER_KEY_CODE) {
-      event.preventDefault();
-      this.submitLabel();
-    }
+    this.submitLabel();
   }
 
   private _handleSubmitLabelForm(event: any) {

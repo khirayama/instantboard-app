@@ -21,10 +21,21 @@ interface ILabelRequest {
   requests: IRequest[];
 }
 
+interface IMemberResponse {
+  id: number;
+  name: string;
+  email: string;
+  imageUrl: string;
+  requestId: string;
+  status: string;
+}
+
 interface ILabelResponse {
   id: number;
   name: string;
-  visibled: boolean;
   priority: number;
-  requests: IRequestResponse[];
+  visibled: boolean;
+  members: IMemberResponse[];
+  createdAt: string;
+  updatedAt: string;
 }

@@ -210,7 +210,7 @@ const User = {
 };
 
 const Member = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/members`),
+  req: () => createRequest(`${API_SERVER_HOST}/api/v1/users/members`),
 
   fetch: () => {
     return new Promise((resolve, reject) => {

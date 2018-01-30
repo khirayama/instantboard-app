@@ -1,11 +1,10 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosError } from 'axios';
 import * as http from 'http';
 import tokenManager from '../utils/token-manager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-// AxiosInstance
-function createRequest(baseURL: string = ''): any {
+function createRequest(baseURL: string = ''): AxiosInstance {
   return axios.create({
     baseURL,
     headers: {
@@ -17,9 +16,9 @@ function createRequest(baseURL: string = ''): any {
   });
 }
 
-function handleRequestError(err: any, reject: any): void {
-  const status: number = err.response.status;
-  const data: string = err.response.data;
+function handleRequestError(err: AxiosError, reject: any): void {
+  const status: number | null = err.response ? err.response.status : null;
+  const data: string | null = err.response ? err.response.data : null;
 
   if (status === 401) {
     window.location.href = '/login';
@@ -30,68 +29,68 @@ function handleRequestError(err: any, reject: any): void {
 const searchReq = () => createRequest(`${API_SERVER_HOST}/api/v1/search`);
 
 const Label = {
-  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/labels`),
+  req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/labels`),
 
-  fetch: (): Promise<{}> => {
+  fetch: (): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .get('/')
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: ILabelRequestParams): Promise<{}> => {
+  create: (params: ILabelRequestParams): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  update: (params: ILabelRequestParams & ILabelRequestId): Promise<{}> => {
+  update: (params: ILabelRequestParams & ILabelRequestId): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}`, params)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  destroy: (params: ILabelRequestId): Promise<{}> => {
+  destroy: (params: ILabelRequestId): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .delete(`/${params.id}`)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  sort: (params: ILabelRequestId, priority: number): Promise<{}> => {
+  sort: (params: ILabelRequestId, priority: number): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}/sort`, { priority })
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -99,68 +98,68 @@ const Label = {
 };
 
 const Task = {
-  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/tasks`),
+  req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/tasks`),
 
-  fetch: (): Promise<{}> => {
+  fetch: (): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .get('/')
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: ITaskRequestParams): Promise<{}> => {
+  create: (params: ITaskRequestParams): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  update: (params: ITaskRequestId & ITaskRequestParams): Promise<{}> => {
+  update: (params: ITaskRequestId & ITaskRequestParams): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}`, params)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  destroy: (params: ITaskRequestId): Promise<{}> => {
+  destroy: (params: ITaskRequestId): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .delete(`/${params.id}`)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  sort: (params: ITaskRequestId, priority: number): Promise<{}> => {
+  sort: (params: ITaskRequestId, priority: number): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}/sort`, { priority })
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -168,16 +167,16 @@ const Task = {
 };
 
 const User = {
-  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/user`),
+  req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/user`),
 
   get: (): Promise<{}> => {
-    return new Promise((resolve, reject): any => {
+    return new Promise((resolve, reject): void => {
       User.req()
         .get('/')
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -190,7 +189,7 @@ const User = {
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -203,7 +202,7 @@ const User = {
         .then((): void => {
           resolve();
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -216,7 +215,7 @@ const User = {
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -224,7 +223,7 @@ const User = {
 };
 
 const Request = {
-  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
+  req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
 
   fetch: (params: { status: string }): Promise<{}> => {
     return new Promise((resolve, reject): void => {
@@ -233,20 +232,20 @@ const Request = {
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: any): Promise<{}> => {
+  create: (params: IRequestRequestParams): Promise<{}> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -259,7 +258,7 @@ const Request = {
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });
@@ -272,7 +271,7 @@ const Request = {
         .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any): void => {
+        .catch((err: AxiosError): void => {
           handleRequestError(err, reject);
         });
     });

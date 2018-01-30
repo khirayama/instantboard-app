@@ -79,7 +79,7 @@ interface IRequestRequestId {
 
 interface IRequestRequestParams {
   status?: string;
-  labelId: number | null;
+  labelId: number;
   memberId: number;
 }
 

@@ -73,10 +73,10 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       fetchLabel: () => {
         return fetchLabel(this.dispatch);
       },
-      createLabel: (label: ILabelRequestParams) => {
+      createLabel: (label: ILabel) => {
         return createLabel(this.dispatch, label);
       },
-      updateLabel: (label: ILabelRequestId & ILabelRequestParams) => {
+      updateLabel: (label: ILabel) => {
         return updateLabel(this.dispatch, label);
       },
       getUser: () => {

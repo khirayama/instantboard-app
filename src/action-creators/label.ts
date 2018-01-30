@@ -10,7 +10,7 @@ export function fetchLabel(dispatch: IDispatch): Promise<{}> {
 
   return new Promise(resolve => {
     Label.fetch()
-      .then((labels: any) => {
+      .then((labels: ILabelResponse[]) => {
         const transformedLabels: ILabel[] = labels.map(transformLabelResponse);
         const action: IAction = {
           type: actionTypes.FETCH_LABEL_SUCCESS,
@@ -31,7 +31,7 @@ export function fetchLabel(dispatch: IDispatch): Promise<{}> {
   });
 }
 
-export function createLabel(dispatch: IDispatch, label: any): Promise<{}> {
+export function createLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
@@ -39,7 +39,7 @@ export function createLabel(dispatch: IDispatch, label: any): Promise<{}> {
 
   return new Promise((resolve, reject) => {
     Label.create(label)
-      .then((newLabel: any) => {
+      .then((newLabel: ILabelResponse) => {
         const transformedLabel: ILabel = transformLabelResponse(newLabel);
         const action: IAction = {
           type: actionTypes.CREATE_LABEL_SUCCESS,
@@ -75,7 +75,7 @@ export function createLabel(dispatch: IDispatch, label: any): Promise<{}> {
             };
             Request.create({
               labelId: transformedLabel.id,
-              memberName: member.name,
+              memberId: member.id,
             })
               .then(res => {
                 requestHandler(true, res);
@@ -98,7 +98,7 @@ export function createLabel(dispatch: IDispatch, label: any): Promise<{}> {
   });
 }
 
-export function updateLabel(dispatch: IDispatch, label: any): Promise<{}> {
+export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
@@ -106,7 +106,7 @@ export function updateLabel(dispatch: IDispatch, label: any): Promise<{}> {
 
   return new Promise((resolve, reject) => {
     Label.update(label)
-      .then((newLabel: any) => {
+      .then((newLabel: ILabelResponse) => {
         const transformedLabel: ILabel = transformLabelResponse(newLabel);
         const action: IAction = {
           type: actionTypes.UPDATE_LABEL_SUCCESS,
@@ -142,7 +142,7 @@ export function updateLabel(dispatch: IDispatch, label: any): Promise<{}> {
             };
             Request.create({
               labelId: transformedLabel.id,
-              memberName: member.name,
+              memberId: member.id,
             })
               .then(res => {
                 requestHandler(true, res);
@@ -203,7 +203,7 @@ export function sortLabel(dispatch: IDispatch, label: ILabelRequestId, to: numbe
 
   return new Promise(resolve => {
     Label.sort(label, to)
-      .then((labels: any) => {
+      .then((labels: ILabelResponse[]) => {
         const action: IAction = {
           type: actionTypes.SORT_LABEL_SUCCESS,
           payload: {

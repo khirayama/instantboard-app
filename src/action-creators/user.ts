@@ -10,7 +10,7 @@ export function getUser(dispatch: IDispatch) {
 
   return new Promise((resolve, reject) => {
     User.get()
-      .then((user: any) => {
+      .then((user: IUserResponse) => {
         const action: IAction = {
           type: actionTypes.GET_USER_SUCCES,
           payload: {
@@ -63,11 +63,11 @@ export function fetchMember(dispatch: IDispatch) {
 
   return new Promise(resolve => {
     User.fetchMember()
-      .then((requests: any) => {
+      .then((members: IUserResponse[]) => {
         const action: IAction = {
           type: actionTypes.FETCH_MEMBER_SUCCESS,
           payload: {
-            members: requests.map(transformUserResponse),
+            members: members.map(transformUserResponse),
           },
         };
         dispatch(action);

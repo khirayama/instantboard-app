@@ -169,7 +169,7 @@ const Task = {
 const User = {
   req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/user`),
 
-  get: (): Promise<{}> => {
+  get: (): Promise<IUserResponse> => {
     return new Promise((resolve, reject): void => {
       User.req()
         .get('/')
@@ -182,7 +182,7 @@ const User = {
     });
   },
 
-  search: (params: { q: string }): Promise<{}> => {
+  search: (params: { q: string }): Promise<IUserResponse> => {
     return new Promise((resolve, reject): void => {
       searchReq()
         .get('/users', { params })
@@ -195,7 +195,7 @@ const User = {
     });
   },
 
-  delete: (): Promise<{}> => {
+  delete: (): Promise<void> => {
     return new Promise((resolve, reject): void => {
       User.req()
         .delete('/')
@@ -208,7 +208,7 @@ const User = {
     });
   },
 
-  fetchMember: (): Promise<{}> => {
+  fetchMember: (): Promise<IUserResponse[]> => {
     return new Promise((resolve, reject): void => {
       User.req()
         .get('/members')

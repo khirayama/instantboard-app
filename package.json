@@ -46,12 +46,12 @@
     "envify": "4.1.0",
     "eslint": "4.16.0",
     "eslint-config-prettier": "2.9.0",
-    "eslint-config-xo-react": "0.15.0",
+    "eslint-config-xo-react": "0.16.0",
     "eslint-config-xo-space": "0.17.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.6.0",
+    "eslint-plugin-react": "7.6.1",
     "eslint-plugin-typescript": "0.8.1",
-    "fastify": "0.40.0",
+    "fastify": "0.41.0",
     "forever": "0.15.3",
     "fuse.js": "3.2.0",
     "minimist": "1.2.0",
@@ -75,6 +75,6 @@
     "typescript-eslint-parser": "12.0.0",
     "uglify-es": "3.3.4",
     "uglifyify": "4.0.5",
-    "watchify": "3.9.0"
+    "watchify": "3.10.0"
   }
 }

@@ -225,7 +225,7 @@ const User = {
 const Request = {
   req: (): AxiosInstance => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
 
-  fetch: (params: { status: string }): Promise<{}> => {
+  fetch: (params: { status: string }): Promise<IRequestResponse[]> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .get('/', { params })
@@ -238,7 +238,7 @@ const Request = {
     });
   },
 
-  create: (params: IRequestRequestParams): Promise<{}> => {
+  create: (params: IRequestRequestParams): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .post('/', params)
@@ -251,7 +251,7 @@ const Request = {
     });
   },
 
-  update: (params: IRequestRequestId & IRequestRequestParams): Promise<{}> => {
+  update: (params: IRequestRequestId & IRequestRequestParams): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .put(`/${params.id}`, params)
@@ -264,7 +264,7 @@ const Request = {
     });
   },
 
-  destroy: (params: IRequestRequestId): Promise<{}> => {
+  destroy: (params: IRequestRequestId): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .delete(`/${params.id}`)

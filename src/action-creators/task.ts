@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Task } from '../services';
 import { transformTaskRequest, transformTaskResponse } from './transforms';
 
-export function pollTask(dispatch: IDispatch) {
+export function pollTask(dispatch: IDispatch): Promise<{}> {
   return new Promise(resolve => {
     Task.fetch()
       .then((tasks: any) => {
@@ -25,7 +25,7 @@ export function pollTask(dispatch: IDispatch) {
   });
 }
 
-export function fetchTask(dispatch: IDispatch) {
+export function fetchTask(dispatch: IDispatch): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.FETCH_TASK,
   };
@@ -53,7 +53,7 @@ export function fetchTask(dispatch: IDispatch) {
   });
 }
 
-export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
+export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.CREATE_TASK,
   };
@@ -81,7 +81,7 @@ export function createTask(dispatch: IDispatch, task: ITaskCreateRequest) {
   });
 }
 
-export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
+export function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITaskRequestParams): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_TASK,
   };
@@ -109,7 +109,7 @@ export function updateTask(dispatch: IDispatch, task: ITaskRequest) {
   });
 }
 
-export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
+export function destroyTask(dispatch: IDispatch, task: ITaskRequestId) {
   const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
@@ -137,7 +137,7 @@ export function destroyTask(dispatch: IDispatch, task: ITaskRequest) {
   });
 }
 
-export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
+export function sortTask(dispatch: IDispatch, task: ITaskRequestId, to: number) {
   const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {
@@ -149,7 +149,7 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequest, to: number) {
 
   return new Promise(resolve => {
     Task.sort(task, to)
-      .then((tasks: any) => {
+      .then((tasks: any): void => {
         const action: IAction = {
           type: actionTypes.SORT_TASK_SUCCESS,
           payload: {

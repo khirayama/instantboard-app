@@ -85,7 +85,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     this.actions.fetchLabel().then((action: IAction) => {
       const labels = action.payload.labels;
       for (const label of labels) {
-        if (label.requests.length > 1) {
+        if (label.members.length > 1) {
           poller.add(this.actions.pollTask, 3000);
           break;
         }

@@ -2,8 +2,7 @@ import * as Fuse from 'fuse.js';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/label';
-import { fetchMember } from '../../../action-creators/member';
-import { getUser } from '../../../action-creators/user';
+import { getUser, fetchMember } from '../../../action-creators/user';
 import Link from '../../../router/link';
 import { User } from '../../../services';
 import Icon from '../../components/icon';
@@ -74,10 +73,10 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       fetchLabel: () => {
         return fetchLabel(this.dispatch);
       },
-      createLabel: (label: ILabelRequest) => {
+      createLabel: (label: ILabelRequestParams) => {
         return createLabel(this.dispatch, label);
       },
-      updateLabel: (label: ILabelRequest) => {
+      updateLabel: (label: ILabelRequestId & ILabelRequestParams) => {
         return updateLabel(this.dispatch, label);
       },
       getUser: () => {
@@ -112,13 +111,14 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           if (label.id === labelId) {
             this.setState({
               labelName: label.name,
-              labelRequests: label.requests.map(request => {
-                return {
-                  id: request.id,
-                  status: request.status,
-                  member: request.member,
-                };
-              }),
+              labelRequests: [],
+              // LabelRequests: label.members.map(member => {
+              //   return {
+              //     id: member.id,
+              //     status: member.status,
+              //     member: member.member,
+              //   };
+              // }),
             });
             break;
           }

@@ -54,3 +54,31 @@ export function deleteUser(dispatch: IDispatch) {
       });
   });
 }
+
+export function fetchMember(dispatch: IDispatch) {
+  const preAction: IAction = {
+    type: actionTypes.FETCH_MEMBER,
+  };
+  dispatch(preAction);
+
+  return new Promise(resolve => {
+    User.fetchMember()
+      .then((requests: any) => {
+        const action: IAction = {
+          type: actionTypes.FETCH_MEMBER_SUCCESS,
+          payload: {
+            members: requests.map(transformUserResponse),
+          },
+        };
+        dispatch(action);
+        resolve(action);
+      })
+      .catch(() => {
+        const action: IAction = {
+          type: actionTypes.FETCH_MEMBER_FAILURE,
+        };
+        dispatch(action);
+        resolve(action);
+      });
+  });
+}

@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Label, Request } from '../services';
 import { transformLabelRequest, transformLabelResponse } from './transforms';
 
-export function fetchLabel(dispatch: IDispatch) {
+export function fetchLabel(dispatch: IDispatch): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.FETCH_LABEL,
   };
@@ -11,10 +11,11 @@ export function fetchLabel(dispatch: IDispatch) {
   return new Promise(resolve => {
     Label.fetch()
       .then((labels: any) => {
+        const transformedLabels: ILabel[] = labels.map(transformLabelResponse);
         const action: IAction = {
           type: actionTypes.FETCH_LABEL_SUCCESS,
           payload: {
-            labels: labels.map(transformLabelResponse),
+            labels: transformedLabels,
           },
         };
         dispatch(action);
@@ -30,7 +31,7 @@ export function fetchLabel(dispatch: IDispatch) {
   });
 }
 
-export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
+export function createLabel(dispatch: IDispatch, label: any): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
@@ -39,7 +40,7 @@ export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
   return new Promise((resolve, reject) => {
     Label.create(label)
       .then((newLabel: any) => {
-        const transformedLabel = transformLabelResponse(newLabel);
+        const transformedLabel: ILabel = transformLabelResponse(newLabel);
         const action: IAction = {
           type: actionTypes.CREATE_LABEL_SUCCESS,
           payload: {
@@ -48,24 +49,23 @@ export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
         };
         dispatch(action);
 
-        if (label.requests.length) {
+        if (label.members.length) {
           const result: any = {
             label: transformedLabel,
-            requests: [],
+            members: [],
           };
-          label.requests.forEach((request: any) => {
+          label.members.forEach((member: ILabelMember) => {
             const requestHandler = (success: any, res: any) => {
-              result.requests.push({
+              result.members.push({
                 success,
                 labelId: transformedLabel.id,
-                name: request.member.name,
+                name: member.name,
                 errors: success ? [] : [res.error],
               });
 
-              if (result.requests.length === label.requests.length) {
+              if (result.members.length === label.members.length) {
                 if (
-                  result.requests.length ===
-                  result.requests.filter((requestResult: any) => requestResult.success).length
+                  result.members.length === result.members.filter((memberResult: any) => memberResult.success).length
                 ) {
                   resolve(result);
                 } else {
@@ -75,7 +75,7 @@ export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
             };
             Request.create({
               labelId: transformedLabel.id,
-              memberName: request.member.name,
+              memberName: member.name,
             })
               .then(res => {
                 requestHandler(true, res);
@@ -98,7 +98,7 @@ export function createLabel(dispatch: IDispatch, label: ILabelCreateRequest) {
   });
 }
 
-export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
+export function updateLabel(dispatch: IDispatch, label: any): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
@@ -107,7 +107,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
   return new Promise((resolve, reject) => {
     Label.update(label)
       .then((newLabel: any) => {
-        const transformedLabel = transformLabelResponse(newLabel);
+        const transformedLabel: ILabel = transformLabelResponse(newLabel);
         const action: IAction = {
           type: actionTypes.UPDATE_LABEL_SUCCESS,
           payload: {
@@ -116,24 +116,23 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
         };
         dispatch(action);
 
-        if (label.requests && label.requests.length) {
+        if (label.members && label.members.length) {
           const result: any = {
             label: transformedLabel,
-            requests: [],
+            members: [],
           };
-          label.requests.forEach((request: any) => {
+          label.members.forEach((member: ILabelMember) => {
             const requestHandler = (success: any, res: any) => {
-              result.requests.push({
+              result.members.push({
                 success,
                 labelId: transformedLabel.id,
-                name: request.member.name,
+                name: member.name,
                 errors: success ? [] : [res.error],
               });
 
-              if (result.requests.length === label.requests.length) {
+              if (result.members.length === label.members.length) {
                 if (
-                  result.requests.length ===
-                  result.requests.filter((requestResult: any) => requestResult.success).length
+                  result.members.length === result.members.filter((memberResult: any) => memberResult.success).length
                 ) {
                   resolve(result);
                 } else {
@@ -143,7 +142,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
             };
             Request.create({
               labelId: transformedLabel.id,
-              memberName: request.member.name,
+              memberName: member.name,
             })
               .then(res => {
                 requestHandler(true, res);
@@ -164,7 +163,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabelRequest) {
   });
 }
 
-export function destroyLabel(dispatch: IDispatch, label: ILabelRequest) {
+export function destroyLabel(dispatch: IDispatch, label: ILabelRequestId): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.DESTROY_LABEL,
     payload: {
@@ -192,7 +191,7 @@ export function destroyLabel(dispatch: IDispatch, label: ILabelRequest) {
   });
 }
 
-export function sortLabel(dispatch: IDispatch, label: ILabelRequest, to: number) {
+export function sortLabel(dispatch: IDispatch, label: ILabelRequestId, to: number): Promise<{}> {
   const preAction: IAction = {
     type: actionTypes.SORT_LABEL,
     payload: {

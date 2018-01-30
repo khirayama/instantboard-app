@@ -43,20 +43,19 @@ export default class LabelListItem extends React.Component<any, any> {
         <div className="label-list-item--content">
           <div className="label-list-item--content--text">
             {label.name}
-            {label.requests
-              .filter(request => {
+            {label.members
+              .filter(member => {
                 if (profile === null) {
                   return false;
                 }
-                return request.member.id !== profile.id;
+                return member.id !== profile.id;
               })
-              .map(request => {
-                const member = request.member;
+              .map(member => {
                 return (
                   <img
                     key={member.id}
                     className={classNames('label-list-item--content--profile-image', {
-                      'label-list-item--content--profile-image__accepted': request.status === 'accepted',
+                      'label-list-item--content--profile-image__accepted': member.status === 'accepted',
                     })}
                     src={member.imageUrl}
                   />

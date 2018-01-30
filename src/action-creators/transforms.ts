@@ -41,7 +41,7 @@ export function transformTaskResponse(task: ITaskResponse): ITask {
   };
 }
 
-export function transformTaskRequest(task: ITaskRequest): ITask {
+export function transformTaskRequest(task: any): ITask {
   return {
     id: task.id,
     labelId: task.labelId,
@@ -62,22 +62,33 @@ export function transformUserResponse(user: IUserResponse): IUser {
   };
 }
 
+export function transformLabelMemeber(member: ILabelMemberResponse): ILabelMember {
+  return {
+    id: member.id,
+    name: member.name,
+    email: member.email,
+    imageUrl: member.imageUrl,
+    requestId: member.requestId,
+    status: member.status,
+  };
+}
+
 export function transformLabelResponse(label: ILabelResponse): ILabel {
   return {
     id: label.id,
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
-    requests: label.requests ? label.requests.map(transformRequestResponse) : [],
+    members: label.members ? label.members.map(transformLabelMemeber) : [],
   };
 }
 
-export function transformLabelRequest(label: ILabelRequest): ILabel {
+export function transformLabelRequest(label: any): ILabel {
   return {
     id: label.id,
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
-    requests: label.requests ? label.requests : [],
+    members: label.members ? label.members : [],
   };
 }

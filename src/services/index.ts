@@ -4,7 +4,8 @@ import tokenManager from '../utils/token-manager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-function createRequest(baseURL = '') {
+// AxiosInstance
+function createRequest(baseURL: string = ''): any {
   return axios.create({
     baseURL,
     headers: {
@@ -16,9 +17,9 @@ function createRequest(baseURL = '') {
   });
 }
 
-function handleRequestError(err: any, reject: any) {
-  const status = err.response.status;
-  const data = err.response.data;
+function handleRequestError(err: any, reject: any): void {
+  const status: number = err.response.status;
+  const data: string = err.response.data;
 
   if (status === 401) {
     window.location.href = '/login';
@@ -29,68 +30,68 @@ function handleRequestError(err: any, reject: any) {
 const searchReq = () => createRequest(`${API_SERVER_HOST}/api/v1/search`);
 
 const Label = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/labels`),
+  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/labels`),
 
-  fetch: () => {
-    return new Promise((resolve, reject) => {
+  fetch: (): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Label.req()
         .get('/')
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: ILabelCreateRequest) => {
-    return new Promise((resolve, reject) => {
+  create: (params: ILabelRequestParams): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Label.req()
         .post('/', params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  update: (params: ILabelRequest) => {
-    return new Promise((resolve, reject) => {
+  update: (params: ILabelRequestParams & ILabelRequestId): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}`, params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  destroy: (params: ILabelRequest) => {
-    return new Promise((resolve, reject) => {
+  destroy: (params: ILabelRequestId): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Label.req()
         .delete(`/${params.id}`)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  sort: (params: ILabelRequest, priority: number) => {
-    return new Promise((resolve, reject) => {
+  sort: (params: ILabelRequestId, priority: number): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}/sort`, { priority })
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
@@ -98,68 +99,68 @@ const Label = {
 };
 
 const Task = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/tasks`),
+  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/tasks`),
 
-  fetch: () => {
-    return new Promise((resolve, reject) => {
+  fetch: (): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Task.req()
         .get('/')
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: ITaskCreateRequest) => {
-    return new Promise((resolve, reject) => {
+  create: (params: ITaskRequestParams): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Task.req()
         .post('/', params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  update: (params: ITaskRequest) => {
-    return new Promise((resolve, reject) => {
+  update: (params: ITaskRequestId & ITaskRequestParams): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}`, params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  destroy: (params: ITaskRequest) => {
-    return new Promise((resolve, reject) => {
+  destroy: (params: ITaskRequestId): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Task.req()
         .delete(`/${params.id}`)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  sort: (params: ITaskRequest, priority: number) => {
-    return new Promise((resolve, reject) => {
+  sort: (params: ITaskRequestId, priority: number): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}/sort`, { priority })
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
@@ -167,59 +168,55 @@ const Task = {
 };
 
 const User = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/user`),
+  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/user`),
 
-  get: () => {
-    return new Promise((resolve, reject) => {
+  get: (): Promise<{}> => {
+    return new Promise((resolve, reject): any => {
       User.req()
         .get('/')
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  search: params => {
-    return new Promise((resolve, reject) => {
+  search: (params: { q: string }): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       searchReq()
         .get('/users', { params })
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  delete: () => {
-    return new Promise((resolve, reject) => {
+  delete: (): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       User.req()
         .delete('/')
-        .then(() => {
+        .then((): void => {
           resolve();
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
-};
 
-const Member = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/users/members`),
-
-  fetch: () => {
-    return new Promise((resolve, reject) => {
-      Member.req()
-        .get('/')
-        .then(({ data }) => {
+  fetchMember: (): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
+      User.req()
+        .get('/members')
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
@@ -227,59 +224,59 @@ const Member = {
 };
 
 const Request = {
-  req: () => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
+  req: (): any => createRequest(`${API_SERVER_HOST}/api/v1/requests`),
 
-  fetch: params => {
-    return new Promise((resolve, reject) => {
+  fetch: (params: { status: string }): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Request.req()
         .get('/', { params })
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  create: (params: IRequestRequest) => {
-    return new Promise((resolve, reject) => {
+  create: (params: any): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Request.req()
         .post('/', params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  update: (params: IRequestRequest) => {
-    return new Promise((resolve, reject) => {
+  update: (params: IRequestRequestId & IRequestRequestParams): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Request.req()
         .put(`/${params.id}`, params)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 
-  destroy: (params: IRequestRequest) => {
-    return new Promise((resolve, reject) => {
+  destroy: (params: IRequestRequestId): Promise<{}> => {
+    return new Promise((resolve, reject): void => {
       Request.req()
         .delete(`/${params.id}`)
-        .then(({ data }) => {
+        .then(({ data }): void => {
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err: any): void => {
           handleRequestError(err, reject);
         });
     });
   },
 };
 
-export { Label, Task, User, Member, Request };
+export { Label, Task, User, Request };

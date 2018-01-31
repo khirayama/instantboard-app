@@ -41,23 +41,27 @@ interface ITaskRequestParams {
   priority?: number;
 }
 
+interface ITaskScheduleResponse {
+  shortMonthName: string;
+  shortDayName: string;
+  date: number;
+}
+
+interface ITaskLabelResponse {
+  id: number;
+  name: string;
+  priority: number;
+  visibled: boolean;
+}
+
 interface ITaskResponse {
   id: number;
-  label: {
-    id: number;
-    name: string;
-    priority: number;
-    visibled: boolean;
-  };
+  label: ITaskLabelResponse;
   text: string;
   content: string;
   completed: boolean;
   priority: number;
-  schedule: {
-    shortMonthName: string;
-    shortDayName: string;
-    date: number;
-  } | null;
+  schedule: ITaskScheduleResponse | null;
   createdAt: string;
   updatedAt: string;
 }

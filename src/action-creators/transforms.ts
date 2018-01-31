@@ -1,4 +1,4 @@
-export function transformSchedule(schedule: any): ISchedule | null {
+function transformSchedule(schedule: ITaskScheduleResponse | null): ISchedule | null {
   if (schedule === null) {
     return null;
   }

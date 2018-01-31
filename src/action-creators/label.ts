@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Label, Request } from '../services';
 import { transformLabelRequest, transformLabelResponse } from './transforms';
 
-export function fetchLabel(dispatch: IDispatch): Promise<{}> {
+export function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_LABEL,
   };
@@ -31,7 +31,7 @@ export function fetchLabel(dispatch: IDispatch): Promise<{}> {
   });
 }
 
-export function createLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
+export function createLabel(dispatch: IDispatch, label: ILabel): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
@@ -98,7 +98,7 @@ export function createLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
   });
 }
 
-export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
+export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
@@ -163,7 +163,7 @@ export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<{}> {
   });
 }
 
-export function destroyLabel(dispatch: IDispatch, label: ILabelRequestId): Promise<{}> {
+export function destroyLabel(dispatch: IDispatch, label: ILabelRequestId): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DESTROY_LABEL,
     payload: {
@@ -191,7 +191,7 @@ export function destroyLabel(dispatch: IDispatch, label: ILabelRequestId): Promi
   });
 }
 
-export function sortLabel(dispatch: IDispatch, label: ILabelRequestId, to: number): Promise<{}> {
+export function sortLabel(dispatch: IDispatch, label: ILabelRequestId, to: number): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.SORT_LABEL,
     payload: {

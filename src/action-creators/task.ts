@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Task } from '../services';
 import { transformTaskRequest, transformTaskResponse } from './transforms';
 
-export function pollTask(dispatch: IDispatch): Promise<{}> {
+export function pollTask(dispatch: IDispatch): Promise<IAction> {
   return new Promise(resolve => {
     Task.fetch()
       .then((tasks: ITaskResponse[]) => {
@@ -25,7 +25,7 @@ export function pollTask(dispatch: IDispatch): Promise<{}> {
   });
 }
 
-export function fetchTask(dispatch: IDispatch): Promise<{}> {
+export function fetchTask(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_TASK,
   };
@@ -53,7 +53,7 @@ export function fetchTask(dispatch: IDispatch): Promise<{}> {
   });
 }
 
-export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<{}> {
+export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_TASK,
   };
@@ -81,7 +81,7 @@ export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promi
   });
 }
 
-export function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITaskRequestParams): Promise<{}> {
+export function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITaskRequestParams): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_TASK,
   };

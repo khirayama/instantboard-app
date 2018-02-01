@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { User } from '../services';
 import { transformUserResponse } from './transforms';
 
-export function getUser(dispatch: IDispatch) {
+export function getUser(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.GET_USER,
   };
@@ -30,7 +30,7 @@ export function getUser(dispatch: IDispatch) {
   });
 }
 
-export function deleteUser(dispatch: IDispatch) {
+export function deleteUser(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DELETE_USER,
   };
@@ -55,7 +55,7 @@ export function deleteUser(dispatch: IDispatch) {
   });
 }
 
-export function fetchMember(dispatch: IDispatch) {
+export function fetchMember(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_MEMBER,
   };

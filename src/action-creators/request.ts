@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Request } from '../services';
 import { transformRequestResponse } from './transforms';
 
-export function pollRequest(dispatch: IDispatch, params) {
+export function pollRequest(dispatch: IDispatch, params): Promise<IAction> {
   return new Promise(resolve => {
     Request.fetch(params)
       .then((requests: IRequestResponse[]) => {
@@ -25,7 +25,7 @@ export function pollRequest(dispatch: IDispatch, params) {
   });
 }
 
-export function fetchRequest(dispatch: IDispatch, params) {
+export function fetchRequest(dispatch: IDispatch, params): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_REQUEST,
   };
@@ -53,7 +53,7 @@ export function fetchRequest(dispatch: IDispatch, params) {
   });
 }
 
-export function updateRequest(dispatch: IDispatch, params) {
+export function updateRequest(dispatch: IDispatch, params): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_REQUEST,
   };

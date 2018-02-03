@@ -10,15 +10,13 @@ import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
-interface ITemporaryRequest {
-  id: number | null;
+interface ITemporaryMember {
+  id: number;
+  name: string;
+  email: string;
+  imageUrl: string;
   status: string;
-  member: {
-    id: number;
-    name: string;
-    email: string;
-    imageUrl: string;
-  };
+  requestId: number | null;
 }
 
 interface ILableMobilePageState {
@@ -26,7 +24,7 @@ interface ILableMobilePageState {
   labelName: string;
   keyword: string;
   keywordErrorMessage: string;
-  labelRequests: ITemporaryRequest[];
+  labelMembers: ITemporaryMember[];
   isMemberListShown: boolean;
   uiBlocking: boolean;
 }
@@ -59,7 +57,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       labelName: '',
       keyword: '',
       keywordErrorMessage: '',
-      labelRequests: [],
+      labelMembers: [],
       isMemberListShown: false,
       uiBlocking: false,
     };
@@ -111,14 +109,16 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           if (label.id === labelId) {
             this.setState({
               labelName: label.name,
-              labelRequests: [],
-              // LabelRequests: label.members.map(member => {
-              //   return {
-              //     id: member.id,
-              //     status: member.status,
-              //     member: member.member,
-              //   };
-              // }),
+              labelMembers: label.members.map((member: ILabelMember): ITemporaryMember => {
+                return {
+                  id: member.id,
+                  name: member.name,
+                  email: member.email,
+                  imageUrl: member.imageUrl,
+                  status: member.status,
+                  requestId: null,
+                };
+              }),
             });
             break;
           }
@@ -191,16 +191,15 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           </div>
         </form>
         <ul className="label-mobile-page--member-list">
-          {this.state.labelRequests
-            .filter(request => {
-              return profile !== null && request.member.id !== profile.id;
+          {this.state.labelMembers
+            .filter(temporaryMember => {
+              return profile !== null && temporaryMember.id !== profile.id;
             })
-            .map((request: ITemporaryRequest) => {
-              const member = request.member;
+            .map((temporaryMember: ITemporaryMember) => {
               return (
-                <li key={request.id || member.id}>
-                  <img src={member.imageUrl} />
-                  <p>{member.name}</p>
+                <li key={temporaryMember.id}>
+                  <img src={temporaryMember.imageUrl} />
+                  <p>{temporaryMember.name}</p>
                   <span>
                     <Icon type="remove" />
                   </span>
@@ -265,23 +264,26 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
     User.search({ q: keyword }).then((users: any) => {
       if (users.length !== 0 && (users[0].name === keyword || users[0].email === keyword)) {
-        const labelRequests = this.state.labelRequests;
+        const labelMembers = this.state.labelMembers;
         let isIncluded = false;
-        labelRequests.forEach((labelRequest: any) => {
+        labelMembers.forEach((labelRequest: any) => {
           if (labelRequest.member.name === keyword) {
             isIncluded = true;
           }
         });
         if (!isIncluded) {
-          labelRequests.push({
-            id: null,
+          labelMembers.push({
+            id: users[0].id,
+            name: users[0].name,
+            email: users[0].email,
+            imageUrl: users[0].imageUrl,
             status: 'pending',
-            member: users[0],
+            requestId: null,
           });
           this.setState({
             keyword: '',
             keywordErrorMessage: '',
-            labelRequests,
+            labelMembers,
             isMemberListShown: false,
           });
         }
@@ -296,23 +298,26 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   // For member list
   private _handleSearchMemberListItemClick(event: any, props: any) {
     const { member } = props;
-    const labelRequests = this.state.labelRequests;
+    const labelMembers = this.state.labelMembers;
     let isIncluded = false;
-    labelRequests.forEach((labelRequest: any) => {
+    labelMembers.forEach((labelRequest: any) => {
       if (labelRequest.member.name === member.name) {
         isIncluded = true;
       }
     });
     if (!isIncluded) {
-      labelRequests.push({
-        id: null,
+      labelMembers.push({
+        id: member.id,
+        name: member.name,
+        email: member.email,
+        imageUrl: member.imageUrl,
         status: 'pending',
-        member,
+        requestId: null,
       });
       this.setState({
         keyword: '',
         keywordErrorMessage: '',
-        labelRequests,
+        labelMembers,
         isMemberListShown: false,
       });
     }
@@ -330,7 +335,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
   private submitLabel() {
     const labelName = this.state.labelName.trim();
-    const requests = this.state.labelRequests;
+    const requests = this.state.labelMembers;
     const id = this.state.labelId;
 
     if (labelName && !this.state.uiBlocking) {
@@ -349,7 +354,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
             if (result.label.id) {
               this.setState({
                 labelId: result.label.id,
-                labelRequests: result.requests,
+                labelMembers: result.requests,
                 uiBlocking: false,
               });
             }
@@ -368,7 +373,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
             if (result.label.id) {
               this.setState({
                 labelId: result.label.id,
-                labelRequests: result.requests,
+                labelMembers: result.requests,
               });
             }
           });

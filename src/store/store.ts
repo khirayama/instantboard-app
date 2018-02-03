@@ -1,5 +1,6 @@
 const EVENT_CHANGE = '__CHANGE_STORE';
 const ACTION_DISPATCH = '__ACTION_DISPATCH';
+const STORE_SESSION_KEY = '__STORE_SESSION_KEY';
 
 export default class Store {
   private listeners: any = {};
@@ -8,21 +9,28 @@ export default class Store {
 
   private reducer: (state: any, action: any) => any = (state: any) => state;
 
-  private debounce: number | null;
+  private options: {
+    debounce: number | null;
+    session: boolean;
+  };
 
   private timerId: any;
 
-  constructor(state: any, reducer: any, options: { debounce?: number | null } = {}) {
-    if (state) {
+  constructor(state: any, reducer: any, options: { debounce?: number | null; session?: boolean } = {}) {
+    this.options = {
+      debounce: options.debounce || null,
+      session: options.session || false,
+    };
+
+    if (state && this.options.session) {
+      this.state = JSON.parse(window.sessionStorage.getItem(STORE_SESSION_KEY) || JSON.stringify(state));
+    } else if (state && !this.options.session) {
       this.state = state;
     }
 
     if (reducer) {
       this.reducer = reducer;
     }
-
-    // Options
-    this.debounce = options.debounce || null;
 
     this.subscribe();
   }
@@ -89,12 +97,16 @@ export default class Store {
         console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
       }
 
+      if (typeof window === 'object' && this.options.session) {
+        window.sessionStorage.setItem(STORE_SESSION_KEY, JSON.stringify(this.state));
+      }
+
       this.dispatchChange();
     });
   }
 
   private dispatchChange(): void {
-    if (this.debounce) {
+    if (this.options.debounce) {
       if (this.timerId) {
         return;
       }

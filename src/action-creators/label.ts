@@ -31,7 +31,10 @@ export function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   });
 }
 
-export function createLabel(dispatch: IDispatch, label: ILabel): Promise<IAction> {
+export function createLabel(
+  dispatch: IDispatch,
+  label: { name: string; members: ITemporaryMember[] },
+): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
@@ -49,44 +52,28 @@ export function createLabel(dispatch: IDispatch, label: ILabel): Promise<IAction
         };
         dispatch(action);
 
-        if (label.members.length) {
-          const result: any = {
-            label: transformedLabel,
-            members: [],
-          };
-          label.members.forEach((member: ILabelMember) => {
-            const requestHandler = (success: any, res: any) => {
-              result.members.push({
-                success,
-                labelId: transformedLabel.id,
-                name: member.name,
-                errors: success ? [] : [res.error],
-              });
-
-              if (result.members.length === label.members.length) {
-                if (
-                  result.members.length === result.members.filter((memberResult: any) => memberResult.success).length
-                ) {
-                  resolve(result);
-                } else {
-                  reject(result);
-                }
-              }
-            };
-            Request.create({
+        Promise.all(
+          label.members.map((member: ITemporaryMember) => {
+            return Request.create({
               labelId: transformedLabel.id,
               memberId: member.id,
-            })
-              .then(res => {
-                requestHandler(true, res);
-              })
-              .catch(res => {
-                requestHandler(false, res);
-              });
+            });
+          }),
+        )
+          .then(() => {
+            const postAction: IAction = {
+              type: actionTypes.UPDATE_REQUEST_SUCCESS,
+            };
+            dispatch(action);
+            resolve(action);
+          })
+          .catch(() => {
+            const postAction: IAction = {
+              type: actionTypes.UPDATE_REQUEST_FAILURE,
+            };
+            dispatch(action);
+            resolve(action);
           });
-        } else {
-          resolve(action);
-        }
       })
       .catch(() => {
         const action: IAction = {
@@ -98,7 +85,10 @@ export function createLabel(dispatch: IDispatch, label: ILabel): Promise<IAction
   });
 }
 
-export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<IAction> {
+export function updateLabel(
+  dispatch: IDispatch,
+  label: { id: number; name: string; visibled: boolean; members: any[] },
+): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
@@ -116,42 +106,28 @@ export function updateLabel(dispatch: IDispatch, label: ILabel): Promise<IAction
         };
         dispatch(action);
 
-        if (label.members && label.members.length) {
-          const result: any = {
-            label: transformedLabel,
-            members: [],
-          };
-          label.members.forEach((member: ILabelMember) => {
-            const requestHandler = (success: any, res: any) => {
-              result.members.push({
-                success,
-                labelId: transformedLabel.id,
-                name: member.name,
-                errors: success ? [] : [res.error],
-              });
-
-              if (result.members.length === label.members.length) {
-                if (
-                  result.members.length === result.members.filter((memberResult: any) => memberResult.success).length
-                ) {
-                  resolve(result);
-                } else {
-                  reject(result);
-                }
-              }
-            };
-            Request.create({
+        Promise.all(
+          label.members.map((member: ITemporaryMember) => {
+            return Request.create({
               labelId: transformedLabel.id,
               memberId: member.id,
-            })
-              .then(res => {
-                requestHandler(true, res);
-              })
-              .catch(res => {
-                requestHandler(false, res);
-              });
+            });
+          }),
+        )
+          .then(() => {
+            const postAction: IAction = {
+              type: actionTypes.UPDATE_REQUEST_SUCCESS,
+            };
+            dispatch(action);
+            resolve(action);
+          })
+          .catch(() => {
+            const postAction: IAction = {
+              type: actionTypes.UPDATE_REQUEST_FAILURE,
+            };
+            dispatch(action);
+            resolve(action);
           });
-        }
       })
       .catch(() => {
         const action: IAction = {

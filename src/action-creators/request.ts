@@ -53,6 +53,34 @@ export function fetchRequest(dispatch: IDispatch, params): Promise<IAction> {
   });
 }
 
+export function createRequest(dispatch: IDispatch, params): Promise<IAction> {
+  const preAction: IAction = {
+    type: actionTypes.CREATE_REQUEST,
+  };
+  dispatch(preAction);
+
+  return new Promise(resolve => {
+    Request.create(params)
+      .then((request: IRequestResponse) => {
+        const action = {
+          type: actionTypes.CREATE_REQUEST_SUCCESS,
+          payload: {
+            request: transformRequestResponse(request),
+          },
+        };
+        dispatch(action);
+        resolve(action);
+      })
+      .catch(() => {
+        const action: IAction = {
+          type: actionTypes.CREATE_REQUEST_FAILURE,
+        };
+        dispatch(action);
+        resolve(action);
+      });
+  });
+}
+
 export function updateRequest(dispatch: IDispatch, params): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_REQUEST,

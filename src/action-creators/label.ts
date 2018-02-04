@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import { Label, Request } from '../services';
+import { Label } from '../services';
 import { transformLabelRequest, transformLabelResponse } from './transforms';
 
 export function fetchLabel(dispatch: IDispatch): Promise<IAction> {
@@ -31,16 +31,13 @@ export function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   });
 }
 
-export function createLabel(
-  dispatch: IDispatch,
-  label: { name: string; members: ITemporaryMember[] },
-): Promise<IAction> {
+export function createLabel(dispatch: IDispatch, label: { name: string }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_LABEL,
   };
   dispatch(preAction);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     Label.create(label)
       .then((newLabel: ILabelResponse) => {
         const transformedLabel: ILabel = transformLabelResponse(newLabel);
@@ -51,29 +48,7 @@ export function createLabel(
           },
         };
         dispatch(action);
-
-        Promise.all(
-          label.members.map((member: ITemporaryMember) => {
-            return Request.create({
-              labelId: transformedLabel.id,
-              memberId: member.id,
-            });
-          }),
-        )
-          .then(() => {
-            const postAction: IAction = {
-              type: actionTypes.UPDATE_REQUEST_SUCCESS,
-            };
-            dispatch(action);
-            resolve(action);
-          })
-          .catch(() => {
-            const postAction: IAction = {
-              type: actionTypes.UPDATE_REQUEST_FAILURE,
-            };
-            dispatch(action);
-            resolve(action);
-          });
+        resolve(action);
       })
       .catch(() => {
         const action: IAction = {
@@ -87,14 +62,14 @@ export function createLabel(
 
 export function updateLabel(
   dispatch: IDispatch,
-  label: { id: number; name: string; visibled: boolean; members: any[] },
+  label: { id: number; name: string; visibled: boolean },
 ): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_LABEL,
   };
   dispatch(preAction);
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     Label.update(label)
       .then((newLabel: ILabelResponse) => {
         const transformedLabel: ILabel = transformLabelResponse(newLabel);
@@ -105,29 +80,7 @@ export function updateLabel(
           },
         };
         dispatch(action);
-
-        Promise.all(
-          label.members.map((member: ITemporaryMember) => {
-            return Request.create({
-              labelId: transformedLabel.id,
-              memberId: member.id,
-            });
-          }),
-        )
-          .then(() => {
-            const postAction: IAction = {
-              type: actionTypes.UPDATE_REQUEST_SUCCESS,
-            };
-            dispatch(action);
-            resolve(action);
-          })
-          .catch(() => {
-            const postAction: IAction = {
-              type: actionTypes.UPDATE_REQUEST_FAILURE,
-            };
-            dispatch(action);
-            resolve(action);
-          });
+        resolve(action);
       })
       .catch(() => {
         const action: IAction = {

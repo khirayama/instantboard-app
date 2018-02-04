@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/label';
 import { getUser, fetchMember } from '../../../action-creators/user';
+import { createRequest } from '../../../action-creators/request';
 import Link from '../../../router/link';
 import { User } from '../../../services';
 import Icon from '../../components/icon';
@@ -64,6 +65,9 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       },
       createLabel: (label: { name: string; members: ITemporaryMember[] }) => {
         return createLabel(this.dispatch, label);
+      },
+      createRequest: (params: { labelId: number; memberId: number }) => {
+        return createRequest(this.dispatch, params);
       },
       updateLabel: (label: ILabel) => {
         return updateLabel(this.dispatch, label);
@@ -334,12 +338,19 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
       if (id === undefined || id === null) {
         this.actions
-          .createLabel({
-            name: labelName,
-            members: labelMembers,
-          })
-          .then(() => {
-            this.context.move('/labels');
+          .createLabel({ name: labelName })
+          .then(({ payload }) => {
+            const label = payload.label;
+            Promise.all(
+              labelMembers.map((labelMember: ITemporaryMember) => {
+                return this.actions.createRequest({
+                  labelId: label.id,
+                  memberId: labelMember.id,
+                });
+              }),
+            ).then(() => {
+              this.context.move('/labels');
+            });
           })
           .catch((result: any) => {
             if (result.label.id) {

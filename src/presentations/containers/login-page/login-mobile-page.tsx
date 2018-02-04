@@ -8,9 +8,17 @@ import Container from '../container';
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
 export default class LoginMobilePage extends Container<{}, {}> {
+  private handleClickLink: any;
+
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
+
+  constructor(props: any) {
+    super(props);
+
+    this.handleClickLink = this._handleClickLink.bind(this);
+  }
 
   public componentWillMount() {
     if (typeof window === 'object') {
@@ -33,16 +41,27 @@ export default class LoginMobilePage extends Container<{}, {}> {
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"
             href={`${API_SERVER_HOST}/auth/facebook`}
+            onClick={this.handleClickLink}
           >
             {'LOG IN WITH FACEBOOK'}
           </FlatButton>
           {process.env.NODE_ENV === 'production' ? null : (
-            <FlatButton className="login-mobile-page--flat-button" href={`${API_SERVER_HOST}/auth/tester`}>
+            <FlatButton
+              className="login-mobile-page--flat-button"
+              href={`${API_SERVER_HOST}/auth/tester`}
+              onClick={this.handleClickLink}
+            >
               {'LOG IN AS TESTER'}
             </FlatButton>
           )}
         </section>
       </section>
     );
+  }
+
+  private _handleClickLink(event: any) {
+    const href = event.currentTarget.href;
+    event.preventDefault();
+    window.location.href = href;
   }
 }

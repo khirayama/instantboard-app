@@ -3,7 +3,18 @@ import actionTypes from '../constants/action-types';
 
 export default function(state: IState, action: IAction): IState {
   const newState: IState = JSON.parse(JSON.stringify(state));
-  const payload: any = action.payload;
+  const payload: {
+    task: ITask;
+    tasks: ITask[];
+    label: ILabel;
+    labels: ILabel[];
+    request: IRequest;
+    requests: IRequest[];
+    members: IUser[];
+    profile: IUser;
+    priority: number;
+  } =
+    action.payload;
 
   switch (action.type) {
     // LABEL

@@ -16,7 +16,7 @@ function createRequest(baseURL: string = ''): AxiosInstance {
   });
 }
 
-function handleRequestError(err: AxiosError, reject: any): void {
+function handleRequestError(err: AxiosError, reject): void {
   const status: number | null = err.response ? err.response.status : null;
   const data: string | null = err.response ? err.response.data : null;
 

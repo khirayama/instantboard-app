@@ -5,14 +5,14 @@ const poller: {
   clear: any;
 } = {
   callbacks: [],
-  add: (callback: any, time: number) => {
+  add: (callback: any, time: number): void => {
     const timerId = setInterval(callback, time);
     poller.callbacks.push({
       id: timerId,
       callback,
     });
   },
-  remove: (callback: any) => {
+  remove: (callback: any): void => {
     for (let i = 0; i < poller.callbacks.length; i++) {
       if (poller.callbacks[i].callback === callback) {
         clearInterval(poller.callbacks[i].id);
@@ -20,7 +20,7 @@ const poller: {
       }
     }
   },
-  clear: () => {
+  clear: (): void => {
     for (const callback of poller.callbacks) {
       clearInterval(callback.id);
     }

@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Request } from '../services';
 import { transformRequestResponse } from './transforms';
 
-export function pollRequest(dispatch: IDispatch, params): Promise<IAction> {
+export function pollRequest(dispatch: IDispatch, params: any): Promise<IAction> {
   return new Promise(resolve => {
     Request.fetch(params)
       .then((requests: IRequestResponse[]) => {
@@ -25,7 +25,7 @@ export function pollRequest(dispatch: IDispatch, params): Promise<IAction> {
   });
 }
 
-export function fetchRequest(dispatch: IDispatch, params): Promise<IAction> {
+export function fetchRequest(dispatch: IDispatch, params: any): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_REQUEST,
   };
@@ -53,7 +53,7 @@ export function fetchRequest(dispatch: IDispatch, params): Promise<IAction> {
   });
 }
 
-export function createRequest(dispatch: IDispatch, params): Promise<IAction> {
+export function createRequest(dispatch: IDispatch, params: any): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_REQUEST,
   };
@@ -81,7 +81,7 @@ export function createRequest(dispatch: IDispatch, params): Promise<IAction> {
   });
 }
 
-export function updateRequest(dispatch: IDispatch, params): Promise<IAction> {
+export function updateRequest(dispatch: IDispatch, params: any): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_REQUEST,
   };
@@ -102,6 +102,34 @@ export function updateRequest(dispatch: IDispatch, params): Promise<IAction> {
       .catch(() => {
         const action: IAction = {
           type: actionTypes.UPDATE_REQUEST_FAILURE,
+        };
+        dispatch(action);
+        resolve(action);
+      });
+  });
+}
+
+export function destroyRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+  const preAction: IAction = {
+    type: actionTypes.DESTROY_REQUEST,
+  };
+  dispatch(preAction);
+
+  return new Promise(resolve => {
+    Request.destroy(params)
+      .then((request: IRequestResponse) => {
+        const action = {
+          type: actionTypes.DESTROY_REQUEST_SUCCESS,
+          payload: {
+            request: transformRequestResponse(request),
+          },
+        };
+        dispatch(action);
+        resolve(action);
+      })
+      .catch(() => {
+        const action: IAction = {
+          type: actionTypes.DESTROY_REQUEST_FAILURE,
         };
         dispatch(action);
         resolve(action);

@@ -182,7 +182,7 @@ const User = {
     });
   },
 
-  search: (params: { q: string }): Promise<IUserResponse> => {
+  search: (params: { q: string }): Promise<IUserResponse[]> => {
     return new Promise((resolve, reject): void => {
       searchReq()
         .get('/users', { params })

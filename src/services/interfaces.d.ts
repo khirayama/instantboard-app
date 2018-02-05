@@ -14,7 +14,7 @@ interface ILabelMemberResponse {
   name: string;
   email: string;
   imageUrl: string;
-  requestId: string;
+  requestId: number;
   status: string;
 }
 

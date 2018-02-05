@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/label';
 import { getUser, fetchMember } from '../../../action-creators/user';
-import { createRequest } from '../../../action-creators/request';
+import { createRequest, destroyRequest } from '../../../action-creators/request';
 import Link from '../../../router/link';
 import { User } from '../../../services';
 import Icon from '../../components/icon';
@@ -11,13 +11,42 @@ import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';
 import Container from '../container';
 
+function MemberListItem(props: any) {
+  const { labelMember, onRemoveButtonClick } = props;
+  const handleRemoveButtonClick = () => {
+    if (onRemoveButtonClick) {
+      onRemoveButtonClick(event, props, null);
+    }
+  };
+
+  return (
+    <li>
+      <img src={labelMember.imageUrl} />
+      <p>{labelMember.name}</p>
+      <span onClick={handleRemoveButtonClick}>
+        <Icon type="remove" />
+      </span>
+    </li>
+  );
+}
+
+interface ITemporaryLabelMember {
+  id: number;
+  name: string;
+  email: string;
+  imageUrl: string;
+  status: string;
+  requestId: number | null;
+}
+
 interface ILableMobilePageState {
   labelId: number | null;
   labelName: string;
   keyword: string;
   keywordErrorMessage: string;
-  labelMembers: ITemporaryMember[];
+  labelMembers: ITemporaryLabelMember[];
   isMemberListShown: boolean;
+  isInitialized: boolean;
   uiBlocking: boolean;
 }
 
@@ -40,6 +69,8 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
   private handleMemberListCloseButtonClick: any;
 
+  private handleMemberListRemoveButtonClick: any;
+
   constructor(props: IContainerProps) {
     super(props);
 
@@ -51,6 +82,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       keywordErrorMessage: '',
       labelMembers: [],
       isMemberListShown: false,
+      isInitialized: false,
       uiBlocking: false,
     };
 
@@ -63,11 +95,14 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       fetchLabel: () => {
         return fetchLabel(this.dispatch);
       },
-      createLabel: (label: { name: string; members: ITemporaryMember[] }) => {
+      createLabel: (label: { name: string; members: ITemporaryLabelMember[] }) => {
         return createLabel(this.dispatch, label);
       },
       createRequest: (params: { labelId: number; memberId: number }) => {
         return createRequest(this.dispatch, params);
+      },
+      destroyRequest: (params: { id: number }) => {
+        return destroyRequest(this.dispatch, params);
       },
       updateLabel: (label: ILabel) => {
         return updateLabel(this.dispatch, label);
@@ -84,6 +119,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     this.handleFocusMemberNameInput = this._handleFocusMemberNameInput.bind(this);
     this.handleSubmitMemberNameForm = this._handleSubmitMemberNameForm.bind(this);
     this.handleMemberListCloseButtonClick = this._handleMemberListCloseButtonClick.bind(this);
+    this.handleMemberListRemoveButtonClick = this._handleMemberListRemoveButtonClick.bind(this);
   }
 
   public componentDidMount() {
@@ -99,21 +135,19 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       const labels = this.state.labels;
       const labelId = this.state.labelId;
 
-      if (prevUi.isLoadingLabels && !ui.isLoadingLabels && labels.length !== 0 && labelId) {
+      if (
+        !this.state.isInitialized &&
+        prevUi.isLoadingLabels &&
+        !ui.isLoadingLabels &&
+        labels.length !== 0 &&
+        labelId
+      ) {
         for (const label of labels) {
           if (label.id === labelId) {
             this.setState({
               labelName: label.name,
-              labelMembers: label.members.map((member: ILabelMember): ITemporaryMember => {
-                return {
-                  id: member.id,
-                  name: member.name,
-                  email: member.email,
-                  imageUrl: member.imageUrl,
-                  status: member.status,
-                  requestId: null,
-                };
-              }),
+              labelMembers: label.members,
+              isInitialized: true,
             });
             break;
           }
@@ -123,8 +157,8 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   public render() {
-    const profile = this.state.profile;
     const ui = this.state.ui;
+    const profile = this.state.profile;
     const filteredMembers = this.filterMembers(this.state.members, this.state.keyword);
 
     return (
@@ -187,18 +221,16 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
         </form>
         <ul className="label-mobile-page--member-list">
           {this.state.labelMembers
-            .filter(temporaryMember => {
-              return profile !== null && temporaryMember.id !== profile.id;
+            .filter((labelMember: ITemporaryLabelMember): boolean => {
+              return profile !== null && labelMember.id !== profile.id;
             })
-            .map((temporaryMember: ITemporaryMember) => {
+            .map((temporaryLabelMember: ITemporaryLabelMember) => {
               return (
-                <li key={temporaryMember.id}>
-                  <img src={temporaryMember.imageUrl} />
-                  <p>{temporaryMember.name}</p>
-                  <span>
-                    <Icon type="remove" />
-                  </span>
-                </li>
+                <MemberListItem
+                  key={temporaryLabelMember.id}
+                  labelMember={temporaryLabelMember}
+                  onRemoveButtonClick={this.handleMemberListRemoveButtonClick}
+                />
               );
             })}
         </ul>
@@ -240,11 +272,11 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     this.setState({ isMemberListShown: true });
   }
 
-  private _handleChangeNameInput(event: any) {
+  private _handleChangeNameInput(event: React.KeyboardEvent<HTMLInputElement>) {
     this.setState({ labelName: event.currentTarget.value });
   }
 
-  private _handleChangeMemberNameInput(event: any) {
+  private _handleChangeMemberNameInput(event: React.KeyboardEvent<HTMLInputElement>) {
     this.setState({
       keyword: event.currentTarget.value,
       keywordErrorMessage: '',
@@ -252,20 +284,22 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   // For member form
-  private _handleSubmitMemberNameForm(event: any) {
+  private _handleSubmitMemberNameForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const keyword = this.state.keyword.trim();
 
-    User.search({ q: keyword }).then((users: any) => {
+    User.search({ q: keyword }).then((users: IUserResponse[]) => {
       if (users.length !== 0 && (users[0].name === keyword || users[0].email === keyword)) {
-        const labelMembers = this.state.labelMembers;
-        let isIncluded = false;
-        labelMembers.forEach((labelMember: ITemporaryMember) => {
-          if (labelMember.name === keyword) {
-            isIncluded = true;
-          }
-        });
+        let isIncluded: boolean = false;
+        const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map(
+          (labelMember: ITemporaryLabelMember) => {
+            if (labelMember.name === keyword) {
+              isIncluded = true;
+            }
+            return labelMember;
+          },
+        );
         if (!isIncluded) {
           labelMembers.push({
             id: users[0].id,
@@ -282,7 +316,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
             isMemberListShown: false,
           });
         }
-      } else {
+      } else if (keyword) {
         this.setState({
           keywordErrorMessage: `${keyword} is not existed.`,
         });
@@ -293,12 +327,12 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   // For member list
   private _handleSearchMemberListItemClick(event: any, props: any) {
     const { member } = props;
-    const labelMembers = this.state.labelMembers;
-    let isIncluded = false;
-    labelMembers.forEach((labelMember: ITemporaryMember) => {
+    let isIncluded: boolean = false;
+    const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map((labelMember: ITemporaryLabelMember) => {
       if (labelMember.name === member.name) {
         isIncluded = true;
       }
+      return labelMember;
     });
     if (!isIncluded) {
       labelMembers.push({
@@ -322,6 +356,16 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     this.setState({ isMemberListShown: false });
   }
 
+  private _handleMemberListRemoveButtonClick(event, props) {
+    // FIXME: react/no-access-state-in-setstate bug?
+    /* eslint-disable react/no-access-state-in-setstate */
+    const labelMembers = this.state.labelMembers.filter((temporaryLabelMember: ITemporaryLabelMember): boolean => {
+      return props.labelMember.id !== temporaryLabelMember.id;
+    });
+    this.setState({ labelMembers });
+    /* eslint-enable react/no-access-state-in-setstate */
+  }
+
   // For submit label
   private _handleSubmitLabelForm(event: any) {
     event.preventDefault();
@@ -342,7 +386,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           .then(({ payload }) => {
             const label = payload.label;
             Promise.all(
-              labelMembers.map((labelMember: ITemporaryMember) => {
+              labelMembers.map((labelMember: ITemporaryLabelMember) => {
                 return this.actions.createRequest({
                   labelId: label.id,
                   memberId: labelMember.id,
@@ -363,13 +407,46 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           });
       } else {
         this.actions
-          .updateLabel({
-            id,
-            name: labelName,
-            members: labelMembers,
-          })
-          .then(() => {
-            this.context.move('/labels');
+          .updateLabel({ id, name: labelName })
+          .then(({ payload }) => {
+            const label = payload.label;
+            const addedLabelMembers = this.state.labelMembers.filter(
+              (currentLabelMember: ITemporaryLabelMember): boolean => {
+                for (const originLabelMember of label.members) {
+                  if (currentLabelMember.id === originLabelMember.id) {
+                    return false;
+                  }
+                }
+                return true;
+              },
+            );
+            const removedLabelMembers = label.members.filter((originLabelMember: ILabelMember): boolean => {
+              for (const currentLabelMember of this.state.labelMembers) {
+                if (currentLabelMember.id === originLabelMember.id) {
+                  return false;
+                }
+              }
+              return true;
+            });
+            Promise.all([
+              Promise.all(
+                addedLabelMembers.map((labelMember: ITemporaryLabelMember) => {
+                  return this.actions.createRequest({
+                    labelId: label.id,
+                    memberId: labelMember.id,
+                  });
+                }),
+              ),
+              Promise.all(
+                removedLabelMembers.map((labelMember: ITemporaryLabelMember) => {
+                  return this.actions.destroyRequest({
+                    id: labelMember.requestId,
+                  });
+                }),
+              ),
+            ]).then(() => {
+              this.context.move('/labels');
+            });
           })
           .catch((result: any) => {
             if (result.label.id) {

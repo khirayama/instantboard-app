@@ -9,9 +9,7 @@ import * as React from 'react';
 
 export default class Logo extends React.Component<any, any> {
   public render() {
-    const { className, active, type } = this.props;
-    const logo: any = null;
-    const strokeWidth = 3;
+    const { type } = this.props;
 
     switch (type) {
       case 'logo': {
@@ -54,7 +52,7 @@ export default class Logo extends React.Component<any, any> {
       case 'logo_typography': {
         return (
           <svg className="logo" viewBox="0 0 2166 400">
-            <g id="Branding" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
               <g className="logo--logo" transform="translate(60.000000, 29.000000)">
                 <mask id="logo--mask" fill="white">
                   <path d="M0,100.76472 C0,89.7205555 7.76601021,76.3247909 17.361886,70.8352801 L133.98913,4.11635532 C143.577835,-1.3690532 159.117027,-1.37315548 168.712903,4.11635532 L285.340147,70.8352801 C294.928852,76.3206886 302.702033,89.7240391 302.702033,100.76472 L302.702033,236.211937 C302.702033,247.256102 295.071058,260.892778 285.653695,266.672807 L170.020504,337.644189 C160.604966,343.423098 145.294557,343.495474 135.832656,337.811198 L17.1395095,266.505798 C7.6736198,260.819126 0,247.252619 0,236.211937 L0,100.76472 Z" />
@@ -65,7 +63,6 @@ export default class Logo extends React.Component<any, any> {
                   d="M10,100.76472 C10,93.3044966 15.8475015,83.2223075 22.3274707,79.5153129 L138.954715,12.7963881 C145.469696,9.0693645 157.23066,9.06840461 163.747318,12.7963881 L280.374562,79.5153129 C286.848951,83.2191152 292.702033,93.3098131 292.702033,100.76472 L292.702033,236.211937 C292.702033,243.7798 286.876504,254.188984 280.422748,258.150061 L164.789557,329.121443 C158.555152,332.94789 147.246921,333.002579 140.982366,329.239122 L22.2892197,257.933722 C15.8339516,254.055693 10,243.74344 10,236.211937 L10,100.76472 Z"
                 />
                 <path
-                  id="Line"
                   stroke="#9E9E9E"
                   strokeWidth="20"
                   strokeLinecap="square"

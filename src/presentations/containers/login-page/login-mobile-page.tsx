@@ -3,6 +3,7 @@ import * as React from 'react';
 import queryString from '../../../utils/query-string';
 import tokenManager from '../../../utils/token-manager';
 import FlatButton from '../../components/flat-button';
+import Logo from '../../components/logo';
 import Container from '../container';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
@@ -36,7 +37,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
-          <h1 className="login-mobile-page--content--heading">Instantboard</h1>
+          <Logo type="logo_typography" />
           <p className="login-mobile-page--content--description">Sign up to manage and share your tasks.</p>
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"

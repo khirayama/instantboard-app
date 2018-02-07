@@ -9,8 +9,17 @@
     text-align: center;
     transform: translate(-50%, -50%);
 
-    .login-mobile-page--content--heading {
-      margin-bottom: 12px;
+    .logo {
+      width: 240px;
+      margin-bottom: 24px;
+
+      .logo--logo path {
+        stroke: $color-text;
+      }
+
+      .logo--typography {
+        fill: $color-text;
+      }
     }
 
     .login-mobile-page--content--description {

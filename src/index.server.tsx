@@ -116,6 +116,13 @@ function template(): string {
   ga('create', 'UA-107259240-1', 'auto');
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  });
+  </script>
 </head>
 <body>
   <section class="application">

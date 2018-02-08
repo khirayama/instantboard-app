@@ -96,17 +96,16 @@ function template(): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
 
-  <link rel="shortcut icon" type="image/png" href="/images/logo/favicon.png">
-
   <link rel="manifest" href="/manifest.json">
   ${externalFileTags.join('')}
   <meta name="mobile-web-app-capable" content="yes">
-  <!-- <link rel="icon" sizes="192x192" href="/images/logo/icon_android.png"> -->
 
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Instantboard">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/icon_ios.png">
+
+  <link rel="icon" sizes="192x192" type="image/png" href="/images/logo/favicon.png">
 
   <title>Instantboard</title>
 

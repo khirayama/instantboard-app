@@ -3,9 +3,9 @@
   "short_name": "Instantboard",
   "icons": [
     {
-      "src": "images/logo/icon_android.png",
+      "src": "/images/logo/icon_android.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ],
   "start_url": "/",

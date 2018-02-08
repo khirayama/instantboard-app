@@ -96,6 +96,8 @@ function template(): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
 
+  <meta name="theme-color" content="#fbfaf5"/>
+
   <link rel="manifest" href="/manifest.json">
   ${externalFileTags.join('')}
   <meta name="mobile-web-app-capable" content="yes">

@@ -12,14 +12,6 @@
     .logo {
       width: 240px;
       margin-bottom: 24px;
-
-      .logo--logo path {
-        stroke: $color-text;
-      }
-
-      .logo--typography {
-        fill: $color-text;
-      }
     }
 
     .login-mobile-page--content--description {

@@ -26,6 +26,7 @@
     "lint": "eslint --fix --ext .ts --ext .tsx --ignore-path .gitignore --ignore-path src/**/*.d.ts src",
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
     "precommit": "npm run lint && npm run format",
+    "refactor": "git grep -l any src/services src/presentations/containers src/reducers/ src/index.web.tsx src/action-creators",
     "check": "npm-check-updates"
   },
   "pre-commit": [

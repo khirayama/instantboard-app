@@ -4,7 +4,6 @@ interface IRequest {
   member: {
     id: number;
     name: string;
-    email: string;
     imageUrl: string;
   };
   label: {

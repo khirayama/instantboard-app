@@ -12,7 +12,6 @@ interface ILabelRequestParams {
 interface ILabelMemberResponse {
   id: number;
   name: string;
-  email: string;
   imageUrl: string;
   requestId: number;
   status: string;
@@ -93,7 +92,6 @@ interface IRequestResponse {
   member: {
     id: number;
     name: string;
-    email: string;
     imageUrl: string;
   };
   label: {

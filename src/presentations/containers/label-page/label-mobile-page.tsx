@@ -33,7 +33,6 @@ function MemberListItem(props: any) {
 interface ITemporaryLabelMember {
   id: number;
   name: string;
-  email: string;
   imageUrl: string;
   status: string;
   requestId: number | null;
@@ -256,7 +255,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       distance: 100,
       maxPatternLength: 32,
       minMatchCharLength: 1,
-      keys: ['name', 'email'],
+      keys: ['name'],
     };
     const fuse = new Fuse(members, options);
     const filteredMembers: IUser[] = fuse.search(keyword);
@@ -290,11 +289,11 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     const keyword = this.state.keyword.trim();
 
     User.search({ q: keyword }).then((users: IUserResponse[]) => {
-      if (users.length !== 0 && (users[0].name === keyword || users[0].email === keyword)) {
+      if ((users.length !== 0 && users[0].name === keyword) || users.length === 1) {
         let isIncluded: boolean = false;
         const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map(
           (labelMember: ITemporaryLabelMember) => {
-            if (labelMember.name === keyword) {
+            if (labelMember.name === keyword || users.length === 1) {
               isIncluded = true;
             }
             return labelMember;
@@ -304,7 +303,6 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           labelMembers.push({
             id: users[0].id,
             name: users[0].name,
-            email: users[0].email,
             imageUrl: users[0].imageUrl,
             status: 'pending',
             requestId: null,
@@ -338,7 +336,6 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       labelMembers.push({
         id: member.id,
         name: member.name,
-        email: member.email,
         imageUrl: member.imageUrl,
         status: 'pending',
         requestId: null,

@@ -119,6 +119,7 @@
       border: $border;
       border-radius: $radius;
       padding: 4px;
+      margin-right: 4px;
 
       img {
         width: 24px;
@@ -130,7 +131,7 @@
 
       p {
         display: inline-block;
-        padding: 0 8px;
+        padding: 1px 4px;
       }
 
       .icon {
@@ -138,10 +139,6 @@
         height: 24px;
         padding: 4px;
         vertical-align: top;
-      }
-
-      & + li {
-        margin-left: 8px;
       }
     }
 

@@ -75,7 +75,7 @@
     "tsify": "3.0.4",
     "typescript": "2.7.1",
     "typescript-eslint-parser": "13.0.0",
-    "uglify-es": "3.3.9",
+    "uglify-es": "3.3.10",
     "uglifyify": "4.0.5",
     "watchify": "3.10.0"
   },

@@ -145,5 +145,5 @@ app.get('*', (req, res): void => {
   res.type('text/html').send(html);
 });
 
-console.log(`Start api app at ${new Date()}`);
+console.log(`Start app at ${new Date()}`);
 app.listen(APP_SERVER_PORT);

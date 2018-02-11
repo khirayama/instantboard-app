@@ -1,5 +1,5 @@
 .task-index-desktop-page {
-  $width-side: 212px;
+  $width-side: 324px;
 
   .application-content {
     padding: 60px 0;
@@ -18,6 +18,7 @@
       font-weight: $font-medium;
       word-break: break-all;
       color: $color-text-hint;
+      cursor: pointer;
 
       svg {
         vertical-align: middle;

@@ -61,7 +61,7 @@ export function transformUserResponse(user: IUserResponse): IUser {
   };
 }
 
-export function transformLabelMemeber(member: ILabelMemberResponse): ILabelMember {
+export function transformLabelMemeber(member: any): ILabelMember {
   return {
     id: member.id,
     name: member.name,
@@ -71,22 +71,18 @@ export function transformLabelMemeber(member: ILabelMemberResponse): ILabelMembe
   };
 }
 
-export function transformLabelResponse(label: ILabelResponse): ILabel {
+export function transformLabel(label: {
+  id: number;
+  name?: string;
+  priority?: number;
+  visibled?: boolean;
+  members?: ILabelMemberResponse[] | ILabelMember[];
+}): ILabel {
   return {
     id: label.id,
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
     members: label.members ? label.members.map(transformLabelMemeber) : [],
-  };
-}
-
-export function transformLabelRequest(label: any): ILabel {
-  return {
-    id: label.id,
-    name: label.name || '',
-    visibled: Boolean(label.visibled),
-    priority: label.priority || 0,
-    members: label.members ? label.members : [],
   };
 }

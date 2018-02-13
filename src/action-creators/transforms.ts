@@ -61,7 +61,13 @@ export function transformUserResponse(user: IUserResponse): IUser {
   };
 }
 
-export function transformLabelMemeber(member: any): ILabelMember {
+export function transformLabelMemeber(member: {
+  id: number;
+  name: string;
+  imageUrl: string;
+  requestId: number;
+  status: string;
+}): ILabelMember {
   return {
     id: member.id,
     name: member.name,

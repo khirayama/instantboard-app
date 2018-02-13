@@ -267,18 +267,6 @@ export default function(state: IState, action: IAction): IState {
       break;
     }
 
-    case actionTypes.UPDATE_USER: {
-      newState.profile = Object.assign({}, state.profile, payload.profile);
-      break;
-    }
-    case actionTypes.UPDATE_USER_SUCCES: {
-      newState.profile = payload.profile;
-      break;
-    }
-    case actionTypes.UPDATE_USER_FAILURE: {
-      break;
-    }
-
     case actionTypes.FETCH_MEMBER: {
       break;
     }

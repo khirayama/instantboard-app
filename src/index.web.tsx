@@ -9,7 +9,7 @@ import Store from './store/store';
 import tokenManager from './utils/token-manager';
 import Tracker from './utils/tracker';
 
-const store: Store = new Store(initialState, reducers, { session: true });
+const store: Store<IState> = new Store<IState>(initialState, reducers, { session: true });
 const router: Router = new Router(routes);
 const tracker: Tracker = new Tracker(router);
 

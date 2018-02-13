@@ -2,12 +2,12 @@ const EVENT_CHANGE = '__CHANGE_STORE';
 const ACTION_DISPATCH = '__ACTION_DISPATCH';
 const STORE_SESSION_KEY = '__STORE_SESSION_KEY';
 
-export default class Store {
+export default class Store<T> {
   private listeners: any = {};
 
-  private state: any = {};
+  private state: T;
 
-  private reducer: (state: any, action: any) => any = (state: any) => state;
+  private reducer: (state: T, action: any) => any = (state: T) => state;
 
   private options: {
     debounce: number | null;
@@ -16,12 +16,13 @@ export default class Store {
 
   private timerId: any;
 
-  constructor(state: any, reducer: any, options: { debounce?: number | null; session?: boolean } = {}) {
+  constructor(state: T, reducer: any, options: { debounce?: number | null; session?: boolean } = {}) {
     this.options = {
       debounce: options.debounce || null,
       session: options.session || false,
     };
 
+    this.state = state;
     if (state && this.options.session) {
       this.state = JSON.parse(window.sessionStorage.getItem(STORE_SESSION_KEY) || JSON.stringify(state));
     } else if (state && !this.options.session) {
@@ -55,7 +56,7 @@ export default class Store {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  private emit(type: string, payload: any): Store {
+  private emit(type: string, payload: any): Store<T> {
     if (!this.listeners[type]) {
       return this;
     }
@@ -65,13 +66,13 @@ export default class Store {
     return this;
   }
 
-  private addListener(type: string, listener: any): Store {
+  private addListener(type: string, listener: any): Store<T> {
     this.listeners[type] = this.listeners[type] || [];
     this.listeners[type].push({ listener });
     return this;
   }
 
-  private removeListener(type: string, removedListener: any): Store {
+  private removeListener(type: string, removedListener: any): Store<T> {
     if (!this.listeners[type]) {
       return this;
     }

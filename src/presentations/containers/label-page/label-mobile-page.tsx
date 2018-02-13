@@ -247,7 +247,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     );
   }
 
-  private filterMembers(members: IUser[], keyword: string): IUser[] {
+  private filterMembers(members: IMember[], keyword: string): IMember[] {
     const options = {
       shouldSort: true,
       threshold: 0.55,

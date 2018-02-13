@@ -1,3 +1,5 @@
+type IDispatch = (action: IAction) => void;
+
 interface IAction {
   type: string;
   payload?: any;

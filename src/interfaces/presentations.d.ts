@@ -1,4 +1,4 @@
 interface IContainerProps {
-  store: IStore;
+  store: any;
   params: any;
 }

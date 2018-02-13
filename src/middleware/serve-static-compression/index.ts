@@ -1,7 +1,6 @@
 import * as serveStatic from 'serve-static';
 import Compression from './compression';
 import Compressions from './compressions';
-import { IFile, IOptions } from './interfaces';
 
 const mime: any = serveStatic.mime;
 
@@ -12,7 +11,10 @@ function getPathname(url: string): string {
     .split('#')[0];
 }
 
-function staticCompression(rootPath: string, options: IOptions = {}): (req: any, res: any, next: any) => void {
+function staticCompression(
+  rootPath: string,
+  options: { enableBrotli?: boolean; customCompressions?: Compression[] } = {},
+): (req: any, res: any, next: any) => void {
   const defaultStatic: any = serveStatic(rootPath, options);
   const compressions: Compressions = new Compressions(rootPath);
 
@@ -31,7 +33,7 @@ function staticCompression(rootPath: string, options: IOptions = {}): (req: any,
   return (req: any, res: any, next: any): void => {
     const acceptEncoding: string = req.headers['accept-encoding'];
     const pathname: string = getPathname(req.url);
-    const matchedFile: IFile | undefined = compressions.fileIndex[pathname];
+    const matchedFile: { compressions: Compression[] } | undefined = compressions.fileIndex[pathname];
 
     if (matchedFile !== undefined) {
       res.setHeader('Vary', 'Accept-Encoding');

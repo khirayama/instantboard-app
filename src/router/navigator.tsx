@@ -1,6 +1,13 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
+interface INavigatorProps {
+  props?: any;
+  router: any;
+  tracker: any;
+  path: string;
+}
+
 export default class Navigator extends React.Component<INavigatorProps, { path: string }> {
   public static childContextTypes = {
     move: PropTypes.func.isRequired,

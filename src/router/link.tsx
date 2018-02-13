@@ -1,7 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export default class Link extends React.Component<ILinkProps, any> {
+interface ILinkProps {
+  to: string;
+  className?: string;
+}
+
+export default class Link extends React.Component<ILinkProps> {
   private static contextTypes = {
     move: PropTypes.func.isRequired,
   };

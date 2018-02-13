@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import Compression from './compression';
-import { IFile } from './interfaces';
 
 export default class Compressions {
   public data: Compression[] = [];
@@ -53,7 +52,7 @@ export default class Compressions {
       if (filePath.endsWith(compression.fileExtension)) {
         // To change local file path to server file path
         const srcFilePath: string = filePath.replace(compression.fileExtension, '').replace(this.rootPath, '');
-        const file: IFile | undefined = this.fileIndex[srcFilePath];
+        const file: { compressions: Compression[] } | undefined = this.fileIndex[srcFilePath];
         if (file === undefined) {
           this.fileIndex[srcFilePath] = {
             compressions: [compression],

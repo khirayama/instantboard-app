@@ -1,9 +1,5 @@
-interface IRouter {
-  getPaths: () => string[];
-  matchRoute: (
-    path: string,
-  ) => {
-    route: IRoute;
-    params: any;
-  };
+interface IRoute {
+  path: string;
+  title: string;
+  component: any;
 }

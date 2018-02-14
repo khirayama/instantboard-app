@@ -2,7 +2,7 @@ import actionTypes from '../constants/action-types';
 import { Request } from '../services';
 import { transformRequest } from './transforms';
 
-export function pollRequest(dispatch: IDispatch, params: {status: string}): Promise<IAction> {
+export function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
   return new Promise(resolve => {
     Request.fetch(params)
       .then((requests: IRequestResponse[]) => {
@@ -25,7 +25,7 @@ export function pollRequest(dispatch: IDispatch, params: {status: string}): Prom
   });
 }
 
-export function fetchRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+export function fetchRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_REQUEST,
   };

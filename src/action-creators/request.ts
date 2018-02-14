@@ -1,15 +1,15 @@
 import actionTypes from '../constants/action-types';
 import { Request } from '../services';
-import { transformRequestResponse } from './transforms';
+import { transformRequest } from './transforms';
 
-export function pollRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+export function pollRequest(dispatch: IDispatch, params: {status: string}): Promise<IAction> {
   return new Promise(resolve => {
     Request.fetch(params)
       .then((requests: IRequestResponse[]) => {
         const action: IAction = {
           type: actionTypes.POLL_REQUEST_SUCCESS,
           payload: {
-            requests: requests.map(transformRequestResponse),
+            requests: requests.map(transformRequest),
           },
         };
         dispatch(action);
@@ -37,7 +37,7 @@ export function fetchRequest(dispatch: IDispatch, params: any): Promise<IAction>
         const action: IAction = {
           type: actionTypes.FETCH_REQUEST_SUCCESS,
           payload: {
-            requests: requests.map(transformRequestResponse),
+            requests: requests.map(transformRequest),
           },
         };
         dispatch(action);
@@ -65,7 +65,7 @@ export function createRequest(dispatch: IDispatch, params: any): Promise<IAction
         const action = {
           type: actionTypes.CREATE_REQUEST_SUCCESS,
           payload: {
-            request: transformRequestResponse(request),
+            request: transformRequest(request),
           },
         };
         dispatch(action);
@@ -93,7 +93,7 @@ export function updateRequest(dispatch: IDispatch, params: any): Promise<IAction
         const action = {
           type: actionTypes.UPDATE_REQUEST_SUCCESS,
           payload: {
-            request: transformRequestResponse(request),
+            request: transformRequest(request),
           },
         };
         dispatch(action);
@@ -121,7 +121,7 @@ export function destroyRequest(dispatch: IDispatch, params: any): Promise<IActio
         const action = {
           type: actionTypes.DESTROY_REQUEST_SUCCESS,
           payload: {
-            request: transformRequestResponse(request),
+            request: transformRequest(request),
           },
         };
         dispatch(action);

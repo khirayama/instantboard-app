@@ -10,10 +10,10 @@ function transformSchedule(schedule: ITaskScheduleResponse | null): ITaskSchedul
   };
 }
 
-export function transformRequestResponse(request: IRequestResponse): IRequest {
+export function transformRequest(request: IRequestResponse): IRequest {
   return {
     id: request.id,
-    status: request.status || 'accepts',
+    status: request.status || 'accepted',
     member: {
       id: request.member.id,
       name: request.member.name,

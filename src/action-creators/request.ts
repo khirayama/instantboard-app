@@ -53,7 +53,7 @@ export function fetchRequest(dispatch: IDispatch, params: { status: string }): P
   });
 }
 
-export function createRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+export function createRequest(dispatch: IDispatch, params: { labelId: number; memberId: number }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_REQUEST,
   };
@@ -81,7 +81,10 @@ export function createRequest(dispatch: IDispatch, params: any): Promise<IAction
   });
 }
 
-export function updateRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+export function updateRequest(
+  dispatch: IDispatch,
+  params: { id: number; labelId: number; memberId: number },
+): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_REQUEST,
   };
@@ -109,7 +112,7 @@ export function updateRequest(dispatch: IDispatch, params: any): Promise<IAction
   });
 }
 
-export function destroyRequest(dispatch: IDispatch, params: any): Promise<IAction> {
+export function destroyRequest(dispatch: IDispatch, params: { id: number }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DESTROY_REQUEST,
   };

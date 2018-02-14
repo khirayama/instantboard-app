@@ -40,7 +40,7 @@ export function transformTask(task: {
 }): ITask {
   return {
     id: task.id,
-    labelId: (task.labelId) ? task.labelId : task.label.id,
+    labelId: task.labelId ? task.labelId : task.label.id,
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,

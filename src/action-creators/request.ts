@@ -2,55 +2,51 @@ import actionTypes from '../constants/action-types';
 import { Request } from '../services';
 import { transformRequest } from './transforms';
 
-export function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
-  return new Promise(resolve => {
-    Request.fetch(params)
-      .then((requests: IRequestResponse[]) => {
-        const action: IAction = {
-          type: actionTypes.POLL_REQUEST_SUCCESS,
-          payload: {
-            requests: requests.map(transformRequest),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.POLL_REQUEST_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+export async function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
+  try {
+    const requestResponses: IRequestResponse[] = await Request.fetch(params);
+    const requests: IRequest[] = requestResponses.map(transformRequest);
+    const action: IAction = {
+      type: actionTypes.POLL_REQUEST_SUCCESS,
+      payload: {
+        requests,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.POLL_REQUEST_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
-export function fetchRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
+export async function fetchRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_REQUEST,
   };
   dispatch(preAction);
 
-  return new Promise(resolve => {
-    Request.fetch(params)
-      .then((requests: IRequestResponse[]) => {
-        const action: IAction = {
-          type: actionTypes.FETCH_REQUEST_SUCCESS,
-          payload: {
-            requests: requests.map(transformRequest),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.FETCH_REQUEST_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+  try {
+    const requestResponses: IRequestResponse[] = await Request.fetch(params);
+    const requests: IRequest[] = requestResponses.map(transformRequest);
+    const action: IAction = {
+      type: actionTypes.FETCH_REQUEST_SUCCESS,
+      payload: {
+        requests,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.FETCH_REQUEST_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
 export function createRequest(dispatch: IDispatch, params: { labelId: number; memberId: number }): Promise<IAction> {

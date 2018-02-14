@@ -28,22 +28,19 @@ export function transformRequest(request: IRequestResponse): IRequest {
   };
 }
 
-export function transformTaskResponse(task: ITaskResponse): ITask {
+export function transformTask(task: {
+  id: number;
+  labelId?: number;
+  label?: any;
+  text?: string;
+  content?: string;
+  priority?: number;
+  completed?: boolean;
+  schedule?: any;
+}): ITask {
   return {
     id: task.id,
-    labelId: task.label.id,
-    text: task.text || '',
-    content: task.content || '',
-    priority: task.priority || 0,
-    completed: Boolean(task.completed),
-    schedule: transformSchedule(task.schedule) || null,
-  };
-}
-
-export function transformTaskRequest(task: any): ITask {
-  return {
-    id: task.id,
-    labelId: task.labelId,
+    labelId: (task.labelId) ? task.labelId : task.label.id,
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,

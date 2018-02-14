@@ -1,6 +1,6 @@
 import actionTypes from '../constants/action-types';
 import { Task } from '../services';
-import { transformTaskRequest, transformTaskResponse } from './transforms';
+import { transformTask } from './transforms';
 
 export function pollTask(dispatch: IDispatch): Promise<IAction> {
   return new Promise(resolve => {
@@ -9,7 +9,7 @@ export function pollTask(dispatch: IDispatch): Promise<IAction> {
         const action: IAction = {
           type: actionTypes.POLL_TASK_SUCCESS,
           payload: {
-            tasks: tasks.map(transformTaskResponse),
+            tasks: tasks.map(transformTask),
           },
         };
         dispatch(action);
@@ -37,7 +37,7 @@ export function fetchTask(dispatch: IDispatch): Promise<IAction> {
         const action: IAction = {
           type: actionTypes.FETCH_TASK_SUCCESS,
           payload: {
-            tasks: tasks.map(transformTaskResponse),
+            tasks: tasks.map(transformTask),
           },
         };
         dispatch(action);
@@ -65,7 +65,7 @@ export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promi
         const action: IAction = {
           type: actionTypes.CREATE_TASK_SUCCESS,
           payload: {
-            task: transformTaskResponse(newTask),
+            task: transformTask(newTask),
           },
         };
         dispatch(action);
@@ -93,7 +93,7 @@ export function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITaskRequ
         const action: IAction = {
           type: actionTypes.UPDATE_TASK_SUCCESS,
           payload: {
-            task: transformTaskResponse(newTask),
+            task: transformTask(newTask),
           },
         };
         dispatch(action);
@@ -113,7 +113,7 @@ export function destroyTask(dispatch: IDispatch, task: ITaskRequestId) {
   const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
-      task: transformTaskRequest(task),
+      task: transformTask(task),
     },
   };
   dispatch(preAction);
@@ -141,7 +141,7 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequestId, to: number) 
   const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {
-      task: transformTaskRequest(task),
+      task: transformTask(task),
       priority: to,
     },
   };
@@ -153,7 +153,7 @@ export function sortTask(dispatch: IDispatch, task: ITaskRequestId, to: number) 
         const action: IAction = {
           type: actionTypes.SORT_TASK_SUCCESS,
           payload: {
-            tasks: tasks.map(transformTaskResponse),
+            tasks: tasks.map(transformTask),
           },
         };
         dispatch(action);

@@ -49,35 +49,36 @@ export async function fetchRequest(dispatch: IDispatch, params: { status: string
   }
 }
 
-export function createRequest(dispatch: IDispatch, params: { labelId: number; memberId: number }): Promise<IAction> {
+export async function createRequest(
+  dispatch: IDispatch,
+  params: { labelId: number; memberId: number },
+): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_REQUEST,
   };
   dispatch(preAction);
 
-  return new Promise(resolve => {
-    Request.create(params)
-      .then((request: IRequestResponse) => {
-        const action = {
-          type: actionTypes.CREATE_REQUEST_SUCCESS,
-          payload: {
-            request: transformRequest(request),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.CREATE_REQUEST_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+  try {
+    const requestResponse: IRequestResponse = await Request.create(params);
+    const request: IRequest = transformRequest(requestResponse);
+    const action = {
+      type: actionTypes.CREATE_REQUEST_SUCCESS,
+      payload: {
+        request,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.CREATE_REQUEST_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
-export function updateRequest(
+export async function updateRequest(
   dispatch: IDispatch,
   params: { id: number; labelId: number; memberId: number },
 ): Promise<IAction> {
@@ -86,52 +87,48 @@ export function updateRequest(
   };
   dispatch(preAction);
 
-  return new Promise(resolve => {
-    Request.update(params)
-      .then((request: IRequestResponse) => {
-        const action = {
-          type: actionTypes.UPDATE_REQUEST_SUCCESS,
-          payload: {
-            request: transformRequest(request),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.UPDATE_REQUEST_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+  try {
+    const requestResponse: IRequestResponse = await Request.update(params);
+    const request: IRequest = transformRequest(requestResponse);
+    const action = {
+      type: actionTypes.UPDATE_REQUEST_SUCCESS,
+      payload: {
+        request,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.UPDATE_REQUEST_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
-export function destroyRequest(dispatch: IDispatch, params: { id: number }): Promise<IAction> {
+export async function destroyRequest(dispatch: IDispatch, params: { id: number }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DESTROY_REQUEST,
   };
   dispatch(preAction);
 
-  return new Promise(resolve => {
-    Request.destroy(params)
-      .then((request: IRequestResponse) => {
-        const action = {
-          type: actionTypes.DESTROY_REQUEST_SUCCESS,
-          payload: {
-            request: transformRequest(request),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.DESTROY_REQUEST_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+  try {
+    const requestResponse: IRequestResponse = await Request.destroy(params);
+    const request: IRequest = transformRequest(requestResponse);
+    const action = {
+      type: actionTypes.DESTROY_REQUEST_SUCCESS,
+      payload: {
+        request,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.DESTROY_REQUEST_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }

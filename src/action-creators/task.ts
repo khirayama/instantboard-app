@@ -2,27 +2,25 @@ import actionTypes from '../constants/action-types';
 import { Task } from '../services';
 import { transformTask } from './transforms';
 
-export function pollTask(dispatch: IDispatch): Promise<IAction> {
-  return new Promise(resolve => {
-    Task.fetch()
-      .then((tasks: ITaskResponse[]) => {
-        const action: IAction = {
-          type: actionTypes.POLL_TASK_SUCCESS,
-          payload: {
-            tasks: tasks.map(transformTask),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.POLL_TASK_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+export async function pollTask(dispatch: IDispatch): Promise<IAction> {
+  try {
+    const taskResponses: ITaskResponse[] = await Task.fetch();
+    const tasks: ITask[] = taskResponses.map(transformTask);
+    const action: IAction = {
+      type: actionTypes.POLL_TASK_SUCCESS,
+      payload: {
+        tasks,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.POLL_TASK_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
 export function fetchTask(dispatch: IDispatch): Promise<IAction> {

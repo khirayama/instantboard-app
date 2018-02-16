@@ -23,32 +23,30 @@ export async function pollTask(dispatch: IDispatch): Promise<IAction> {
   }
 }
 
-export function fetchTask(dispatch: IDispatch): Promise<IAction> {
+export async function fetchTask(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.FETCH_TASK,
   };
   dispatch(preAction);
 
-  return new Promise(resolve => {
-    Task.fetch()
-      .then((tasks: ITaskResponse[]) => {
-        const action: IAction = {
-          type: actionTypes.FETCH_TASK_SUCCESS,
-          payload: {
-            tasks: tasks.map(transformTask),
-          },
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.FETCH_TASK_FAILURE,
-        };
-        dispatch(action);
-        resolve(action);
-      });
-  });
+  try {
+    const taskResponses: ITaskResponse[] = await Task.fetch();
+    const tasks: ITask[] = taskResponses.map(transformTask);
+    const action: IAction = {
+      type: actionTypes.FETCH_TASK_SUCCESS,
+      payload: {
+        tasks,
+      },
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.FETCH_TASK_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
 export function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<IAction> {

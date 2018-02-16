@@ -182,7 +182,7 @@ const User = {
     });
   },
 
-  search: (params: { q: string }): Promise<IUserResponse[]> => {
+  search: (params: { q: string }): Promise<IMemberResponse[]> => {
     return new Promise((resolve, reject): void => {
       searchReq()
         .get('/users', { params })
@@ -208,7 +208,7 @@ const User = {
     });
   },
 
-  fetchMember: (): Promise<IUserResponse[]> => {
+  fetchMember: (): Promise<IMemberResponse[]> => {
     return new Promise((resolve, reject): void => {
       User.req()
         .get('/members')

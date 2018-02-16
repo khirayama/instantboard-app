@@ -10,7 +10,7 @@ export default function(state: IState, action: IAction): IState {
     labels: ILabel[];
     request: IRequest;
     requests: IRequest[];
-    members: IUser[];
+    members: IMember[];
     profile: IUser;
     priority: number;
   } =

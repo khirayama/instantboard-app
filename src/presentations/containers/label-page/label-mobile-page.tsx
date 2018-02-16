@@ -258,7 +258,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       keys: ['name'],
     };
     const fuse = new Fuse(members, options);
-    const filteredMembers: IUser[] = fuse.search(keyword);
+    const filteredMembers: IMember[] = fuse.search(keyword);
     return filteredMembers.length === 0 && keyword === '' ? members : filteredMembers;
   }
 
@@ -288,7 +288,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
     const keyword = this.state.keyword.trim();
 
-    User.search({ q: keyword }).then((users: IUserResponse[]) => {
+    User.search({ q: keyword }).then((users: IMember[]) => {
       if ((users.length !== 0 && users[0].name === keyword) || users.length === 1) {
         let isIncluded: boolean = false;
         const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map(

@@ -6,6 +6,13 @@ interface IUser {
   imageUrl: string;
 }
 
+// State - Member
+interface IMember {
+  id: number;
+  name: string;
+  imageUrl: string;
+}
+
 // State - Task
 interface ITaskSchedule {
   shortMonthName: string;
@@ -53,13 +60,6 @@ interface IRequest {
     id: number;
     name: string;
   } | null;
-}
-
-// State - Member
-interface IMember {
-  id: number;
-  name: string;
-  imageUrl: string;
 }
 
 // State - UI

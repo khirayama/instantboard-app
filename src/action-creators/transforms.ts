@@ -49,11 +49,19 @@ export function transformTask(task: {
   };
 }
 
-export function transformUserResponse(user: IUserResponse): IUser {
+export function transformUser(user: IUserResponse): IUser {
   return {
     id: user.id,
     name: user.name || '',
     email: user.email || '',
+    imageUrl: user.imageUrl || '',
+  };
+}
+
+export function transformMember(user: IMemberResponse): IMember {
+  return {
+    id: user.id,
+    name: user.name || '',
     imageUrl: user.imageUrl || '',
   };
 }

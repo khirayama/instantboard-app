@@ -1,8 +1,4 @@
-function transformSchedule(schedule: ITaskScheduleResponse | null): ITaskSchedule | null {
-  if (schedule === null) {
-    return null;
-  }
-
+function transformSchedule(schedule: { shortMonthName: string; shortDayName: string; date: number }): ITaskSchedule {
   return {
     shortMonthName: schedule.shortMonthName,
     shortDayName: schedule.shortDayName,
@@ -10,7 +6,19 @@ function transformSchedule(schedule: ITaskScheduleResponse | null): ITaskSchedul
   };
 }
 
-export function transformRequest(request: IRequestResponse): IRequest {
+export function transformRequest(request: {
+  id: number;
+  status: string;
+  member: {
+    id: number;
+    name: string;
+    imageUrl: string;
+  };
+  label: {
+    id: number;
+    name: string;
+  };
+}): IRequest {
   return {
     id: request.id,
     status: request.status || 'accepted',
@@ -45,11 +53,11 @@ export function transformTask(task: {
     content: task.content || '',
     priority: task.priority || 0,
     completed: Boolean(task.completed),
-    schedule: transformSchedule(task.schedule) || null,
+    schedule: task.schedule === null ? null : transformSchedule(task.schedule),
   };
 }
 
-export function transformUser(user: IUserResponse): IUser {
+export function transformUser(user: { id: number; name: string; email: string; imageUrl: string }): IUser {
   return {
     id: user.id,
     name: user.name || '',
@@ -58,7 +66,7 @@ export function transformUser(user: IUserResponse): IUser {
   };
 }
 
-export function transformMember(user: IMemberResponse): IMember {
+export function transformMember(user: { id: number; name: string; imageUrl: string }): IMember {
   return {
     id: user.id,
     name: user.name || '',
@@ -87,7 +95,13 @@ export function transformLabel(label: {
   name?: string;
   priority?: number;
   visibled?: boolean;
-  members?: ILabelMemberResponse[] | ILabelMember[];
+  members?: {
+    id: number;
+    name: string;
+    imageUrl: string;
+    requestId: number;
+    status: string;
+  }[];
 }): ILabel {
   return {
     id: label.id,

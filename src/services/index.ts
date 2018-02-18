@@ -126,7 +126,7 @@ const Task = {
     });
   },
 
-  update: (params: ITaskRequestId & ITaskRequestParams): Promise<ITaskResponse> => {
+  update: (params: ITaskRequestParams): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}`, params)
@@ -139,7 +139,7 @@ const Task = {
     });
   },
 
-  destroy: (params: ITaskRequestId): Promise<ITaskResponse> => {
+  destroy: (params: ITaskRequestParams): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .delete(`/${params.id}`)
@@ -152,7 +152,7 @@ const Task = {
     });
   },
 
-  sort: (params: ITaskRequestId, priority: number): Promise<ITaskResponse[]> => {
+  sort: (params: ITaskRequestParams, priority: number): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}/sort`, { priority })

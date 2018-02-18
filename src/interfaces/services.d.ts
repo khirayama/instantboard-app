@@ -28,16 +28,18 @@ interface ILabelResponse {
 }
 
 // Task
-interface ITaskRequestId {
-  id: number;
-}
-
 interface ITaskRequestParams {
+  id: number;
   labelId: number;
   text?: string;
   content?: string;
   completed?: boolean;
   priority?: number;
+  schedule?: {
+    shortDayName: string;
+    shortMonthName: string;
+    date: number;
+  } | null;
 }
 
 interface ITaskScheduleResponse {

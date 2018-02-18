@@ -44,7 +44,7 @@ export function transformTask(task: {
   content?: string;
   priority?: number;
   completed?: boolean;
-  schedule?: any;
+  schedule?: any | null;
 }): ITask {
   return {
     id: task.id,

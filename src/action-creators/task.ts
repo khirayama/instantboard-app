@@ -75,7 +75,7 @@ export async function createTask(dispatch: IDispatch, task: ITaskRequestParams):
   }
 }
 
-export async function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITaskRequestParams): Promise<IAction> {
+export async function updateTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_TASK,
   };
@@ -101,7 +101,7 @@ export async function updateTask(dispatch: IDispatch, task: ITaskRequestId & ITa
   }
 }
 
-export async function destroyTask(dispatch: IDispatch, task: ITaskRequestId) {
+export async function destroyTask(dispatch: IDispatch, task: ITaskRequestParams) {
   const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
@@ -126,7 +126,7 @@ export async function destroyTask(dispatch: IDispatch, task: ITaskRequestId) {
   }
 }
 
-export async function sortTask(dispatch: IDispatch, task: ITaskRequestId, to: number) {
+export async function sortTask(dispatch: IDispatch, task: ITaskRequestParams, to: number) {
   const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {

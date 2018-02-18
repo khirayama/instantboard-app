@@ -28,29 +28,26 @@ export async function getUser(dispatch: IDispatch): Promise<IAction> {
   }
 }
 
-export function deleteUser(dispatch: IDispatch): Promise<IAction> {
+export async function deleteUser(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DELETE_USER,
   };
   dispatch(preAction);
 
-  return new Promise((resolve, reject) => {
-    User.delete()
-      .then(() => {
-        const action: IAction = {
-          type: actionTypes.DELETE_USER_SUCCES,
-        };
-        dispatch(action);
-        resolve(action);
-      })
-      .catch(() => {
-        const action: IAction = {
-          type: actionTypes.DELETE_USER_FAILURE,
-        };
-        dispatch(action);
-        reject(action);
-      });
-  });
+  try {
+    await User.delete();
+    const action: IAction = {
+      type: actionTypes.DELETE_USER_SUCCES,
+    };
+    dispatch(action);
+    return action;
+  } catch (err) {
+    const action: IAction = {
+      type: actionTypes.DELETE_USER_FAILURE,
+    };
+    dispatch(action);
+    return action;
+  }
 }
 
 export async function fetchMember(dispatch: IDispatch): Promise<IAction> {

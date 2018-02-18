@@ -111,7 +111,8 @@ export default function(state: IState, action: IAction): IState {
         return labels.sort((x, y) => {
           if (x.priority > y.priority) {
             return 1;
-          } else if (x.priority < y.priority) {
+          }
+          if (x.priority < y.priority) {
             return -1;
           }
           return 0;
@@ -228,7 +229,8 @@ export default function(state: IState, action: IAction): IState {
         return tasks.sort((x, y) => {
           if (x.priority > y.priority) {
             return 1;
-          } else if (x.priority < y.priority) {
+          }
+          if (x.priority < y.priority) {
             return -1;
           }
           return 0;

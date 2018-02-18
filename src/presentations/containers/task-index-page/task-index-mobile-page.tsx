@@ -49,26 +49,26 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     this.state = Object.assign({}, this.getState(), initialState);
 
     this.actions = {
-      pollTask: (): Promise<{}> => {
+      pollTask: (): Promise<IAction> => {
         return pollTask(this.dispatch);
       },
-      pollRequest: (): Promise<{}> => {
+      pollRequest: (): Promise<IAction> => {
         return pollRequest(this.dispatch, { status: 'pending' });
       },
-      fetchLabel: (): Promise<{}> => {
+      fetchLabel: (): Promise<IAction> => {
         return fetchLabel(this.dispatch);
       },
-      fetchTask: (): Promise<{}> => {
+      fetchTask: (): Promise<IAction> => {
         return fetchTask(this.dispatch);
       },
-      updateTask: (task: ITask): Promise<{}> => {
-        return updateTask(this.dispatch, task);
+      updateTask: (params: ITaskRequestParams): Promise<IAction> => {
+        return updateTask(this.dispatch, params);
       },
-      destroyTask: (task: ITask): Promise<{}> => {
-        return destroyTask(this.dispatch, task);
+      destroyTask: (params: ITaskRequestParams): Promise<IAction> => {
+        return destroyTask(this.dispatch, params);
       },
-      sortTask: (task: ITask, to: number): Promise<{}> => {
-        return sortTask(this.dispatch, task, to);
+      sortTask: (params: ITaskRequestParams, to: number): Promise<IAction> => {
+        return sortTask(this.dispatch, params, to);
       },
     };
 
@@ -210,7 +210,12 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     const task: ITask = taskListProps.tasks[from];
 
     if (task.priority !== to) {
-      this.actions.sortTask(task, to);
+      this.actions.sortTask(
+        {
+          id: task.id,
+        },
+        to,
+      );
     }
   }
 
@@ -229,6 +234,8 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
 
   private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
-    this.actions.destroyTask(taskListItemProps.task);
+    this.actions.destroyTask({
+      id: taskListItemProps.task.id,
+    });
   }
 }

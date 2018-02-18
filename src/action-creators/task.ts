@@ -49,19 +49,19 @@ export async function fetchTask(dispatch: IDispatch): Promise<IAction> {
   }
 }
 
-export async function createTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<IAction> {
+export async function createTask(dispatch: IDispatch, params: ITaskRequestParams): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.CREATE_TASK,
   };
   dispatch(preAction);
 
   try {
-    const taskResponse: ITaskResponse = await Task.create(task);
-    const newTask: ITask = transformTask(taskResponse);
+    const taskResponse: ITaskResponse = await Task.create(params);
+    const task: ITask = transformTask(taskResponse);
     const action: IAction = {
       type: actionTypes.CREATE_TASK_SUCCESS,
       payload: {
-        task: newTask,
+        task,
       },
     };
     dispatch(action);
@@ -75,19 +75,19 @@ export async function createTask(dispatch: IDispatch, task: ITaskRequestParams):
   }
 }
 
-export async function updateTask(dispatch: IDispatch, task: ITaskRequestParams): Promise<IAction> {
+export async function updateTask(dispatch: IDispatch, params: ITaskRequestParams): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_TASK,
   };
   dispatch(preAction);
 
   try {
-    const taskResponse: ITaskResponse = await Task.update(task);
-    const newTask: ITask = transformTask(taskResponse);
+    const taskResponse: ITaskResponse = await Task.update(params);
+    const task: ITask = transformTask(taskResponse);
     const action: IAction = {
       type: actionTypes.UPDATE_TASK_SUCCESS,
       payload: {
-        task: transformTask(newTask),
+        task,
       },
     };
     dispatch(action);
@@ -101,17 +101,17 @@ export async function updateTask(dispatch: IDispatch, task: ITaskRequestParams):
   }
 }
 
-export async function destroyTask(dispatch: IDispatch, task: ITaskRequestParams) {
+export async function destroyTask(dispatch: IDispatch, params: ITaskRequestParams) {
   const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
-      task: transformTask(task),
+      task: transformTask(params),
     },
   };
   dispatch(preAction);
 
   try {
-    await Task.destroy(task);
+    await Task.destroy(params);
     const action: IAction = {
       type: actionTypes.DESTROY_TASK_SUCCESS,
     };
@@ -126,18 +126,18 @@ export async function destroyTask(dispatch: IDispatch, task: ITaskRequestParams)
   }
 }
 
-export async function sortTask(dispatch: IDispatch, task: ITaskRequestParams, to: number) {
+export async function sortTask(dispatch: IDispatch, params: ITaskRequestParams, to: number) {
   const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {
-      task: transformTask(task),
+      task: transformTask(params),
       priority: to,
     },
   };
   dispatch(preAction);
 
   try {
-    const taskResponses: ITaskResponse[] = await Task.sort(task, to);
+    const taskResponses: ITaskResponse[] = await Task.sort(params, to);
     const tasks: ITask[] = taskResponses.map(transformTask);
     const action: IAction = {
       type: actionTypes.SORT_TASK_SUCCESS,

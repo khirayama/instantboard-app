@@ -48,11 +48,11 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       fetchTask: (): Promise<{}> => {
         return fetchTask(this.dispatch);
       },
-      createTask: (task: ITaskRequestParams): Promise<{}> => {
-        return createTask(this.dispatch, task);
+      createTask: (params: ITaskRequestParams): Promise<{}> => {
+        return createTask(this.dispatch, params);
       },
-      updateTask: (task: ITaskRequestParams): Promise<{}> => {
-        return updateTask(this.dispatch, task);
+      updateTask: (params: ITaskRequestParams): Promise<{}> => {
+        return updateTask(this.dispatch, params);
       },
     };
 

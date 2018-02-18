@@ -31,9 +31,9 @@ interface ILabelResponse {
 interface ITaskRequestParams {
   id: number;
   labelId: number;
-  content?: string;
-  completed?: boolean;
-  priority?: number;
+  content: string;
+  completed: boolean;
+  priority: number;
 }
 
 interface ITaskScheduleResponse {

@@ -18,7 +18,7 @@ const Task = {
     });
   },
 
-  create: (params: ITaskRequestParams): Promise<ITaskResponse> => {
+  create: (params: { labelId: number; content: string; completed?: boolean }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .post('/', params)
@@ -31,7 +31,7 @@ const Task = {
     });
   },
 
-  update: (params: ITaskRequestParams): Promise<ITaskResponse> => {
+  update: (params: { id: number; labelId?: number; content?: string; completed?: boolean }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}`, params)
@@ -44,7 +44,7 @@ const Task = {
     });
   },
 
-  destroy: (params: ITaskRequestParams): Promise<ITaskResponse> => {
+  destroy: (params: { id: number }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .delete(`/${params.id}`)
@@ -57,7 +57,12 @@ const Task = {
     });
   },
 
-  sort: (params: ITaskRequestParams, priority: number): Promise<ITaskResponse[]> => {
+  sort: (
+    params: {
+      id: number;
+    },
+    priority: number,
+  ): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
       Task.req()
         .put(`/${params.id}/sort`, { priority })

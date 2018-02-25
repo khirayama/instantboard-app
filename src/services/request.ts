@@ -18,7 +18,7 @@ const Request = {
     });
   },
 
-  create: (params: IRequestRequestParams): Promise<IRequestResponse> => {
+  create: (params: { status?: string; labelId: number; memberId: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .post('/', params)
@@ -31,7 +31,7 @@ const Request = {
     });
   },
 
-  update: (params: IRequestRequestId & IRequestRequestParams): Promise<IRequestResponse> => {
+  update: (params: { id: number; status?: string; labelId: number; memberId: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .put(`/${params.id}`, params)
@@ -44,7 +44,7 @@ const Request = {
     });
   },
 
-  destroy: (params: IRequestRequestId): Promise<IRequestResponse> => {
+  destroy: (params: { id: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
       Request.req()
         .delete(`/${params.id}`)

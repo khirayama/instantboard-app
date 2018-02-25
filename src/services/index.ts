@@ -44,7 +44,7 @@ const Label = {
     });
   },
 
-  create: (params: ILabelRequestParams): Promise<ILabelResponse> => {
+  create: (params: { name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .post('/', params)
@@ -57,7 +57,7 @@ const Label = {
     });
   },
 
-  update: (params: ILabelRequestParams & ILabelRequestId): Promise<ILabelResponse> => {
+  update: (params: { id: number; name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}`, params)
@@ -70,7 +70,7 @@ const Label = {
     });
   },
 
-  destroy: (params: ILabelRequestId): Promise<ILabelResponse> => {
+  destroy: (params: { id: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .delete(`/${params.id}`)
@@ -83,7 +83,12 @@ const Label = {
     });
   },
 
-  sort: (params: ILabelRequestId, priority: number): Promise<ILabelResponse[]> => {
+  sort: (
+    params: {
+      id: number;
+    },
+    priority: number,
+  ): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
       Label.req()
         .put(`/${params.id}/sort`, { priority })

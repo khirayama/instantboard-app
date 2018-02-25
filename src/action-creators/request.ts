@@ -80,7 +80,12 @@ export async function createRequest(
 
 export async function updateRequest(
   dispatch: IDispatch,
-  params: { id: number; labelId: number; memberId: number },
+  params: {
+    id: number;
+    labelId: number;
+    memberId: number;
+    status?: string;
+  },
 ): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.UPDATE_REQUEST,

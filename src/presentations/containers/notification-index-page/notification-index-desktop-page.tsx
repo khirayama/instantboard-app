@@ -32,7 +32,7 @@ export default class NotificationIndexDesktopPage extends Container<{}, {}> {
       fetchRequest: (): Promise<{}> => {
         return fetchRequest(this.dispatch, { status: 'pending' });
       },
-      updateRequest: (request: IRequestRequestId & IRequestRequestParams): Promise<{}> => {
+      updateRequest: (request: { id: number; labelId: number; memberId: number; status?: string }): Promise<{}> => {
         return updateRequest(this.dispatch, request);
       },
     };

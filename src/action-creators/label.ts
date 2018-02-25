@@ -83,7 +83,7 @@ export async function updateLabel(
   }
 }
 
-export async function destroyLabel(dispatch: IDispatch, label: ILabelRequestId): Promise<IAction> {
+export async function destroyLabel(dispatch: IDispatch, label: { id: number }): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.DESTROY_LABEL,
     payload: {
@@ -108,7 +108,7 @@ export async function destroyLabel(dispatch: IDispatch, label: ILabelRequestId):
   }
 }
 
-export async function sortLabel(dispatch: IDispatch, label: ILabelRequestId, to: number): Promise<IAction> {
+export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: number): Promise<IAction> {
   const preAction: IAction = {
     type: actionTypes.SORT_LABEL,
     payload: {

@@ -61,13 +61,23 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
       fetchTask: (): Promise<IAction> => {
         return fetchTask(this.dispatch);
       },
-      updateTask: (params: ITaskRequestParams): Promise<IAction> => {
+      updateTask: (params: {
+        id: number;
+        labelId?: number;
+        content?: string;
+        completed?: boolean;
+      }): Promise<IAction> => {
         return updateTask(this.dispatch, params);
       },
-      destroyTask: (params: ITaskRequestParams): Promise<IAction> => {
+      destroyTask: (params: { id: number }): Promise<IAction> => {
         return destroyTask(this.dispatch, params);
       },
-      sortTask: (params: ITaskRequestParams, to: number): Promise<IAction> => {
+      sortTask: (
+        params: {
+          id: number;
+        },
+        to: number,
+      ): Promise<IAction> => {
         return sortTask(this.dispatch, params, to);
       },
     };

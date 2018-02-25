@@ -1,14 +1,4 @@
 // Label
-interface ILabelRequestId {
-  id: number;
-}
-
-interface ILabelRequestParams {
-  name?: string;
-  visibled?: boolean;
-  priority?: number;
-}
-
 interface ILabelMemberResponse {
   id: number;
   name: string;
@@ -28,14 +18,6 @@ interface ILabelResponse {
 }
 
 // Task
-interface ITaskRequestParams {
-  id: number;
-  labelId: number;
-  content: string;
-  completed: boolean;
-  priority: number;
-}
-
 interface ITaskScheduleResponse {
   shortMonthName: string;
   shortDayName: string;
@@ -80,16 +62,6 @@ interface IMemberResponse {
 }
 
 // Request
-interface IRequestRequestId {
-  id: number;
-}
-
-interface IRequestRequestParams {
-  status?: string;
-  labelId: number;
-  memberId: number;
-}
-
 interface IRequestResponse {
   id: number;
   status: string;

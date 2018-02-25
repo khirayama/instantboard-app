@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import { Request } from '../services';
+import Request from '../services/request';
 import { transformRequest } from './transforms';
 
 export async function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {

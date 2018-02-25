@@ -5,7 +5,7 @@ import { createLabel, fetchLabel, updateLabel } from '../../../action-creators/l
 import { getUser, fetchMember } from '../../../action-creators/user';
 import { createRequest, destroyRequest } from '../../../action-creators/request';
 import Link from '../../../router/link';
-import { User } from '../../../services';
+import User from '../../../services/user';
 import Icon from '../../components/icon';
 import Indicator from '../../components/indicator';
 import SearchMemberListItem from '../../components/search-member-list-item';

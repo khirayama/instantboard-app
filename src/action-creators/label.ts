@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import { Label } from '../services';
+import Label from '../services/label';
 import { transformLabel } from './transforms';
 
 export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {

@@ -48,12 +48,12 @@ export function transformTask(task: {
 }): ITask {
   return {
     id: task.id,
-    labelId: task.labelId ? task.labelId : task.label.id,
+    labelId: task.labelId ? task.labelId : (task.label || {}).id,
     text: task.text || '',
     content: task.content || '',
     priority: task.priority || 0,
     completed: Boolean(task.completed),
-    schedule: task.schedule === null ? null : transformSchedule(task.schedule),
+    schedule: (task.schedule === null || task.schedule === undefined) ? null : transformSchedule(task.schedule),
   };
 }
 

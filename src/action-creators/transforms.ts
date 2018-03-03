@@ -53,7 +53,7 @@ export function transformTask(task: {
     content: task.content || '',
     priority: task.priority || 0,
     completed: Boolean(task.completed),
-    schedule: (task.schedule === null || task.schedule === undefined) ? null : transformSchedule(task.schedule),
+    schedule: task.schedule === null || task.schedule === undefined ? null : transformSchedule(task.schedule),
   };
 }
 

@@ -13,9 +13,9 @@
     "compress": "node bin/compress.js ./dist/public",
     "compile:scripts": "tsc -p tsconfig.server.json",
     "compile:scripts:watch": "tsc -p tsconfig.server.json -w",
-    "bundle:scripts": "browserify ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.web.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle safari10=true > ./dist/public/bundle.js",
-    "bundle:scripts:analyze": "rm -rf tmp* && NODE_ENV=production browserify --debug ./src/index.web.tsx -g [ envify --NODE_ENV production ] -g uglifyify -p [tsify -p ./tsconfig.web.json] -p bundle-collapser/plugin | uglifyjs --compress --mangle safari10=true --source-map \"content=inline\" -o ./tmp.js && source-map-explorer tmp.js tmp.js.map",
-    "bundle:scripts:watch": "watchify ./src/index.web.tsx -t envify -p [tsify -p ./tsconfig.web.json] -o ./dist/public/bundle.js",
+    "bundle:scripts": "webpack --mode production",
+    "bundle:scripts:analyze": "ANALYSIS=true webpack --mode production",
+    "bundle:scripts:watch": "webpack --mode development -w",
     "build:styles": "postcss -c .postcssrc.js src/presentations/index.css -o dist/public/index.css",
     "build:styles:watch": "postcss -c .postcssrc.js -w src/presentations/index.css -o dist/public/index.css",
     "build:images": "node bin/minimize-images.js",
@@ -38,14 +38,11 @@
     "@types/react": "16.0.40",
     "@types/react-dom": "16.0.4",
     "axios": "0.18.0",
-    "browserify": "16.1.1",
-    "bundle-collapser": "1.3.0",
     "classnames": "2.2.5",
     "concurrently": "3.5.1",
     "cpx": "1.5.0",
     "cssnano": "3.10.0",
     "deep-equal": "1.0.1",
-    "envify": "4.1.0",
     "eslint": "4.19.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-xo-react": "0.16.0",
@@ -71,18 +68,18 @@
     "react-dom": "16.2.0",
     "react-transition-group": "2.2.1",
     "serve-static": "1.13.2",
-    "source-map-explorer": "1.5.0",
-    "tsify": "3.0.4",
+    "tsconfig-paths-webpack-plugin": "3.0.2",
     "typescript": "2.7.2",
-    "typescript-eslint-parser": "14.0.0",
-    "uglify-es": "3.3.10",
-    "uglifyify": "4.0.5",
-    "watchify": "3.11.0"
+    "typescript-eslint-parser": "14.0.0"
   },
   "devDependencies": {
     "imagemin": "5.3.1",
     "imagemin-jpegtran": "5.0.2",
     "imagemin-pngquant": "5.1.0",
-    "imagemin-webp": "4.1.0"
+    "imagemin-webp": "4.1.0",
+    "ts-loader": "4.1.0",
+    "webpack": "4.1.1",
+    "webpack-bundle-analyzer": "2.11.1",
+    "webpack-cli": "2.0.12"
   }
 }

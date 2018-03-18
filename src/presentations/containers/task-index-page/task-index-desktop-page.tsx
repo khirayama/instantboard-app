@@ -76,6 +76,8 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
       sortTask: (
         params: {
           id: number;
+          labelId: number;
+          priority: number;
         },
         to: number,
       ): Promise<IAction> => {
@@ -219,6 +221,8 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
       this.actions.sortTask(
         {
           id: task.id,
+          labelId: task.labelId,
+          priority: task.priority,
         },
         to,
       );

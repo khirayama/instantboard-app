@@ -75,6 +75,8 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
       sortTask: (
         params: {
           id: number;
+          labelId: number;
+          priority: number;
         },
         to: number,
       ): Promise<IAction> => {
@@ -223,6 +225,8 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
       this.actions.sortTask(
         {
           id: task.id,
+          labelId: task.labelId,
+          priority: task.priority,
         },
         to,
       );

@@ -149,6 +149,8 @@ export async function sortTask(
   dispatch: IDispatch,
   params: {
     id: number;
+    labelId: number;
+    priority: number;
   },
   to: number,
 ) {

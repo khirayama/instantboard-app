@@ -27,4 +27,5 @@ const poller: {
     poller.callbacks = [];
   },
 };
+
 export default poller;

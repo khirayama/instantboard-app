@@ -6,6 +6,6 @@
     ],
     "rules": {
       "prettier": true,
-      "jsdoc-format": false
+      "missing-jsdoc": false
     }
 }

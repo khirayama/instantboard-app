@@ -6,7 +6,7 @@ import Router from './router/Router';
 import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/Store';
-import { tokenManager } from './utils/token-manager';
+import { tokenManager } from './utils/tokenManager';
 import { Tracker } from './utils/Tracker';
 
 const store: Store<IState> = new Store<IState>(initialState, reducers, { session: true });

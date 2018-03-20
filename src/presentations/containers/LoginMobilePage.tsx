@@ -4,7 +4,7 @@ import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import queryString from 'utils/query-string';
-import { tokenManager } from 'utils/token-manager';
+import { tokenManager } from 'utils/tokenManager';
 
 const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 

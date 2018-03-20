@@ -7,7 +7,7 @@ import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import poller from 'utils/poller';
-import { tokenManager } from 'utils/token-manager';
+import { tokenManager } from 'utils/tokenManager';
 
 export default class ProfileDesktopPage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {

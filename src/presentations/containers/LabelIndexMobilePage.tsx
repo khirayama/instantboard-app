@@ -1,9 +1,6 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { destroyLabel, fetchLabel, sortLabel, updateLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { getUser } from 'action-creators/user';
-import poller from 'utils/poller';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
 import LabelListItem from 'presentations/components/LabelListItem';
@@ -13,10 +10,13 @@ import NoLabelContent from 'presentations/components/NoLabelContent';
 import TabNavigation from 'presentations/components/TabNavigation';
 import TabNavigationContent from 'presentations/components/TabNavigationContent';
 import Container from 'presentations/containers/Container';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import poller from 'utils/poller';
 
 export default class LabelIndexMobilePage extends Container<{}, IState> {
   public static contextTypes: { move: any } = {
-    move: PropTypes.func
+    move: PropTypes.func,
   };
 
   private handleSortLabelList: (from: number, to: number) => void;
@@ -50,7 +50,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
       },
       sortLabel: (label: ILabel, to: number): Promise<{}> => {
         return sortLabel(this.dispatch, label, to);
-      }
+      },
     };
 
     this.handleSortLabelList = this._handleSortLabelList.bind(this);
@@ -90,10 +90,10 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     const parentElement: Element | null = window.document.querySelector('.tab-navigation-content');
 
     return (
-      <section key='label-index-mobile-page' className='page label-index-mobile-page'>
+      <section key="label-index-mobile-page" className="page label-index-mobile-page">
         <Indicator active={ui.isLoadingLabels && labels.length !== 0} />
         <TabNavigationContent>
-          <List className='label-list' parentElement={parentElement} onSort={this.handleSortLabelList}>
+          <List className="label-list" parentElement={parentElement} onSort={this.handleSortLabelList}>
             {labels.map((label: ILabel): React.ReactNode => (
               <LabelListItem
                 key={label.id}
@@ -106,7 +106,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
             ))}
           </List>
           {labels.length === 0 ? null : (
-            <IconLink to='/labels/new' iconType='add' className='label-index-mobile-page--add-button'>
+            <IconLink to="/labels/new" iconType="add" className="label-index-mobile-page--add-button">
               {'ADD LABEL'}
             </IconLink>
           )}
@@ -131,7 +131,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
 
     this.actions.updateLabel({
       id: labelListItemProps.label.id,
-      visibled: !labelListItemProps.label.visibled
+      visibled: !labelListItemProps.label.visibled,
     });
   }
 

@@ -13,7 +13,7 @@ function getPathname(url: string): string {
 
 function staticCompression(
   rootPath: string,
-  options: { enableBrotli?: boolean; customCompressions?: Compression[] } = {}
+  options: { enableBrotli?: boolean; customCompressions?: Compression[] } = {},
 ): (req: any, res: any, next: any) => void {
   const defaultStatic: any = serveStatic(rootPath, options);
   const compressions: Compressions = new Compressions(rootPath);

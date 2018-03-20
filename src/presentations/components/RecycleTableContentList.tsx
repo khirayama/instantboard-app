@@ -1,17 +1,17 @@
+import { THRESHOLD_DELTAX } from 'presentations/constants';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { THRESHOLD_DELTAX } from 'presentations/constants';
 
 export default class RecycleTableContentList extends React.Component<any, any> {
   private static childContextTypes = {
     handleTouchStart: PropTypes.func,
     handleTouchMove: PropTypes.func,
-    handleTouchEnd: PropTypes.func
+    handleTouchEnd: PropTypes.func,
   };
 
   private static contextTypes = {
     currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func
+    setCurrentIndex: PropTypes.func,
   };
 
   private recycleTableContentList: any;
@@ -36,7 +36,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       endX: null,
       endY: null,
       endTime: new Date(),
-      moving: false
+      moving: false,
     };
 
     this.setRecycleTableContentList = this._setRecycleTableContentList.bind(this);
@@ -49,27 +49,31 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     return {
       handleTouchStart: this.handleTouchStart,
       handleTouchMove: this.handleTouchMove,
-      handleTouchEnd: this.handleTouchEnd
+      handleTouchEnd: this.handleTouchEnd,
     };
   }
 
   public _handleTouchStart(event: any) {
     event.stopPropagation();
 
-    this.touch = {...this.touch,
+    this.touch = {
+      ...this.touch,
       startX: event.touches[0].clientX,
       startY: event.touches[0].clientY,
-      startTime: new Date()};
+      startTime: new Date(),
+    };
   }
 
   public _handleTouchMove(event: any) {
     event.stopPropagation();
 
-    this.touch = {...this.touch,
+    this.touch = {
+      ...this.touch,
       endX: event.touches[0].clientX,
       endY: event.touches[0].clientY,
       endTime: new Date(),
-      moving: true};
+      moving: true,
+    };
 
     this._updateTouchMoveView();
   }
@@ -96,14 +100,16 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       }
     }
 
-    this.touch = {...this.touch,
+    this.touch = {
+      ...this.touch,
       startX: null,
       startY: null,
       startTime: new Date(),
       endX: null,
       endY: null,
       endTime: new Date(),
-      moving: false};
+      moving: false,
+    };
   }
 
   public _calcFilteredDiff() {
@@ -138,8 +144,8 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       time,
       delta: {
         x: Number((x / time).toFixed(2)),
-        y: Number((y / time).toFixed(2))
-      }
+        y: Number((y / time).toFixed(2)),
+      },
     };
   }
 
@@ -189,12 +195,12 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     const { children }: { children?: any } = this.props;
     const style = {
       width: children.length * 100 + '%',
-      transform: `translateX(-${currentIndex * 100 / children.length}%)`
+      transform: `translateX(-${currentIndex * 100 / children.length}%)`,
     };
 
     return (
-      <section className='recycle-table-content-list'>
-        <section ref={this.setRecycleTableContentList} style={style} className='recycle-table-content-list--inner'>
+      <section className="recycle-table-content-list">
+        <section ref={this.setRecycleTableContentList} style={style} className="recycle-table-content-list--inner">
           {children}
         </section>
       </section>

@@ -20,9 +20,9 @@ export default class LinkText extends React.Component<any, any> {
           <a
             key={Math.random()}
             href={text}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='link-text'
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-text"
             onClick={this.handleClick}
           >
             {text}

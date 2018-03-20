@@ -1,9 +1,6 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
-import poller from 'utils/poller';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
 import LoadingContent from 'presentations/components/LoadingContent';
@@ -19,6 +16,9 @@ import TabNavigationContent from 'presentations/components/TabNavigationContent'
 import TaskList from 'presentations/components/TaskList';
 import TaskListItem from 'presentations/components/TaskListItem';
 import Container from 'presentations/containers/Container';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import poller from 'utils/poller';
 
 interface ITaskIndexMobilePageState {
   index: number;
@@ -26,7 +26,7 @@ interface ITaskIndexMobilePageState {
 
 export default class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMobilePageState & IState> {
   public static contextTypes: { move: any } = {
-    move: PropTypes.func
+    move: PropTypes.func,
   };
 
   private handleChangeIndex: (index: number) => void;
@@ -43,10 +43,10 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     super(props);
 
     const initialState: ITaskIndexMobilePageState = {
-      index: this.loadIndex()
+      index: this.loadIndex(),
     };
 
-    this.state = {...this.getState(), ...initialState};
+    this.state = { ...this.getState(), ...initialState };
 
     this.actions = {
       pollTask: (): Promise<IAction> => {
@@ -78,10 +78,10 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
           labelId: number;
           priority: number;
         },
-        to: number
+        to: number,
       ): Promise<IAction> => {
         return sortTask(this.dispatch, params, to);
-      }
+      },
     };
 
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
@@ -146,7 +146,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
         return (
           <RecycleTableContentListItem key={label.id} index={index}>
             <TaskList
-              className='task-list'
+              className="task-list"
               parentElement={parentElement}
               tasks={groupedTasks}
               onSort={this.handleSortTaskList}
@@ -164,7 +164,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
               })}
             </TaskList>
             {groupedTasks.length === 0 ? null : (
-              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType='add' className='task-list--add-button'>
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
                 {'ADD TASK'}
               </IconLink>
             )}
@@ -192,7 +192,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
     const badges: number[] = requests.length ? [2] : [];
 
     return (
-      <section className='page task-index-mobile-page'>
+      <section className="page task-index-mobile-page">
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation index={0} badges={badges} />
@@ -226,9 +226,9 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
         {
           id: task.id,
           labelId: task.labelId,
-          priority: task.priority
+          priority: task.priority,
         },
-        to
+        to,
       );
     }
   }
@@ -238,7 +238,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
 
     this.actions.updateTask({
       id: taskListItemProps.task.id,
-      completed: !taskListItemProps.task.completed
+      completed: !taskListItemProps.task.completed,
     });
   }
 
@@ -249,7 +249,7 @@ export default class TaskIndexMobilePage extends Container<IContainerProps, ITas
   private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
     this.actions.destroyTask({
-      id: taskListItemProps.task.id
+      id: taskListItemProps.task.id,
     });
   }
 }

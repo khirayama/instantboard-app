@@ -1,9 +1,6 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
-import poller from 'utils/poller';
 import ApplicationContent from 'presentations/components/ApplicationContent';
 import ApplicationHeader from 'presentations/components/ApplicationHeader';
 import Icon from 'presentations/components/Icon';
@@ -20,6 +17,9 @@ import NoTaskContent from 'presentations/components/NoTaskContent';
 import TaskList from 'presentations/components/TaskList';
 import TaskListItem from 'presentations/components/TaskListItem';
 import Container from 'presentations/containers/Container';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import poller from 'utils/poller';
 
 interface ITaskIndexDesktopPageState {
   index: number;
@@ -27,7 +27,7 @@ interface ITaskIndexDesktopPageState {
 
 export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
   public static contextTypes: { move: any } = {
-    move: PropTypes.func
+    move: PropTypes.func,
   };
 
   private handleChangeIndex: (index: number) => void;
@@ -44,10 +44,10 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     super(props);
 
     const initialState: ITaskIndexDesktopPageState = {
-      index: this.loadIndex()
+      index: this.loadIndex(),
     };
 
-    this.state = {...this.getState(), ...initialState};
+    this.state = { ...this.getState(), ...initialState };
 
     this.actions = {
       pollTask: (): Promise<IAction> => {
@@ -79,10 +79,10 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
           labelId: number;
           priority: number;
         },
-        to: number
+        to: number,
       ): Promise<IAction> => {
         return sortTask(this.dispatch, params, to);
-      }
+      },
     };
 
     this.handleChangeIndex = this._handleChangeIndex.bind(this);
@@ -145,7 +145,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
 
         return (
           <LayeredChildListItem key={label.id} index={index}>
-            <TaskList className='task-list' tasks={groupedTasks} onSort={this.handleSortTaskList}>
+            <TaskList className="task-list" tasks={groupedTasks} onSort={this.handleSortTaskList}>
               {groupedTasks.map((task: ITask): React.ReactNode => {
                 return (
                   <TaskListItem
@@ -159,7 +159,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
               })}
             </TaskList>
             {groupedTasks.length === 0 ? null : (
-              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType='add' className='task-list--add-button'>
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
                 {'ADD TASK'}
               </IconLink>
             )}
@@ -174,7 +174,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
             {labels.map((label: ILabel, index: number) => {
               return (
                 <LayeredParentListItem key={label.id} index={index}>
-                  <Icon type='label' />
+                  <Icon type="label" />
                   {label.name}
                 </LayeredParentListItem>
               );
@@ -188,7 +188,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     const badges: number[] = requests.length ? [2] : [];
 
     return (
-      <section className='page task-index-desktop-page'>
+      <section className="page task-index-desktop-page">
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <ApplicationHeader index={0} badges={badges} />
         <ApplicationContent>{contentElement}</ApplicationContent>
@@ -222,9 +222,9 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
         {
           id: task.id,
           labelId: task.labelId,
-          priority: task.priority
+          priority: task.priority,
         },
-        to
+        to,
       );
     }
   }
@@ -234,7 +234,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
 
     this.actions.updateTask({
       id: taskListItemProps.task.id,
-      completed: !taskListItemProps.task.completed
+      completed: !taskListItemProps.task.completed,
     });
   }
 
@@ -245,7 +245,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
   private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
     this.actions.destroyTask({
-      id: taskListItemProps.task
+      id: taskListItemProps.task,
     });
   }
 }

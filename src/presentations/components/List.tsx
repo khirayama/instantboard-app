@@ -6,7 +6,7 @@ import * as TransitionGroup from 'react-transition-group/TransitionGroup';
 export default class List extends React.Component<any, any> {
   private static childContextTypes = {
     listElement: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
   };
 
   private listElement: any;
@@ -42,7 +42,7 @@ export default class List extends React.Component<any, any> {
         }
         return this.listElement;
       },
-      onSort
+      onSort,
     };
   }
 
@@ -50,8 +50,8 @@ export default class List extends React.Component<any, any> {
     const { children, className } = this.props;
     return (
       <section ref={this.setListElement} className={classNames('list', className || '')}>
-        <div className='list-content'>
-          <TransitionGroup component='ul'>{children}</TransitionGroup>
+        <div className="list-content">
+          <TransitionGroup component="ul">{children}</TransitionGroup>
         </div>
       </section>
     );

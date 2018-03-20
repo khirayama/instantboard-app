@@ -1,11 +1,11 @@
 import * as crypto from 'crypto';
 import * as fastify from 'fastify';
 import * as fs from 'fs';
+import serveStaticCompression from 'middleware/serve-static-compression';
 import * as path from 'path';
+import Spinner from 'presentations/components/Spinner';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import serveStaticCompression from 'middleware/serve-static-compression';
-import Spinner from 'presentations/components/Spinner';
 
 const app: any = fastify();
 
@@ -85,7 +85,7 @@ function template(): string {
   const externalFileTags = generateExternalFileTags(hashes, {
     preload: true,
     defer: true,
-    rootFilePath: path.join(__dirname, 'public')
+    rootFilePath: path.join(__dirname, 'public'),
   });
   const htmlString: string = `
 <!DOCTYPE html>

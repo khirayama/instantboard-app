@@ -55,7 +55,7 @@ const Request = {
           handleRequestError(err, reject);
         });
     });
-  }
+  },
 };
 
 export default Request;

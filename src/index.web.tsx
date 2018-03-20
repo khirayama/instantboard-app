@@ -6,7 +6,7 @@ import Router from './router/Router';
 import routes from './router/routes';
 import initialState from './store/initial-state';
 import Store from './store/Store';
-import tokenManager from './utils/token-manager';
+import { tokenManager } from './utils/token-manager';
 import { Tracker } from './utils/Tracker';
 
 const store: Store<IState> = new Store<IState>(initialState, reducers, { session: true });
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const path: string = window.location.pathname;
     ReactDOM.render(
       <Navigator props={{ store }} router={router} tracker={tracker} path={path} />,
-      applicationMainElement
+      applicationMainElement,
     );
   }
 

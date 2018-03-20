@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
-import * as React from 'react';
 import Icon from 'presentations/components/Icon';
 import ListItem from 'presentations/components/ListItem';
+import * as React from 'react';
 
 export default class LabelListItem extends React.Component<any, any> {
   public render() {
@@ -25,7 +25,7 @@ export default class LabelListItem extends React.Component<any, any> {
       }
     };
 
-    const props: any = {...this.props};
+    const props: any = { ...this.props };
     delete props.label;
     delete props.onClickVisibleButton;
     delete props.onClickLabelListItem;
@@ -37,11 +37,11 @@ export default class LabelListItem extends React.Component<any, any> {
         className={classNames('label-list-item', { 'label-list-item__unvisibled': !label.visibled })}
         onClick={handleClickLabelListItem}
       >
-        <div className='label-list-item--visible-button' onClick={handleClickVisibleButton}>
-          <Icon type='check' active={!label.visibled} />
+        <div className="label-list-item--visible-button" onClick={handleClickVisibleButton}>
+          <Icon type="check" active={!label.visibled} />
         </div>
-        <div className='label-list-item--content'>
-          <div className='label-list-item--content--text'>
+        <div className="label-list-item--content">
+          <div className="label-list-item--content--text">
             {label.name}
             {label.members
               .filter(member => {
@@ -55,7 +55,7 @@ export default class LabelListItem extends React.Component<any, any> {
                   <img
                     key={member.id}
                     className={classNames('label-list-item--content--profile-image', {
-                      'label-list-item--content--profile-image__accepted': member.status === 'accepted'
+                      'label-list-item--content--profile-image__accepted': member.status === 'accepted',
                     })}
                     src={member.imageUrl}
                   />
@@ -63,8 +63,8 @@ export default class LabelListItem extends React.Component<any, any> {
               })}
           </div>
         </div>
-        <div className='label-list-item--destroy-button' onClick={handleClickDestroyButton}>
-          <Icon type='remove' active={!label.visibled} />
+        <div className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
+          <Icon type="remove" active={!label.visibled} />
         </div>
       </ListItem>
     );

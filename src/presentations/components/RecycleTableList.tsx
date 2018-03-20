@@ -8,7 +8,7 @@ interface IRecycleTableList {
 export default class RecycleTableList extends React.Component<IRecycleTableList, any> {
   private static contextTypes = {
     currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func
+    setCurrentIndex: PropTypes.func,
   };
 
   private recycleTableList: any;
@@ -66,8 +66,8 @@ export default class RecycleTableList extends React.Component<IRecycleTableList,
   public render() {
     const { children } = this.props;
     return (
-      <section ref={this.setRecycleTableList} className='recycle-table-list' style={{ visibility: 'hidden' }}>
-        <section className='recycle-table-list--inner'>{children}</section>
+      <section ref={this.setRecycleTableList} className="recycle-table-list" style={{ visibility: 'hidden' }}>
+        <section className="recycle-table-list--inner">{children}</section>
       </section>
     );
   }

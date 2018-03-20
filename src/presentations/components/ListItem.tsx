@@ -1,12 +1,17 @@
+import {
+  THRESHOLD_HOLD_TIME,
+  THRESHOLD_SCROLL_HEIGHT,
+  TRANSITION_TIME,
+  transitionProperties,
+} from 'presentations/constants';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Transition from 'react-transition-group/Transition';
-import { THRESHOLD_HOLD_TIME, THRESHOLD_SCROLL_HEIGHT, TRANSITION_TIME, transitionProperties } from 'presentations/constants';
 
 export default class ListItem extends React.Component<any, any> {
   private static contextTypes = {
     listElement: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
   };
 
   private listItem: any;
@@ -45,19 +50,19 @@ export default class ListItem extends React.Component<any, any> {
       startTime: new Date(),
       endX: null,
       endY: null,
-      endTime: new Date()
+      endTime: new Date(),
     };
 
     // Desktop
     this.mouse = {
       down: false,
-      clickable: true
+      clickable: true,
     };
 
     // Mobile
     this.touch = {
       timerId: null,
-      holding: false
+      holding: false,
     };
 
     this.setListItem = this._setListItem.bind(this);
@@ -83,7 +88,7 @@ export default class ListItem extends React.Component<any, any> {
   public render() {
     const { children, key, onExited } = this.props;
     const className = 'list-item';
-    const props: any = {...this.props};
+    const props: any = { ...this.props };
     props.className = props.className ? props.className + ' ' + className : className;
     delete props.appear;
     delete props.enter;
@@ -105,7 +110,7 @@ export default class ListItem extends React.Component<any, any> {
       const el = this.listItem;
       setTimeout(() => {
         el.style.maxHeight = listHeight + 'px';
-      },         0);
+      }, 0);
     };
 
     const handleEntered = () => {
@@ -129,7 +134,7 @@ export default class ListItem extends React.Component<any, any> {
       const el = this.listItem;
       setTimeout(() => {
         el.style.height = '0px';
-      },         0);
+      }, 0);
     };
 
     const handleExited = () => {
@@ -177,11 +182,13 @@ export default class ListItem extends React.Component<any, any> {
     const { listElement } = this.context;
 
     this.mouse.down = true;
-    this.pointer = {...this.pointer,
+    this.pointer = {
+      ...this.pointer,
       startX: event.clientX,
       startY: event.clientY,
       startScrollTop: listElement().scrollTop,
-      startTime: new Date()};
+      startTime: new Date(),
+    };
   }
 
   private _handleMouseMove(event: any) {
@@ -189,10 +196,12 @@ export default class ListItem extends React.Component<any, any> {
 
     if (this.mouse.down) {
       this.mouse.clickable = false;
-      this.pointer = {...this.pointer,
+      this.pointer = {
+        ...this.pointer,
         endX: event.clientX,
         endY: event.clientY,
-        endTime: new Date()};
+        endTime: new Date(),
+      };
 
       if (onSort) {
         this.updatePointerMoveView();
@@ -218,21 +227,23 @@ export default class ListItem extends React.Component<any, any> {
       startY: null,
       startScrollTop: null,
       endX: null,
-      endY: null
+      endY: null,
     };
     setTimeout(() => {
       this.mouse.clickable = true;
-    },         0);
+    }, 0);
   }
 
   private _handleTouchStart(event: any) {
     const { listElement } = this.context;
     this.touch.timerId = setTimeout(this._handleTouchHold.bind(this), THRESHOLD_HOLD_TIME);
-    this.pointer = {...this.pointer,
+    this.pointer = {
+      ...this.pointer,
       startX: event.touches[0].clientX,
       startY: event.touches[0].clientY,
       startScrollTop: listElement().scrollTop,
-      startTime: new Date()};
+      startTime: new Date(),
+    };
   }
 
   private _handleTouchMove(event: any) {
@@ -245,16 +256,18 @@ export default class ListItem extends React.Component<any, any> {
 
     const distance = Math.sqrt(
       Math.pow(event.touches[0].clientX - this.pointer.startX, 2) +
-        Math.pow(event.touches[0].clientY - this.pointer.startY, 2)
+        Math.pow(event.touches[0].clientY - this.pointer.startY, 2),
     );
 
     if (distance > 10) {
       clearTimeout(this.touch.timerId);
 
-      this.pointer = {...this.pointer,
+      this.pointer = {
+        ...this.pointer,
         endX: event.touches[0].clientX,
         endY: event.touches[0].clientY,
-        endTime: new Date()};
+        endTime: new Date(),
+      };
 
       if (this.touch.holding && onSort) {
         this.updatePointerMoveView();
@@ -296,7 +309,7 @@ export default class ListItem extends React.Component<any, any> {
       startTime: new Date(),
       endX: null,
       endY: null,
-      endTime: new Date()
+      endTime: new Date(),
     };
   }
 
@@ -411,7 +424,7 @@ export default class ListItem extends React.Component<any, any> {
           clearTimeout(this.timerId);
           this.timerId = null;
         }
-      },                         1000 / 60);
+      }, 1000 / 60);
     }
   }
 
@@ -432,8 +445,8 @@ export default class ListItem extends React.Component<any, any> {
       time,
       delta: {
         x: Number((x / time).toFixed(2)),
-        y: Number((y / time).toFixed(2))
-      }
+        y: Number((y / time).toFixed(2)),
+      },
     };
   }
 
@@ -459,7 +472,7 @@ export default class ListItem extends React.Component<any, any> {
         const listItemElement = listItemElements[index];
         const targetRect = {
           top: listTop + listItemElement.offsetTop,
-          height: listItemElement.offsetHeight
+          height: listItemElement.offsetHeight,
         };
 
         if (listItemElement === this.listItem) {
@@ -482,7 +495,7 @@ export default class ListItem extends React.Component<any, any> {
 
     return {
       currentIndex,
-      targetIndex
+      targetIndex,
     };
   }
 

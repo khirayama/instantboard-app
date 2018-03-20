@@ -1,8 +1,5 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { fetchRequest, updateRequest } from 'action-creators/request';
 import { pollRequest } from 'action-creators/request';
-import poller from 'utils/poller';
 import Indicator from 'presentations/components/Indicator';
 import List from 'presentations/components/List';
 import NoNotificationContent from 'presentations/components/NoNotificationContent';
@@ -10,10 +7,13 @@ import RequestListItem from 'presentations/components/RequestListItem';
 import TabNavigation from 'presentations/components/TabNavigation';
 import TabNavigationContent from 'presentations/components/TabNavigationContent';
 import Container from 'presentations/containers/Container';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import poller from 'utils/poller';
 
 export default class NotificationIndexMobilePage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {
-    move: PropTypes.func
+    move: PropTypes.func,
   };
 
   private handleClickAcceptButton: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -34,7 +34,7 @@ export default class NotificationIndexMobilePage extends Container<{}, {}> {
       },
       updateRequest: (request: { id: number; labelId: number; memberId: number; status?: string }): Promise<{}> => {
         return updateRequest(this.dispatch, request);
-      }
+      },
     };
 
     this.handleClickAcceptButton = this._handleClickAcceptButton.bind(this);
@@ -59,10 +59,10 @@ export default class NotificationIndexMobilePage extends Container<{}, {}> {
     const badges: number[] = requests.length ? [2] : [];
 
     return (
-      <section className='page notification-index-mobile-page'>
+      <section className="page notification-index-mobile-page">
         <Indicator active={ui.isLoadingRequests && requests.length !== 0} />
         <TabNavigationContent>
-          <List className='request-list'>
+          <List className="request-list">
             {requests.map((request: IRequest): React.ReactNode => {
               return (
                 <RequestListItem
@@ -84,14 +84,14 @@ export default class NotificationIndexMobilePage extends Container<{}, {}> {
   private _handleClickAcceptButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
-      status: 'accepted'
+      status: 'accepted',
     });
   }
 
   private _handleClickRefuseButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
-      status: 'refused'
+      status: 'refused',
     });
   }
 }

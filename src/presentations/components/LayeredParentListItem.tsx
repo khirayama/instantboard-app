@@ -5,7 +5,7 @@ import * as React from 'react';
 export default class LayeredParentListItem extends React.Component<any, any> {
   private static contextTypes = {
     currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func
+    setCurrentIndex: PropTypes.func,
   };
 
   private handleClick: any;
@@ -23,7 +23,7 @@ export default class LayeredParentListItem extends React.Component<any, any> {
     return (
       <li
         className={classNames('layered-parent-list-item', {
-          'layered-parent-list-item__active': Number(index) === currentIndex
+          'layered-parent-list-item__active': Number(index) === currentIndex,
         })}
         onClick={this.handleClick}
       >

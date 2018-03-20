@@ -1,5 +1,5 @@
-import * as React from 'react';
 import List from 'presentations/components/List';
+import * as React from 'react';
 
 export default class TaskList extends React.Component<any, any> {
   public render() {
@@ -10,7 +10,7 @@ export default class TaskList extends React.Component<any, any> {
       }
     };
 
-    const props: any = {...this.props};
+    const props: any = { ...this.props };
     delete props.tasks;
     delete props.onSort;
 

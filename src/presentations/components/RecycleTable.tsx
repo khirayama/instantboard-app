@@ -10,7 +10,7 @@ interface IRecycleTableProps {
 export default class RecycleTable extends React.Component<IRecycleTableProps, any> {
   private static childContextTypes = {
     currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func
+    setCurrentIndex: PropTypes.func,
   };
 
   private el: any;
@@ -25,7 +25,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
     super(props);
 
     this.state = {
-      currentIndex: props.index || 0
+      currentIndex: props.index || 0,
     };
 
     this.setElement = this._setElement.bind(this);
@@ -36,7 +36,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
     const { currentIndex } = this.state;
     return {
       currentIndex,
-      setCurrentIndex: this.setCurrentIndex
+      setCurrentIndex: this.setCurrentIndex,
     };
   }
 
@@ -75,7 +75,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
             this.timerId = null;
           }
         }
-      },                         1000 / 60);
+      }, 1000 / 60);
     } else {
       const el = this.el;
       if (el === null) {
@@ -107,7 +107,7 @@ export default class RecycleTable extends React.Component<IRecycleTableProps, an
   public render() {
     const { children } = this.props;
     return (
-      <section ref={this.setElement} className='recycle-table'>
+      <section ref={this.setElement} className="recycle-table">
         {children}
       </section>
     );

@@ -61,7 +61,7 @@ const Task = {
     params: {
       id: number;
     },
-    priority: number
+    priority: number,
   ): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
       Task.req()
@@ -73,7 +73,7 @@ const Task = {
           handleRequestError(err, reject);
         });
     });
-  }
+  },
 };
 
 export default Task;

@@ -11,7 +11,7 @@ interface IRecycleTableListItem {
 export default class RecycleTableListItem extends React.Component<IRecycleTableListItem, any> {
   private static contextTypes = {
     currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func
+    setCurrentIndex: PropTypes.func,
   };
 
   private handleClick: any;
@@ -28,7 +28,7 @@ export default class RecycleTableListItem extends React.Component<IRecycleTableL
 
     return (
       <button
-        type='submit'
+        type="submit"
         className={classNames('recycle-table-list-item', { 'recycle-table-list-item__active': index === currentIndex })}
         onClick={this.handleClick}
       >

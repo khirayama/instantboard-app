@@ -1,12 +1,12 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
 import { fetchLabel } from 'action-creators/label';
 import { createTask, fetchTask, updateTask } from 'action-creators/task';
-import queryString from 'utils/query-string';
-import Link from 'router/Link';
 import Icon from 'presentations/components/Icon';
 import Indicator from 'presentations/components/Indicator';
 import Container from 'presentations/containers/Container';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import Link from 'router/Link';
+import queryString from 'utils/query-string';
 
 interface ITaskMobilePageState {
   taskId: number | null;
@@ -17,7 +17,7 @@ interface ITaskMobilePageState {
 
 export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> {
   public static contextTypes: { move: any } = {
-    move: PropTypes.func
+    move: PropTypes.func,
   };
 
   private handleChangeLabelIdSelect: (event: React.FormEvent<HTMLSelectElement>) => void;
@@ -36,10 +36,10 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       taskId: params.id ? Number(params.id) : null,
       content: '',
       labelId: null,
-      uiBlocking: false
+      uiBlocking: false,
     };
 
-    this.state = {...this.getState(), ...initialState};
+    this.state = { ...this.getState(), ...initialState };
 
     this.actions = {
       fetchLabel: (): Promise<{}> => {
@@ -53,7 +53,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       },
       updateTask: (params: { id: number; labelId?: number; content?: string; completed?: boolean }): Promise<{}> => {
         return updateTask(this.dispatch, params);
-      }
+      },
     };
 
     this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
@@ -109,21 +109,21 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
     const labels: ILabel[] = this.state.labels;
 
     return (
-      <section className='page task-mobile-page'>
-        {this.state.uiBlocking ? <div className='ui-block' /> : null}
+      <section className="page task-mobile-page">
+        {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={ui.isLoadingTasks} />
         <form onSubmit={this.handleSubmit}>
-          <header className='task-mobile-page--header'>
-            <Link to='/'>
-              <Icon type='back' />
+          <header className="task-mobile-page--header">
+            <Link to="/">
+              <Icon type="back" />
             </Link>
-            <button type='submit'>
-              <Icon type='send' />
+            <button type="submit">
+              <Icon type="send" />
             </button>
           </header>
-          <div className='task-mobile-page--label-block'>
-            <Link to='/labels'>
-              <Icon type='label' />
+          <div className="task-mobile-page--label-block">
+            <Link to="/labels">
+              <Icon type="label" />
             </Link>
             {this.state.labelId ? (
               <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
@@ -137,13 +137,13 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
           </div>
           <div>
             <input
-              type='text'
-              className='task-mobile-page--task-content-input'
+              type="text"
+              className="task-mobile-page--task-content-input"
               autoFocus
               value={this.state.content}
               onChange={this.handleChangeContentInput}
               onKeyDown={this.handleKeyDownContentInput}
-              placeholder='Enter task text'
+              placeholder="Enter task text"
             />
           </div>
         </form>
@@ -188,7 +188,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
         this.actions
           .createTask({
             content,
-            labelId: this.state.labelId
+            labelId: this.state.labelId,
           })
           .then(() => {
             this.context.move('/');
@@ -198,7 +198,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
           .updateTask({
             id,
             content,
-            labelId: this.state.labelId
+            labelId: this.state.labelId,
           })
           .then(() => {
             this.context.move('/');

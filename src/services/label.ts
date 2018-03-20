@@ -61,7 +61,7 @@ const Label = {
     params: {
       id: number;
     },
-    priority: number
+    priority: number,
   ): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
       Label.req()
@@ -73,7 +73,7 @@ const Label = {
           handleRequestError(err, reject);
         });
     });
-  }
+  },
 };
 
 export default Label;

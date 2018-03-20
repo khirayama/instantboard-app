@@ -11,8 +11,8 @@ export default class SearchMemberListItem extends React.Component<any, any> {
     };
 
     return (
-      <li className='search-member-list-item' onClick={handleClick}>
-        <div className='search-member-list-item--image-container'>
+      <li className="search-member-list-item" onClick={handleClick}>
+        <div className="search-member-list-item--image-container">
           <img src={member.imageUrl} />
         </div>
         <p>{member.name}</p>

@@ -9,7 +9,7 @@ const poller: {
     const timerId = setInterval(callback, time);
     poller.callbacks.push({
       id: timerId,
-      callback
+      callback,
     });
   },
   remove: (callback: any): void => {
@@ -25,7 +25,7 @@ const poller: {
       clearInterval(callback.id);
     }
     poller.callbacks = [];
-  }
+  },
 };
 
 export default poller;

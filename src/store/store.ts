@@ -19,7 +19,7 @@ export default class Store<T> {
   constructor(state: T, reducer: any, options: { debounce?: number | null; session?: boolean } = {}) {
     this.options = {
       debounce: options.debounce || null,
-      session: options.session || false
+      session: options.session || false,
     };
 
     this.state = state;
@@ -115,7 +115,7 @@ export default class Store<T> {
       this.timerId = setTimeout(() => {
         this.timerId = null;
         this.emit(EVENT_CHANGE, this);
-      },                        1000 / 60);
+      }, 1000 / 60);
     } else {
       this.emit(EVENT_CHANGE, this);
     }

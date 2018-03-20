@@ -12,7 +12,7 @@ export default class RecycleTableContentListItem extends React.Component<IRecycl
     handleTouchStart: PropTypes.func,
     handleTouchMove: PropTypes.func,
     handleTouchEnd: PropTypes.func,
-    currentIndex: PropTypes.number
+    currentIndex: PropTypes.number,
   };
 
   public render() {
@@ -28,10 +28,10 @@ export default class RecycleTableContentListItem extends React.Component<IRecycl
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         className={classNames('recycle-table-content-list-item', {
-          'recycle-table-content-list-item__hidden': isHidden
+          'recycle-table-content-list-item__hidden': isHidden,
         })}
       >
-        <section className='recycle-table-content-list-item--inner'>{children}</section>
+        <section className="recycle-table-content-list-item--inner">{children}</section>
       </section>
     );
   }

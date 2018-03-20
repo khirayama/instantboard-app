@@ -4,7 +4,7 @@ import { transformMember, transformUser } from './transforms';
 
 export async function getUser(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.GET_USER
+    type: actionTypes.GET_USER,
   };
   dispatch(preAction);
 
@@ -14,14 +14,14 @@ export async function getUser(dispatch: IDispatch): Promise<IAction> {
     const action: IAction = {
       type: actionTypes.GET_USER_SUCCES,
       payload: {
-        profile: user
-      }
+        profile: user,
+      },
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.GET_USER_FAILURE
+      type: actionTypes.GET_USER_FAILURE,
     };
     dispatch(action);
     return action;
@@ -30,20 +30,20 @@ export async function getUser(dispatch: IDispatch): Promise<IAction> {
 
 export async function deleteUser(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.DELETE_USER
+    type: actionTypes.DELETE_USER,
   };
   dispatch(preAction);
 
   try {
     await User.delete();
     const action: IAction = {
-      type: actionTypes.DELETE_USER_SUCCES
+      type: actionTypes.DELETE_USER_SUCCES,
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.DELETE_USER_FAILURE
+      type: actionTypes.DELETE_USER_FAILURE,
     };
     dispatch(action);
     return action;
@@ -52,7 +52,7 @@ export async function deleteUser(dispatch: IDispatch): Promise<IAction> {
 
 export async function fetchMember(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.FETCH_MEMBER
+    type: actionTypes.FETCH_MEMBER,
   };
   dispatch(preAction);
 
@@ -62,14 +62,14 @@ export async function fetchMember(dispatch: IDispatch): Promise<IAction> {
     const action: IAction = {
       type: actionTypes.FETCH_MEMBER_SUCCESS,
       payload: {
-        members
-      }
+        members,
+      },
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.FETCH_MEMBER_FAILURE
+      type: actionTypes.FETCH_MEMBER_FAILURE,
     };
     dispatch(action);
     return action;

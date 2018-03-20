@@ -5,8 +5,8 @@ export default class ApplicationContent extends React.Component<any, any> {
     const { children } = this.props;
 
     return (
-      <div className='application-content'>
-        <div className='application-content--inner'>{children}</div>
+      <div className="application-content">
+        <div className="application-content--inner">{children}</div>
       </div>
     );
   }

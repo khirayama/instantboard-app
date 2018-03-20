@@ -57,7 +57,7 @@ const User = {
           handleRequestError(err, reject);
         });
     });
-  }
+  },
 };
 
 export default User;

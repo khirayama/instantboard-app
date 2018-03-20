@@ -3,6 +3,6 @@
       "tslint-microsoft-contrib"
     ],
     "rules": {
-      "import-name": false
+      "jsdoc-format": false
     }
 }

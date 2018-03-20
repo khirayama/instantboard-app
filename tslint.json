@@ -1,8 +1,11 @@
 {
     "extends": [
-      "tslint-microsoft-contrib"
+      "tslint-microsoft-contrib",
+      "tslint-plugin-prettier",
+      "tslint-config-prettier"
     ],
     "rules": {
+      "prettier": true,
       "jsdoc-format": false
     }
 }

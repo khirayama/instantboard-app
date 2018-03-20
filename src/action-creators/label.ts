@@ -1,10 +1,10 @@
 import actionTypes from '../constants/action-types';
-import Label from '../services/label';
+import Label from '../services/Label';
 import { transformLabel } from './transforms';
 
 export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.FETCH_LABEL,
+    type: actionTypes.FETCH_LABEL
   };
   dispatch(preAction);
 
@@ -14,14 +14,14 @@ export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
     const action: IAction = {
       type: actionTypes.FETCH_LABEL_SUCCESS,
       payload: {
-        labels,
-      },
+        labels
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.FETCH_LABEL_FAILURE,
+      type: actionTypes.FETCH_LABEL_FAILURE
     };
     dispatch(action);
     return action;
@@ -30,7 +30,7 @@ export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
 
 export async function createLabel(dispatch: IDispatch, label: { name: string }): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.CREATE_LABEL,
+    type: actionTypes.CREATE_LABEL
   };
   dispatch(preAction);
 
@@ -40,14 +40,14 @@ export async function createLabel(dispatch: IDispatch, label: { name: string }):
     const action: IAction = {
       type: actionTypes.CREATE_LABEL_SUCCESS,
       payload: {
-        label: newLabel,
-      },
+        label: newLabel
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.CREATE_LABEL_FAILURE,
+      type: actionTypes.CREATE_LABEL_FAILURE
     };
     dispatch(action);
     return action;
@@ -56,10 +56,10 @@ export async function createLabel(dispatch: IDispatch, label: { name: string }):
 
 export async function updateLabel(
   dispatch: IDispatch,
-  label: { id: number; name: string; visibled: boolean },
+  label: { id: number; name: string; visibled: boolean }
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.UPDATE_LABEL,
+    type: actionTypes.UPDATE_LABEL
   };
   dispatch(preAction);
 
@@ -69,14 +69,14 @@ export async function updateLabel(
     const action: IAction = {
       type: actionTypes.UPDATE_LABEL_SUCCESS,
       payload: {
-        label: newLabel,
-      },
+        label: newLabel
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.UPDATE_LABEL_FAILURE,
+      type: actionTypes.UPDATE_LABEL_FAILURE
     };
     dispatch(action);
     return action;
@@ -87,21 +87,21 @@ export async function destroyLabel(dispatch: IDispatch, label: { id: number }): 
   const preAction: IAction = {
     type: actionTypes.DESTROY_LABEL,
     payload: {
-      label: transformLabel(label),
-    },
+      label: transformLabel(label)
+    }
   };
   dispatch(preAction);
 
   try {
     await Label.destroy(label);
     const action: IAction = {
-      type: actionTypes.DESTROY_LABEL_SUCCESS,
+      type: actionTypes.DESTROY_LABEL_SUCCESS
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.DESTROY_LABEL_FAILURE,
+      type: actionTypes.DESTROY_LABEL_FAILURE
     };
     dispatch(action);
     return action;
@@ -113,8 +113,8 @@ export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: 
     type: actionTypes.SORT_LABEL,
     payload: {
       label: transformLabel(label),
-      priority: to,
-    },
+      priority: to
+    }
   };
   dispatch(preAction);
 
@@ -124,14 +124,14 @@ export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: 
     const action: IAction = {
       type: actionTypes.SORT_LABEL_SUCCESS,
       payload: {
-        labels,
-      },
+        labels
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action = {
-      type: actionTypes.SORT_LABEL_FAILURE,
+      type: actionTypes.SORT_LABEL_FAILURE
     };
     dispatch(action);
     return action;

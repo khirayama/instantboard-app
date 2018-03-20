@@ -10,7 +10,7 @@ interface INavigatorProps {
 
 export default class Navigator extends React.Component<INavigatorProps, { path: string }> {
   public static childContextTypes = {
-    move: PropTypes.func.isRequired,
+    move: PropTypes.func.isRequired
   };
 
   private move: any;
@@ -19,14 +19,14 @@ export default class Navigator extends React.Component<INavigatorProps, { path: 
     super(props);
 
     this.state = {
-      path: props.path,
+      path: props.path
     };
     this.move = this._move.bind(this);
   }
 
   public getChildContext() {
     return {
-      move: this.move,
+      move: this.move
     };
   }
 
@@ -55,7 +55,7 @@ export default class Navigator extends React.Component<INavigatorProps, { path: 
     const { route, params } = router.matchRoute(pathname);
     const component = route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
     if (route) {
-      return React.createElement(component, Object.assign({}, props, { params }));
+      return React.createElement(component, {...props,  params});
     }
     return null;
   }

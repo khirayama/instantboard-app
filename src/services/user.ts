@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosError } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import createRequest from './utils/create-request';
 import handleRequestError from './utils/handle-request-error';
 
@@ -57,7 +57,7 @@ const User = {
           handleRequestError(err, reject);
         });
     });
-  },
+  }
 };
 
 export default User;

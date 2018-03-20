@@ -1,0 +1,19 @@
+.recycle-table-content-list-item {
+  flex: 1;
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  background: $color-background;
+
+  .recycle-table-content-list-item--inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.recycle-table-content-list-item__hidden {
+    .recycle-table-content-list-item--inner {
+      display: none;
+    }
+  }
+}
+

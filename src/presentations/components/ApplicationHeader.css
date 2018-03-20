@@ -1,0 +1,57 @@
+.application-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-background-content;
+  box-shadow: $shadow;
+  z-index: 2;
+
+  .application-header--content {
+    width: $breakpoint-wide;
+    height: $height-desktop-bar-high;
+    margin: 0 auto;
+    text-align: right;
+
+    .application-header-item {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      color: $color-text-secondary;
+      height: $height-desktop-bar-high;
+
+      .application-header--icon {
+        padding: 12px 12px 14px;
+        height: $height-desktop-bar-high;
+
+        path,
+        circle,
+        rect {
+          stroke: $color-icon-inactive;
+        }
+      }
+
+      .application-header--icon--badge {
+        display: inline-block;
+        position: absolute;
+        top: calc(50% - 18px);
+        left: calc(50% + 6px);
+        width: 8px;
+        height: 8px;
+        background-color: $color-attention;
+        z-index: 1;
+        border-radius: 50%;
+      }
+
+      &.application-header-item__current {
+        .application-header--icon {
+          path,
+          circle,
+          rect {
+            stroke: $color-icon-active;
+          }
+        }
+      }
+    }
+  }
+}

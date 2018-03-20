@@ -9,5 +9,5 @@ export const transitionProperties = {
   ALL: 'all',
   HEIGHT: 'height',
   MAX_HEIGHT: 'max-height',
-  TRANSFORM: 'transform',
+  TRANSFORM: 'transform'
 };

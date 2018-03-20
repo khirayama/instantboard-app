@@ -6,7 +6,7 @@ const queryString = {
       const pair = kv.split('=');
       result[pair[0]] = decodeURIComponent(pair[1]);
       return result;
-    }, {});
-  },
+    },              {});
+  }
 };
 export default queryString;

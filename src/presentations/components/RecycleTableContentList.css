@@ -1,0 +1,14 @@
+.recycle-table-content-list {
+  overflow: hidden;
+  height: calc(100% - $height-mobile-bar-low);
+  will-change: left;
+
+  .recycle-table-content-list--inner {
+    display: flex;
+    height: 100%;
+    transition-timing-function: $ease-out;
+    transition-duration: $time-basic;
+    transition-property: transform;
+    will-change: transform;
+  }
+}

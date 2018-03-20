@@ -1,8 +1,8 @@
 const PATH_REGEXP = new RegExp(
   ['(\\\\.)', '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'].join(
-    '|',
+    '|'
   ),
-  'g',
+  'g'
 );
 
 export function _parse(str: string) {
@@ -25,7 +25,7 @@ export function _parse(str: string) {
 
     const token = {
       name: res[3],
-      pattern: '[^/]+?',
+      pattern: '[^/]+?'
     };
     tokens.push(token);
     res = PATH_REGEXP.exec(str);
@@ -74,7 +74,7 @@ export function _pathToRegexp(path: string) {
 
   return {
     regexp,
-    keys,
+    keys
   };
 }
 
@@ -95,7 +95,7 @@ export function _exec(regexp: RegExp, keys: string[], path: string): any {
 
   return {
     matches,
-    params,
+    params
   };
 }
 

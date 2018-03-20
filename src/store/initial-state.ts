@@ -9,7 +9,7 @@ const initialState: IState = {
     isLoadingLabels: false,
     isLoadingRequests: false,
     isLoadingMembers: false,
-    errors: [],
-  },
+    errors: []
+  }
 };
 export default initialState;

@@ -1,0 +1,14 @@
+.application-content {
+  position: absolute;
+  top: $height-desktop-bar-high;
+  left: 0;
+  width: 100%;
+  height: calc(100% - $height-desktop-bar-high);
+  overflow: scroll;
+
+  .application-content--inner {
+    width: $breakpoint-wide;
+    height: 100%;
+    margin: 0 auto;
+  }
+}

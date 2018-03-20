@@ -1,6 +1,6 @@
 import * as deepEqual from 'deep-equal';
 import * as React from 'react';
-import Store from '../../store/store';
+import Store from 'store/Store';
 
 export default class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
   protected handleStateUpdate: () => void;

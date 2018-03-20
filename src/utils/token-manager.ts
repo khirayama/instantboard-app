@@ -5,6 +5,6 @@ const tokenManager = {
   },
   get: () => {
     return window.localStorage.getItem(tokenManager.key);
-  },
+  }
 };
 export default tokenManager;

@@ -1,0 +1,23 @@
+.recycle-table-list {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: $height-mobile-bar-low;
+  vertical-align: top;
+  background-color: $color-background-content;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 1;
+  box-shadow: $shadow;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recycle-table-list--inner {
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+

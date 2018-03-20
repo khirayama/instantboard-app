@@ -1,0 +1,14 @@
+.list {
+  width: 100%;
+  height: auto;
+  list-style: none;
+  overflow: scroll;
+
+  &__sorting {
+    position: relative;
+  }
+
+  .list-content {
+    width: 100%;
+  }
+}

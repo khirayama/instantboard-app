@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import Request from '../services/request';
+import Request from '../services/Request';
 import { transformRequest } from './transforms';
 
 export async function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
@@ -9,14 +9,14 @@ export async function pollRequest(dispatch: IDispatch, params: { status: string 
     const action: IAction = {
       type: actionTypes.POLL_REQUEST_SUCCESS,
       payload: {
-        requests,
-      },
+        requests
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.POLL_REQUEST_FAILURE,
+      type: actionTypes.POLL_REQUEST_FAILURE
     };
     dispatch(action);
     return action;
@@ -25,7 +25,7 @@ export async function pollRequest(dispatch: IDispatch, params: { status: string 
 
 export async function fetchRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.FETCH_REQUEST,
+    type: actionTypes.FETCH_REQUEST
   };
   dispatch(preAction);
 
@@ -35,14 +35,14 @@ export async function fetchRequest(dispatch: IDispatch, params: { status: string
     const action: IAction = {
       type: actionTypes.FETCH_REQUEST_SUCCESS,
       payload: {
-        requests,
-      },
+        requests
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.FETCH_REQUEST_FAILURE,
+      type: actionTypes.FETCH_REQUEST_FAILURE
     };
     dispatch(action);
     return action;
@@ -51,10 +51,10 @@ export async function fetchRequest(dispatch: IDispatch, params: { status: string
 
 export async function createRequest(
   dispatch: IDispatch,
-  params: { labelId: number; memberId: number },
+  params: { labelId: number; memberId: number }
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.CREATE_REQUEST,
+    type: actionTypes.CREATE_REQUEST
   };
   dispatch(preAction);
 
@@ -64,14 +64,14 @@ export async function createRequest(
     const action = {
       type: actionTypes.CREATE_REQUEST_SUCCESS,
       payload: {
-        request,
-      },
+        request
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.CREATE_REQUEST_FAILURE,
+      type: actionTypes.CREATE_REQUEST_FAILURE
     };
     dispatch(action);
     return action;
@@ -85,10 +85,10 @@ export async function updateRequest(
     labelId: number;
     memberId: number;
     status?: string;
-  },
+  }
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.UPDATE_REQUEST,
+    type: actionTypes.UPDATE_REQUEST
   };
   dispatch(preAction);
 
@@ -98,14 +98,14 @@ export async function updateRequest(
     const action = {
       type: actionTypes.UPDATE_REQUEST_SUCCESS,
       payload: {
-        request,
-      },
+        request
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.UPDATE_REQUEST_FAILURE,
+      type: actionTypes.UPDATE_REQUEST_FAILURE
     };
     dispatch(action);
     return action;
@@ -114,7 +114,7 @@ export async function updateRequest(
 
 export async function destroyRequest(dispatch: IDispatch, params: { id: number }): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.DESTROY_REQUEST,
+    type: actionTypes.DESTROY_REQUEST
   };
   dispatch(preAction);
 
@@ -124,14 +124,14 @@ export async function destroyRequest(dispatch: IDispatch, params: { id: number }
     const action = {
       type: actionTypes.DESTROY_REQUEST_SUCCESS,
       payload: {
-        request,
-      },
+        request
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.DESTROY_REQUEST_FAILURE,
+      type: actionTypes.DESTROY_REQUEST_FAILURE
     };
     dispatch(action);
     return action;

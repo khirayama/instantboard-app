@@ -8,7 +8,7 @@ interface ILinkProps {
 
 export default class Link extends React.Component<ILinkProps> {
   private static contextTypes = {
-    move: PropTypes.func.isRequired,
+    move: PropTypes.func.isRequired
   };
 
   private handleClick;

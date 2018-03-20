@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import Task from '../services/task';
+import Task from '../services/Task';
 import { transformTask } from './transforms';
 
 export async function pollTask(dispatch: IDispatch): Promise<IAction> {
@@ -9,14 +9,14 @@ export async function pollTask(dispatch: IDispatch): Promise<IAction> {
     const action: IAction = {
       type: actionTypes.POLL_TASK_SUCCESS,
       payload: {
-        tasks,
-      },
+        tasks
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.POLL_TASK_FAILURE,
+      type: actionTypes.POLL_TASK_FAILURE
     };
     dispatch(action);
     return action;
@@ -25,7 +25,7 @@ export async function pollTask(dispatch: IDispatch): Promise<IAction> {
 
 export async function fetchTask(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.FETCH_TASK,
+    type: actionTypes.FETCH_TASK
   };
   dispatch(preAction);
 
@@ -35,14 +35,14 @@ export async function fetchTask(dispatch: IDispatch): Promise<IAction> {
     const action: IAction = {
       type: actionTypes.FETCH_TASK_SUCCESS,
       payload: {
-        tasks,
-      },
+        tasks
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.FETCH_TASK_FAILURE,
+      type: actionTypes.FETCH_TASK_FAILURE
     };
     dispatch(action);
     return action;
@@ -54,10 +54,10 @@ export async function createTask(
   params: {
     labelId: number;
     content: string;
-  },
+  }
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.CREATE_TASK,
+    type: actionTypes.CREATE_TASK
   };
   dispatch(preAction);
 
@@ -67,14 +67,14 @@ export async function createTask(
     const action: IAction = {
       type: actionTypes.CREATE_TASK_SUCCESS,
       payload: {
-        task,
-      },
+        task
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.CREATE_TASK_FAILURE,
+      type: actionTypes.CREATE_TASK_FAILURE
     };
     dispatch(action);
     return action;
@@ -88,10 +88,10 @@ export async function updateTask(
     labelId?: number;
     content?: string;
     completed?: boolean;
-  },
+  }
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.UPDATE_TASK,
+    type: actionTypes.UPDATE_TASK
   };
   dispatch(preAction);
 
@@ -101,14 +101,14 @@ export async function updateTask(
     const action: IAction = {
       type: actionTypes.UPDATE_TASK_SUCCESS,
       payload: {
-        task,
-      },
+        task
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.UPDATE_TASK_FAILURE,
+      type: actionTypes.UPDATE_TASK_FAILURE
     };
     dispatch(action);
     return action;
@@ -119,26 +119,26 @@ export async function destroyTask(
   dispatch: IDispatch,
   params: {
     id: number;
-  },
+  }
 ) {
   const preAction: IAction = {
     type: actionTypes.DESTROY_TASK,
     payload: {
-      task: transformTask(params),
-    },
+      task: transformTask(params)
+    }
   };
   dispatch(preAction);
 
   try {
     await Task.destroy(params);
     const action: IAction = {
-      type: actionTypes.DESTROY_TASK_SUCCESS,
+      type: actionTypes.DESTROY_TASK_SUCCESS
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.DESTROY_TASK_FAILURE,
+      type: actionTypes.DESTROY_TASK_FAILURE
     };
     dispatch(action);
     return action;
@@ -152,14 +152,14 @@ export async function sortTask(
     labelId: number;
     priority: number;
   },
-  to: number,
+  to: number
 ) {
   const preAction: IAction = {
     type: actionTypes.SORT_TASK,
     payload: {
       task: transformTask(params),
-      priority: to,
-    },
+      priority: to
+    }
   };
   dispatch(preAction);
 
@@ -169,14 +169,14 @@ export async function sortTask(
     const action: IAction = {
       type: actionTypes.SORT_TASK_SUCCESS,
       payload: {
-        tasks,
-      },
+        tasks
+      }
     };
     dispatch(action);
     return action;
   } catch (err) {
     const action = {
-      type: actionTypes.SORT_TASK_FAILURE,
+      type: actionTypes.SORT_TASK_FAILURE
     };
     dispatch(action);
     return action;

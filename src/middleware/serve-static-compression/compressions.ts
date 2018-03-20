@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import Compression from './compression';
+import Compression from 'middleware/serve-static-compression/Compression';
 
 export default class Compressions {
   public data: Compression[] = [];
@@ -55,7 +55,7 @@ export default class Compressions {
         const file: { compressions: Compression[] } | undefined = this.fileIndex[srcFilePath];
         if (file === undefined) {
           this.fileIndex[srcFilePath] = {
-            compressions: [compression],
+            compressions: [compression]
           };
         } else {
           file.compressions.push(compression);

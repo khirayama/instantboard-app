@@ -1,0 +1,31 @@
+.list-item {
+  overflow: hidden;
+  border-bottom: $border;
+  cursor: pointer;
+  transition-timing-function: $ease-out;
+  transition-duration: $time-fast;
+
+  will-change: transform, height, max-height;
+
+  &__holding {
+    position: relative;
+    z-index: 1;
+    box-shadow: $shadow;
+    transition-property: box-shadow;
+  }
+
+  &__sorting {
+    position: relative;
+    z-index: 1;
+    box-shadow: $shadow;
+    transition-property: box-shadow;
+  }
+
+  &__moving {
+    position: relative;
+  }
+
+  &:active {
+    cursor: move;
+  }
+}

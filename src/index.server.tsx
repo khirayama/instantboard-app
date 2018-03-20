@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import serveStaticCompression from './middleware/serve-static-compression';
-import Spinner from './presentations/components/spinner';
+import serveStaticCompression from 'middleware/serve-static-compression';
+import Spinner from 'presentations/components/Spinner';
 
 const app: any = fastify();
 
@@ -85,7 +85,7 @@ function template(): string {
   const externalFileTags = generateExternalFileTags(hashes, {
     preload: true,
     defer: true,
-    rootFilePath: path.join(__dirname, 'public'),
+    rootFilePath: path.join(__dirname, 'public')
   });
   const htmlString: string = `
 <!DOCTYPE html>

@@ -1,0 +1,47 @@
+.tab-navigation-tab-list {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: $color-background-content;
+  box-shadow: $shadow-inverse;
+  height: $height-mobile-bar-high;
+
+  .tab-navigation-tab-list-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    color: $color-text-secondary;
+
+    .tab-navigation--icon {
+      padding: 6px 0 8px;
+      height: $height-mobile-bar-high;
+      path,
+      circle,
+      rect {
+        stroke: $color-icon-inactive;
+      }
+    }
+    .tab-navigation--icon--badge {
+      display: inline-block;
+      position: absolute;
+      top: calc(50% - 18px);
+      left: calc(50% + 6px);
+      width: 8px;
+      height: 8px;
+      background-color: $color-attention;
+      z-index: 1;
+      border-radius: 50%;
+    }
+    &.tab-navigation-tab-list-item__current {
+      .tab-navigation--icon {
+        path,
+        circle,
+        rect {
+          stroke: $color-icon-active;
+        }
+      }
+    }
+  }
+}

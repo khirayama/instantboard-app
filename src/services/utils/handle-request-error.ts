@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosError } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 
 export default function handleRequestError(err: AxiosError, reject): void {
   const status: number | null = err.response ? err.response.status : null;

@@ -1,0 +1,36 @@
+.recycle-table-list-item {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  padding: 8px 12px;
+  font-weight: $font-medium;
+  background-color: $color-background-content;
+  color: $color-text-hint;
+
+  &::after {
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    content: '';
+    transform: translateX(-50%);
+    background: $color-text;
+    transition-timing-function: $ease-out-expo;
+    transition-duration: $time-basic;
+    transition-property: width;
+    will-change: width;
+  }
+
+  &.recycle-table-list-item__active {
+    color: $color-text;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}

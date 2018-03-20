@@ -2,7 +2,7 @@ function transformSchedule(schedule: { shortMonthName: string; shortDayName: str
   return {
     shortMonthName: schedule.shortMonthName,
     shortDayName: schedule.shortDayName,
-    date: schedule.date,
+    date: schedule.date
   };
 }
 
@@ -25,14 +25,14 @@ export function transformRequest(request: {
     member: {
       id: request.member.id,
       name: request.member.name,
-      imageUrl: request.member.imageUrl,
+      imageUrl: request.member.imageUrl
     },
     label: request.label
       ? {
           id: request.label.id,
-          name: request.label.name,
+          name: request.label.name
         }
-      : null,
+      : null
   };
 }
 
@@ -53,7 +53,7 @@ export function transformTask(task: {
     content: task.content || '',
     priority: task.priority || 0,
     completed: Boolean(task.completed),
-    schedule: task.schedule === null || task.schedule === undefined ? null : transformSchedule(task.schedule),
+    schedule: task.schedule === null || task.schedule === undefined ? null : transformSchedule(task.schedule)
   };
 }
 
@@ -62,7 +62,7 @@ export function transformUser(user: { id: number; name: string; email: string; i
     id: user.id,
     name: user.name || '',
     email: user.email || '',
-    imageUrl: user.imageUrl || '',
+    imageUrl: user.imageUrl || ''
   };
 }
 
@@ -70,7 +70,7 @@ export function transformMember(user: { id: number; name: string; imageUrl: stri
   return {
     id: user.id,
     name: user.name || '',
-    imageUrl: user.imageUrl || '',
+    imageUrl: user.imageUrl || ''
   };
 }
 
@@ -86,7 +86,7 @@ export function transformLabelMemeber(member: {
     name: member.name,
     imageUrl: member.imageUrl,
     requestId: member.requestId,
-    status: member.status,
+    status: member.status
   };
 }
 
@@ -108,6 +108,6 @@ export function transformLabel(label: {
     name: label.name || '',
     visibled: Boolean(label.visibled),
     priority: label.priority || 0,
-    members: label.members ? label.members.map(transformLabelMemeber) : [],
+    members: label.members ? label.members.map(transformLabelMemeber) : []
   };
 }

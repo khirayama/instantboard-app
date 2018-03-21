@@ -12,7 +12,7 @@ import TabNavigationContent from 'presentations/components/TabNavigationContent'
 import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import poller from 'utils/poller';
+import { poller } from 'utils/poller';
 
 export default class LabelIndexMobilePage extends Container<{}, IState> {
   public static contextTypes: { move: any } = {

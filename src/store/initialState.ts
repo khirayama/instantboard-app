@@ -1,4 +1,4 @@
-const initialState: IState = {
+export const initialState: IState = {
   profile: null,
   tasks: [],
   labels: [],
@@ -12,4 +12,3 @@ const initialState: IState = {
     errors: [],
   },
 };
-export default initialState;

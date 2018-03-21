@@ -4,7 +4,7 @@ import reducers from './reducers';
 import Navigator from './router/Navigator';
 import { Router } from './router/Router';
 import routes from './router/routes';
-import initialState from './store/initial-state';
+import { initialState } from './store/initialState';
 import Store from './store/Store';
 import { tokenManager } from './utils/tokenManager';
 import { Tracker } from './utils/Tracker';

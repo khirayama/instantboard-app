@@ -6,6 +6,8 @@
     ],
     "rules": {
       "prettier": true,
-      "missing-jsdoc": false
+      "missing-jsdoc": false,
+      "no-http-string": false,
+      "no-backbone-get-set-outside-model": false
     }
 }

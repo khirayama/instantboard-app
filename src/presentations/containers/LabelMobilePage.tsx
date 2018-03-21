@@ -9,7 +9,7 @@ import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Link from 'router/Link';
-import User from 'services/User';
+import { User } from 'services/User';
 
 function MemberListItem(props: any) {
   const { labelMember, onRemoveButtonClick } = props;

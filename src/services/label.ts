@@ -1,5 +1,5 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import createRequest from './utils/create-request';
+import { createRequest } from './utils/createRequest';
 import { handleRequestError } from './utils/handleRequestError';
 
 const Label = {

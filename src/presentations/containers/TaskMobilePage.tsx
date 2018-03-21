@@ -6,7 +6,7 @@ import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Link from 'router/Link';
-import queryString from 'utils/query-string';
+import { queryString } from 'utils/queryString';
 
 interface ITaskMobilePageState {
   taskId: number | null;

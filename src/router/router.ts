@@ -99,7 +99,7 @@ export function _exec(regexp: RegExp, keys: string[], path: string): any {
   };
 }
 
-export default class Router {
+export class Router {
   private routes: IRoute[];
 
   constructor(routes) {

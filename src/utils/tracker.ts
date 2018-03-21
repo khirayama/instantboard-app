@@ -1,5 +1,6 @@
 /* tslint:disable:no-console */
-import Router from 'router/Router';
+import { Router } from 'router/Router';
+
 declare const window: any;
 
 export class Tracker {
@@ -13,7 +14,7 @@ export class Tracker {
     if (typeof window === 'object' && window.ga) {
       const result: {
         route: IRoute;
-        params: any;
+        params: { [key: string]: string };
       } | null = this.router.matchRoute(window.location.pathname);
 
       if (result !== null) {

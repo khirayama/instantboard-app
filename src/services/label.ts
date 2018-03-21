@@ -1,6 +1,6 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import createRequest from './utils/create-request';
-import handleRequestError from './utils/handle-request-error';
+import { handleRequestError } from './utils/handleRequestError';
 
 const Label = {
   req: (): AxiosInstance => createRequest('/api/v1/labels'),

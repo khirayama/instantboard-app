@@ -1,6 +1,6 @@
 import * as deepEqual from 'deep-equal';
 import * as React from 'react';
-import Store from 'store/Store';
+import { Store } from 'store/Store';
 
 export default class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
   protected handleStateUpdate: () => void;
@@ -23,19 +23,19 @@ export default class Container<P, S> extends React.Component<P & IContainerProps
   }
 
   public componentWillMount() {
-    const { store }: { store: Store<IState> } = this.props;
+    const { store }: { store: Store<IState, IAction> } = this.props;
 
     store.addChangeListener(this.handleStateUpdate);
   }
 
   public componentWillUnmount() {
-    const { store }: { store: Store<IState> } = this.props;
+    const { store }: { store: Store<IState, IAction> } = this.props;
 
     store.removeChangeListener(this.handleStateUpdate);
   }
 
   protected getState(): IState {
-    const { store }: { store: Store<IState> } = this.props;
+    const { store }: { store: Store<IState, IAction> } = this.props;
 
     return store.getState();
   }

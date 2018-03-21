@@ -5,11 +5,11 @@ import Navigator from './router/Navigator';
 import { Router } from './router/Router';
 import routes from './router/routes';
 import { initialState } from './store/initialState';
-import Store from './store/Store';
+import { Store } from './store/Store';
 import { tokenManager } from './utils/tokenManager';
 import { Tracker } from './utils/Tracker';
 
-const store: Store<IState> = new Store<IState>(initialState, reducers, { session: true });
+const store: Store<IState, IAction> = new Store<IState, IAction>(initialState, reducers, { session: true });
 const router: Router = new Router(routes);
 const tracker: Tracker = new Tracker(router);
 

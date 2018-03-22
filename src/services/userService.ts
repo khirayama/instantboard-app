@@ -1,10 +1,10 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import { createRequest } from './utils/createRequest';
-import { handleRequestError } from './utils/handleRequestError';
+import { createRequest } from 'services/utils/createRequest';
+import { handleRequestError } from 'services/utils/handleRequestError';
 
-const searchReq = () => createRequest('/api/v1/search');
+const searchReq = (): AxiosInstance => createRequest('/api/v1/search');
 
-export const User: {
+export const userService: {
   req(): AxiosInstance;
   get(): Promise<IUserResponse>;
   search(params: { q: string }): Promise<IMemberResponse[]>;
@@ -15,7 +15,8 @@ export const User: {
 
   get: (): Promise<IUserResponse> => {
     return new Promise((resolve: (value: IUserResponse) => void, reject: () => void): void => {
-      User.req()
+      userService
+        .req()
         .get('/')
         .then(({ data }: { data: IUserResponse }): void => {
           resolve(data);
@@ -41,7 +42,8 @@ export const User: {
 
   delete: (): Promise<void> => {
     return new Promise((resolve: () => void, reject: () => void): void => {
-      User.req()
+      userService
+        .req()
         .delete('/')
         .then((): void => {
           resolve();
@@ -54,7 +56,8 @@ export const User: {
 
   fetchMember: (): Promise<IMemberResponse[]> => {
     return new Promise((resolve: (value: IMemberResponse[]) => void, reject: () => void): void => {
-      User.req()
+      userService
+        .req()
         .get('/members')
         .then(({ data }: { data: IMemberResponse[] }): void => {
           resolve(data);

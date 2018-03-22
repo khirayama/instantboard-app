@@ -11,7 +11,7 @@ export const poller: {
 } = {
   polls: [],
   add: (callback: () => void, time: number): void => {
-    const timerId: number = setInterval(callback, time);
+    const timerId: number = window.setInterval(callback, time);
     poller.polls.push({
       timerId,
       callback,

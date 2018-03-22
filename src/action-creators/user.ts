@@ -1,5 +1,5 @@
 import actionTypes from '../constants/action-types';
-import { User } from '../services/User';
+import { userService } from '../services/userService';
 import { transformMember, transformUser } from './transforms';
 
 export async function getUser(dispatch: IDispatch): Promise<IAction> {
@@ -9,7 +9,7 @@ export async function getUser(dispatch: IDispatch): Promise<IAction> {
   dispatch(preAction);
 
   try {
-    const userReponse: IUserResponse = await User.get();
+    const userReponse: IUserResponse = await userService.get();
     const user = transformUser(userReponse);
     const action: IAction = {
       type: actionTypes.GET_USER_SUCCES,
@@ -35,7 +35,7 @@ export async function deleteUser(dispatch: IDispatch): Promise<IAction> {
   dispatch(preAction);
 
   try {
-    await User.delete();
+    await userService.delete();
     const action: IAction = {
       type: actionTypes.DELETE_USER_SUCCES,
     };
@@ -57,7 +57,7 @@ export async function fetchMember(dispatch: IDispatch): Promise<IAction> {
   dispatch(preAction);
 
   try {
-    const memberResponses: IMemberResponse[] = await User.fetchMember();
+    const memberResponses: IMemberResponse[] = await userService.fetchMember();
     const members: IMember[] = memberResponses.map(transformMember);
     const action: IAction = {
       type: actionTypes.FETCH_MEMBER_SUCCESS,

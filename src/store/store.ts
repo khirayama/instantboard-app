@@ -127,7 +127,7 @@ export class Store<T, P> {
         return;
       }
       this.emit(EVENT_CHANGE, null);
-      this.timerId = setTimeout(() => {
+      this.timerId = window.setTimeout(() => {
         this.timerId = null;
         this.emit(EVENT_CHANGE, null);
       }, 1000 / 60);

@@ -9,7 +9,7 @@ import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Link from 'router/Link';
-import { User } from 'services/User';
+import { userService } from 'services/userService';
 
 function MemberListItem(props: any) {
   const { labelMember, onRemoveButtonClick } = props;
@@ -288,7 +288,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
 
     const keyword = this.state.keyword.trim();
 
-    User.search({ q: keyword }).then((users: IMember[]) => {
+    userService.search({ q: keyword }).then((users: IMember[]) => {
       if ((users.length !== 0 && users[0].name === keyword) || users.length === 1) {
         let isIncluded: boolean = false;
         const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map(

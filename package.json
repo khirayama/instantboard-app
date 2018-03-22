@@ -24,8 +24,8 @@
     "server": "NODE_PATH=dist forever --silent dist/index.server.js",
     "build": "npm run clean && npm run compile:scripts && npm run build:styles && npm run bundle:scripts && npm run copy:files && npm run compress",
     "dev": "npm run clean && concurrently 'npm run compile:scripts' 'npm run build:styles' && concurrently 'npm run copy:files:watch' 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'NODE_PATH=dist nodemon dist/index.server.js'",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint": "tslint -c --format verbose tslint.json 'src/**/*.{ts,tsx}'",
+    "lint:fix": "tslint --fix --format verbose -c tslint.json 'src/**/*.{ts,tsx}'",
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/!(*.html|*.png|*.webp)'",
     "precommit": "npm run lint:fix && npm run format",
     "check": "npm-check-updates"

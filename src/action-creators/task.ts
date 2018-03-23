@@ -1,10 +1,10 @@
 import actionTypes from '../constants/action-types';
-import Task from '../services/Task';
+import { taskService } from '../services/taskService';
 import { transformTask } from './transforms';
 
 export async function pollTask(dispatch: IDispatch): Promise<IAction> {
   try {
-    const taskResponses: ITaskResponse[] = await Task.fetch();
+    const taskResponses: ITaskResponse[] = await taskService.fetch();
     const tasks: ITask[] = taskResponses.map(transformTask);
     const action: IAction = {
       type: actionTypes.POLL_TASK_SUCCESS,
@@ -30,7 +30,7 @@ export async function fetchTask(dispatch: IDispatch): Promise<IAction> {
   dispatch(preAction);
 
   try {
-    const taskResponses: ITaskResponse[] = await Task.fetch();
+    const taskResponses: ITaskResponse[] = await taskService.fetch();
     const tasks: ITask[] = taskResponses.map(transformTask);
     const action: IAction = {
       type: actionTypes.FETCH_TASK_SUCCESS,
@@ -62,7 +62,7 @@ export async function createTask(
   dispatch(preAction);
 
   try {
-    const taskResponse: ITaskResponse = await Task.create(params);
+    const taskResponse: ITaskResponse = await taskService.create(params);
     const task: ITask = transformTask(taskResponse);
     const action: IAction = {
       type: actionTypes.CREATE_TASK_SUCCESS,
@@ -96,7 +96,7 @@ export async function updateTask(
   dispatch(preAction);
 
   try {
-    const taskResponse: ITaskResponse = await Task.update(params);
+    const taskResponse: ITaskResponse = await taskService.update(params);
     const task: ITask = transformTask(taskResponse);
     const action: IAction = {
       type: actionTypes.UPDATE_TASK_SUCCESS,
@@ -130,7 +130,7 @@ export async function destroyTask(
   dispatch(preAction);
 
   try {
-    await Task.destroy(params);
+    await taskService.destroy(params);
     const action: IAction = {
       type: actionTypes.DESTROY_TASK_SUCCESS,
     };
@@ -164,7 +164,7 @@ export async function sortTask(
   dispatch(preAction);
 
   try {
-    const taskResponses: ITaskResponse[] = await Task.sort(params, to);
+    const taskResponses: ITaskResponse[] = await taskService.sort(params, to);
     const tasks: ITask[] = taskResponses.map(transformTask);
     const action: IAction = {
       type: actionTypes.SORT_TASK_SUCCESS,

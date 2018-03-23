@@ -2,12 +2,12 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { createRequest } from './utils/createRequest';
 import { handleRequestError } from './utils/handleRequestError';
 
-const Task = {
+export const taskService = {
   req: (): AxiosInstance => createRequest('/api/v1/tasks'),
 
   fetch: (): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
-      Task.req()
+      taskService.req()
         .get('/')
         .then(({ data }): void => {
           resolve(data);
@@ -20,7 +20,7 @@ const Task = {
 
   create: (params: { labelId: number; content: string; completed?: boolean }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
-      Task.req()
+      taskService.req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
@@ -33,7 +33,7 @@ const Task = {
 
   update: (params: { id: number; labelId?: number; content?: string; completed?: boolean }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
-      Task.req()
+      taskService.req()
         .put(`/${params.id}`, params)
         .then(({ data }): void => {
           resolve(data);
@@ -46,7 +46,7 @@ const Task = {
 
   destroy: (params: { id: number }): Promise<ITaskResponse> => {
     return new Promise((resolve, reject): void => {
-      Task.req()
+      taskService.req()
         .delete(`/${params.id}`)
         .then(({ data }): void => {
           resolve(data);
@@ -64,7 +64,7 @@ const Task = {
     priority: number,
   ): Promise<ITaskResponse[]> => {
     return new Promise((resolve, reject): void => {
-      Task.req()
+      taskService.req()
         .put(`/${params.id}/sort`, { priority })
         .then(({ data }): void => {
           resolve(data);
@@ -75,5 +75,3 @@ const Task = {
     });
   },
 };
-
-export default Task;

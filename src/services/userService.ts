@@ -2,7 +2,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { createRequest } from 'services/utils/createRequest';
 import { handleRequestError } from 'services/utils/handleRequestError';
 
-const searchReq = (): AxiosInstance => createRequest('/api/v1/search');
+const searchReq: () => AxiosInstance = (): AxiosInstance => createRequest('/api/v1/search');
 
 export const userService: {
   req(): AxiosInstance;

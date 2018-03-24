@@ -1,15 +1,28 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import { createRequest } from './utils/createRequest';
-import { handleRequestError } from './utils/handleRequestError';
+import { createRequest } from 'services/utils/createRequest';
+import { handleRequestError } from 'services/utils/handleRequestError';
 
-export const taskService = {
+export const taskService: {
+  req(): AxiosInstance;
+  fetch(): Promise<ITaskResponse[]>;
+  create(params: { labelId: number; content: string; completed?: boolean }): Promise<ITaskResponse>;
+  update(params: { id: number; labelId?: number; content?: string; completed?: boolean }): Promise<ITaskResponse>;
+  destroy(params: { id: number }): Promise<ITaskResponse>;
+  sort(
+    params: {
+      id: number;
+    },
+    priority: number,
+  ): Promise<ITaskResponse[]>;
+} = {
   req: (): AxiosInstance => createRequest('/api/v1/tasks'),
 
   fetch: (): Promise<ITaskResponse[]> => {
-    return new Promise((resolve, reject): void => {
-      taskService.req()
+    return new Promise((resolve: (value: ITaskResponse[]) => void, reject: () => void): void => {
+      taskService
+        .req()
         .get('/')
-        .then(({ data }): void => {
+        .then(({ data }: { data: ITaskResponse[] }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -19,10 +32,11 @@ export const taskService = {
   },
 
   create: (params: { labelId: number; content: string; completed?: boolean }): Promise<ITaskResponse> => {
-    return new Promise((resolve, reject): void => {
-      taskService.req()
+    return new Promise((resolve: (value: ITaskResponse) => void, reject: () => void): void => {
+      taskService
+        .req()
         .post('/', params)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ITaskResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -32,10 +46,11 @@ export const taskService = {
   },
 
   update: (params: { id: number; labelId?: number; content?: string; completed?: boolean }): Promise<ITaskResponse> => {
-    return new Promise((resolve, reject): void => {
-      taskService.req()
+    return new Promise((resolve: (value: ITaskResponse) => void, reject: () => void): void => {
+      taskService
+        .req()
         .put(`/${params.id}`, params)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ITaskResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -45,10 +60,11 @@ export const taskService = {
   },
 
   destroy: (params: { id: number }): Promise<ITaskResponse> => {
-    return new Promise((resolve, reject): void => {
-      taskService.req()
+    return new Promise((resolve: (value: ITaskResponse) => void, reject: () => void): void => {
+      taskService
+        .req()
         .delete(`/${params.id}`)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ITaskResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -63,10 +79,11 @@ export const taskService = {
     },
     priority: number,
   ): Promise<ITaskResponse[]> => {
-    return new Promise((resolve, reject): void => {
-      taskService.req()
+    return new Promise((resolve: (value: ITaskResponse[]) => void, reject: () => void): void => {
+      taskService
+        .req()
         .put(`/${params.id}/sort`, { priority })
-        .then(({ data }): void => {
+        .then(({ data }: { data: ITaskResponse[] }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {

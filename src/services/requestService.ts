@@ -2,12 +2,12 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { createRequest } from './utils/createRequest';
 import { handleRequestError } from './utils/handleRequestError';
 
-const Request = {
+export const requestService = {
   req: (): AxiosInstance => createRequest('/api/v1/requests'),
 
   fetch: (params: { status: string }): Promise<IRequestResponse[]> => {
     return new Promise((resolve, reject): void => {
-      Request.req()
+      requestService.req()
         .get('/', { params })
         .then(({ data }): void => {
           resolve(data);
@@ -20,7 +20,7 @@ const Request = {
 
   create: (params: { status?: string; labelId: number; memberId: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
-      Request.req()
+      requestService.req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
@@ -33,7 +33,7 @@ const Request = {
 
   update: (params: { id: number; status?: string; labelId: number; memberId: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
-      Request.req()
+      requestService.req()
         .put(`/${params.id}`, params)
         .then(({ data }): void => {
           resolve(data);
@@ -46,7 +46,7 @@ const Request = {
 
   destroy: (params: { id: number }): Promise<IRequestResponse> => {
     return new Promise((resolve, reject): void => {
-      Request.req()
+      requestService.req()
         .delete(`/${params.id}`)
         .then(({ data }): void => {
           resolve(data);
@@ -57,5 +57,3 @@ const Request = {
     });
   },
 };
-
-export default Request;

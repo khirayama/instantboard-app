@@ -1,10 +1,10 @@
 import actionTypes from '../constants/action-types';
-import Request from '../services/Request';
+import { requestService } from '../services/requestService';
 import { transformRequest } from './transforms';
 
 export async function pollRequest(dispatch: IDispatch, params: { status: string }): Promise<IAction> {
   try {
-    const requestResponses: IRequestResponse[] = await Request.fetch(params);
+    const requestResponses: IRequestResponse[] = await requestService.fetch(params);
     const requests: IRequest[] = requestResponses.map(transformRequest);
     const action: IAction = {
       type: actionTypes.POLL_REQUEST_SUCCESS,
@@ -30,7 +30,7 @@ export async function fetchRequest(dispatch: IDispatch, params: { status: string
   dispatch(preAction);
 
   try {
-    const requestResponses: IRequestResponse[] = await Request.fetch(params);
+    const requestResponses: IRequestResponse[] = await requestService.fetch(params);
     const requests: IRequest[] = requestResponses.map(transformRequest);
     const action: IAction = {
       type: actionTypes.FETCH_REQUEST_SUCCESS,
@@ -59,7 +59,7 @@ export async function createRequest(
   dispatch(preAction);
 
   try {
-    const requestResponse: IRequestResponse = await Request.create(params);
+    const requestResponse: IRequestResponse = await requestService.create(params);
     const request: IRequest = transformRequest(requestResponse);
     const action = {
       type: actionTypes.CREATE_REQUEST_SUCCESS,
@@ -93,7 +93,7 @@ export async function updateRequest(
   dispatch(preAction);
 
   try {
-    const requestResponse: IRequestResponse = await Request.update(params);
+    const requestResponse: IRequestResponse = await requestService.update(params);
     const request: IRequest = transformRequest(requestResponse);
     const action = {
       type: actionTypes.UPDATE_REQUEST_SUCCESS,
@@ -119,7 +119,7 @@ export async function destroyRequest(dispatch: IDispatch, params: { id: number }
   dispatch(preAction);
 
   try {
-    const requestResponse: IRequestResponse = await Request.destroy(params);
+    const requestResponse: IRequestResponse = await requestService.destroy(params);
     const request: IRequest = transformRequest(requestResponse);
     const action = {
       type: actionTypes.DESTROY_REQUEST_SUCCESS,

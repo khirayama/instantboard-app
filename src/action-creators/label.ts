@@ -1,5 +1,5 @@
+import { labelService } from 'services/labelService';
 import actionTypes from '../constants/action-types';
-import Label from '../services/Label';
 import { transformLabel } from './transforms';
 
 export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
@@ -9,7 +9,7 @@ export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   dispatch(preAction);
 
   try {
-    const labelResponses: ILabelResponse[] = await Label.fetch();
+    const labelResponses: ILabelResponse[] = await labelService.fetch();
     const labels: ILabel[] = labelResponses.map(transformLabel);
     const action: IAction = {
       type: actionTypes.FETCH_LABEL_SUCCESS,
@@ -35,7 +35,7 @@ export async function createLabel(dispatch: IDispatch, label: { name: string }):
   dispatch(preAction);
 
   try {
-    const labelResponse: ILabelResponse = await Label.create(label);
+    const labelResponse: ILabelResponse = await labelService.create(label);
     const newLabel: ILabel = transformLabel(labelResponse);
     const action: IAction = {
       type: actionTypes.CREATE_LABEL_SUCCESS,
@@ -64,7 +64,7 @@ export async function updateLabel(
   dispatch(preAction);
 
   try {
-    const labelResponse: ILabelResponse = await Label.update(label);
+    const labelResponse: ILabelResponse = await labelService.update(label);
     const newLabel: ILabel = transformLabel(labelResponse);
     const action: IAction = {
       type: actionTypes.UPDATE_LABEL_SUCCESS,
@@ -93,7 +93,7 @@ export async function destroyLabel(dispatch: IDispatch, label: { id: number }): 
   dispatch(preAction);
 
   try {
-    await Label.destroy(label);
+    await labelService.destroy(label);
     const action: IAction = {
       type: actionTypes.DESTROY_LABEL_SUCCESS,
     };
@@ -119,7 +119,7 @@ export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: 
   dispatch(preAction);
 
   try {
-    const labelResponses: ILabelResponse[] = await Label.sort(label, to);
+    const labelResponses: ILabelResponse[] = await labelService.sort(label, to);
     const labels = labelResponses.map(transformLabel);
     const action: IAction = {
       type: actionTypes.SORT_LABEL_SUCCESS,

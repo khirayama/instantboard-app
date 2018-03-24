@@ -2,12 +2,13 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { createRequest } from './utils/createRequest';
 import { handleRequestError } from './utils/handleRequestError';
 
-const Label = {
+export const labelService = {
   req: (): AxiosInstance => createRequest('/api/v1/labels'),
 
   fetch: (): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
-      Label.req()
+      labelService
+        .req()
         .get('/')
         .then(({ data }): void => {
           resolve(data);
@@ -20,7 +21,8 @@ const Label = {
 
   create: (params: { name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
-      Label.req()
+      labelService
+        .req()
         .post('/', params)
         .then(({ data }): void => {
           resolve(data);
@@ -33,7 +35,8 @@ const Label = {
 
   update: (params: { id: number; name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
-      Label.req()
+      labelService
+        .req()
         .put(`/${params.id}`, params)
         .then(({ data }): void => {
           resolve(data);
@@ -46,7 +49,8 @@ const Label = {
 
   destroy: (params: { id: number }): Promise<ILabelResponse> => {
     return new Promise((resolve, reject): void => {
-      Label.req()
+      labelService
+        .req()
         .delete(`/${params.id}`)
         .then(({ data }): void => {
           resolve(data);
@@ -64,7 +68,8 @@ const Label = {
     priority: number,
   ): Promise<ILabelResponse[]> => {
     return new Promise((resolve, reject): void => {
-      Label.req()
+      labelService
+        .req()
         .put(`/${params.id}/sort`, { priority })
         .then(({ data }): void => {
           resolve(data);
@@ -75,5 +80,3 @@ const Label = {
     });
   },
 };
-
-export default Label;

@@ -1,16 +1,28 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import { createRequest } from './utils/createRequest';
-import { handleRequestError } from './utils/handleRequestError';
+import { createRequest } from 'services/utils/createRequest';
+import { handleRequestError } from 'services/utils/handleRequestError';
 
-export const labelService = {
+export const labelService: {
+  req(): AxiosInstance;
+  fetch(): Promise<ILabelResponse[]>;
+  create(params: { name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse>;
+  update(params: { id: number; name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse>;
+  destroy(params: { id: number }): Promise<ILabelResponse>;
+  sort(
+    params: {
+      id: number;
+    },
+    priority: number,
+  ): Promise<ILabelResponse[]>;
+} = {
   req: (): AxiosInstance => createRequest('/api/v1/labels'),
 
   fetch: (): Promise<ILabelResponse[]> => {
-    return new Promise((resolve, reject): void => {
+    return new Promise((resolve: (value: ILabelResponse[]) => void, reject: () => void): void => {
       labelService
         .req()
         .get('/')
-        .then(({ data }): void => {
+        .then(({ data }: { data: ILabelResponse[] }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -20,11 +32,11 @@ export const labelService = {
   },
 
   create: (params: { name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
-    return new Promise((resolve, reject): void => {
+    return new Promise((resolve: (value: ILabelResponse) => void, reject: () => void): void => {
       labelService
         .req()
         .post('/', params)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ILabelResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -34,11 +46,11 @@ export const labelService = {
   },
 
   update: (params: { id: number; name?: string; visibled?: boolean; priority?: number }): Promise<ILabelResponse> => {
-    return new Promise((resolve, reject): void => {
+    return new Promise((resolve: (value: ILabelResponse) => void, reject: () => void): void => {
       labelService
         .req()
         .put(`/${params.id}`, params)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ILabelResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -48,11 +60,11 @@ export const labelService = {
   },
 
   destroy: (params: { id: number }): Promise<ILabelResponse> => {
-    return new Promise((resolve, reject): void => {
+    return new Promise((resolve: (value: ILabelResponse) => void, reject: () => void): void => {
       labelService
         .req()
         .delete(`/${params.id}`)
-        .then(({ data }): void => {
+        .then(({ data }: { data: ILabelResponse }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {
@@ -67,11 +79,11 @@ export const labelService = {
     },
     priority: number,
   ): Promise<ILabelResponse[]> => {
-    return new Promise((resolve, reject): void => {
+    return new Promise((resolve: (value: ILabelResponse[]) => void, reject: () => void): void => {
       labelService
         .req()
         .put(`/${params.id}/sort`, { priority })
-        .then(({ data }): void => {
+        .then(({ data }: { data: ILabelResponse[] }): void => {
           resolve(data);
         })
         .catch((err: AxiosError): void => {

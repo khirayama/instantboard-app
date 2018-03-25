@@ -14,70 +14,68 @@ function isMobileUI(): boolean {
   return window.innerWidth < 568;
 }
 
-const routes: IRoute[] = [
+export const routes: IRoute[] = [
   {
     path: '/login',
     title: 'Login',
-    component: () => {
+    component: (): any => {
       return LoginMobilePage;
     },
   },
   {
     path: '/',
     title: 'Instantboard',
-    component: () => {
+    component: (): any => {
       return isMobileUI() ? TaskIndexMobilePage : TaskIndexDesktopPage;
     },
   },
   {
     path: '/tasks/new',
     title: 'New Task',
-    component: () => {
+    component: (): any => {
       return TaskMobilePage;
     },
   },
   {
     path: '/tasks/:id/edit',
     title: 'Edit Task',
-    component: () => {
+    component: (): any => {
       return TaskMobilePage;
     },
   },
   {
     path: '/labels',
     title: 'Labels',
-    component: () => {
+    component: (): any => {
       return isMobileUI() ? LabelIndexMobilePage : LabelIndexDesktopPage;
     },
   },
   {
     path: '/labels/new',
     title: 'New Label',
-    component: () => {
+    component: (): any => {
       return LabelMobilePage;
     },
   },
   {
     path: '/labels/:id/edit',
     title: 'Edit label',
-    component: () => {
+    component: (): any => {
       return LabelMobilePage;
     },
   },
   {
     path: '/notifications',
     title: 'Notifications',
-    component: () => {
+    component: (): any => {
       return isMobileUI() ? NotificationIndexMobilePage : NotificationIndexDesktopPage;
     },
   },
   {
     path: '/profile',
     title: 'Profile',
-    component: () => {
+    component: (): any => {
       return isMobileUI() ? ProfileMobilePage : ProfileDesktopPage;
     },
   },
 ];
-
-export default routes;

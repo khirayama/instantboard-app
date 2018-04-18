@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 import { Router } from 'router/Router';
 
-declare const window: any;
+declare const window: any; // tslint:disable-line:no-any
 
 export class Tracker {
   private router: Router;

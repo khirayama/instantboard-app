@@ -1,4 +1,3 @@
-/* tslint:disable:no-console */
 const EVENT_CHANGE: string = '__CHANGE_STORE';
 const ACTION_DISPATCH: string = '__ACTION_DISPATCH';
 const STORE_SESSION_KEY: string = '__STORE_SESSION_KEY';
@@ -109,8 +108,10 @@ export class Store<T, P> {
       this.state = nextState;
 
       if (process && process.env.NODE_ENV !== 'production') {
+        /* tslint:disable:no-console */
         console.log('%cAction:', 'color: #76b6c8; font-weight: bold;', action);
         console.log('%cState:', 'color: #2e4551; font-weight: bold;', this.state);
+        /* tslint:enable:no-console */
       }
 
       if (typeof window === 'object' && this.options.session) {

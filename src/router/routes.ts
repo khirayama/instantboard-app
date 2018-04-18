@@ -14,6 +14,7 @@ function isMobileUI(): boolean {
   return window.innerWidth < 568;
 }
 
+/* tslint:disable:no-any */
 export const routes: IRoute[] = [
   {
     path: '/login',

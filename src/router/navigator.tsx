@@ -8,12 +8,12 @@ interface INavigatorProps {
   path: string;
 }
 
-export default class Navigator extends React.Component<INavigatorProps, { path: string }> {
-  public static childContextTypes = {
+export class Navigator extends React.Component<INavigatorProps, { path: string }> {
+  public static childContextTypes: {
+    move: any;
+  } = {
     move: PropTypes.func.isRequired,
   };
-
-  private move: any;
 
   constructor(props: INavigatorProps) {
     super(props);
@@ -21,20 +21,19 @@ export default class Navigator extends React.Component<INavigatorProps, { path: 
     this.state = {
       path: props.path,
     };
-    this.move = this._move.bind(this);
   }
 
-  public getChildContext() {
+  public getChildContext(): { move: any } {
     return {
-      move: this.move,
+      move: this.move.bind(this),
     };
   }
 
-  public componentWillMount() {
+  public componentWillMount(): void {
     if (typeof window === 'object' && window.history && window.history.pushState) {
       window.addEventListener('popstate', () => {
         const { router, tracker } = this.props;
-        const path = window.location.pathname;
+        const path: string = window.location.pathname;
         const { route } = router.matchRoute(path);
         window.document.title = route.title;
         this.setState({ path });
@@ -43,29 +42,30 @@ export default class Navigator extends React.Component<INavigatorProps, { path: 
     }
   }
 
-  public render() {
+  public render(): any {
     const { props, router } = this.props;
     const { path } = this.state;
 
-    let pathname = path;
+    let pathname: string = path;
     if (pathname.indexOf('?') !== -1) {
       pathname = pathname.split('?')[0];
     }
 
     const { route, params } = router.matchRoute(pathname);
-    const component = route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
+    const component: any = route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
     if (route) {
       return React.createElement(component, { ...props, params });
     }
+
     return null;
   }
 
-  private _move(path: string): void {
+  private move(path: string): void {
     const { router, tracker } = this.props;
-    let pathname = path;
-    let search = '';
+    let pathname: string = path;
+    let search: string = '';
     if (pathname.indexOf('?') !== -1) {
-      const tmp = pathname.split('?');
+      const tmp: string[] = pathname.split('?');
       pathname = tmp[0];
       search = tmp[1];
     }

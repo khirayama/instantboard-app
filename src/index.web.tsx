@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import reducers from 'reducers';
-import Navigator from 'router/Navigator';
+import { Navigator } from 'router/Navigator';
 import { Router } from 'router/Router';
 import { routes } from 'router/routes';
 import { initialState } from 'store/initialState';

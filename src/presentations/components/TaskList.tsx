@@ -1,12 +1,12 @@
 import List from 'presentations/components/List';
 import * as React from 'react';
 
-export default class TaskList extends React.Component<any, any> {
-  public render() {
+export class TaskList extends React.Component<any, any> {
+  public render(): any {
     const { children, onSort } = this.props;
-    const handleSort = (from: number, to: number) => {
+    const handleSort: any = (fromIndex: number, toIndex: number): void => {
       if (onSort) {
-        onSort(from, to, this.props, this.state);
+        onSort(fromIndex, toIndex, this.props, this.state);
       }
     };
 

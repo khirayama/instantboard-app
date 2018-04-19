@@ -16,7 +16,7 @@ import RecycleTableList from 'presentations/components/RecycleTableList';
 import RecycleTableListItem from 'presentations/components/RecycleTableListItem';
 import TabNavigation from 'presentations/components/TabNavigation';
 import TabNavigationContent from 'presentations/components/TabNavigationContent';
-import TaskList from 'presentations/components/TaskList';
+import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';

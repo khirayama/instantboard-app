@@ -11,6 +11,7 @@
       "no-backbone-get-set-outside-model": false,
       "no-implicit-dependencies": false,
       "no-submodule-imports": false,
-      "no-any": false
+      "no-any": false,
+      "react-a11y-role-has-required-aria-props": false
     }
 }

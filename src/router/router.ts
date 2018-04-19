@@ -1,18 +1,18 @@
-const PATH_REGEXP = new RegExp(
+const PATH_REGEXP: RegExp = new RegExp(
   ['(\\\\.)', '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^()])+)\\))?|\\(((?:\\\\.|[^()])+)\\))([+*?])?|(\\*))'].join(
     '|',
   ),
   'g',
 );
 
-export function _parse(str: string) {
+export function parse(str: string): any[] {
   const tokens: any[] = [];
   let index: number = 0;
   let path: string = '';
-  let res = PATH_REGEXP.exec(str);
+  let res: RegExpExecArray | null = PATH_REGEXP.exec(str);
 
   while (res !== null) {
-    const offset = res.index;
+    const offset: number = res.index;
 
     path += str.slice(index, offset);
     index = offset + res[0].length;
@@ -23,7 +23,10 @@ export function _parse(str: string) {
     }
     path = '';
 
-    const token = {
+    const token: {
+      name: string;
+      pattern: string;
+    } = {
       name: res[3],
       pattern: '[^/]+?',
     };
@@ -41,31 +44,30 @@ export function _parse(str: string) {
   return tokens;
 }
 
-export function _tokensToRegexp(tokens: any) {
-  let route = '';
-  const lastToken = tokens[tokens.length - 1];
-  const endsWithSlash = typeof lastToken === 'string' && /\/$/.test(lastToken);
+export function tokensToRegexp(tokens: any): RegExp {
+  let route: string = '';
+  const lastToken: string | undefined = tokens[tokens.length - 1];
+  const endsWithSlash: boolean = typeof lastToken === 'string' && /\/$/.test(lastToken);
 
   tokens.forEach((token: any) => {
     if (typeof token === 'string') {
       route += token;
     } else {
-      let capture = token.pattern;
-      capture = '/(' + capture + ')';
+      let capture: string = token.pattern;
+      capture = `/(${capture})`;
       route += capture;
     }
   });
-  route = (endsWithSlash ? route.slice(0, -2) : route) + '(?:\\/(?=$))?';
-  route += '$';
+  route = `${endsWithSlash ? route.slice(0, -2) : route}(?:\\/(?=$))?$`;
 
-  return new RegExp('^' + route, 'i');
+  return new RegExp(`^${route}`, 'i');
 }
 
-export function _pathToRegexp(path: string) {
-  const tokens = _parse(path);
-  const regexp = _tokensToRegexp(tokens);
+export function pathToRegexp(path: string): { regexp: RegExp; keys: any[] } {
+  const tokens: any[] = parse(path);
+  const regexp: RegExp = tokensToRegexp(tokens);
 
-  const keys: any = [];
+  const keys: any[] = [];
   tokens.forEach((token: any) => {
     if (typeof token !== 'string') {
       keys.push(token);
@@ -78,7 +80,7 @@ export function _pathToRegexp(path: string) {
   };
 }
 
-export function _getParams(keys: any, matches: any) {
+export function getParams(keys: any, matches: any): any {
   const params: any = {};
 
   if (matches) {
@@ -86,12 +88,13 @@ export function _getParams(keys: any, matches: any) {
       params[key.name] = matches[index + 1];
     });
   }
+
   return params;
 }
 
-export function _exec(regexp: RegExp, keys: string[], path: string): any {
+export function exec(regexp: RegExp, keys: string[], path: string): any {
   const matches: any = regexp.exec(path);
-  const params = _getParams(keys, matches);
+  const params: any = getParams(keys, matches);
 
   return {
     matches,
@@ -102,22 +105,23 @@ export function _exec(regexp: RegExp, keys: string[], path: string): any {
 export class Router {
   private routes: IRoute[];
 
-  constructor(routes) {
+  constructor(routes: IRoute[]) {
     this.routes = routes;
   }
 
-  public getPaths() {
+  public getPaths(): string[] {
     return this.routes.map((route: IRoute) => route.path);
   }
 
-  public matchRoute(path: string) {
+  public matchRoute(path: string): { route: IRoute; params: any } | null {
     for (const route of this.routes) {
-      const { regexp, keys } = _pathToRegexp(route.path || '');
-      const { matches, params } = _exec(regexp, keys, path);
+      const { regexp, keys } = pathToRegexp(route.path || '');
+      const { matches, params } = exec(regexp, keys, path);
       if (matches) {
         return { route, params };
       }
     }
+
     return null;
   }
 }

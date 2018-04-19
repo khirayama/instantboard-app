@@ -2,7 +2,7 @@ import LabelIndexDesktopPage from 'presentations/containers/LabelIndexDesktopPag
 import LabelIndexMobilePage from 'presentations/containers/LabelIndexMobilePage';
 import LabelMobilePage from 'presentations/containers/LabelMobilePage';
 import LoginMobilePage from 'presentations/containers/LoginMobilePage';
-import NotificationIndexDesktopPage from 'presentations/containers/NotificationIndexDesktopPage';
+import { NotificationIndexDesktopPage } from 'presentations/containers/NotificationIndexDesktopPage';
 import { NotificationIndexMobilePage } from 'presentations/containers/NotificationIndexMobilePage';
 import { ProfileDesktopPage } from 'presentations/containers/ProfileDesktopPage';
 import { ProfileMobilePage } from 'presentations/containers/ProfileMobilePage';

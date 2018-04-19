@@ -12,14 +12,14 @@ import RequestListItem from 'presentations/components/RequestListItem';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
-export default class NotificationIndexDesktopPage extends Container<{}, {}> {
+export class NotificationIndexDesktopPage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleClickAcceptButton: (event: React.MouseEvent<HTMLDivElement>) => void;
+  private onClickAcceptButton: (event: React.MouseEvent<HTMLDivElement>) => void;
 
-  private handleClickRefuseButton: (event: React.MouseEvent<HTMLDivElement>) => void;
+  private onClickRefuseButton: (event: React.MouseEvent<HTMLDivElement>) => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -38,23 +38,23 @@ export default class NotificationIndexDesktopPage extends Container<{}, {}> {
       },
     };
 
-    this.handleClickAcceptButton = this._handleClickAcceptButton.bind(this);
-    this.handleClickRefuseButton = this._handleClickRefuseButton.bind(this);
+    this.onClickAcceptButton = this.handleClickAcceptButton.bind(this);
+    this.onClickRefuseButton = this.handleClickRefuseButton.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.fetchRequest();
     this.actions.pollRequest();
     poller.add(this.actions.pollRequest, 3000);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     poller.remove(this.actions.pollRequest);
 
     super.componentWillUnmount();
   }
 
-  public render() {
+  public render(): any {
     const ui: IUI = this.state.ui;
     const requests: IRequest[] = this.state.requests;
     const badges: number[] = requests.length ? [2] : [];
@@ -70,8 +70,8 @@ export default class NotificationIndexDesktopPage extends Container<{}, {}> {
                 <RequestListItem
                   key={request.id}
                   request={request}
-                  onClickAcceptButton={this.handleClickAcceptButton}
-                  onClickRefuseButton={this.handleClickRefuseButton}
+                  onClickAcceptButton={this.onClickAcceptButton}
+                  onClickRefuseButton={this.onClickRefuseButton}
                 />
               );
             })}
@@ -82,14 +82,14 @@ export default class NotificationIndexDesktopPage extends Container<{}, {}> {
     );
   }
 
-  private _handleClickAcceptButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
+  private handleClickAcceptButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any): void {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'accepted',
     });
   }
 
-  private _handleClickRefuseButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any) {
+  private handleClickRefuseButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any): void {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'refused',

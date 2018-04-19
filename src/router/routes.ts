@@ -7,8 +7,8 @@ import NotificationIndexMobilePage from 'presentations/containers/NotificationIn
 import ProfileDesktopPage from 'presentations/containers/ProfileDesktopPage';
 import ProfileMobilePage from 'presentations/containers/ProfileMobilePage';
 import TaskIndexDesktopPage from 'presentations/containers/TaskIndexDesktopPage';
-import TaskIndexMobilePage from 'presentations/containers/TaskIndexMobilePage';
-import TaskMobilePage from 'presentations/containers/TaskMobilePage';
+import { TaskIndexMobilePage } from 'presentations/containers/TaskIndexMobilePage';
+import { TaskMobilePage } from 'presentations/containers/TaskMobilePage';
 
 function isMobileUI(): boolean {
   return window.innerWidth < 568;

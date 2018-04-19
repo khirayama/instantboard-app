@@ -15,25 +15,25 @@ interface ITaskMobilePageState {
   uiBlocking: boolean;
 }
 
-export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> {
+export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleChangeLabelIdSelect: (event: React.FormEvent<HTMLSelectElement>) => void;
+  private onChangeLabelIdSelect: (event: React.FormEvent<HTMLSelectElement>) => void;
 
-  private handleChangeContentInput: (event: React.FormEvent<HTMLInputElement>) => void;
+  private onChangeContentInput: (event: React.FormEvent<HTMLInputElement>) => void;
 
-  private handleKeyDownContentInput: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  private onKeyDownContentInput: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 
-  private handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  private onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 
   constructor(props: IContainerProps) {
     super(props);
 
-    const { params }: { params: { id: string } } = props;
+    const id: string = props.params.id;
     const initialState: ITaskMobilePageState = {
-      taskId: params.id ? Number(params.id) : null,
+      taskId: id ? Number(id) : null,
       content: '',
       labelId: null,
       uiBlocking: false,
@@ -56,10 +56,10 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       },
     };
 
-    this.handleChangeLabelIdSelect = this._handleChangeLabelIdSelect.bind(this);
-    this.handleChangeContentInput = this._handleChangeContentInput.bind(this);
-    this.handleKeyDownContentInput = this._handleKeyDownContentInput.bind(this);
-    this.handleSubmit = this._handleSubmit.bind(this);
+    this.onChangeLabelIdSelect = this.handleChangeLabelIdSelect.bind(this);
+    this.onChangeContentInput = this.handleChangeContentInput.bind(this);
+    this.onKeyDownContentInput = this.handleKeyDownContentInput.bind(this);
+    this.onSubmit = this.handleSubmit.bind(this);
   }
 
   public componentDidMount(): void {
@@ -67,7 +67,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
     this.actions.fetchTask();
   }
 
-  public componentDidUpdate(prevProps, prevState): void {
+  public componentDidUpdate(prevProps: IContainerProps, prevState: ITaskMobilePageState & IState): void {
     this.onUpdate((): void => {
       const prevUi: IUI = prevState.ui;
       const ui: IUI = this.state.ui;
@@ -104,7 +104,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
     });
   }
 
-  public render() {
+  public render(): any {
     const ui: IUI = this.state.ui;
     const labels: ILabel[] = this.state.labels;
 
@@ -112,7 +112,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
       <section className="page task-mobile-page">
         {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={ui.isLoadingTasks} />
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.onSubmit}>
           <header className="task-mobile-page--header">
             <Link to="/">
               <Icon type="back" />
@@ -126,7 +126,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
               <Icon type="label" />
             </Link>
             {this.state.labelId ? (
-              <select value={this.state.labelId} onChange={this.handleChangeLabelIdSelect}>
+              <select value={this.state.labelId} onChange={this.onChangeLabelIdSelect}>
                 {labels.map((label: ILabel): React.ReactNode => (
                   <option key={label.id} value={label.id}>
                     {label.name}
@@ -141,8 +141,8 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
               className="task-mobile-page--task-content-input"
               autoFocus
               value={this.state.content}
-              onChange={this.handleChangeContentInput}
-              onKeyDown={this.handleKeyDownContentInput}
+              onChange={this.onChangeContentInput}
+              onKeyDown={this.onKeyDownContentInput}
               placeholder="Enter task text"
             />
           </div>
@@ -155,15 +155,15 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
     callback();
   }
 
-  private _handleChangeLabelIdSelect(event: React.FormEvent<HTMLSelectElement>): void {
+  private handleChangeLabelIdSelect(event: React.FormEvent<HTMLSelectElement>): void {
     this.setState({ labelId: Number(event.currentTarget.value) });
   }
 
-  private _handleChangeContentInput(event: React.FormEvent<HTMLInputElement>): void {
+  private handleChangeContentInput(event: React.FormEvent<HTMLInputElement>): void {
     this.setState({ content: event.currentTarget.value });
   }
 
-  private _handleKeyDownContentInput(event: React.KeyboardEvent<HTMLInputElement>): void {
+  private handleKeyDownContentInput(event: React.KeyboardEvent<HTMLInputElement>): void {
     const ENTER_KEY_CODE: number = 13;
 
     if (event.keyCode === ENTER_KEY_CODE) {
@@ -172,7 +172,7 @@ export default class TaskMobilePage extends Container<{}, ITaskMobilePageState> 
     }
   }
 
-  private _handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  private handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     this.submitTask();
   }

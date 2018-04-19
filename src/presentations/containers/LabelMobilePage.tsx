@@ -12,7 +12,8 @@ import { Container } from 'presentations/containers/Container';
 import { Link } from 'router/Link';
 import { userService } from 'services/userService';
 
-function MemberListItem(props: any): any {
+/* tslint:disable:variable-name */
+const MemberListItem: any = (props: any): any => {
   const { labelMember, onRemoveButtonClick } = props;
   const handleRemoveButtonClick: () => void = (): void => {
     if (onRemoveButtonClick) {
@@ -29,7 +30,8 @@ function MemberListItem(props: any): any {
       </span>
     </li>
   );
-}
+};
+/* tslint:enable:variable-name */
 
 interface ITemporaryLabelMember {
   id: number;

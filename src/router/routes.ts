@@ -1,4 +1,4 @@
-import LabelIndexDesktopPage from 'presentations/containers/LabelIndexDesktopPage';
+import { LabelIndexDesktopPage } from 'presentations/containers/LabelIndexDesktopPage';
 import { LabelIndexMobilePage } from 'presentations/containers/LabelIndexMobilePage';
 import { LabelMobilePage } from 'presentations/containers/LabelMobilePage';
 import { LoginMobilePage } from 'presentations/containers/LoginMobilePage';
@@ -14,7 +14,6 @@ function isMobileUI(): boolean {
   return window.innerWidth < 568;
 }
 
-/* tslint:disable:no-any */
 export const routes: IRoute[] = [
   {
     path: '/login',

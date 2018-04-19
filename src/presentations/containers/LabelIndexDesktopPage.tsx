@@ -15,18 +15,18 @@ import NoLabelContent from 'presentations/components/NoLabelContent';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
-export default class LabelIndexDesktopPage extends Container<{}, IState> {
+export class LabelIndexDesktopPage extends Container<{}, IState> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleSortLabelList: (from: number, to: number) => void;
+  private onSortLabelList: (fromIndex: number, toIndex: number) => void;
 
-  private handleClickVisibleButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickVisibleButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
-  private handleClickLabelListItem: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickLabelListItem: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
-  private handleClickDestroyButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -54,26 +54,26 @@ export default class LabelIndexDesktopPage extends Container<{}, IState> {
       },
     };
 
-    this.handleSortLabelList = this._handleSortLabelList.bind(this);
-    this.handleClickVisibleButton = this._handleClickVisibleButton.bind(this);
-    this.handleClickLabelListItem = this._handleClickLabelListItem.bind(this);
-    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
+    this.onSortLabelList = this.handleSortLabelList.bind(this);
+    this.onClickVisibleButton = this.handleClickVisibleButton.bind(this);
+    this.onClickLabelListItem = this.handleClickLabelListItem.bind(this);
+    this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.getUser();
     this.actions.fetchLabel();
     this.actions.pollRequest();
     poller.add(this.actions.pollRequest, 3000);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     super.componentWillUnmount();
 
     poller.remove(this.actions.pollRequest);
   }
 
-  public render() {
+  public render(): any {
     const profile: IUser | null = this.state.profile;
     const labels: ILabel[] = this.state.labels;
     const requests: IRequest[] = this.state.requests;
@@ -95,15 +95,15 @@ export default class LabelIndexDesktopPage extends Container<{}, IState> {
         <Indicator active={ui.isLoadingLabels && labels.length !== 0} />
         <ApplicationHeader index={1} badges={badges} />
         <ApplicationContent>
-          <List className="label-list" parentElement={parentElement} onSort={this.handleSortLabelList}>
+          <List className="label-list" parentElement={parentElement} onSort={this.onSortLabelList}>
             {labels.map((label: ILabel): React.ReactNode => (
               <LabelListItem
                 key={label.id}
                 label={label}
                 profile={profile}
-                onClickVisibleButton={this.handleClickVisibleButton}
-                onClickLabelListItem={this.handleClickLabelListItem}
-                onClickDestroyButton={this.handleClickDestroyButton}
+                onClickVisibleButton={this.onClickVisibleButton}
+                onClickLabelListItem={this.onClickLabelListItem}
+                onClickDestroyButton={this.onClickDestroyButton}
               />
             ))}
           </List>
@@ -118,16 +118,16 @@ export default class LabelIndexDesktopPage extends Container<{}, IState> {
     );
   }
 
-  private _handleSortLabelList(from: number, to: number): void {
+  private handleSortLabelList(fromIndex: number, toIndex: number): void {
     const labels: ILabel[] = this.state.labels;
-    const label: ILabel = labels[from];
+    const label: ILabel = labels[fromIndex];
 
-    if (label.priority !== to) {
-      this.actions.sortLabel(label, to);
+    if (label.priority !== toIndex) {
+      this.actions.sortLabel(label, toIndex);
     }
   }
 
-  private _handleClickVisibleButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickVisibleButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.updateLabel({
@@ -136,11 +136,11 @@ export default class LabelIndexDesktopPage extends Container<{}, IState> {
     });
   }
 
-  private _handleClickLabelListItem(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickLabelListItem(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     this.context.move(`/labels/${labelListItemProps.label.id}/edit`);
   }
 
-  private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.destroyLabel(labelListItemProps.label);

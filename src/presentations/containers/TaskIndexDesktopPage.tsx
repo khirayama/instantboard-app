@@ -1,3 +1,6 @@
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+
 import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
@@ -16,9 +19,7 @@ import NoLabelContent from 'presentations/components/NoLabelContent';
 import NoTaskContent from 'presentations/components/NoTaskContent';
 import TaskList from 'presentations/components/TaskList';
 import TaskListItem from 'presentations/components/TaskListItem';
-import Container from 'presentations/containers/Container';
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 interface ITaskIndexDesktopPageState {

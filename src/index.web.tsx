@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 import { reducers } from 'reducers/reducers';
 import { Navigator } from 'router/Navigator';
 import { Router } from 'router/Router';

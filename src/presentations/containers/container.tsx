@@ -2,7 +2,7 @@ import * as deepEqual from 'deep-equal';
 import * as React from 'react';
 import { Store } from 'store/Store';
 
-export default class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
+export class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
   protected handleStateUpdate: () => void;
 
   protected dispatch: IDispatch;
@@ -18,17 +18,17 @@ export default class Container<P, S> extends React.Component<P & IContainerProps
     this.dispatch = props.store.dispatch.bind(props.store);
   }
 
-  public shouldComponentUpdate(prevProps: IContainerProps, prevState: IState) {
+  public shouldComponentUpdate(prevProps: IContainerProps, prevState: IState): boolean {
     return !deepEqual(this.props, prevProps) || !deepEqual(this.state, prevState);
   }
 
-  public componentWillMount() {
+  public componentWillMount(): void {
     const { store }: { store: Store<IState, IAction> } = this.props;
 
     store.addChangeListener(this.handleStateUpdate);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     const { store }: { store: Store<IState, IAction> } = this.props;
 
     store.removeChangeListener(this.handleStateUpdate);

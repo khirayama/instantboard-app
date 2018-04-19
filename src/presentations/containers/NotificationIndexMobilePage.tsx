@@ -1,3 +1,6 @@
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+
 import { fetchRequest, updateRequest } from 'action-creators/request';
 import { pollRequest } from 'action-creators/request';
 import Indicator from 'presentations/components/Indicator';
@@ -6,9 +9,7 @@ import NoNotificationContent from 'presentations/components/NoNotificationConten
 import RequestListItem from 'presentations/components/RequestListItem';
 import TabNavigation from 'presentations/components/TabNavigation';
 import TabNavigationContent from 'presentations/components/TabNavigationContent';
-import Container from 'presentations/containers/Container';
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 export default class NotificationIndexMobilePage extends Container<{}, {}> {

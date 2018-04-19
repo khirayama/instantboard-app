@@ -1,3 +1,6 @@
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+
 import { destroyLabel, fetchLabel, sortLabel, updateLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { getUser } from 'action-creators/user';
@@ -9,9 +12,7 @@ import LabelListItem from 'presentations/components/LabelListItem';
 import List from 'presentations/components/List';
 import LoadingContent from 'presentations/components/LoadingContent';
 import NoLabelContent from 'presentations/components/NoLabelContent';
-import Container from 'presentations/containers/Container';
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 export default class LabelIndexDesktopPage extends Container<{}, IState> {

@@ -15,7 +15,7 @@ import TabNavigation from 'presentations/components/TabNavigation';
 import TabNavigationContent from 'presentations/components/TabNavigationContent';
 import TaskList from 'presentations/components/TaskList';
 import TaskListItem from 'presentations/components/TaskListItem';
-import Container from 'presentations/containers/Container';
+import { Container } from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { poller } from 'utils/poller';

@@ -1,8 +1,9 @@
-import FlatButton from 'presentations/components/FlatButton';
-import Logo from 'presentations/components/Logo';
-import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+
+import FlatButton from 'presentations/components/FlatButton';
+import Logo from 'presentations/components/Logo';
+import { Container } from 'presentations/containers/Container';
 import { queryString } from 'utils/queryString';
 import { tokenManager } from 'utils/tokenManager';
 

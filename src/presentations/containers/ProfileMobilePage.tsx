@@ -10,14 +10,14 @@ import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 import { tokenManager } from 'utils/tokenManager';
 
-export default class ProfileMobilePage extends Container<{}, {}> {
+export class ProfileMobilePage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleClickLogoutButton: () => void;
+  private onClickLogoutButton: () => void;
 
-  private handleClickDeleteAccountButton: () => void;
+  private onClickDeleteAccountButton: () => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -36,23 +36,23 @@ export default class ProfileMobilePage extends Container<{}, {}> {
       },
     };
 
-    this.handleClickLogoutButton = this._handleClickLogoutButton.bind(this);
-    this.handleClickDeleteAccountButton = this._handleClickDeleteAccountButton.bind(this);
+    this.onClickLogoutButton = this.handleClickLogoutButton.bind(this);
+    this.onClickDeleteAccountButton = this.handleClickDeleteAccountButton.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.getUser();
     this.actions.pollRequest();
     poller.add(this.actions.pollRequest, 3000);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     poller.remove(this.actions.pollRequest);
 
     super.componentWillUnmount();
   }
 
-  public render() {
+  public render(): any {
     const profile: IUser = this.state.profile || {
       id: 0,
       name: '',
@@ -66,7 +66,7 @@ export default class ProfileMobilePage extends Container<{}, {}> {
       <section className="page profile-mobile-page">
         <TabNavigationContent>
           <div className="profile-mobile-page--image">
-            <img src={profile.imageUrl} />
+            <img src={profile.imageUrl} alt="profile image" />
           </div>
           <div className="profile-mobile-page--info">
             <p className="profile-mobile-page--info--name">{profile.name}</p>
@@ -76,10 +76,10 @@ export default class ProfileMobilePage extends Container<{}, {}> {
             <FlatButton href="https://api.instantboard.cloud/auth/facebook">UPDATE PROFILE WITH FACEBOOK</FlatButton>
           </div>
           <div className="profile-mobile-page--logout-button">
-            <FlatButton onClick={this.handleClickLogoutButton}>LOG OUT</FlatButton>
+            <FlatButton onClick={this.onClickLogoutButton}>LOG OUT</FlatButton>
           </div>
           <div className="profile-mobile-page--delete-account-button">
-            <FlatButton onClick={this.handleClickDeleteAccountButton}>DELETE ACCOUNT</FlatButton>
+            <FlatButton onClick={this.onClickDeleteAccountButton}>DELETE ACCOUNT</FlatButton>
           </div>
         </TabNavigationContent>
         <TabNavigation index={3} badges={badges} />
@@ -87,12 +87,12 @@ export default class ProfileMobilePage extends Container<{}, {}> {
     );
   }
 
-  private _handleClickLogoutButton(): void {
+  private handleClickLogoutButton(): void {
     tokenManager.set('');
     this.context.move('/login');
   }
 
-  private _handleClickDeleteAccountButton() {
+  private handleClickDeleteAccountButton(): void {
     const isDelete: boolean = window.confirm('Delete account!?'); // eslint-disable-line
     if (isDelete) {
       this.actions.deleteUser().then(() => {

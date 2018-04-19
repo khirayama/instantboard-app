@@ -6,29 +6,32 @@ interface ILinkProps {
   className?: string;
 }
 
-export default class Link extends React.Component<ILinkProps> {
-  private static contextTypes = {
+export class Link extends React.Component<ILinkProps> {
+  private static contextTypes: {
+    move: any;
+  } = {
     move: PropTypes.func.isRequired,
   };
 
-  private handleClick;
+  private onClick: any;
 
   constructor(props: ILinkProps) {
     super(props);
 
-    this.handleClick = this._handleClick.bind(this);
+    this.onClick = this.handleClick.bind(this);
   }
 
-  public render() {
+  public render(): any {
     const { children, className, to } = this.props;
+
     return (
-      <a href={to} className={className} onClick={this.handleClick}>
+      <a href={to} className={className} onClick={this.onClick}>
         {children}
       </a>
     );
   }
 
-  private _handleClick(event: Event) {
+  private handleClick(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
 

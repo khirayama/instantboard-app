@@ -8,7 +8,7 @@ import SearchMemberListItem from 'presentations/components/SearchMemberListItem'
 import Container from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Link from 'router/Link';
+import { Link } from 'router/Link';
 import { userService } from 'services/userService';
 
 function MemberListItem(props: any) {

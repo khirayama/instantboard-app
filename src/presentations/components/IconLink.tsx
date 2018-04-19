@@ -1,6 +1,6 @@
 import Icon from 'presentations/components/Icon';
 import * as React from 'react';
-import Link from 'router/Link';
+import { Link } from 'router/Link';
 
 export default class IconLink extends React.Component<any, any> {
   public render() {

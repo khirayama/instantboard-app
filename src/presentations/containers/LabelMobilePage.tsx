@@ -1,10 +1,10 @@
+import * as Fuse from 'fuse.js';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { createLabel, fetchLabel, updateLabel } from 'action-creators/label';
 import { createRequest, destroyRequest } from 'action-creators/request';
 import { fetchMember, getUser } from 'action-creators/user';
-import * as Fuse from 'fuse.js';
 import Icon from 'presentations/components/Icon';
 import Indicator from 'presentations/components/Indicator';
 import SearchMemberListItem from 'presentations/components/SearchMemberListItem';
@@ -12,9 +12,9 @@ import { Container } from 'presentations/containers/Container';
 import { Link } from 'router/Link';
 import { userService } from 'services/userService';
 
-function MemberListItem(props: any) {
+function MemberListItem(props: any): any {
   const { labelMember, onRemoveButtonClick } = props;
-  const handleRemoveButtonClick = () => {
+  const handleRemoveButtonClick: () => void = (): void => {
     if (onRemoveButtonClick) {
       onRemoveButtonClick(event, props, null);
     }
@@ -22,7 +22,7 @@ function MemberListItem(props: any) {
 
   return (
     <li>
-      <img src={labelMember.imageUrl} />
+      <img src={labelMember.imageUrl} alt="member profile image" />
       <p>{labelMember.name}</p>
       <span onClick={handleRemoveButtonClick}>
         <Icon type="remove" />
@@ -50,33 +50,33 @@ interface ILableMobilePageState {
   uiBlocking: boolean;
 }
 
-export default class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
+export class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleChangeNameInput: any;
+  private onChangeNameInput: any;
 
-  private handleSearchMemberListItemClick: any;
+  private onSearchMemberListItemClick: any;
 
-  private handleSubmitLabelForm: any;
+  private onSubmitLabelForm: any;
 
-  private handleChangeMemberNameInput: any;
+  private onChangeMemberNameInput: any;
 
-  private handleFocusMemberNameInput: any;
+  private onFocusMemberNameInput: any;
 
-  private handleSubmitMemberNameForm: any;
+  private onSubmitMemberNameForm: any;
 
-  private handleMemberListCloseButtonClick: any;
+  private onMemberListCloseButtonClick: any;
 
-  private handleMemberListRemoveButtonClick: any;
+  private onMemberListRemoveButtonClick: any;
 
   constructor(props: IContainerProps) {
     super(props);
 
-    const { params }: { params: { id: string } } = props;
+    const id: string = props.params.id;
     const initialState: ILableMobilePageState = {
-      labelId: params.id ? Number(params.id) : null,
+      labelId: id ? Number(id) : null,
       labelName: '',
       keyword: '',
       keywordErrorMessage: '',
@@ -89,51 +89,51 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     this.state = { ...this.getState(), ...initialState };
 
     this.actions = {
-      fetchMember: () => {
+      fetchMember: (): Promise<IAction> => {
         return fetchMember(this.dispatch);
       },
-      fetchLabel: () => {
+      fetchLabel: (): Promise<IAction> => {
         return fetchLabel(this.dispatch);
       },
-      createLabel: (label: { name: string; members: ITemporaryLabelMember[] }) => {
+      createLabel: (label: { name: string; members: ITemporaryLabelMember[] }): Promise<IAction> => {
         return createLabel(this.dispatch, label);
       },
-      createRequest: (params: { labelId: number; memberId: number }) => {
+      createRequest: (params: { labelId: number; memberId: number }): Promise<IAction> => {
         return createRequest(this.dispatch, params);
       },
-      destroyRequest: (params: { id: number }) => {
+      destroyRequest: (params: { id: number }): Promise<IAction> => {
         return destroyRequest(this.dispatch, params);
       },
-      updateLabel: (label: ILabel) => {
+      updateLabel: (label: ILabel): Promise<IAction> => {
         return updateLabel(this.dispatch, label);
       },
-      getUser: () => {
+      getUser: (): Promise<IAction> => {
         return getUser(this.dispatch);
       },
     };
 
-    this.handleChangeNameInput = this._handleChangeNameInput.bind(this);
-    this.handleSearchMemberListItemClick = this._handleSearchMemberListItemClick.bind(this);
-    this.handleSubmitLabelForm = this._handleSubmitLabelForm.bind(this);
-    this.handleChangeMemberNameInput = this._handleChangeMemberNameInput.bind(this);
-    this.handleFocusMemberNameInput = this._handleFocusMemberNameInput.bind(this);
-    this.handleSubmitMemberNameForm = this._handleSubmitMemberNameForm.bind(this);
-    this.handleMemberListCloseButtonClick = this._handleMemberListCloseButtonClick.bind(this);
-    this.handleMemberListRemoveButtonClick = this._handleMemberListRemoveButtonClick.bind(this);
+    this.onChangeNameInput = this.handleChangeNameInput.bind(this);
+    this.onSearchMemberListItemClick = this.handleSearchMemberListItemClick.bind(this);
+    this.onSubmitLabelForm = this.handleSubmitLabelForm.bind(this);
+    this.onChangeMemberNameInput = this.handleChangeMemberNameInput.bind(this);
+    this.onFocusMemberNameInput = this.handleFocusMemberNameInput.bind(this);
+    this.onSubmitMemberNameForm = this.handleSubmitMemberNameForm.bind(this);
+    this.onMemberListCloseButtonClick = this.handleMemberListCloseButtonClick.bind(this);
+    this.onMemberListRemoveButtonClick = this.handleMemberListRemoveButtonClick.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.getUser();
     this.actions.fetchLabel();
     this.actions.fetchMember();
   }
 
-  public componentDidUpdate(prevProps, prevState) {
+  public componentDidUpdate(prevProps: IContainerProps, prevState: ILableMobilePageState & IState): void {
     this.onUpdate(() => {
-      const ui = this.state.ui;
-      const prevUi = prevState.ui;
-      const labels = this.state.labels;
-      const labelId = this.state.labelId;
+      const ui: IUI = this.state.ui;
+      const prevUi: IUI = prevState.ui;
+      const labels: ILabel[] = this.state.labels;
+      const labelId: number | null = this.state.labelId;
 
       if (
         !this.state.isInitialized &&
@@ -156,10 +156,10 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     });
   }
 
-  public render() {
-    const ui = this.state.ui;
-    const profile = this.state.profile;
-    const filteredMembers = this.filterMembers(this.state.members, this.state.keyword);
+  public render(): any {
+    const ui: IUI = this.state.ui;
+    const profile: IUser | null = this.state.profile;
+    const filteredMembers: IMember[] = this.filterMembers(this.state.members, this.state.keyword);
 
     return (
       <section className="page label-mobile-page">
@@ -169,18 +169,18 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
           <Link to="/labels">
             <Icon type="back" />
           </Link>
-          <button type="submit" onClick={this.handleSubmitLabelForm}>
+          <button type="submit" onClick={this.onSubmitLabelForm}>
             <Icon type="send" />
           </button>
         </header>
-        <form onSubmit={this.handleSubmitMemberNameForm}>
+        <form onSubmit={this.onSubmitMemberNameForm}>
           <div className="label-mobile-page--member-block">
             <Icon type="profile" />
             <input
               type="text"
               value={this.state.keyword}
-              onChange={this.handleChangeMemberNameInput}
-              onFocus={this.handleFocusMemberNameInput}
+              onChange={this.onChangeMemberNameInput}
+              onFocus={this.onFocusMemberNameInput}
               placeholder="Search by name or email"
             />
             {this.state.isMemberListShown ? (
@@ -190,26 +190,26 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
                 ) : null}
                 <h2 className="label-mobile-page--member-block--header">
                   {'Members'}
-                  <span onClick={this.handleMemberListCloseButtonClick}>
+                  <span onClick={this.onMemberListCloseButtonClick}>
                     <Icon type="close" />
                   </span>
                 </h2>
                 {filteredMembers.length === 0 ? (
                   <div
                     className="label-mobile-page--member-block--content--no-result"
-                    onClick={this.handleSubmitMemberNameForm}
+                    onClick={this.onSubmitMemberNameForm}
                   >
                     <Icon type="profile" />
                     <p>{`Add ${this.state.keyword} as new member.`}</p>
                   </div>
                 ) : (
                   <ul className="label-mobile-page--member-block--content--list">
-                    {filteredMembers.map(member => {
+                    {filteredMembers.map((member: IMember) => {
                       return (
                         <SearchMemberListItem
                           key={member.id}
                           member={member}
-                          onClick={this.handleSearchMemberListItemClick}
+                          onClick={this.onSearchMemberListItemClick}
                         />
                       );
                     })}
@@ -229,18 +229,18 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
                 <MemberListItem
                   key={temporaryLabelMember.id}
                   labelMember={temporaryLabelMember}
-                  onRemoveButtonClick={this.handleMemberListRemoveButtonClick}
+                  onRemoveButtonClick={this.onMemberListRemoveButtonClick}
                 />
               );
             })}
         </ul>
-        <form onSubmit={this.handleSubmitLabelForm}>
+        <form onSubmit={this.onSubmitLabelForm}>
           <input
             type="text"
             className="label-mobile-page--label-name-input"
             autoFocus
             value={this.state.labelName}
-            onChange={this.handleChangeNameInput}
+            onChange={this.onChangeNameInput}
             placeholder="Enter label name"
           />
         </form>
@@ -249,7 +249,15 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   private filterMembers(members: IMember[], keyword: string): IMember[] {
-    const options = {
+    const options: {
+      shouldSort: boolean;
+      threshold: number;
+      location: number;
+      distance: number;
+      maxPatternLength: number;
+      minMatchCharLength: number;
+      keys: string[];
+    } = {
       shouldSort: true,
       threshold: 0.55,
       location: 0,
@@ -258,25 +266,26 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       minMatchCharLength: 1,
       keys: ['name'],
     };
-    const fuse = new Fuse(members, options);
+    const fuse: Fuse = new Fuse(members, options);
     const filteredMembers: IMember[] = fuse.search(keyword);
+
     return filteredMembers.length === 0 && keyword === '' ? members : filteredMembers;
   }
 
-  private onUpdate(callback): void {
+  private onUpdate(callback: any): void {
     callback();
   }
 
   // For member name input
-  private _handleFocusMemberNameInput() {
+  private handleFocusMemberNameInput(): void {
     this.setState({ isMemberListShown: true });
   }
 
-  private _handleChangeNameInput(event: React.KeyboardEvent<HTMLInputElement>) {
+  private handleChangeNameInput(event: React.KeyboardEvent<HTMLInputElement>): void {
     this.setState({ labelName: event.currentTarget.value });
   }
 
-  private _handleChangeMemberNameInput(event: React.KeyboardEvent<HTMLInputElement>) {
+  private handleChangeMemberNameInput(event: React.KeyboardEvent<HTMLInputElement>): void {
     this.setState({
       keyword: event.currentTarget.value,
       keywordErrorMessage: '',
@@ -284,10 +293,10 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   // For member form
-  private _handleSubmitMemberNameForm(event: React.FormEvent<HTMLFormElement>) {
+  private handleSubmitMemberNameForm(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
-    const keyword = this.state.keyword.trim();
+    const keyword: string = this.state.keyword.trim();
 
     userService.search({ q: keyword }).then((users: IMember[]) => {
       if ((users.length !== 0 && users[0].name === keyword) || users.length === 1) {
@@ -297,6 +306,7 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
             if (labelMember.name === keyword || users.length === 1) {
               isIncluded = true;
             }
+
             return labelMember;
           },
         );
@@ -324,13 +334,14 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
   }
 
   // For member list
-  private _handleSearchMemberListItemClick(event: any, props: any) {
+  private handleSearchMemberListItemClick(event: Event, props: any): void {
     const { member } = props;
     let isIncluded: boolean = false;
     const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.map((labelMember: ITemporaryLabelMember) => {
       if (labelMember.name === member.name) {
         isIncluded = true;
       }
+
       return labelMember;
     });
     if (!isIncluded) {
@@ -350,30 +361,29 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
     }
   }
 
-  private _handleMemberListCloseButtonClick() {
+  private handleMemberListCloseButtonClick(): void {
     this.setState({ isMemberListShown: false });
   }
 
-  private _handleMemberListRemoveButtonClick(event, props) {
-    // FIXME: react/no-access-state-in-setstate bug?
-    /* eslint-disable react/no-access-state-in-setstate */
-    const labelMembers = this.state.labelMembers.filter((temporaryLabelMember: ITemporaryLabelMember): boolean => {
-      return props.labelMember.id !== temporaryLabelMember.id;
-    });
+  private handleMemberListRemoveButtonClick(event: Event, props: any): void {
+    const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers.filter(
+      (temporaryLabelMember: ITemporaryLabelMember): boolean => {
+        return props.labelMember.id !== temporaryLabelMember.id;
+      },
+    );
     this.setState({ labelMembers });
-    /* eslint-enable react/no-access-state-in-setstate */
   }
 
   // For submit label
-  private _handleSubmitLabelForm(event: any) {
+  private handleSubmitLabelForm(event: Event): void {
     event.preventDefault();
     this.submitLabel();
   }
 
-  private submitLabel() {
-    const labelName = this.state.labelName.trim();
-    const labelMembers = this.state.labelMembers;
-    const id = this.state.labelId;
+  private submitLabel(): void {
+    const labelName: string = this.state.labelName.trim();
+    const labelMembers: ITemporaryLabelMember[] = this.state.labelMembers;
+    const id: number | null = this.state.labelId;
 
     if (labelName && !this.state.uiBlocking) {
       this.setState({ uiBlocking: true });
@@ -381,8 +391,8 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       if (id === undefined || id === null) {
         this.actions
           .createLabel({ name: labelName })
-          .then(({ payload }) => {
-            const label = payload.label;
+          .then(({ payload }: { payload: any }) => {
+            const label: ILabel = payload.label;
             Promise.all(
               labelMembers.map((labelMember: ITemporaryLabelMember) => {
                 return this.actions.createRequest({
@@ -406,26 +416,30 @@ export default class LabelMobilePage extends Container<IContainerProps, ILableMo
       } else {
         this.actions
           .updateLabel({ id, name: labelName })
-          .then(({ payload }) => {
-            const label = payload.label;
-            const addedLabelMembers = this.state.labelMembers.filter(
+          .then(({ payload }: { payload: any }) => {
+            const label: ILabel = payload.label;
+            const addedLabelMembers: ITemporaryLabelMember[] = this.state.labelMembers.filter(
               (currentLabelMember: ITemporaryLabelMember): boolean => {
                 for (const originLabelMember of label.members) {
                   if (currentLabelMember.id === originLabelMember.id) {
                     return false;
                   }
                 }
+
                 return true;
               },
             );
-            const removedLabelMembers = label.members.filter((originLabelMember: ILabelMember): boolean => {
-              for (const currentLabelMember of this.state.labelMembers) {
-                if (currentLabelMember.id === originLabelMember.id) {
-                  return false;
+            const removedLabelMembers: ILabelMember[] = label.members.filter(
+              (originLabelMember: ILabelMember): boolean => {
+                for (const currentLabelMember of this.state.labelMembers) {
+                  if (currentLabelMember.id === originLabelMember.id) {
+                    return false;
+                  }
                 }
-              }
-              return true;
-            });
+
+                return true;
+              },
+            );
             Promise.all([
               Promise.all(
                 addedLabelMembers.map((labelMember: ITemporaryLabelMember) => {

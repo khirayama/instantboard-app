@@ -4,7 +4,7 @@ export const THRESHOLD_HOLD_TIME: number = 500;
 export const THRESHOLD_SCROLL_HEIGHT: number = 60;
 export const THRESHOLD_DELTAX: number = 0.6;
 
-export const transitionProperties: { [string]: string } = {
+export const transitionProperties: { [key: string]: string } = {
   NONE: 'none',
   ALL: 'all',
   HEIGHT: 'height',

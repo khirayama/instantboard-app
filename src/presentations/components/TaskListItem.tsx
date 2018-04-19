@@ -1,26 +1,27 @@
 import * as classNames from 'classnames';
+import * as React from 'react';
+
 import Icon from 'presentations/components/Icon';
 import LinkText from 'presentations/components/LinkText';
 import ListItem from 'presentations/components/ListItem';
-import * as React from 'react';
 
-export default class TaskListItem extends React.Component<any, any> {
-  public render() {
+export class TaskListItem extends React.Component<any, any> {
+  public render(): any {
     const { task, onClickCompleteButton, onClickTaskListItem, onClickDestroyButton } = this.props;
 
-    const handleClickCompleteButton = (event: any) => {
+    const handleClickCompleteButton: any = (event: any): void => {
       if (onClickCompleteButton) {
         onClickCompleteButton(event, this.props, this.state);
       }
     };
 
-    const handleClickTaskListItem = (event: any) => {
+    const handleClickTaskListItem: any = (event: any): void => {
       if (onClickTaskListItem) {
         onClickTaskListItem(event, this.props, this.state);
       }
     };
 
-    const handleClickDestroyButton = (event: any) => {
+    const handleClickDestroyButton: any = (event: any): void => {
       if (onClickDestroyButton) {
         onClickDestroyButton(event, this.props, this.state);
       }

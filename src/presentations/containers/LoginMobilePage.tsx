@@ -7,22 +7,22 @@ import { Container } from 'presentations/containers/Container';
 import { queryString } from 'utils/queryString';
 import { tokenManager } from 'utils/tokenManager';
 
-const API_SERVER_HOST = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
+const API_SERVER_HOST: string = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
 
-export default class LoginMobilePage extends Container<{}, {}> {
-  private handleClickLink: any;
-
+export class LoginMobilePage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
+  private onClickLink: any;
+
   constructor(props: any) {
     super(props);
 
-    this.handleClickLink = this._handleClickLink.bind(this);
+    this.onClickLink = this.handleClickLink.bind(this);
   }
 
-  public componentWillMount() {
+  public componentWillMount(): void {
     if (typeof window === 'object') {
       const query: any = queryString.parse(window.location.search);
       const token: string = query.token;
@@ -34,7 +34,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
     }
   }
 
-  public render() {
+  public render(): any {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
@@ -43,7 +43,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"
             href={`${API_SERVER_HOST}/auth/facebook`}
-            onClick={this.handleClickLink}
+            onClick={this.onClickLink}
           >
             {'LOG IN WITH FACEBOOK'}
           </FlatButton>
@@ -51,7 +51,7 @@ export default class LoginMobilePage extends Container<{}, {}> {
             <FlatButton
               className="login-mobile-page--flat-button"
               href={`${API_SERVER_HOST}/auth/tester`}
-              onClick={this.handleClickLink}
+              onClick={this.onClickLink}
             >
               {'LOG IN AS TESTER'}
             </FlatButton>
@@ -61,8 +61,8 @@ export default class LoginMobilePage extends Container<{}, {}> {
     );
   }
 
-  private _handleClickLink(event: any) {
-    const href = event.currentTarget.href;
+  private handleClickLink(event: any): void {
+    const href: string = event.currentTarget.href;
     event.preventDefault();
     window.location.href = href;
   }

@@ -15,18 +15,18 @@ import TabNavigationContent from 'presentations/components/TabNavigationContent'
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
-export default class LabelIndexMobilePage extends Container<{}, IState> {
+export class LabelIndexMobilePage extends Container<{}, IState> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleSortLabelList: (from: number, to: number) => void;
+  private onSortLabelList: (fromIndex: number, toIndex: number) => void;
 
-  private handleClickVisibleButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickVisibleButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
-  private handleClickLabelListItem: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickLabelListItem: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
-  private handleClickDestroyButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
+  private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, labelListItemProps: any) => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -34,30 +34,30 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     this.state = this.getState();
 
     this.actions = {
-      pollRequest: (): Promise<{}> => {
+      pollRequest: (): Promise<IAction> => {
         return pollRequest(this.dispatch, { status: 'pending' });
       },
-      getUser: (): Promise<{}> => {
+      getUser: (): Promise<IAction> => {
         return getUser(this.dispatch);
       },
-      fetchLabel: (): Promise<{}> => {
+      fetchLabel: (): Promise<IAction> => {
         return fetchLabel(this.dispatch);
       },
-      updateLabel: (label: ILabel): Promise<{}> => {
+      updateLabel: (label: ILabel): Promise<IAction> => {
         return updateLabel(this.dispatch, label);
       },
-      destroyLabel: (label: ILabel): Promise<{}> => {
+      destroyLabel: (label: ILabel): Promise<IAction> => {
         return destroyLabel(this.dispatch, label);
       },
-      sortLabel: (label: ILabel, to: number): Promise<{}> => {
+      sortLabel: (label: ILabel, to: number): Promise<IAction> => {
         return sortLabel(this.dispatch, label, to);
       },
     };
 
-    this.handleSortLabelList = this._handleSortLabelList.bind(this);
-    this.handleClickVisibleButton = this._handleClickVisibleButton.bind(this);
-    this.handleClickLabelListItem = this._handleClickLabelListItem.bind(this);
-    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
+    this.onSortLabelList = this.handleSortLabelList.bind(this);
+    this.onClickVisibleButton = this.handleClickVisibleButton.bind(this);
+    this.onClickLabelListItem = this.handleClickLabelListItem.bind(this);
+    this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
   }
 
   public componentDidMount(): void {
@@ -73,7 +73,7 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     poller.remove(this.actions.pollRequest);
   }
 
-  public render() {
+  public render(): any {
     const profile: IUser | null = this.state.profile;
     const labels: ILabel[] = this.state.labels;
     const requests: IRequest[] = this.state.requests;
@@ -94,15 +94,15 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
       <section key="label-index-mobile-page" className="page label-index-mobile-page">
         <Indicator active={ui.isLoadingLabels && labels.length !== 0} />
         <TabNavigationContent>
-          <List className="label-list" parentElement={parentElement} onSort={this.handleSortLabelList}>
+          <List className="label-list" parentElement={parentElement} onSort={this.onSortLabelList}>
             {labels.map((label: ILabel): React.ReactNode => (
               <LabelListItem
                 key={label.id}
                 label={label}
                 profile={profile}
-                onClickVisibleButton={this.handleClickVisibleButton}
-                onClickLabelListItem={this.handleClickLabelListItem}
-                onClickDestroyButton={this.handleClickDestroyButton}
+                onClickVisibleButton={this.onClickVisibleButton}
+                onClickLabelListItem={this.onClickLabelListItem}
+                onClickDestroyButton={this.onClickDestroyButton}
               />
             ))}
           </List>
@@ -118,16 +118,16 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     );
   }
 
-  private _handleSortLabelList(from: number, to: number): void {
+  private handleSortLabelList(fromIndex: number, toIndex: number): void {
     const labels: ILabel[] = this.state.labels;
-    const label: ILabel = labels[from];
+    const label: ILabel = labels[fromIndex];
 
-    if (label.priority !== to) {
-      this.actions.sortLabel(label, to);
+    if (label.priority !== toIndex) {
+      this.actions.sortLabel(label, toIndex);
     }
   }
 
-  private _handleClickVisibleButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickVisibleButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.updateLabel({
@@ -136,11 +136,11 @@ export default class LabelIndexMobilePage extends Container<{}, IState> {
     });
   }
 
-  private _handleClickLabelListItem(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickLabelListItem(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     this.context.move(`/labels/${labelListItemProps.label.id}/edit`);
   }
 
-  private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
+  private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.destroyLabel(labelListItemProps.label);

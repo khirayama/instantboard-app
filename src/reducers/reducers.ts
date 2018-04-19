@@ -1,7 +1,8 @@
-/* eslint-disable complexity */
-import actionTypes from '../constants/action-types';
+/* tslint:disable:cyclomatic-complexity */
+/* tslint:disable:max-func-body-length */
+import actionTypes from 'constants/action-types';
 
-export default function(state: IState, action: IAction): IState {
+export function reducers(state: IState, action: IAction): IState {
   const newState: IState = JSON.parse(JSON.stringify(state));
   const payload: {
     task: ITask;
@@ -55,6 +56,7 @@ export default function(state: IState, action: IAction): IState {
         if (label.id === payload.label.id) {
           return payload.label;
         }
+
         return label;
       });
       newState.ui.isLoadingLabels = false;
@@ -83,38 +85,41 @@ export default function(state: IState, action: IAction): IState {
 
     case actionTypes.SORT_LABEL: {
       // Uncomfortable to immediate update UI.
-      newState.labels = (() => {
+      newState.labels = ((): ILabel[] => {
         let labels: ILabel[] = state.labels;
         const newLabel: ILabel = payload.label;
         const priority: number = payload.priority;
 
         if (newLabel.priority > priority) {
-          labels = labels.map(label => {
+          labels = labels.map((label: ILabel) => {
             if (label.priority === newLabel.priority) {
               label.priority = priority;
             } else if (priority <= label.priority && label.priority < newLabel.priority) {
               label.priority += 1;
             }
+
             return label;
           });
         } else if (newLabel.priority < priority) {
-          labels = labels.map(label => {
+          labels = labels.map((label: ILabel) => {
             if (label.priority === newLabel.priority) {
               label.priority = priority;
             } else if (newLabel.priority < label.priority && label.priority <= priority) {
               label.priority -= 1;
             }
+
             return label;
           });
         }
 
-        return labels.sort((x, y) => {
+        return labels.sort((x: ILabel, y: ILabel) => {
           if (x.priority > y.priority) {
             return 1;
           }
           if (x.priority < y.priority) {
             return -1;
           }
+
           return 0;
         });
       })();
@@ -169,6 +174,7 @@ export default function(state: IState, action: IAction): IState {
         if (task.id === payload.task.id) {
           return payload.task;
         }
+
         return task;
       });
       newState.ui.isLoadingTasks = false;
@@ -197,13 +203,13 @@ export default function(state: IState, action: IAction): IState {
 
     case actionTypes.SORT_TASK: {
       // Uncomfortable to immediate update UI.
-      newState.tasks = (() => {
+      newState.tasks = ((): ITask[] => {
         let tasks: ITask[] = state.tasks;
         const newTask: ITask = payload.task;
         const priority: number = payload.priority;
 
         if (newTask.priority > priority) {
-          tasks = tasks.map(task => {
+          tasks = tasks.map((task: ITask) => {
             if (task.labelId === newTask.labelId) {
               if (task.priority === newTask.priority) {
                 task.priority = priority;
@@ -211,10 +217,11 @@ export default function(state: IState, action: IAction): IState {
                 task.priority += 1;
               }
             }
+
             return task;
           });
         } else if (newTask.priority < priority) {
-          tasks = tasks.map(task => {
+          tasks = tasks.map((task: ITask) => {
             if (task.labelId === newTask.labelId) {
               if (task.priority === newTask.priority) {
                 task.priority = priority;
@@ -222,17 +229,19 @@ export default function(state: IState, action: IAction): IState {
                 task.priority -= 1;
               }
             }
+
             return task;
           });
         }
 
-        return tasks.sort((x, y) => {
+        return tasks.sort((x: ITask, y: ITask) => {
           if (x.priority > y.priority) {
             return 1;
           }
           if (x.priority < y.priority) {
             return -1;
           }
+
           return 0;
         });
       })();
@@ -300,7 +309,7 @@ export default function(state: IState, action: IAction): IState {
       break;
     }
     case actionTypes.UPDATE_REQUEST_SUCCESS: {
-      newState.requests = state.requests.filter(request => {
+      newState.requests = state.requests.filter((request: IRequest) => {
         return payload.request.id !== request.id;
       });
       newState.ui.isLoadingRequests = false;
@@ -315,12 +324,13 @@ export default function(state: IState, action: IAction): IState {
       newState.requests = state.ui.isLoadingRequests ? newState.requests : payload.requests;
       break;
     }
+
     case actionTypes.POLL_REQUEST_FAILURE: {
       break;
     }
 
     default: {
-      break;
+      return newState;
     }
   }
 

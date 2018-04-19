@@ -26,20 +26,20 @@ interface ITaskIndexDesktopPageState {
   index: number;
 }
 
-export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
+export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
   public static contextTypes: { move: any } = {
     move: PropTypes.func,
   };
 
-  private handleChangeIndex: (index: number) => void;
+  private onChangeIndex: (index: number) => void;
 
-  private handleSortTaskList: (from: number, to: number, taskListProps: any) => void;
+  private onSortTaskList: (fromIndex: number, toIndex: number, taskListProps: any) => void;
 
-  private handleClickCompleteButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickCompleteButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
-  private handleClickTaskListItem: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickTaskListItem: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
-  private handleClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -86,17 +86,17 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
       },
     };
 
-    this.handleChangeIndex = this._handleChangeIndex.bind(this);
-    this.handleSortTaskList = this._handleSortTaskList.bind(this);
-    this.handleClickCompleteButton = this._handleClickCompleteButton.bind(this);
-    this.handleClickTaskListItem = this._handleClickTaskListItem.bind(this);
-    this.handleClickDestroyButton = this._handleClickDestroyButton.bind(this);
+    this.onChangeIndex = this.handleChangeIndex.bind(this);
+    this.onSortTaskList = this.handleSortTaskList.bind(this);
+    this.onClickCompleteButton = this.handleClickCompleteButton.bind(this);
+    this.onClickTaskListItem = this.handleClickTaskListItem.bind(this);
+    this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.actions.fetchTask();
     this.actions.fetchLabel().then((action: IAction) => {
-      const labels = action.payload.labels;
+      const labels: ILabel[] = action.payload.labels;
       for (const label of labels) {
         if (label.members.length > 1) {
           poller.add(this.actions.pollTask, 3000);
@@ -108,14 +108,14 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     poller.add(this.actions.pollRequest, 3000);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     poller.remove(this.actions.pollTask);
     poller.remove(this.actions.pollRequest);
 
     super.componentWillUnmount();
   }
 
-  public render() {
+  public render(): any {
     const ui: IUI = this.state.ui;
     const labels: ILabel[] = this.state.labels.filter((label: ILabel) => label.visibled);
     const tasks: ITask[] = this.state.tasks;
@@ -134,7 +134,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = <NoLabelContent />;
     } else if (labels.length !== 0) {
-      const layeredListContents = labels.map((label: ILabel, index: number) => {
+      const layeredListContents: any[] = labels.map((label: ILabel, index: number) => {
         const groupedTasks: ITask[] = tasks.filter((task: ITask) => task.labelId === label.id);
 
         let backgroundElement: React.ReactNode | null = null;
@@ -146,15 +146,15 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
 
         return (
           <LayeredChildListItem key={label.id} index={index}>
-            <TaskList className="task-list" tasks={groupedTasks} onSort={this.handleSortTaskList}>
+            <TaskList className="task-list" tasks={groupedTasks} onSort={this.onSortTaskList}>
               {groupedTasks.map((task: ITask): React.ReactNode => {
                 return (
                   <TaskListItem
                     key={task.id}
                     task={task}
-                    onClickCompleteButton={this.handleClickCompleteButton}
-                    onClickTaskListItem={this.handleClickTaskListItem}
-                    onClickDestroyButton={this.handleClickDestroyButton}
+                    onClickCompleteButton={this.onClickCompleteButton}
+                    onClickTaskListItem={this.onClickTaskListItem}
+                    onClickDestroyButton={this.onClickDestroyButton}
                   />
                 );
               })}
@@ -170,7 +170,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
       });
 
       contentElement = (
-        <LayeredList index={this.state.index} onChange={this.handleChangeIndex}>
+        <LayeredList index={this.state.index} onChange={this.onChangeIndex}>
           <LayeredParentList>
             {labels.map((label: ILabel, index: number) => {
               return (
@@ -201,6 +201,7 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     if (typeof window === 'object') {
       return JSON.parse(window.sessionStorage.getItem('__layered-list-index') || '0');
     }
+
     return 0;
   }
 
@@ -210,27 +211,27 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     }
   }
 
-  private _handleChangeIndex(index: number): void {
+  private handleChangeIndex(index: number): void {
     this.saveIndex(index);
     this.setState({ index });
   }
 
-  private _handleSortTaskList(from: number, to: number, taskListProps: any): void {
-    const task = taskListProps.tasks[from];
+  private handleSortTaskList(fromIndex: number, toIndex: number, taskListProps: any): void {
+    const task: ITask = taskListProps.tasks[fromIndex];
 
-    if (task.priority !== to) {
+    if (task.priority !== toIndex) {
       this.actions.sortTask(
         {
           id: task.id,
           labelId: task.labelId,
           priority: task.priority,
         },
-        to,
+        toIndex,
       );
     }
   }
 
-  private _handleClickCompleteButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickCompleteButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
 
     this.actions.updateTask({
@@ -239,11 +240,11 @@ export default class TaskIndexDesktopPage extends Container<{}, ITaskIndexDeskto
     });
   }
 
-  private _handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
   }
 
-  private _handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
     event.stopPropagation();
     this.actions.destroyTask({
       id: taskListItemProps.task,

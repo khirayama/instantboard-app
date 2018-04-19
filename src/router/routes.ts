@@ -6,7 +6,7 @@ import NotificationIndexDesktopPage from 'presentations/containers/NotificationI
 import NotificationIndexMobilePage from 'presentations/containers/NotificationIndexMobilePage';
 import ProfileDesktopPage from 'presentations/containers/ProfileDesktopPage';
 import ProfileMobilePage from 'presentations/containers/ProfileMobilePage';
-import TaskIndexDesktopPage from 'presentations/containers/TaskIndexDesktopPage';
+import { TaskIndexDesktopPage } from 'presentations/containers/TaskIndexDesktopPage';
 import { TaskIndexMobilePage } from 'presentations/containers/TaskIndexMobilePage';
 import { TaskMobilePage } from 'presentations/containers/TaskMobilePage';
 

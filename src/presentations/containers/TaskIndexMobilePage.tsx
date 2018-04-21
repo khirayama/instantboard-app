@@ -13,7 +13,7 @@ import RecycleTable from 'presentations/components/RecycleTable';
 import RecycleTableContentList from 'presentations/components/RecycleTableContentList';
 import RecycleTableContentListItem from 'presentations/components/RecycleTableContentListItem';
 import RecycleTableList from 'presentations/components/RecycleTableList';
-import RecycleTableListItem from 'presentations/components/RecycleTableListItem';
+import { RecycleTableListItem } from 'presentations/components/RecycleTableListItem';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { TaskList } from 'presentations/components/TaskList';

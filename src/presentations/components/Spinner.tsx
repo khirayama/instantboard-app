@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-export default class Spinner extends React.Component<any, any> {
-  public render() {
-    const strokeWidth = 3;
+export class Spinner extends React.Component<any, any> {
+  public render(): any {
+    const strokeWidth: number = 3;
 
     return (
       <div className="spinner">

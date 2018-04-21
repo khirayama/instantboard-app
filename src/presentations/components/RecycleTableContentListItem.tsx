@@ -7,21 +7,22 @@ interface IRecycleTableContentListItemProps {
   children: any;
 }
 
-export default class RecycleTableContentListItem extends React.Component<IRecycleTableContentListItemProps, any> {
-  private static contextTypes = {
+export class RecycleTableContentListItem extends React.Component<IRecycleTableContentListItemProps, any> {
+  private static contextTypes: any = {
     handleTouchStart: PropTypes.func,
     handleTouchMove: PropTypes.func,
     handleTouchEnd: PropTypes.func,
     currentIndex: PropTypes.number,
   };
 
-  public render() {
+  public render(): any {
     const { currentIndex, handleTouchStart, handleTouchMove, handleTouchEnd } = this.context;
     const { index, children } = this.props;
-    let isHidden = false;
+    let isHidden: boolean = false;
     if (index < currentIndex - 1 || currentIndex + 1 < index) {
       isHidden = true;
     }
+
     return (
       <section
         onTouchStart={handleTouchStart}

@@ -11,7 +11,7 @@ import NoLabelContent from 'presentations/components/NoLabelContent';
 import NoTaskContent from 'presentations/components/NoTaskContent';
 import RecycleTable from 'presentations/components/RecycleTable';
 import RecycleTableContentList from 'presentations/components/RecycleTableContentList';
-import RecycleTableContentListItem from 'presentations/components/RecycleTableContentListItem';
+import { RecycleTableContentListItem } from 'presentations/components/RecycleTableContentListItem';
 import { RecycleTableList } from 'presentations/components/RecycleTableList';
 import { RecycleTableListItem } from 'presentations/components/RecycleTableListItem';
 import { TabNavigation } from 'presentations/components/TabNavigation';

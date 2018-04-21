@@ -8,7 +8,7 @@ import List from 'presentations/components/List';
 import NoNotificationContent from 'presentations/components/NoNotificationContent';
 import RequestListItem from 'presentations/components/RequestListItem';
 import TabNavigation from 'presentations/components/TabNavigation';
-import TabNavigationContent from 'presentations/components/TabNavigationContent';
+import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 

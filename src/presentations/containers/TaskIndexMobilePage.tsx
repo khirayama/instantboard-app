@@ -9,7 +9,7 @@ import Indicator from 'presentations/components/Indicator';
 import LoadingContent from 'presentations/components/LoadingContent';
 import NoLabelContent from 'presentations/components/NoLabelContent';
 import NoTaskContent from 'presentations/components/NoTaskContent';
-import RecycleTable from 'presentations/components/RecycleTable';
+import { RecycleTable } from 'presentations/components/RecycleTable';
 import { RecycleTableContentList } from 'presentations/components/RecycleTableContentList';
 import { RecycleTableContentListItem } from 'presentations/components/RecycleTableContentListItem';
 import { RecycleTableList } from 'presentations/components/RecycleTableList';

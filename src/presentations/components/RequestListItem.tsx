@@ -1,19 +1,20 @@
+import * as React from 'react';
+
 import FlatButton from 'presentations/components/FlatButton';
 import Icon from 'presentations/components/Icon';
 import ListItem from 'presentations/components/ListItem';
-import * as React from 'react';
 
-export default class RequestListItem extends React.Component<any, any> {
-  public render() {
+export class RequestListItem extends React.Component<any, any> {
+  public render(): any {
     const { request, onClickAcceptButton, onClickRefuseButton } = this.props;
 
-    const handleClickAcceptButton = (event: any) => {
+    const handleClickAcceptButton: any = (event: any): void => {
       if (onClickAcceptButton) {
         onClickAcceptButton(event, this.props, this.state);
       }
     };
 
-    const handleClickRefuseButton = (event: any) => {
+    const handleClickRefuseButton: any = (event: any): void => {
       if (onClickRefuseButton) {
         onClickRefuseButton(event, this.props, this.state);
       }

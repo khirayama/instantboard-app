@@ -2,29 +2,39 @@ import { THRESHOLD_DELTAX } from 'presentations/constants';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export default class RecycleTableContentList extends React.Component<any, any> {
-  private static childContextTypes = {
+interface IDiff {
+  x: number;
+  y: number;
+  time: number;
+  delta: {
+    x: number;
+    y: number;
+  };
+}
+
+export class RecycleTableContentList extends React.Component<any, any> {
+  private static childContextTypes: any = {
     handleTouchStart: PropTypes.func,
     handleTouchMove: PropTypes.func,
     handleTouchEnd: PropTypes.func,
   };
 
-  private static contextTypes = {
+  private static contextTypes: any = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
 
   private recycleTableContentList: any;
 
-  private setRecycleTableContentList: any;
+  private refRecycleTableContentList: any;
 
   private touch: any;
 
-  private handleTouchStart: any;
+  private onTouchStart: any;
 
-  private handleTouchMove: any;
+  private onTouchMove: any;
 
-  private handleTouchEnd: any;
+  private onTouchEnd: any;
 
   constructor(props: any) {
     super(props);
@@ -39,21 +49,21 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       moving: false,
     };
 
-    this.setRecycleTableContentList = this._setRecycleTableContentList.bind(this);
-    this.handleTouchStart = this._handleTouchStart.bind(this);
-    this.handleTouchMove = this._handleTouchMove.bind(this);
-    this.handleTouchEnd = this._handleTouchEnd.bind(this);
+    this.setRecycleTableContentList = this.setRecycleTableContentList.bind(this);
+    this.onTouchStart = this.handleTouchStart.bind(this);
+    this.onTouchMove = this.handleTouchMove.bind(this);
+    this.onTouchEnd = this.handleTouchEnd.bind(this);
   }
 
-  public getChildContext() {
+  public getChildContext(): any {
     return {
-      handleTouchStart: this.handleTouchStart,
-      handleTouchMove: this.handleTouchMove,
-      handleTouchEnd: this.handleTouchEnd,
+      handleTouchStart: this.onTouchStart,
+      handleTouchMove: this.onTouchMove,
+      handleTouchEnd: this.onTouchEnd,
     };
   }
 
-  public _handleTouchStart(event: any) {
+  public handleTouchStart(event: React.TouchEvent<HTMLElement>): void {
     event.stopPropagation();
 
     this.touch = {
@@ -64,7 +74,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     };
   }
 
-  public _handleTouchMove(event: any) {
+  public handleTouchMove(event: React.TouchEvent<HTMLElement>): void {
     event.stopPropagation();
 
     this.touch = {
@@ -75,28 +85,28 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       moving: true,
     };
 
-    this._updateTouchMoveView();
+    this.updateTouchMoveView();
   }
 
-  public _handleTouchEnd(event: any) {
+  public handleTouchEnd(event: React.TouchEvent<HTMLElement>): void {
     event.stopPropagation();
 
-    const THRESHOLD_WIDTH = window.screen.width / 3;
-    const diff = this._calcFilteredDiff();
+    const THRESHOLD_WIDTH: number = window.screen.width / 3;
+    const diff: IDiff = this.calcFilteredDiff();
 
-    this._updateTouchEndView();
+    this.updateTouchEndView();
 
     if (THRESHOLD_WIDTH < Math.abs(diff.x)) {
       if (diff.x > 0) {
-        this._swipeRightHandler();
+        this.swipeRightHandler();
       } else {
-        this._swipeLeftHandler();
+        this.swipeLeftHandler();
       }
     } else if (THRESHOLD_DELTAX < Math.abs(diff.delta.x)) {
       if (diff.delta.x > 0) {
-        this._swipeRightHandler();
+        this.swipeRightHandler();
       } else {
-        this._swipeLeftHandler();
+        this.swipeLeftHandler();
       }
     }
 
@@ -112,10 +122,10 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     };
   }
 
-  public _calcFilteredDiff() {
+  public calcFilteredDiff(): IDiff {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
-    const diff = this._calcDiff();
+    const diff: IDiff = this.calcDiff();
 
     if (this.touch.endX !== null && this.touch.endY !== null) {
       if ((currentIndex === 0 && diff.x > 0) || (currentIndex === children.length - 1 && diff.x < 0)) {
@@ -127,10 +137,10 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     return diff;
   }
 
-  public _calcDiff() {
-    let x = this.touch.endX - this.touch.startX;
-    let y = this.touch.endY - this.touch.startY;
-    let time = this.touch.endTime.getTime() - this.touch.startTime.getTime();
+  public calcDiff(): IDiff {
+    let x: number = this.touch.endX - this.touch.startX;
+    let y: number = this.touch.endY - this.touch.startY;
+    let time: number = this.touch.endTime.getTime() - this.touch.startTime.getTime();
 
     time = time < 0 ? 0 : time;
 
@@ -138,6 +148,7 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       x = 0;
       y = 0;
     }
+
     return {
       x,
       y,
@@ -149,20 +160,20 @@ export default class RecycleTableContentList extends React.Component<any, any> {
     };
   }
 
-  public _swipeLeftHandler() {
+  public swipeLeftHandler(): void {
     const { setCurrentIndex, currentIndex } = this.context;
     setCurrentIndex(currentIndex + 1);
   }
 
-  public _swipeRightHandler() {
+  public swipeRightHandler(): void {
     const { setCurrentIndex, currentIndex } = this.context;
     setCurrentIndex(currentIndex - 1);
   }
 
-  public _updateTouchMoveView() {
+  public updateTouchMoveView(): void {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
-    const diff = this._calcFilteredDiff();
+    const diff: IDiff = this.calcFilteredDiff();
 
     if (
       this.touch.moving &&
@@ -170,14 +181,14 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       Math.abs(diff.delta.x) > Math.abs(diff.delta.y) &&
       Math.abs(diff.x) > Math.abs(diff.y)
     ) {
-      const translateX = currentIndex * 100 / children.length;
+      const translateX: number = currentIndex * 100 / children.length;
       this.recycleTableContentList.classList.add('recycle-table-content-list__moving');
       this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}% + ${diff.x}px))`;
       this.recycleTableContentList.style.transitionProperty = 'none';
     }
   }
 
-  public _updateTouchEndView() {
+  public updateTouchEndView(): void {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
 
@@ -185,29 +196,32 @@ export default class RecycleTableContentList extends React.Component<any, any> {
       this.recycleTableContentList.classList.remove('recycle-table-content-list__moving');
     }
 
-    const translateX = currentIndex * 100 / children.length;
+    const translateX: number = currentIndex * 100 / children.length;
     this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}%))`;
     this.recycleTableContentList.style.transitionProperty = 'transform';
   }
 
-  public render() {
+  public render(): any {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
-    const style = {
-      width: children.length * 100 + '%',
+    const style: {
+      width: string;
+      transform: string;
+    } = {
+      width: `${children.length * 100}%`,
       transform: `translateX(-${currentIndex * 100 / children.length}%)`,
     };
 
     return (
       <section className="recycle-table-content-list">
-        <section ref={this.setRecycleTableContentList} style={style} className="recycle-table-content-list--inner">
+        <section ref={this.refRecycleTableContentList} style={style} className="recycle-table-content-list--inner">
           {children}
         </section>
       </section>
     );
   }
 
-  private _setRecycleTableContentList(recycleTableContentList: HTMLElement | null) {
+  private setRecycleTableContentList(recycleTableContentList: HTMLElement | null): void {
     this.recycleTableContentList = recycleTableContentList;
   }
 }

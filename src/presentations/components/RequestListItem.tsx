@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import FlatButton from 'presentations/components/FlatButton';
 import Icon from 'presentations/components/Icon';
-import ListItem from 'presentations/components/ListItem';
+import { ListItem } from 'presentations/components/ListItem';
 
 export class RequestListItem extends React.Component<any, any> {
   public render(): any {

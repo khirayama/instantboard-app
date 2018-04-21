@@ -7,8 +7,8 @@ import * as React from 'react';
  * - logo_typography
 */
 
-export default class Logo extends React.Component<any, any> {
-  public render() {
+export class Logo extends React.Component<any, any> {
+  public render(): any {
     const { type } = this.props;
 
     switch (type) {

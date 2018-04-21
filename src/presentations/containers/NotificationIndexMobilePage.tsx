@@ -5,7 +5,7 @@ import { fetchRequest, updateRequest } from 'action-creators/request';
 import { pollRequest } from 'action-creators/request';
 import Indicator from 'presentations/components/Indicator';
 import List from 'presentations/components/List';
-import NoNotificationContent from 'presentations/components/NoNotificationContent';
+import { NoNotificationContent } from 'presentations/components/NoNotificationContent';
 import { RequestListItem } from 'presentations/components/RequestListItem';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';

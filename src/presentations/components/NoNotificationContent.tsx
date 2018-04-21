@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export default class NoNotificationContent extends React.Component<any, any> {
-  public render() {
+export class NoNotificationContent extends React.Component<any, any> {
+  public render(): any {
     return (
       <div className="no-notification-content">
         <p>No notifications</p>

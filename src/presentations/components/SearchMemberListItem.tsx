@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export default class SearchMemberListItem extends React.Component<any, any> {
-  public render() {
+export class SearchMemberListItem extends React.Component<any, any> {
+  public render(): any {
     const { member, onClick } = this.props;
 
-    const handleClick = (event: any) => {
+    const handleClick: any = (event: any): void => {
       if (onClick) {
         onClick(event, this.props, this.state);
       }
@@ -13,7 +13,7 @@ export default class SearchMemberListItem extends React.Component<any, any> {
     return (
       <li className="search-member-list-item" onClick={handleClick}>
         <div className="search-member-list-item--image-container">
-          <img src={member.imageUrl} />
+          <img src={member.imageUrl} alt="profile image" />
         </div>
         <p>{member.name}</p>
       </li>

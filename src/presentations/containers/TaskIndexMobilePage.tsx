@@ -6,7 +6,7 @@ import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
-import LoadingContent from 'presentations/components/LoadingContent';
+import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { NoTaskContent } from 'presentations/components/NoTaskContent';
 import { RecycleTable } from 'presentations/components/RecycleTable';

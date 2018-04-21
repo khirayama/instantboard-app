@@ -16,7 +16,7 @@ import LayeredParentList from 'presentations/components/LayeredParentList';
 import LayeredParentListItem from 'presentations/components/LayeredParentListItem';
 import LoadingContent from 'presentations/components/LoadingContent';
 import NoLabelContent from 'presentations/components/NoLabelContent';
-import NoTaskContent from 'presentations/components/NoTaskContent';
+import { NoTaskContent } from 'presentations/components/NoTaskContent';
 import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';
 import { Container } from 'presentations/containers/Container';

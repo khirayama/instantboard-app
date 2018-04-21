@@ -1,12 +1,13 @@
 import * as classNames from 'classnames';
-import Icon from 'presentations/components/Icon';
 import * as React from 'react';
+
+import Icon from 'presentations/components/Icon';
 import { Link } from 'router/Link';
 
-export default class TabNavigation extends React.Component<any, any> {
-  public render() {
+export class TabNavigation extends React.Component<any, any> {
+  public render(): any {
     const { index, badges } = this.props;
-    const currentIndex = index || 0;
+    const currentIndex: number = index || 0;
 
     return (
       <div className="tab-navigation-tab-list">

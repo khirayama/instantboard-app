@@ -14,7 +14,7 @@ import RecycleTableContentList from 'presentations/components/RecycleTableConten
 import RecycleTableContentListItem from 'presentations/components/RecycleTableContentListItem';
 import RecycleTableList from 'presentations/components/RecycleTableList';
 import RecycleTableListItem from 'presentations/components/RecycleTableListItem';
-import TabNavigation from 'presentations/components/TabNavigation';
+import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';

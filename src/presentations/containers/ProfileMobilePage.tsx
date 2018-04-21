@@ -4,7 +4,7 @@ import * as React from 'react';
 import { pollRequest } from 'action-creators/request';
 import { deleteUser, getUser } from 'action-creators/user';
 import FlatButton from 'presentations/components/FlatButton';
-import TabNavigation from 'presentations/components/TabNavigation';
+import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';

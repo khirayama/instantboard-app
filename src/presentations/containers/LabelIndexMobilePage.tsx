@@ -9,7 +9,7 @@ import Indicator from 'presentations/components/Indicator';
 import LabelListItem from 'presentations/components/LabelListItem';
 import List from 'presentations/components/List';
 import LoadingContent from 'presentations/components/LoadingContent';
-import NoLabelContent from 'presentations/components/NoLabelContent';
+import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container } from 'presentations/containers/Container';

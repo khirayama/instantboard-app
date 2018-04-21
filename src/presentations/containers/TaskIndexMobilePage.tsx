@@ -7,7 +7,7 @@ import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-c
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
 import LoadingContent from 'presentations/components/LoadingContent';
-import NoLabelContent from 'presentations/components/NoLabelContent';
+import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { NoTaskContent } from 'presentations/components/NoTaskContent';
 import { RecycleTable } from 'presentations/components/RecycleTable';
 import { RecycleTableContentList } from 'presentations/components/RecycleTableContentList';

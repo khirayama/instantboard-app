@@ -2,7 +2,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 
 import Icon from 'presentations/components/Icon';
-import LinkText from 'presentations/components/LinkText';
+import { LinkText } from 'presentations/components/LinkText';
 import { ListItem } from 'presentations/components/ListItem';
 
 export class TaskListItem extends React.Component<any, any> {

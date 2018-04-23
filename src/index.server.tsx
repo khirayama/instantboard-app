@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import serveStaticCompression from 'middleware/serve-static-compression';
+import { serveStaticCompression } from 'middleware/serve-static-compression/serveStaticCompression';
 import { Spinner } from 'presentations/components/Spinner';
 
 const app: any = fastify();

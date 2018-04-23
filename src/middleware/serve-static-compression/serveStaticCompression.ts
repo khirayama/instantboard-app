@@ -1,6 +1,7 @@
 import * as serveStatic from 'serve-static';
-import Compression from './Compression';
-import Compressions from './Compressions';
+
+import Compression from 'middleware/serve-static-compression/Compression';
+import Compressions from 'middleware/serve-static-compression/Compressions';
 
 const mime: any = serveStatic.mime;
 
@@ -11,7 +12,7 @@ function getPathname(url: string): string {
     .split('#')[0];
 }
 
-function staticCompression(
+export function serveStaticCompression(
   rootPath: string,
   options: { enableBrotli?: boolean; customCompressions?: Compression[] } = {},
 ): (req: any, res: any, next: any) => void {
@@ -41,21 +42,19 @@ function staticCompression(
       const compression: Compression | null = compressions.findByAcceptedEncoding(acceptEncoding);
 
       if (compression !== null) {
-        const type: string = mime.lookup(pathname);
-        const charset: string = mime.charsets.lookup(type);
+        const format: string = mime.lookup(pathname);
+        const charset: string = mime.charsets.lookup(format);
         const search: string = req.url
           .split('?')
           .splice(1)
           .join('?');
 
-        req.url = pathname + compression.fileExtension + (search === '' ? search : '?' + search);
+        req.url = pathname + compression.fileExtension + (search === '' ? search : `?${search}`);
         res.setHeader('Content-Encoding', compression.encodingName);
-        res.setHeader('Content-Type', type + (charset ? '; charset=' + charset : ''));
+        res.setHeader('Content-Type', format + (charset ? `; charset=${charset}` : ''));
       }
     }
 
     defaultStatic(req, res, next);
   };
 }
-
-export default staticCompression;

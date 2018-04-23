@@ -5,7 +5,7 @@ import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
 import { ApplicationContent } from 'presentations/components/ApplicationContent';
-import ApplicationHeader from 'presentations/components/ApplicationHeader';
+import { ApplicationHeader } from 'presentations/components/ApplicationHeader';
 import { Icon } from 'presentations/components/Icon';
 import { IconLink } from 'presentations/components/IconLink';
 import { Indicator } from 'presentations/components/Indicator';

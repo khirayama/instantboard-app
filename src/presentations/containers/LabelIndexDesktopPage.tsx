@@ -5,7 +5,7 @@ import { destroyLabel, fetchLabel, sortLabel, updateLabel } from 'action-creator
 import { pollRequest } from 'action-creators/request';
 import { getUser } from 'action-creators/user';
 import { ApplicationContent } from 'presentations/components/ApplicationContent';
-import ApplicationHeader from 'presentations/components/ApplicationHeader';
+import { ApplicationHeader } from 'presentations/components/ApplicationHeader';
 import { IconLink } from 'presentations/components/IconLink';
 import { Indicator } from 'presentations/components/Indicator';
 import { LabelListItem } from 'presentations/components/LabelListItem';

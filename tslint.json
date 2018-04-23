@@ -5,7 +5,7 @@
       "tslint-config-prettier"
     ],
     "rules": {
-      "prettier": true,
+      "prettier/prettier": true,
       "missing-jsdoc": false,
       "no-http-string": false,
       "no-backbone-get-set-outside-model": false,

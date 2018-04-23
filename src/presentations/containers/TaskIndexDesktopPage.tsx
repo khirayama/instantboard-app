@@ -11,7 +11,7 @@ import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
 import LayeredChildList from 'presentations/components/LayeredChildList';
 import LayeredChildListItem from 'presentations/components/LayeredChildListItem';
-import LayeredList from 'presentations/components/LayeredList';
+import { LayeredList } from 'presentations/components/LayeredList';
 import { LayeredParentList } from 'presentations/components/LayeredParentList';
 import { LayeredParentListItem } from 'presentations/components/LayeredParentListItem';
 import { LoadingContent } from 'presentations/components/LoadingContent';

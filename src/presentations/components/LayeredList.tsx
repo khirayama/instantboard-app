@@ -1,13 +1,11 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export default class LayeredList extends React.Component<any, any> {
-  private static childContextTypes = {
+export class LayeredList extends React.Component<any, any> {
+  private static childContextTypes: any = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
-
-  private setCurrentIndex: any;
 
   constructor(props: any) {
     super(props);
@@ -15,32 +13,32 @@ export default class LayeredList extends React.Component<any, any> {
     this.state = {
       currentIndex: props.index || 0,
     };
-
-    this.setCurrentIndex = this._setCurrentIndex.bind(this);
   }
 
-  public getChildContext() {
+  public getChildContext(): any {
     const { currentIndex } = this.state;
 
     return {
       currentIndex,
-      setCurrentIndex: this.setCurrentIndex,
+      setCurrentIndex: (index: number): void => {
+        this.setCurrentIndex(index);
+      },
     };
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { children } = this.props;
     const props: any = {
       ...this.props,
       index: undefined,
     };
-    const className = 'layered-list';
-    props.className = props.className ? props.className + ' ' + className : className;
+    const className: string = 'layered-list';
+    props.className = props.className ? `$[props.className} ${className}` : className;
 
     return <div {...props}>{children}</div>;
   }
 
-  private _setCurrentIndex(index: number) {
+  private setCurrentIndex(index: number): void {
     const { onChange } = this.props;
 
     this.setState({ currentIndex: index });

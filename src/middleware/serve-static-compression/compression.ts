@@ -1,10 +1,10 @@
-export default class Compression {
+export class Compression {
   public encodingName: string;
 
   public fileExtension: string;
 
-  constructor(encodingName, fileExtension) {
+  constructor(encodingName: string, fileExtension: string) {
     this.encodingName = encodingName;
-    this.fileExtension = '.' + fileExtension;
+    this.fileExtension = `.${fileExtension}`;
   }
 }

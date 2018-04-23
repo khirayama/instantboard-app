@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import Compression from 'middleware/serve-static-compression/Compression';
+import { Compression } from 'middleware/serve-static-compression/Compression';
 
 export default class Compressions {
   public data: Compression[] = [];

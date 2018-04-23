@@ -4,7 +4,7 @@ import * as React from 'react';
 import { destroyLabel, fetchLabel, sortLabel, updateLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { getUser } from 'action-creators/user';
-import ApplicationContent from 'presentations/components/ApplicationContent';
+import { ApplicationContent } from 'presentations/components/ApplicationContent';
 import ApplicationHeader from 'presentations/components/ApplicationHeader';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';

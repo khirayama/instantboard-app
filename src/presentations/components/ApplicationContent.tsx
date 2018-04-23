@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export default class ApplicationContent extends React.Component<any, any> {
-  public render() {
+export class ApplicationContent extends React.Component<any, any> {
+  public render(): JSX.Element {
     const { children } = this.props;
 
     return (

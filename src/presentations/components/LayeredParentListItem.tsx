@@ -2,21 +2,21 @@ import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export default class LayeredParentListItem extends React.Component<any, any> {
-  private static contextTypes = {
+export class LayeredParentListItem extends React.Component<any, any> {
+  private static contextTypes: any = {
     currentIndex: PropTypes.number,
     setCurrentIndex: PropTypes.func,
   };
 
-  private handleClick: any;
+  private onClick: any;
 
   constructor(props: any) {
     super(props);
 
-    this.handleClick = this._handleClick.bind(this);
+    this.onClick = this.handleClick.bind(this);
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { currentIndex } = this.context;
     const { index, children } = this.props;
 
@@ -25,14 +25,14 @@ export default class LayeredParentListItem extends React.Component<any, any> {
         className={classNames('layered-parent-list-item', {
           'layered-parent-list-item__active': Number(index) === currentIndex,
         })}
-        onClick={this.handleClick}
+        onClick={this.onClick}
       >
         {children}
       </li>
     );
   }
 
-  private _handleClick() {
+  private handleClick(): void {
     const { setCurrentIndex } = this.context;
     const { onActive, index } = this.props;
 

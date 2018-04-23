@@ -1,14 +1,15 @@
 import * as fs from 'fs';
+
 import { Compression } from 'middleware/serve-static-compression/Compression';
 
-export default class Compressions {
+export class Compressions {
   public data: Compression[] = [];
 
   public fileIndex: any = {};
 
   private rootPath: string;
 
-  constructor(rootPath) {
+  constructor(rootPath: string) {
     this.rootPath = rootPath;
   }
 
@@ -25,7 +26,7 @@ export default class Compressions {
 
     const fileNames: string[] = fs.readdirSync(path);
     for (const fileName of fileNames) {
-      const filePath: string = path + '/' + fileName;
+      const filePath: string = `${path}/${fileName}`;
       const stats: any = fs.statSync(filePath);
 
       if (stats.isDirectory()) {
@@ -44,6 +45,7 @@ export default class Compressions {
         }
       }
     }
+
     return null;
   }
 
@@ -71,6 +73,7 @@ export default class Compressions {
         return compression;
       }
     }
+
     return null;
   }
 }

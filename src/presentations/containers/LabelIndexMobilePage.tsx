@@ -6,7 +6,7 @@ import { pollRequest } from 'action-creators/request';
 import { getUser } from 'action-creators/user';
 import IconLink from 'presentations/components/IconLink';
 import { Indicator } from 'presentations/components/Indicator';
-import LabelListItem from 'presentations/components/LabelListItem';
+import { LabelListItem } from 'presentations/components/LabelListItem';
 import { List } from 'presentations/components/List';
 import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';

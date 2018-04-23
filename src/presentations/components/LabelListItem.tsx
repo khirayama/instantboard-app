@@ -4,23 +4,23 @@ import * as React from 'react';
 import Icon from 'presentations/components/Icon';
 import { ListItem } from 'presentations/components/ListItem';
 
-export default class LabelListItem extends React.Component<any, any> {
-  public render() {
+export class LabelListItem extends React.Component<any, any> {
+  public render(): JSX.Element {
     const { label, profile, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
 
-    const handleClickVisibleButton = (event: any) => {
+    const handleClickVisibleButton: (event: any) => void = (event: any): void => {
       if (onClickVisibleButton) {
         onClickVisibleButton(event, this.props, this.state);
       }
     };
 
-    const handleClickLabelListItem = (event: any) => {
+    const handleClickLabelListItem: (event: any) => void = (event: any): void => {
       if (onClickLabelListItem) {
         onClickLabelListItem(event, this.props, this.state);
       }
     };
 
-    const handleClickDestroyButton = (event: any) => {
+    const handleClickDestroyButton: (event: any) => void = (event: any): void => {
       if (onClickDestroyButton) {
         onClickDestroyButton(event, this.props, this.state);
       }
@@ -45,15 +45,17 @@ export default class LabelListItem extends React.Component<any, any> {
           <div className="label-list-item--content--text">
             {label.name}
             {label.members
-              .filter(member => {
+              .filter((member: ILabelMember) => {
                 if (profile === null) {
                   return false;
                 }
+
                 return member.id !== profile.id;
               })
-              .map(member => {
+              .map((member: ILabelMember): JSX.Element => {
                 return (
                   <img
+                    alt="member profile image"
                     key={member.id}
                     className={classNames('label-list-item--content--profile-image', {
                       'label-list-item--content--profile-image__accepted': member.status === 'accepted',

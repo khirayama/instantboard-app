@@ -1,7 +1,7 @@
 import { fetchLabel } from 'action-creators/label';
 import { createTask, fetchTask, updateTask } from 'action-creators/task';
 import Icon from 'presentations/components/Icon';
-import Indicator from 'presentations/components/Indicator';
+import { Indicator } from 'presentations/components/Indicator';
 import { Container } from 'presentations/containers/Container';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';

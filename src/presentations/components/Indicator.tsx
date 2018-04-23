@@ -1,27 +1,27 @@
 import * as React from 'react';
 
-export default class Indicator extends React.Component<any, any> {
+export class Indicator extends React.Component<any, any> {
   private el: any = null;
 
-  private setElement: any;
+  private refElement: any;
 
   constructor(props: any) {
     super(props);
 
-    this.setElement = this._setElement.bind(this);
+    this.refElement = this.setElement.bind(this);
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.toggleClassName();
   }
 
-  public componentDidUpdate() {
+  public componentDidUpdate(): void {
     this.toggleClassName();
   }
 
-  public render() {
+  public render(): JSX.Element {
     return (
-      <div key="indicator" ref={this.setElement} className="indicator">
+      <div key="indicator" ref={this.refElement} className="indicator">
         <svg>
           <defs>
             <linearGradient id="indicator-gradient">
@@ -36,11 +36,11 @@ export default class Indicator extends React.Component<any, any> {
     );
   }
 
-  private _setElement(el) {
+  private setElement(el: HTMLElement): void {
     this.el = el;
   }
 
-  private toggleClassName() {
+  private toggleClassName(): void {
     setTimeout(() => {
       const { active } = this.props;
       if (this.el) {

@@ -6,7 +6,7 @@ import { pollRequest } from 'action-creators/request';
 import { ApplicationContent } from 'presentations/components/ApplicationContent';
 import ApplicationHeader from 'presentations/components/ApplicationHeader';
 import Indicator from 'presentations/components/Indicator';
-import List from 'presentations/components/List';
+import { List } from 'presentations/components/List';
 import { NoNotificationContent } from 'presentations/components/NoNotificationContent';
 import { RequestListItem } from 'presentations/components/RequestListItem';
 import { Container } from 'presentations/containers/Container';

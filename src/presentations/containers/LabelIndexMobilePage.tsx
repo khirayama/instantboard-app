@@ -7,7 +7,7 @@ import { getUser } from 'action-creators/user';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
 import LabelListItem from 'presentations/components/LabelListItem';
-import List from 'presentations/components/List';
+import { List } from 'presentations/components/List';
 import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { TabNavigation } from 'presentations/components/TabNavigation';

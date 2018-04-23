@@ -1,5 +1,6 @@
-import List from 'presentations/components/List';
 import * as React from 'react';
+
+import { List } from 'presentations/components/List';
 
 export class TaskList extends React.Component<any, any> {
   public render(): any {

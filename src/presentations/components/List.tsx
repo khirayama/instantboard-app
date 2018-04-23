@@ -3,53 +3,56 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import * as TransitionGroup from 'react-transition-group/TransitionGroup';
 
-export default class List extends React.Component<any, any> {
-  private static childContextTypes = {
+export class List extends React.Component<any, any> {
+  private static childContextTypes: any = {
     listElement: PropTypes.func,
     onSort: PropTypes.func,
   };
 
   private listElement: any;
 
-  private setListElement: any;
+  private refListElement: any;
 
   private preventDefault: any;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
-    this.setListElement = this._setListElement.bind(this);
+    this.refListElement = this.setListElement.bind(this);
 
-    this.preventDefault = (event: any) => {
+    this.preventDefault = (event: any): void => {
       event.preventDefault();
     };
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.listElement.querySelector('.list-content').addEventListener('contextmenu', this.preventDefault);
   }
 
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     this.listElement.querySelector('.list-content').removeEventListener('contextmenu', this.preventDefault);
   }
 
-  public getChildContext() {
+  public getChildContext(): any {
     const { parentElement, onSort } = this.props;
+
     return {
-      listElement: () => {
+      listElement: (): HTMLElement => {
         if (parentElement) {
           return parentElement;
         }
+
         return this.listElement;
       },
       onSort,
     };
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { children, className } = this.props;
+
     return (
-      <section ref={this.setListElement} className={classNames('list', className || '')}>
+      <section ref={this.refListElement} className={classNames('list', className || '')}>
         <div className="list-content">
           <TransitionGroup component="ul">{children}</TransitionGroup>
         </div>
@@ -57,7 +60,7 @@ export default class List extends React.Component<any, any> {
     );
   }
 
-  private _setListElement(listElement: any) {
+  private setListElement(listElement: HTMLElement): void {
     this.listElement = listElement;
   }
 }

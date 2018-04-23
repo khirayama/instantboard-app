@@ -9,7 +9,7 @@ import ApplicationHeader from 'presentations/components/ApplicationHeader';
 import Icon from 'presentations/components/Icon';
 import IconLink from 'presentations/components/IconLink';
 import Indicator from 'presentations/components/Indicator';
-import LayeredChildList from 'presentations/components/LayeredChildList';
+import { LayeredChildList } from 'presentations/components/LayeredChildList';
 import { LayeredChildListItem } from 'presentations/components/LayeredChildListItem';
 import { LayeredList } from 'presentations/components/LayeredList';
 import { LayeredParentList } from 'presentations/components/LayeredParentList';

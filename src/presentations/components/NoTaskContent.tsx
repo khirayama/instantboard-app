@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import IconLink from 'presentations/components/IconLink';
+import { IconLink } from 'presentations/components/IconLink';
 
 export class NoTaskContent extends React.Component<any, any> {
   public render(): any {

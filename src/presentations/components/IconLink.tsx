@@ -1,12 +1,13 @@
-import Icon from 'presentations/components/Icon';
 import * as React from 'react';
+
+import Icon from 'presentations/components/Icon';
 import { Link } from 'router/Link';
 
-export default class IconLink extends React.Component<any, any> {
-  public render() {
+export class IconLink extends React.Component<any, any> {
+  public render(): JSX.Element {
     const props: any = { ...this.props };
-    const className = 'icon-link';
-    props.className = props.className ? props.className + ' ' + className : className;
+    const className: string = 'icon-link';
+    props.className = props.className ? `${props.className} ${className}` : className;
 
     return (
       <Link {...props}>

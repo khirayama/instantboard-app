@@ -4,7 +4,7 @@ import * as React from 'react';
 import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
 import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
-import IconLink from 'presentations/components/IconLink';
+import { IconLink } from 'presentations/components/IconLink';
 import { Indicator } from 'presentations/components/Indicator';
 import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';

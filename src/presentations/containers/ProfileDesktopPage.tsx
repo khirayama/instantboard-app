@@ -5,7 +5,7 @@ import { pollRequest } from 'action-creators/request';
 import { deleteUser, getUser } from 'action-creators/user';
 import { ApplicationContent } from 'presentations/components/ApplicationContent';
 import ApplicationHeader from 'presentations/components/ApplicationHeader';
-import FlatButton from 'presentations/components/FlatButton';
+import { FlatButton } from 'presentations/components/FlatButton';
 import { Container } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 import { tokenManager } from 'utils/tokenManager';

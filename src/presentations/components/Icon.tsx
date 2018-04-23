@@ -16,11 +16,12 @@ import * as React from 'react';
  * - edit
 */
 
-export default class Icon extends React.Component<any, any> {
-  public render() {
+export class Icon extends React.Component<any, any> {
+  // tslint:disable:max-func-body-length
+  public render(): JSX.Element {
     const { className, active, type } = this.props;
     let icon: any = null;
-    const strokeWidth = 3;
+    const strokeWidth: number = 3;
 
     switch (type) {
       case 'check': {
@@ -78,7 +79,7 @@ export default class Icon extends React.Component<any, any> {
         break;
       }
       case 'close': {
-        // TODO: Create new icon for close. For now, I use remove icon instead of it.
+        // FYI: Create new icon for close. I use remove icon instead of it for now.
         icon = (
           <g stroke="none" fill="none">
             <rect className="icon__close--rect" />
@@ -150,7 +151,8 @@ export default class Icon extends React.Component<any, any> {
         return type;
       }
     }
-    const iconActiveClassName = 'icon__active';
+    const iconActiveClassName: string = 'icon__active';
+
     return (
       <svg
         className={classNames('icon', `icon__${type}`, { [iconActiveClassName]: active }, className)}
@@ -160,4 +162,5 @@ export default class Icon extends React.Component<any, any> {
       </svg>
     );
   }
+  // tslint:enable:max-func-body-length
 }

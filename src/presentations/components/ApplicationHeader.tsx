@@ -1,6 +1,7 @@
 import * as classNames from 'classnames';
-import Icon from 'presentations/components/Icon';
 import * as React from 'react';
+
+import { Icon } from 'presentations/components/Icon';
 import { Link } from 'router/Link';
 
 export default class ApplicationHeader extends React.Component<any, any> {

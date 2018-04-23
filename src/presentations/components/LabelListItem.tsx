@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 
-import Icon from 'presentations/components/Icon';
+import { Icon } from 'presentations/components/Icon';
 import { ListItem } from 'presentations/components/ListItem';
 
 export class LabelListItem extends React.Component<any, any> {

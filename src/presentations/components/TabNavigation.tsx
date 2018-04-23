@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 
-import Icon from 'presentations/components/Icon';
+import { Icon } from 'presentations/components/Icon';
 import { Link } from 'router/Link';
 
 export class TabNavigation extends React.Component<any, any> {

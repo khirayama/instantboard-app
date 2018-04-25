@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
@@ -18,7 +19,11 @@ const config = {
       },
     }],
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(Object.assign({}, process.env)),
+    }),
+  ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
     plugins: [

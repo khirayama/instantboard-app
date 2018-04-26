@@ -1,6 +1,6 @@
 /* tslint:disable:cyclomatic-complexity */
 /* tslint:disable:max-func-body-length */
-import actionTypes from 'constants/action-types';
+import { actionTypes } from 'constants/actionTypes';
 
 export function reducers(state: IState, action: IAction): IState {
   const newState: IState = JSON.parse(JSON.stringify(state));

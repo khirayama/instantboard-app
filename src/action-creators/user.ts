@@ -1,5 +1,5 @@
 import { transformMember, transformUser } from 'action-creators/transforms';
-import actionTypes from 'constants/action-types';
+import { actionTypes } from 'constants/actionTypes';
 import { userService } from 'services/userService';
 
 export async function getUser(dispatch: IDispatch): Promise<IAction> {

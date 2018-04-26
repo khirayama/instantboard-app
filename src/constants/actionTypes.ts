@@ -1,4 +1,4 @@
-export default {
+export const actionTypes: any = {
   // LABEL
   FETCH_LABEL: '__FETCH_LABEL',
   FETCH_LABEL_SUCCESS: '__FETCH_LABEL_SUCCESS',

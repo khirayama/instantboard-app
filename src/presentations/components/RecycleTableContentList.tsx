@@ -49,7 +49,7 @@ export class RecycleTableContentList extends React.Component<any, any> {
       moving: false,
     };
 
-    this.setRecycleTableContentList = this.setRecycleTableContentList.bind(this);
+    this.refRecycleTableContentList = this.setRecycleTableContentList.bind(this);
     this.onTouchStart = this.handleTouchStart.bind(this);
     this.onTouchMove = this.handleTouchMove.bind(this);
     this.onTouchEnd = this.handleTouchEnd.bind(this);

@@ -1,10 +1,10 @@
+import { transformLabel } from 'action-creators/transforms';
+import actionTypes from 'constants/action-types';
 import { labelService } from 'services/labelService';
-import actionTypes from '../constants/action-types';
-import { transformLabel } from './transforms';
 
 export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.FETCH_LABEL,
+    actionType: actionTypes.FETCH_LABEL,
   };
   dispatch(preAction);
 
@@ -12,25 +12,27 @@ export async function fetchLabel(dispatch: IDispatch): Promise<IAction> {
     const labelResponses: ILabelResponse[] = await labelService.fetch();
     const labels: ILabel[] = labelResponses.map(transformLabel);
     const action: IAction = {
-      type: actionTypes.FETCH_LABEL_SUCCESS,
+      actionType: actionTypes.FETCH_LABEL_SUCCESS,
       payload: {
         labels,
       },
     };
     dispatch(action);
+
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.FETCH_LABEL_FAILURE,
+      actionType: actionTypes.FETCH_LABEL_FAILURE,
     };
     dispatch(action);
+
     return action;
   }
 }
 
 export async function createLabel(dispatch: IDispatch, label: { name: string }): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.CREATE_LABEL,
+    actionType: actionTypes.CREATE_LABEL,
   };
   dispatch(preAction);
 
@@ -38,18 +40,20 @@ export async function createLabel(dispatch: IDispatch, label: { name: string }):
     const labelResponse: ILabelResponse = await labelService.create(label);
     const newLabel: ILabel = transformLabel(labelResponse);
     const action: IAction = {
-      type: actionTypes.CREATE_LABEL_SUCCESS,
+      actionType: actionTypes.CREATE_LABEL_SUCCESS,
       payload: {
         label: newLabel,
       },
     };
     dispatch(action);
+
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.CREATE_LABEL_FAILURE,
+      actionType: actionTypes.CREATE_LABEL_FAILURE,
     };
     dispatch(action);
+
     return action;
   }
 }
@@ -59,7 +63,7 @@ export async function updateLabel(
   label: { id: number; name: string; visibled: boolean },
 ): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.UPDATE_LABEL,
+    actionType: actionTypes.UPDATE_LABEL,
   };
   dispatch(preAction);
 
@@ -67,25 +71,27 @@ export async function updateLabel(
     const labelResponse: ILabelResponse = await labelService.update(label);
     const newLabel: ILabel = transformLabel(labelResponse);
     const action: IAction = {
-      type: actionTypes.UPDATE_LABEL_SUCCESS,
+      actionType: actionTypes.UPDATE_LABEL_SUCCESS,
       payload: {
         label: newLabel,
       },
     };
     dispatch(action);
+
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.UPDATE_LABEL_FAILURE,
+      actionType: actionTypes.UPDATE_LABEL_FAILURE,
     };
     dispatch(action);
+
     return action;
   }
 }
 
 export async function destroyLabel(dispatch: IDispatch, label: { id: number }): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.DESTROY_LABEL,
+    actionType: actionTypes.DESTROY_LABEL,
     payload: {
       label: transformLabel(label),
     },
@@ -95,22 +101,24 @@ export async function destroyLabel(dispatch: IDispatch, label: { id: number }): 
   try {
     await labelService.destroy(label);
     const action: IAction = {
-      type: actionTypes.DESTROY_LABEL_SUCCESS,
+      actionType: actionTypes.DESTROY_LABEL_SUCCESS,
     };
     dispatch(action);
+
     return action;
   } catch (err) {
     const action: IAction = {
-      type: actionTypes.DESTROY_LABEL_FAILURE,
+      actionType: actionTypes.DESTROY_LABEL_FAILURE,
     };
     dispatch(action);
+
     return action;
   }
 }
 
 export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: number): Promise<IAction> {
   const preAction: IAction = {
-    type: actionTypes.SORT_LABEL,
+    actionType: actionTypes.SORT_LABEL,
     payload: {
       label: transformLabel(label),
       priority: to,
@@ -120,20 +128,22 @@ export async function sortLabel(dispatch: IDispatch, label: { id: number }, to: 
 
   try {
     const labelResponses: ILabelResponse[] = await labelService.sort(label, to);
-    const labels = labelResponses.map(transformLabel);
+    const labels: ILabel[] = labelResponses.map(transformLabel);
     const action: IAction = {
-      type: actionTypes.SORT_LABEL_SUCCESS,
+      actionType: actionTypes.SORT_LABEL_SUCCESS,
       payload: {
         labels,
       },
     };
     dispatch(action);
+
     return action;
   } catch (err) {
-    const action = {
-      type: actionTypes.SORT_LABEL_FAILURE,
+    const action: IAction = {
+      actionType: actionTypes.SORT_LABEL_FAILURE,
     };
     dispatch(action);
+
     return action;
   }
 }

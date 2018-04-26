@@ -1,7 +1,7 @@
 type IDispatch = (action: IAction) => void;
 
 interface IAction {
-  type: string;
+  actionType: string;
   payload?: any;
   meta?: any;
   error?: any;

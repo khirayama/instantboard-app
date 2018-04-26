@@ -17,7 +17,7 @@ export function reducers(state: IState, action: IAction): IState {
   } =
     action.payload;
 
-  switch (action.type) {
+  switch (action.actionType) {
     // LABEL
     case actionTypes.FETCH_LABEL: {
       newState.ui.isLoadingLabels = true;

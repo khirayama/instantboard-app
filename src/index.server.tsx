@@ -14,11 +14,12 @@ const APP_SERVER_PORT: number = Number(process.env.PORT || '3000');
 
 function minifyHTML(htmlString: string): string {
   const parts: string[] = htmlString.split('\n');
-  const minifiedParts: string[] = parts.map(part => part.trim());
+  const minifiedParts: string[] = parts.map((part: string) => part.trim());
+
   return minifiedParts.join('');
 }
 
-function isTargetExtension(filePath) {
+function isTargetExtension(filePath: string): boolean {
   return filePath.endsWith('.js') || filePath.endsWith('.css');
 }
 
@@ -31,7 +32,7 @@ function createHashes(rootPath: string): IHash[] {
   const fileNames: string[] = fs.readdirSync(rootPath);
   let hashes: IHash[] = [];
   for (const fileName of fileNames) {
-    const filePath: string = rootPath + '/' + fileName;
+    const filePath: string = `${rootPath}/${fileName}`;
     const stats: any = fs.statSync(filePath);
     if (stats.isDirectory()) {
       hashes = hashes.concat(createHashes(filePath));
@@ -44,6 +45,7 @@ function createHashes(rootPath: string): IHash[] {
       hashes.push({ filePath, value: hash });
     }
   }
+
   return hashes;
 }
 
@@ -58,7 +60,7 @@ function generateExternalFileTags(hashes: IHash[], options: IOptions = {}): stri
   const tags: string[] = [];
 
   for (const hash of hashes) {
-    const filePath = hash.filePath.replace(options.rootFilePath || '', '');
+    const filePath: string = hash.filePath.replace(options.rootFilePath || '', '');
     if (filePath.endsWith('.css')) {
       if (options.preload) {
         tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="style">`);
@@ -78,12 +80,13 @@ function generateExternalFileTags(hashes: IHash[], options: IOptions = {}): stri
       tags.push(`<script src="${filePath}?revision=${hash.value}" ${attrs.join(' ')}></script>`);
     }
   }
+
   return tags;
 }
 
 function template(): string {
-  const hashes = createHashes(path.join(__dirname, 'public'));
-  const externalFileTags = generateExternalFileTags(hashes, {
+  const hashes: IHash[] = createHashes(path.join(__dirname, 'public'));
+  const externalFileTags: string[] = generateExternalFileTags(hashes, {
     preload: true,
     defer: true,
     rootFilePath: path.join(__dirname, 'public'),
@@ -135,6 +138,7 @@ function template(): string {
 </body>
 </html>
 `;
+
   return minifyHTML(htmlString);
 }
 
@@ -142,9 +146,9 @@ const html: string = template();
 
 app.use('/', serveStaticCompression(path.join(__dirname, 'public')));
 app.use('/', serveStaticCompression(path.join(__dirname, 'assets')));
-app.get('*', (req, res): void => {
+app.get('*', (req: any, res: any): void => {
   res.type('text/html').send(html);
 });
 
-console.log(`Start app at ${new Date()}`);
+console.log(`Start app at ${new Date()}`); // tslint:disable-line:no-console
 app.listen(APP_SERVER_PORT);

@@ -129,7 +129,7 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
             {this.state.labelId ? (
               <select value={this.state.labelId} onChange={this.onChangeLabelIdSelect}>
                 {labels.map((label: ILabel): React.ReactNode => (
-                  <option key={label.id} value={label.id}>
+                  <option key={label.id} value={label.id} aria-selected={this.state.labelId === label.id}>
                     {label.name}
                   </option>
                 ))}

@@ -1,8 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { fetchRequest, updateRequest } from 'action-creators/request';
-import { pollRequest } from 'action-creators/request';
+import { fetchRequest, pollRequest, updateRequest } from 'action-creators/request';
 import { Indicator } from 'presentations/components/Indicator';
 import { List } from 'presentations/components/List';
 import { NoNotificationContent } from 'presentations/components/NoNotificationContent';

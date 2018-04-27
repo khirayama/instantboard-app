@@ -14,7 +14,6 @@
       "no-submodule-imports": false,
       "no-any": false,
       "react-a11y-role-has-required-aria-props": false,
-      "react-a11y-event-has-role": false,
-      "no-duplicate-imports": false
+      "react-a11y-event-has-role": false
     }
 }

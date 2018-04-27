@@ -113,48 +113,48 @@ export class ListItem extends React.Component<any, any> {
 
     let listHeight: number = 0;
 
-    const handleEnter: any = (): void => {
+    function handleEnter(): void {
       const el: HTMLElement = this.listItem;
       listHeight = el.offsetHeight;
       el.style.minHeight = 'auto';
       el.style.maxHeight = '0px';
       el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
-    };
+    }
 
-    const handleEntering: any = (): void => {
+    function handleEntering(): void {
       const el: HTMLElement = this.listItem;
       setTimeout(() => {
         el.style.maxHeight = `${listHeight}px`;
       }, 0);
-    };
+    }
 
-    const handleEntered: any = (): void => {
+    function handleEntered(): void {
       const el: HTMLElement = this.listItem;
       el.style.minHeight = `${listHeight}px`;
       el.style.maxHeight = '';
       el.style.transitionProperty = '';
       listHeight = 0;
-    };
+    }
 
-    const handleExit: any = (): void => {
+    function handleExit(): void {
       const el: HTMLElement = this.listItem;
       listHeight = el.offsetHeight;
 
       el.style.height = `${listHeight}px`;
       el.style.minHeight = 'auto';
       el.style.transitionProperty = transitionProperties.HEIGHT;
-    };
+    }
 
-    const handleExiting: any = (): void => {
+    function handleExiting(): void {
       const el: HTMLElement = this.listItem;
       setTimeout(() => {
         el.style.height = '0px';
       }, 0);
-    };
+    }
 
-    const handleExited: any = (): void => {
+    function handleExited(): void {
       onExited();
-    };
+    }
 
     return (
       <Transition

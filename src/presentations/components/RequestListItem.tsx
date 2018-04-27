@@ -8,17 +8,17 @@ export class RequestListItem extends React.Component<any, any> {
   public render(): any {
     const { request, onClickAcceptButton, onClickRefuseButton } = this.props;
 
-    const handleClickAcceptButton: any = (event: any): void => {
+    function handleClickAcceptButton(event: any): void {
       if (onClickAcceptButton) {
         onClickAcceptButton(event, this.props, this.state);
       }
-    };
+    }
 
-    const handleClickRefuseButton: any = (event: any): void => {
+    function handleClickRefuseButton(event: any): void {
       if (onClickRefuseButton) {
         onClickRefuseButton(event, this.props, this.state);
       }
-    };
+    }
 
     const props: any = { ...this.props };
     delete props.request;

@@ -9,23 +9,23 @@ export class TaskListItem extends React.Component<any, any> {
   public render(): any {
     const { task, onClickCompleteButton, onClickTaskListItem, onClickDestroyButton } = this.props;
 
-    const handleClickCompleteButton: any = (event: any): void => {
+    function handleClickCompleteButton(event: any): void {
       if (onClickCompleteButton) {
         onClickCompleteButton(event, this.props, this.state);
       }
-    };
+    }
 
-    const handleClickTaskListItem: any = (event: any): void => {
+    function handleClickTaskListItem(event: any): void {
       if (onClickTaskListItem) {
         onClickTaskListItem(event, this.props, this.state);
       }
-    };
+    }
 
-    const handleClickDestroyButton: any = (event: any): void => {
+    function handleClickDestroyButton(event: any): void {
       if (onClickDestroyButton) {
         onClickDestroyButton(event, this.props, this.state);
       }
-    };
+    }
 
     const props: any = { ...this.props };
     delete props.task;

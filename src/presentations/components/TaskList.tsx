@@ -5,11 +5,12 @@ import { List } from 'presentations/components/List';
 export class TaskList extends React.Component<any, any> {
   public render(): any {
     const { children, onSort } = this.props;
-    const handleSort: any = (fromIndex: number, toIndex: number): void => {
+
+    function handleSort(fromIndex: number, toIndex: number): void {
       if (onSort) {
         onSort(fromIndex, toIndex, this.props, this.state);
       }
-    };
+    }
 
     const props: any = { ...this.props };
     delete props.tasks;

@@ -8,23 +8,23 @@ export class LabelListItem extends React.Component<any, any> {
   public render(): JSX.Element {
     const { label, profile, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
 
-    const handleClickVisibleButton: (event: any) => void = (event: any): void => {
+    function handleClickVisibleButton(event: any): void {
       if (onClickVisibleButton) {
         onClickVisibleButton(event, this.props, this.state);
       }
-    };
+    }
 
-    const handleClickLabelListItem: (event: any) => void = (event: any): void => {
+    function handleClickLabelListItem(event: any): void {
       if (onClickLabelListItem) {
         onClickLabelListItem(event, this.props, this.state);
       }
-    };
+    }
 
-    const handleClickDestroyButton: (event: any) => void = (event: any): void => {
+    function handleClickDestroyButton(event: any): void {
       if (onClickDestroyButton) {
         onClickDestroyButton(event, this.props, this.state);
       }
-    };
+    }
 
     const props: any = { ...this.props };
     delete props.label;

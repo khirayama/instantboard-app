@@ -4,11 +4,11 @@ export class SearchMemberListItem extends React.Component<any, any> {
   public render(): any {
     const { member, onClick } = this.props;
 
-    const handleClick: any = (event: any): void => {
+    function handleClick(event: any): void {
       if (onClick) {
         onClick(event, this.props, this.state);
       }
-    };
+    }
 
     return (
       <li className="search-member-list-item" onClick={handleClick}>

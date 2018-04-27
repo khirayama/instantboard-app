@@ -7,7 +7,7 @@ import { Container } from 'presentations/containers/Container';
 import { queryString } from 'utils/queryString';
 import { tokenManager } from 'utils/tokenManager';
 
-const API_SERVER_HOST: string = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001';
+const API_SERVER_HOST: string = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001'; // tslint:disable-line:no-http-string
 
 export class LoginMobilePage extends Container<{}, {}> {
   public static contextTypes: { move: any } = {

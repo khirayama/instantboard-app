@@ -82,3 +82,9 @@ Desktop
 ## Patterns
 
 Ref: https://material.io/guidelines/patterns/errors.html#errors-user-input-errors
+
+## Accessibility
+
+Refs:
+- https://www.w3.org/TR/wai-aria/#roles
+- [JA] https://website-usability.info/2014/04/entry_140415.html

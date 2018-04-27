@@ -39,7 +39,7 @@ export class TaskListItem extends React.Component<any, any> {
         className={classNames('task-list-item', { 'task-list-item__completed': task.completed })}
         onClick={handleClickTaskListItem}
       >
-        <div className="task-list-item--complete-button" onClick={handleClickCompleteButton}>
+        <div role="button" className="task-list-item--complete-button" onClick={handleClickCompleteButton}>
           <Icon type="check" active={task.completed} />
         </div>
         {task.schedule ? (
@@ -61,7 +61,7 @@ export class TaskListItem extends React.Component<any, any> {
             <LinkText>{task.text}</LinkText>
           </div>
         </div>
-        <div className="task-list-item--destroy-button" onClick={handleClickDestroyButton}>
+        <div role="button" className="task-list-item--destroy-button" onClick={handleClickDestroyButton}>
           <Icon type="remove" active={task.completed} />
         </div>
       </ListItem>

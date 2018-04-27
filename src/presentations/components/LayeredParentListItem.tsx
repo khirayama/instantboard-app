@@ -22,6 +22,7 @@ export class LayeredParentListItem extends React.Component<any, any> {
 
     return (
       <li
+        role="listbox"
         className={classNames('layered-parent-list-item', {
           'layered-parent-list-item__active': Number(index) === currentIndex,
         })}

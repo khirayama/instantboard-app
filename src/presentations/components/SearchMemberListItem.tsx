@@ -11,7 +11,7 @@ export class SearchMemberListItem extends React.Component<any, any> {
     }
 
     return (
-      <li className="search-member-list-item" onClick={handleClick}>
+      <li role="listbox" className="search-member-list-item" onClick={handleClick}>
         <div className="search-member-list-item--image-container">
           <img src={member.imageUrl} alt="profile image" />
         </div>

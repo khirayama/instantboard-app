@@ -169,6 +169,7 @@ export class ListItem extends React.Component<any, any> {
         onExited={handleExited}
       >
         <li
+          role="listbox"
           {...props}
           ref={this.refListItem}
           onMouseDown={this.onMouseDown}

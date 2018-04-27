@@ -25,7 +25,7 @@ const MemberListItem: any = (props: any): any => {
     <li>
       <img src={labelMember.imageUrl} alt="member profile image" />
       <p>{labelMember.name}</p>
-      <span onClick={handleRemoveButtonClick}>
+      <span role="button" onClick={handleRemoveButtonClick}>
         <Icon type="remove" />
       </span>
     </li>
@@ -192,12 +192,13 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
                 ) : null}
                 <h2 className="label-mobile-page--member-block--header">
                   {'Members'}
-                  <span onClick={this.onMemberListCloseButtonClick}>
+                  <span role="button" onClick={this.onMemberListCloseButtonClick}>
                     <Icon type="close" />
                   </span>
                 </h2>
                 {filteredMembers.length === 0 ? (
                   <div
+                    role="button"
                     className="label-mobile-page--member-block--content--no-result"
                     onClick={this.onSubmitMemberNameForm}
                   >

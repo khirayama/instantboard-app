@@ -38,7 +38,7 @@ export class LabelListItem extends React.Component<any, any> {
         className={classNames('label-list-item', { 'label-list-item__unvisibled': !label.visibled })}
         onClick={handleClickLabelListItem}
       >
-        <div className="label-list-item--visible-button" onClick={handleClickVisibleButton}>
+        <div role="button" className="label-list-item--visible-button" onClick={handleClickVisibleButton}>
           <Icon type="check" active={!label.visibled} />
         </div>
         <div className="label-list-item--content">
@@ -66,7 +66,7 @@ export class LabelListItem extends React.Component<any, any> {
               })}
           </div>
         </div>
-        <div className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
+        <div role="button" className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
           <Icon type="remove" active={!label.visibled} />
         </div>
       </ListItem>

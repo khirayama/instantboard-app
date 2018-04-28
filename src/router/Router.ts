@@ -8,7 +8,7 @@ const PATH_REGEXP: RegExp = new RegExp(
 interface IToken {
   name: string;
   pattern: string;
-};
+}
 
 export function parse(str: string): (IToken | string)[] {
   const tokens: (IToken | string)[] = [];
@@ -68,11 +68,11 @@ export function tokensToRegexp(tokens: (IToken | string)[]): RegExp {
   return new RegExp(`^${route}`, 'i');
 }
 
-export function pathToRegexp(path: string): { regexp: RegExp; keys: {name: string}[] } {
+export function pathToRegexp(path: string): { regexp: RegExp; keys: { name: string }[] } {
   const tokens: (IToken | string)[] = parse(path);
   const regexp: RegExp = tokensToRegexp(tokens);
 
-  const keys: {name: string}[] = [];
+  const keys: { name: string }[] = [];
   tokens.forEach((token: IToken | string) => {
     if (typeof token !== 'string') {
       keys.push(token);
@@ -85,11 +85,11 @@ export function pathToRegexp(path: string): { regexp: RegExp; keys: {name: strin
   };
 }
 
-export function getParams(keys: {name: string}[], matches: RegExpExecArray | null): {[key:string]: string} {
-  const params: {[key: string]: string} = {};
+export function getParams(keys: { name: string }[], matches: RegExpExecArray | null): { [key: string]: string } {
+  const params: { [key: string]: string } = {};
 
   if (matches) {
-    keys.forEach((key: {name: string}, index: number) => {
+    keys.forEach((key: { name: string }, index: number) => {
       params[key.name] = matches[index + 1];
     });
   }
@@ -97,7 +97,11 @@ export function getParams(keys: {name: string}[], matches: RegExpExecArray | nul
   return params;
 }
 
-export function exec(regexp: RegExp, keys: {name: string}[], path: string): {
+export function exec(
+  regexp: RegExp,
+  keys: { name: string }[],
+  path: string,
+): {
   matches: RegExpExecArray | null;
   params: { [key: string]: string };
 } {

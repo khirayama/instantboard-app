@@ -26,20 +26,28 @@ interface ITaskIndexDesktopPageState {
   index: number;
 }
 
+interface ITaskListProps {
+  tasks: ITask[];
+}
+
+interface ITaskListItemProps {
+  task: ITask;
+}
+
 export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 
   private onChangeIndex: (index: number) => void;
 
-  private onSortTaskList: (fromIndex: number, toIndex: number, taskListProps: any) => void;
+  private onSortTaskList: (fromIndex: number, toIndex: number, taskListProps: ITaskListProps) => void;
 
-  private onClickCompleteButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickCompleteButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps) => void;
 
-  private onClickTaskListItem: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickTaskListItem: (event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps) => void;
 
-  private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: any) => void;
+  private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps) => void;
 
   constructor(props: IContainerProps) {
     super(props);
@@ -115,7 +123,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
     super.componentWillUnmount();
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const ui: IUI = this.state.ui;
     const labels: ILabel[] = this.state.labels.filter((label: ILabel) => label.visibled);
     const tasks: ITask[] = this.state.tasks;
@@ -134,7 +142,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
     } else if (!ui.isLoadingLabels && labels.length === 0) {
       contentElement = <NoLabelContent />;
     } else if (labels.length !== 0) {
-      const layeredListContents: any[] = labels.map((label: ILabel, index: number) => {
+      const layeredListContents: JSX.Element[] = labels.map((label: ILabel, index: number) => {
         const groupedTasks: ITask[] = tasks.filter((task: ITask) => task.labelId === label.id);
 
         let backgroundElement: React.ReactNode | null = null;
@@ -216,7 +224,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
     this.setState({ index });
   }
 
-  private handleSortTaskList(fromIndex: number, toIndex: number, taskListProps: any): void {
+  private handleSortTaskList(fromIndex: number, toIndex: number, taskListProps: ITaskListProps): void {
     const task: ITask = taskListProps.tasks[fromIndex];
 
     if (task.priority !== toIndex) {
@@ -231,7 +239,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
     }
   }
 
-  private handleClickCompleteButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickCompleteButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
     event.stopPropagation();
 
     this.actions.updateTask({
@@ -240,11 +248,11 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
     });
   }
 
-  private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
     this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
   }
 
-  private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: any): void {
+  private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
     event.stopPropagation();
     this.actions.destroyTask({
       id: taskListItemProps.task,

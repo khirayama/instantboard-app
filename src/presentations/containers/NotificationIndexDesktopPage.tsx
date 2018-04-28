@@ -11,8 +11,12 @@ import { RequestListItem } from 'presentations/components/RequestListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
+interface IRequestListItemProps {
+  request: IRequest;
+}
+
 export class NotificationIndexDesktopPage extends Container<{}, {}> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 
@@ -53,7 +57,7 @@ export class NotificationIndexDesktopPage extends Container<{}, {}> {
     super.componentWillUnmount();
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const ui: IUI = this.state.ui;
     const requests: IRequest[] = this.state.requests;
     const badges: number[] = requests.length ? [2] : [];
@@ -81,14 +85,20 @@ export class NotificationIndexDesktopPage extends Container<{}, {}> {
     );
   }
 
-  private handleClickAcceptButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any): void {
+  private handleClickAcceptButton(
+    event: React.MouseEvent<HTMLDivElement>,
+    requestListItemProps: IRequestListItemProps,
+  ): void {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'accepted',
     });
   }
 
-  private handleClickRefuseButton(event: React.MouseEvent<HTMLDivElement>, requestListItemProps: any): void {
+  private handleClickRefuseButton(
+    event: React.MouseEvent<HTMLDivElement>,
+    requestListItemProps: IRequestListItemProps,
+  ): void {
     this.actions.updateRequest({
       id: requestListItemProps.request.id,
       status: 'refused',

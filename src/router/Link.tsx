@@ -8,12 +8,12 @@ interface ILinkProps {
 
 export class Link extends React.Component<ILinkProps> {
   private static contextTypes: {
-    move: any;
+    move: PropTypes.Validator<void>;
   } = {
     move: PropTypes.func.isRequired,
   };
 
-  private onClick: any;
+  private onClick: () => void;
 
   constructor(props: ILinkProps) {
     super(props);
@@ -21,7 +21,7 @@ export class Link extends React.Component<ILinkProps> {
     this.onClick = this.handleClick.bind(this);
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const { children, className, to } = this.props;
 
     return (

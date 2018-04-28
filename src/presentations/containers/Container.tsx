@@ -4,7 +4,7 @@ import { Store } from 'store/Store';
 
 export interface IContainerProps {
   store: Store<IState, IAction>;
-  params: {[key: string]: string};
+  params: { [key: string]: string };
 }
 
 export class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {

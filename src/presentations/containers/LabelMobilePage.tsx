@@ -53,7 +53,7 @@ interface ILableMobilePageState {
 }
 
 export class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 

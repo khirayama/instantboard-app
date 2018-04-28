@@ -17,7 +17,7 @@ interface ITaskMobilePageState {
 }
 
 export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 
@@ -105,7 +105,7 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
     });
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const ui: IUI = this.state.ui;
     const labels: ILabel[] = this.state.labels;
 

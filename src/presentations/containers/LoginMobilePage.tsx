@@ -3,20 +3,20 @@ import * as React from 'react';
 
 import { FlatButton } from 'presentations/components/FlatButton';
 import { Logo } from 'presentations/components/Logo';
-import { Container } from 'presentations/containers/Container';
+import { Container, IContainerProps } from 'presentations/containers/Container';
 import { queryString } from 'utils/queryString';
 import { tokenManager } from 'utils/tokenManager';
 
 const API_SERVER_HOST: string = process.env.API_SERVER_HOST || 'http://127.0.0.1:3001'; // tslint:disable-line:no-http-string
 
 export class LoginMobilePage extends Container<{}, {}> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 
-  private onClickLink: any;
+  private onClickLink: () => void;
 
-  constructor(props: any) {
+  constructor(props: IContainerProps) {
     super(props);
 
     this.onClickLink = this.handleClickLink.bind(this);
@@ -24,7 +24,7 @@ export class LoginMobilePage extends Container<{}, {}> {
 
   public componentWillMount(): void {
     if (typeof window === 'object') {
-      const query: any = queryString.parse(window.location.search);
+      const query: { [key: string]: string } = queryString.parse(window.location.search);
       const token: string = query.token;
 
       if (token) {
@@ -34,7 +34,7 @@ export class LoginMobilePage extends Container<{}, {}> {
     }
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
@@ -61,7 +61,7 @@ export class LoginMobilePage extends Container<{}, {}> {
     );
   }
 
-  private handleClickLink(event: any): void {
+  private handleClickLink(event: React.MouseEvent<HTMLAnchorElement>): void {
     const href: string = event.currentTarget.href;
     event.preventDefault();
     window.location.href = href;

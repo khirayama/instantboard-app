@@ -11,7 +11,7 @@ import { poller } from 'utils/poller';
 import { tokenManager } from 'utils/tokenManager';
 
 export class ProfileDesktopPage extends Container<{}, {}> {
-  public static contextTypes: { move: any } = {
+  public static contextTypes: { move: PropTypes.Validator<void> } = {
     move: PropTypes.func,
   };
 
@@ -52,7 +52,7 @@ export class ProfileDesktopPage extends Container<{}, {}> {
     super.componentWillUnmount();
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const profile: IUser = this.state.profile || {
       id: 0,
       name: '',

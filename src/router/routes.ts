@@ -18,63 +18,63 @@ export const routes: IRoute[] = [
   {
     path: '/login',
     title: 'Login',
-    component: (): any => {
+    component: (): typeof LoginMobilePage => {
       return LoginMobilePage;
     },
   },
   {
     path: '/',
     title: 'Instantboard',
-    component: (): any => {
+    component: (): typeof TaskIndexMobilePage | typeof TaskIndexDesktopPage => {
       return isMobileUI() ? TaskIndexMobilePage : TaskIndexDesktopPage;
     },
   },
   {
     path: '/tasks/new',
     title: 'New Task',
-    component: (): any => {
+    component: (): typeof TaskMobilePage => {
       return TaskMobilePage;
     },
   },
   {
     path: '/tasks/:id/edit',
     title: 'Edit Task',
-    component: (): any => {
+    component: (): typeof TaskMobilePage => {
       return TaskMobilePage;
     },
   },
   {
     path: '/labels',
     title: 'Labels',
-    component: (): any => {
+    component: (): typeof LabelIndexMobilePage | typeof LabelIndexDesktopPage => {
       return isMobileUI() ? LabelIndexMobilePage : LabelIndexDesktopPage;
     },
   },
   {
     path: '/labels/new',
     title: 'New Label',
-    component: (): any => {
+    component: (): typeof LabelMobilePage => {
       return LabelMobilePage;
     },
   },
   {
     path: '/labels/:id/edit',
     title: 'Edit label',
-    component: (): any => {
+    component: (): typeof LabelMobilePage => {
       return LabelMobilePage;
     },
   },
   {
     path: '/notifications',
     title: 'Notifications',
-    component: (): any => {
+    component: (): typeof NotificationIndexMobilePage | typeof NotificationIndexDesktopPage => {
       return isMobileUI() ? NotificationIndexMobilePage : NotificationIndexDesktopPage;
     },
   },
   {
     path: '/profile',
     title: 'Profile',
-    component: (): any => {
+    component: (): typeof ProfileMobilePage | typeof ProfileDesktopPage => {
       return isMobileUI() ? ProfileMobilePage : ProfileDesktopPage;
     },
   },

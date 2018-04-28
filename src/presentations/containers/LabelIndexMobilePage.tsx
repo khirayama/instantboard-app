@@ -12,7 +12,7 @@ import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
-import { Container } from 'presentations/containers/Container';
+import { Container, IContainerProps } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 export class LabelIndexMobilePage extends Container<{}, IState> {

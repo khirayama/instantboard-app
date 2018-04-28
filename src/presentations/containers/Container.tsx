@@ -2,6 +2,11 @@ import * as deepEqual from 'deep-equal';
 import * as React from 'react';
 import { Store } from 'store/Store';
 
+export interface IContainerProps {
+  store: Store<IState, IAction>;
+  params: {[key: string]: string};
+}
+
 export class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {
   protected handleStateUpdate: () => void;
 

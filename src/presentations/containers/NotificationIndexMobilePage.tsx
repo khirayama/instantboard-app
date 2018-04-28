@@ -8,7 +8,7 @@ import { NoNotificationContent } from 'presentations/components/NoNotificationCo
 import { RequestListItem } from 'presentations/components/RequestListItem';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
-import { Container } from 'presentations/containers/Container';
+import { Container, IContainerProps } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 export class NotificationIndexMobilePage extends Container<{}, {}> {

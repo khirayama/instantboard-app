@@ -8,7 +8,7 @@ import { fetchMember, getUser } from 'action-creators/user';
 import { Icon } from 'presentations/components/Icon';
 import { Indicator } from 'presentations/components/Indicator';
 import { SearchMemberListItem } from 'presentations/components/SearchMemberListItem';
-import { Container } from 'presentations/containers/Container';
+import { Container, IContainerProps } from 'presentations/containers/Container';
 import { Link } from 'router/Link';
 import { userService } from 'services/userService';
 

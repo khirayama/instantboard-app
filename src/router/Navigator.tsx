@@ -1,16 +1,19 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
+import { Router } from 'router/Router';
+import { Tracker } from 'utils/Tracker';
+
 interface INavigatorProps {
   props?: any;
-  router: any;
-  tracker: any;
+  router: Router;
+  tracker: Tracker;
   path: string;
 }
 
 export class Navigator extends React.Component<INavigatorProps, { path: string }> {
   public static childContextTypes: {
-    move: any;
+    move: PropTypes.Validator<void>;
   } = {
     move: PropTypes.func.isRequired,
   };
@@ -23,7 +26,7 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
     };
   }
 
-  public getChildContext(): { move: any } {
+  public getChildContext(): { move(): void } {
     return {
       move: this.move.bind(this),
     };
@@ -34,15 +37,18 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       window.addEventListener('popstate', () => {
         const { router, tracker } = this.props;
         const path: string = window.location.pathname;
-        const { route } = router.matchRoute(path);
-        window.document.title = route.title;
-        this.setState({ path });
-        tracker.send();
+        const result: {route: IRoute; params: {[key: string]: string}} | null = router.matchRoute(path);
+        if (result !== null) {
+          const route: IRoute = result.route;
+          window.document.title = route.title;
+          this.setState({ path });
+          tracker.send();
+        }
       });
     }
   }
 
-  public render(): any {
+  public render(): JSX.Element | null {
     const { props, router } = this.props;
     const { path } = this.state;
 
@@ -51,9 +57,12 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       pathname = pathname.split('?')[0];
     }
 
-    const { route, params } = router.matchRoute(pathname);
-    const component: any = route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
-    if (route) {
+    const result: {route: IRoute; params: {[key: string]: string}} | null = router.matchRoute(pathname);
+    if (result !== null) {
+      const route: IRoute = result.route;
+      const params: {[key: string]: string} = result.params || {};
+      const component: string | React.ComponentClass | React.StatelessComponent = route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
+
       return React.createElement(component, { ...props, params });
     }
 
@@ -70,11 +79,14 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       search = tmp[1];
     }
     if (window.location.pathname !== pathname || window.location.search.replace('?', '') !== search) {
-      const { route } = router.matchRoute(pathname);
-      window.document.title = route.title;
-      window.history.pushState(null, route.title, path);
-      this.setState({ path });
-      tracker.send();
+      const result: {route: IRoute; params: {[key: string]: string}} | null = router.matchRoute(path);
+      if (result !== null) {
+        const route: IRoute = result.route;
+        window.document.title = route.title;
+        window.history.pushState(null, route.title, path);
+        this.setState({ path });
+        tracker.send();
+      }
     }
   }
 }

@@ -5,8 +5,13 @@ const PATH_REGEXP: RegExp = new RegExp(
   'g',
 );
 
-export function parse(str: string): any[] {
-  const tokens: any[] = [];
+interface IToken {
+  name: string;
+  pattern: string;
+};
+
+export function parse(str: string): (IToken | string)[] {
+  const tokens: (IToken | string)[] = [];
   let index: number = 0;
   let path: string = '';
   let res: RegExpExecArray | null = PATH_REGEXP.exec(str);
@@ -44,12 +49,12 @@ export function parse(str: string): any[] {
   return tokens;
 }
 
-export function tokensToRegexp(tokens: any): RegExp {
+export function tokensToRegexp(tokens: (IToken | string)[]): RegExp {
   let route: string = '';
-  const lastToken: string | undefined = tokens[tokens.length - 1];
+  const lastToken: IToken | string | undefined = tokens[tokens.length - 1];
   const endsWithSlash: boolean = typeof lastToken === 'string' && /\/$/.test(lastToken);
 
-  tokens.forEach((token: any) => {
+  tokens.forEach((token: IToken | string) => {
     if (typeof token === 'string') {
       route += token;
     } else {
@@ -63,12 +68,12 @@ export function tokensToRegexp(tokens: any): RegExp {
   return new RegExp(`^${route}`, 'i');
 }
 
-export function pathToRegexp(path: string): { regexp: RegExp; keys: any[] } {
-  const tokens: any[] = parse(path);
+export function pathToRegexp(path: string): { regexp: RegExp; keys: {name: string}[] } {
+  const tokens: (IToken | string)[] = parse(path);
   const regexp: RegExp = tokensToRegexp(tokens);
 
-  const keys: any[] = [];
-  tokens.forEach((token: any) => {
+  const keys: {name: string}[] = [];
+  tokens.forEach((token: IToken | string) => {
     if (typeof token !== 'string') {
       keys.push(token);
     }
@@ -80,11 +85,11 @@ export function pathToRegexp(path: string): { regexp: RegExp; keys: any[] } {
   };
 }
 
-export function getParams(keys: any, matches: any): any {
-  const params: any = {};
+export function getParams(keys: {name: string}[], matches: RegExpExecArray | null): {[key:string]: string} {
+  const params: {[key: string]: string} = {};
 
   if (matches) {
-    keys.forEach((key: any, index: number) => {
+    keys.forEach((key: {name: string}, index: number) => {
       params[key.name] = matches[index + 1];
     });
   }
@@ -92,9 +97,12 @@ export function getParams(keys: any, matches: any): any {
   return params;
 }
 
-export function exec(regexp: RegExp, keys: string[], path: string): any {
-  const matches: any = regexp.exec(path);
-  const params: any = getParams(keys, matches);
+export function exec(regexp: RegExp, keys: {name: string}[], path: string): {
+  matches: RegExpExecArray | null;
+  params: { [key: string]: string };
+} {
+  const matches: RegExpExecArray | null = regexp.exec(path);
+  const params: { [key: string]: string } = getParams(keys, matches);
 
   return {
     matches,
@@ -113,7 +121,7 @@ export class Router {
     return this.routes.map((route: IRoute) => route.path);
   }
 
-  public matchRoute(path: string): { route: IRoute; params: any } | null {
+  public matchRoute(path: string): { route: IRoute; params: { [key: string]: string } } | null {
     for (const route of this.routes) {
       const { regexp, keys } = pathToRegexp(route.path || '');
       const { matches, params } = exec(regexp, keys, path);

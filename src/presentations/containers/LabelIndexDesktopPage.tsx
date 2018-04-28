@@ -12,7 +12,7 @@ import { LabelListItem } from 'presentations/components/LabelListItem';
 import { List } from 'presentations/components/List';
 import { LoadingContent } from 'presentations/components/LoadingContent';
 import { NoLabelContent } from 'presentations/components/NoLabelContent';
-import { Container } from 'presentations/containers/Container';
+import { Container, IContainerProps } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 
 export class LabelIndexDesktopPage extends Container<{}, IState> {

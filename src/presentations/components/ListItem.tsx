@@ -113,7 +113,7 @@ export class ListItem extends React.Component<any, any> {
 
     let listHeight: number = 0;
 
-    function handleEnter(): void {
+    const handleEnter: any = (): void => {
       const el: HTMLElement = this.listItem;
       listHeight = el.offsetHeight;
       el.style.minHeight = 'auto';
@@ -121,14 +121,14 @@ export class ListItem extends React.Component<any, any> {
       el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
     }
 
-    function handleEntering(): void {
+    const handleEntering: any = (): void => {
       const el: HTMLElement = this.listItem;
       setTimeout(() => {
         el.style.maxHeight = `${listHeight}px`;
       }, 0);
     }
 
-    function handleEntered(): void {
+    const handleEntered: any = (): void => {
       const el: HTMLElement = this.listItem;
       el.style.minHeight = `${listHeight}px`;
       el.style.maxHeight = '';
@@ -136,7 +136,7 @@ export class ListItem extends React.Component<any, any> {
       listHeight = 0;
     }
 
-    function handleExit(): void {
+    const handleExit: any = (): void => {
       const el: HTMLElement = this.listItem;
       listHeight = el.offsetHeight;
 
@@ -145,14 +145,14 @@ export class ListItem extends React.Component<any, any> {
       el.style.transitionProperty = transitionProperties.HEIGHT;
     }
 
-    function handleExiting(): void {
+    const handleExiting: any = (): void => {
       const el: HTMLElement = this.listItem;
       setTimeout(() => {
         el.style.height = '0px';
       }, 0);
     }
 
-    function handleExited(): void {
+    const handleExited: any = (): void => {
       onExited();
     }
 

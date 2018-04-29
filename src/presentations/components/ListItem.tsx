@@ -1,12 +1,13 @@
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import Transition from 'react-transition-group/Transition';
+
 import {
   THRESHOLD_HOLD_TIME,
   THRESHOLD_SCROLL_HEIGHT,
   TRANSITION_TIME,
   transitionProperties,
 } from 'presentations/constants';
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
-import Transition from 'react-transition-group/Transition';
 
 interface IDiff {
   x: number;
@@ -41,6 +42,8 @@ export class ListItem extends React.Component<any, any> {
 
   private refListItem: any;
 
+  private listHeight: number;
+
   private onMouseDown: any;
 
   private onMouseMove: any;
@@ -55,8 +58,22 @@ export class ListItem extends React.Component<any, any> {
 
   private onTouchEnd: any;
 
+  private onEnter: any;
+
+  private onEntering: any;
+
+  private onEntered: any;
+
+  private onExit: any;
+
+  private onExiting: any;
+
+  private onExited: any;
+
   constructor(props: any) {
     super(props);
+
+    this.listHeight = 0;
 
     this.pointer = {
       startX: null,
@@ -88,6 +105,12 @@ export class ListItem extends React.Component<any, any> {
     this.onTouchStart = this.handleTouchStart.bind(this);
     this.onTouchMove = this.handleTouchMove.bind(this);
     this.onTouchEnd = this.handleTouchEnd.bind(this);
+    this.onEnter = this.handleEnter.bind(this);
+    this.onEntering = this.handleEntering.bind(this);
+    this.onEntered = this.handleEntered.bind(this);
+    this.onExit = this.handleExit.bind(this);
+    this.onExiting = this.handleExiting.bind(this);
+    this.onExited = this.handleExited.bind(this);
   }
 
   public componentDidMount(): void {
@@ -111,62 +134,19 @@ export class ListItem extends React.Component<any, any> {
     delete props.onExited;
     delete props.in;
 
-    let listHeight: number = 0;
-
-    const handleEnter: any = (): void => {
-      const el: HTMLElement = this.listItem;
-      listHeight = el.offsetHeight;
-      el.style.minHeight = 'auto';
-      el.style.maxHeight = '0px';
-      el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
-    }
-
-    const handleEntering: any = (): void => {
-      const el: HTMLElement = this.listItem;
-      setTimeout(() => {
-        el.style.maxHeight = `${listHeight}px`;
-      }, 0);
-    }
-
-    const handleEntered: any = (): void => {
-      const el: HTMLElement = this.listItem;
-      el.style.minHeight = `${listHeight}px`;
-      el.style.maxHeight = '';
-      el.style.transitionProperty = '';
-      listHeight = 0;
-    }
-
-    const handleExit: any = (): void => {
-      const el: HTMLElement = this.listItem;
-      listHeight = el.offsetHeight;
-
-      el.style.height = `${listHeight}px`;
-      el.style.minHeight = 'auto';
-      el.style.transitionProperty = transitionProperties.HEIGHT;
-    }
-
-    const handleExiting: any = (): void => {
-      const el: HTMLElement = this.listItem;
-      setTimeout(() => {
-        el.style.height = '0px';
-      }, 0);
-    }
-
-    const handleExited: any = (): void => {
-      onExited();
-    }
+    this.listHeight = 0;
 
     return (
       <Transition
         key={key}
         in={this.props.in} // eslint-disable-line
         timeout={TRANSITION_TIME}
-        onEnter={handleEnter}
-        onEntering={handleEntering}
-        onEntered={handleEntered}
-        onExit={handleExit}
-        onExiting={handleExiting}
-        onExited={handleExited}
+        onEnter={this.onEnter}
+        onEntering={this.onEntering}
+        onEntered={this.onEntered}
+        onExit={this.onExit}
+        onExiting={this.onExiting}
+        onExited={this.onExited}
       >
         <li
           role="listbox"
@@ -326,6 +306,50 @@ export class ListItem extends React.Component<any, any> {
       endY: null,
       endTime: new Date(),
     };
+  }
+
+  private handleEnter(): void {
+    const el: HTMLElement = this.listItem;
+    this.listHeight = el.offsetHeight;
+    el.style.minHeight = 'auto';
+    el.style.maxHeight = '0px';
+    el.style.transitionProperty = transitionProperties.MAX_HEIGHT;
+  }
+
+  private handleEntering(): void {
+    const el: HTMLElement = this.listItem;
+    setTimeout(() => {
+      el.style.maxHeight = `${this.listHeight}px`;
+    }, 0);
+  }
+
+  private handleEntered(): void {
+    const el: HTMLElement = this.listItem;
+    el.style.minHeight = `${this.listHeight}px`;
+    el.style.maxHeight = '';
+    el.style.transitionProperty = '';
+    this.listHeight = 0;
+  }
+
+  private handleExit(): void {
+    const el: HTMLElement = this.listItem;
+    this.listHeight = el.offsetHeight;
+
+    el.style.height = `${this.listHeight}px`;
+    el.style.minHeight = 'auto';
+    el.style.transitionProperty = transitionProperties.HEIGHT;
+  }
+
+  private handleExiting(): void {
+    const el: HTMLElement = this.listItem;
+    setTimeout(() => {
+      el.style.height = '0px';
+    }, 0);
+  }
+
+  private handleExited(): void {
+    const { onExited } = this.props;
+    onExited();
   }
 
   // Update views

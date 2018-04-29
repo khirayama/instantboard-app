@@ -80,7 +80,7 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       search = tmp[1];
     }
     if (window.location.pathname !== pathname || window.location.search.replace('?', '') !== search) {
-      const result: { route: IRoute; params: { [key: string]: string } } | null = router.matchRoute(path);
+      const result: { route: IRoute; params: { [key: string]: string } } | null = router.matchRoute(pathname);
       if (result !== null) {
         const route: IRoute = result.route;
         window.document.title = route.title;

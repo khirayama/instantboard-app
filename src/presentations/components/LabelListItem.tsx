@@ -5,26 +5,22 @@ import { Icon } from 'presentations/components/Icon';
 import { ListItem } from 'presentations/components/ListItem';
 
 export class LabelListItem extends React.Component<any, any> {
+  public onClickVisibleButton: (event: React.MouseEvent<HTMLElement>) => void;
+
+  public onClickLabelListItem: (event: React.MouseEvent<HTMLElement>) => void;
+
+  public onClickDestroyButton: (event: React.MouseEvent<HTMLElement>) => void;
+
+  constructor(props: any) {
+    super(props);
+
+    this.onClickVisibleButton = this.handleClickVisibleButton.bind(this);
+    this.onClickLabelListItem = this.handleClickLabelListItem.bind(this);
+    this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
+  }
+
   public render(): JSX.Element {
-    const { label, profile, onClickVisibleButton, onClickLabelListItem, onClickDestroyButton } = this.props;
-
-    function handleClickVisibleButton(event: any): void {
-      if (onClickVisibleButton) {
-        onClickVisibleButton(event, this.props, this.state);
-      }
-    }
-
-    function handleClickLabelListItem(event: any): void {
-      if (onClickLabelListItem) {
-        onClickLabelListItem(event, this.props, this.state);
-      }
-    }
-
-    function handleClickDestroyButton(event: any): void {
-      if (onClickDestroyButton) {
-        onClickDestroyButton(event, this.props, this.state);
-      }
-    }
+    const { label, profile } = this.props;
 
     const props: any = { ...this.props };
     delete props.label;
@@ -36,9 +32,9 @@ export class LabelListItem extends React.Component<any, any> {
       <ListItem
         {...props}
         className={classNames('label-list-item', { 'label-list-item__unvisibled': !label.visibled })}
-        onClick={handleClickLabelListItem}
+        onClick={this.onClickLabelListItem}
       >
-        <div role="button" className="label-list-item--visible-button" onClick={handleClickVisibleButton}>
+        <div role="button" className="label-list-item--visible-button" onClick={this.onClickVisibleButton}>
           <Icon type="check" active={!label.visibled} />
         </div>
         <div className="label-list-item--content">
@@ -66,10 +62,34 @@ export class LabelListItem extends React.Component<any, any> {
               })}
           </div>
         </div>
-        <div role="button" className="label-list-item--destroy-button" onClick={handleClickDestroyButton}>
+        <div role="button" className="label-list-item--destroy-button" onClick={this.onClickDestroyButton}>
           <Icon type="remove" active={!label.visibled} />
         </div>
       </ListItem>
     );
+  }
+
+  public handleClickVisibleButton(event: React.MouseEvent<HTMLElement>): void {
+    const { onClickVisibleButton } = this.props;
+
+    if (onClickVisibleButton) {
+      onClickVisibleButton(event, this.props, this.state);
+    }
+  }
+
+  public handleClickLabelListItem(event: React.MouseEvent<HTMLElement>): void {
+    const { onClickLabelListItem } = this.props;
+
+    if (onClickLabelListItem) {
+      onClickLabelListItem(event, this.props, this.state);
+    }
+  }
+
+  public handleClickDestroyButton(event: React.MouseEvent<HTMLElement>): void {
+    const { onClickDestroyButton } = this.props;
+
+    if (onClickDestroyButton) {
+      onClickDestroyButton(event, this.props, this.state);
+    }
   }
 }

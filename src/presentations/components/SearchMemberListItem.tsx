@@ -1,22 +1,32 @@
 import * as React from 'react';
 
 export class SearchMemberListItem extends React.Component<any, any> {
-  public render(): any {
-    const { member, onClick } = this.props;
+  private onClick: (event: React.MouseEvent<HTMLElement>) => void;
 
-    function handleClick(event: any): void {
-      if (onClick) {
-        onClick(event, this.props, this.state);
-      }
-    }
+  constructor(props: any) {
+    super(props);
+
+    this.onClick = this.handleClick.bind(this);
+  }
+
+  public render(): JSX.Element {
+    const { member } = this.props;
 
     return (
-      <li role="listbox" className="search-member-list-item" onClick={handleClick}>
+      <li role="listbox" className="search-member-list-item" onClick={this.onClick}>
         <div className="search-member-list-item--image-container">
           <img src={member.imageUrl} alt="profile image" />
         </div>
         <p>{member.name}</p>
       </li>
     );
+  }
+
+  private handleClick(event: React.MouseEvent<HTMLElement>): void {
+    const { onClick } = this.props;
+
+    if (onClick) {
+      onClick(event, this.props, this.state);
+    }
   }
 }

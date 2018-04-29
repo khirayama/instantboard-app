@@ -5,20 +5,19 @@ import { Icon } from 'presentations/components/Icon';
 import { ListItem } from 'presentations/components/ListItem';
 
 export class RequestListItem extends React.Component<any, any> {
-  public render(): any {
-    const { request, onClickAcceptButton, onClickRefuseButton } = this.props;
+  private onClickAcceptButton: (event: React.MouseEvent<HTMLElement>) => void;
 
-    function handleClickAcceptButton(event: any): void {
-      if (onClickAcceptButton) {
-        onClickAcceptButton(event, this.props, this.state);
-      }
-    }
+  private onClickRefuseButton: (event: React.MouseEvent<HTMLElement>) => void;
 
-    function handleClickRefuseButton(event: any): void {
-      if (onClickRefuseButton) {
-        onClickRefuseButton(event, this.props, this.state);
-      }
-    }
+  constructor(props: any) {
+    super(props);
+
+    this.onClickAcceptButton = this.handleClickAcceptButton.bind(this);
+    this.onClickRefuseButton = this.handleClickRefuseButton.bind(this);
+  }
+
+  public render(): JSX.Element {
+    const { request } = this.props;
 
     const props: any = { ...this.props };
     delete props.request;
@@ -36,15 +35,30 @@ export class RequestListItem extends React.Component<any, any> {
             </div>
           </div>
           <div className="request-list-item--button-container">
-            <FlatButton className="request-list-item--accept-button" onClick={handleClickAcceptButton}>
+            <FlatButton className="request-list-item--accept-button" onClick={this.onClickAcceptButton}>
               {'ACCEPT'}
             </FlatButton>
-            <FlatButton className="request-list-item--refuse-button" onClick={handleClickRefuseButton}>
+            <FlatButton className="request-list-item--refuse-button" onClick={this.onClickRefuseButton}>
               <Icon type="remove" />
             </FlatButton>
           </div>
         </div>
       </ListItem>
     );
+  }
+
+  private handleClickAcceptButton(event: React.MouseEvent<HTMLElement>): void {
+    const { onClickAcceptButton } = this.props;
+
+    if (onClickAcceptButton) {
+      onClickAcceptButton(event, this.props, this.state);
+    }
+  }
+
+  private handleClickRefuseButton(event: React.MouseEvent<HTMLElement>): void {
+    const { onClickRefuseButton } = this.props;
+    if (onClickRefuseButton) {
+      onClickRefuseButton(event, this.props, this.state);
+    }
   }
 }

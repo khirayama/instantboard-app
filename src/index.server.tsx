@@ -8,6 +8,17 @@ import * as ReactDOMServer from 'react-dom/server';
 import { serveStaticCompression } from 'middleware/serve-static-compression/serveStaticCompression';
 import { Spinner } from 'presentations/components/Spinner';
 
+interface IHash {
+  filePath: string;
+  value: string;
+}
+
+interface IStaticFilePathWithHashOptions {
+  rootUrl: string;
+  rootFilePath: string;
+  revisionKey: string;
+}
+
 const app: any = fastify();
 
 const APP_SERVER_PORT: number = Number(process.env.PORT || '3000');
@@ -19,78 +30,35 @@ function minifyHTML(htmlString: string): string {
   return minifiedParts.join('');
 }
 
-function isTargetExtension(filePath: string): boolean {
-  return filePath.endsWith('.js') || filePath.endsWith('.css');
+function createHash(filePath: string): IHash {
+  const content: string = fs.readFileSync(filePath, 'utf-8');
+  const hash: string = crypto
+    .createHash('sha1')
+    .update(content)
+    .digest('hex');
+
+  return {
+    filePath,
+    value: hash,
+  };
 }
 
-interface IHash {
-  filePath: string;
-  value: string;
-}
+function staticFilePathWithHash(
+  filePath: string,
+  options: IStaticFilePathWithHashOptions,
+): string {
+  const hash: IHash = createHash(path.join(options.rootFilePath, filePath));
+  const staticFileUrl: string = hash.filePath.replace(options.rootFilePath, options.rootUrl).replace('//', '/');
 
-function createHashes(rootPath: string): IHash[] {
-  const fileNames: string[] = fs.readdirSync(rootPath);
-  let hashes: IHash[] = [];
-  for (const fileName of fileNames) {
-    const filePath: string = `${rootPath}/${fileName}`;
-    const stats: any = fs.statSync(filePath);
-    if (stats.isDirectory()) {
-      hashes = hashes.concat(createHashes(filePath));
-    } else if (isTargetExtension(filePath)) {
-      const content: string = fs.readFileSync(filePath, 'utf-8');
-      const hash: string = crypto
-        .createHash('sha1')
-        .update(content)
-        .digest('hex');
-      hashes.push({ filePath, value: hash });
-    }
-  }
-
-  return hashes;
-}
-
-interface IOptions {
-  preload?: boolean;
-  defer?: boolean;
-  async?: boolean;
-  rootFilePath?: string;
-}
-
-function generateExternalFileTags(hashes: IHash[], options: IOptions = {}): string[] {
-  const tags: string[] = [];
-
-  for (const hash of hashes) {
-    const filePath: string = hash.filePath.replace(options.rootFilePath || '', '');
-    if (filePath.endsWith('.css')) {
-      if (options.preload) {
-        tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="style">`);
-      }
-      tags.push(`<link rel="stylesheet" href="${filePath}?revision=${hash.value}">`);
-    } else if (filePath.endsWith('.js')) {
-      if (options.preload) {
-        tags.push(`<link rel="preload" href="${filePath}?revision=${hash.value}" as="script">`);
-      }
-      const attrs: string[] = [];
-      if (options.defer) {
-        attrs.push('defer');
-      }
-      if (options.async) {
-        attrs.push('async');
-      }
-      tags.push(`<script src="${filePath}?revision=${hash.value}" ${attrs.join(' ')}></script>`);
-    }
-  }
-
-  return tags;
+  return `${staticFileUrl}?${options.revisionKey}=${hash.value}`;
 }
 
 function template(): string {
-  const hashes: IHash[] = createHashes(path.join(__dirname, 'public'));
-  const externalFileTags: string[] = generateExternalFileTags(hashes, {
-    preload: true,
-    defer: true,
+  const staticFilePathWithHashOptions: IStaticFilePathWithHashOptions = {
+    revisionKey: 'revision',
     rootFilePath: path.join(__dirname, 'public'),
-  });
+    rootUrl: '/',
+  };
   const htmlString: string = `
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +71,9 @@ function template(): string {
   <meta name="theme-color" content="#fbfaf5"/>
 
   <link rel="manifest" href="/manifest.json">
-  ${externalFileTags.join('')}
+  <link rel="manifest" href="/manifest.json">
+  <script src="${staticFilePathWithHash('/bundle.mobile.js', staticFilePathWithHashOptions)}" defer></script>
+  <link rel="stylesheet" href="${staticFilePathWithHash('/index.css', staticFilePathWithHashOptions)}">
   <meta name="mobile-web-app-capable" content="yes">
 
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -150,5 +120,5 @@ app.get('*', (req: any, res: any): void => {
   res.type('text/html').send(html);
 });
 
-console.log(`Start app at ${new Date()}`); // tslint:disable-line:no-console
+console.log(`Start app at ${new Date().toString()}.`); // tslint:disable-line:no-console
 app.listen(APP_SERVER_PORT);

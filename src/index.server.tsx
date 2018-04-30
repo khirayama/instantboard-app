@@ -43,10 +43,7 @@ function createHash(filePath: string): IHash {
   };
 }
 
-function staticFilePathWithHash(
-  filePath: string,
-  options: IStaticFilePathWithHashOptions,
-): string {
+function staticFilePathWithHash(filePath: string, options: IStaticFilePathWithHashOptions): string {
   const hash: IHash = createHash(path.join(options.rootFilePath, filePath));
   const staticFileUrl: string = hash.filePath.replace(options.rootFilePath, options.rootUrl).replace('//', '/');
 

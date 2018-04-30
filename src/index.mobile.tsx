@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { reducers } from 'reducers/reducers';
+import { routes } from 'router/mobile/routes';
 import { Navigator } from 'router/Navigator';
 import { Router } from 'router/Router';
-import { routes } from 'router/routes';
 import { initialState } from 'store/initialState';
 import { Store } from 'store/Store';
 import { tokenManager } from 'utils/tokenManager';
@@ -26,7 +26,7 @@ if (window.location.pathname !== '/login') {
 
 window.addEventListener('DOMContentLoaded', () => {
   if (process && process.env.NODE_ENV !== 'production') {
-    console.log(`Start app at ${new Date()}.`); // tslint:disable-line:no-console
+    console.log(`Start app at ${new Date().toString()}.`); // tslint:disable-line:no-console
   }
 
   const applicationMainElement: HTMLElement | null = window.document.querySelector('.application--main');

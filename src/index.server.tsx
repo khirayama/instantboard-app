@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import * as useragent from 'useragent';
 
 import { serveStaticCompression } from 'middleware/serve-static-compression/serveStaticCompression';
 import { Spinner } from 'presentations/components/Spinner';
@@ -50,7 +51,7 @@ function staticFilePathWithHash(filePath: string, options: IStaticFilePathWithHa
   return `${staticFileUrl}?${options.revisionKey}=${hash.value}`;
 }
 
-function template(): string {
+function template(mobile: boolean): string {
   const staticFilePathWithHashOptions: IStaticFilePathWithHashOptions = {
     revisionKey: 'revision',
     rootFilePath: path.join(__dirname, 'public'),
@@ -69,7 +70,11 @@ function template(): string {
 
   <link rel="manifest" href="/manifest.json">
   <link rel="manifest" href="/manifest.json">
-  <script src="${staticFilePathWithHash('/bundle.mobile.js', staticFilePathWithHashOptions)}" defer></script>
+  <script src="${
+    mobile
+      ? staticFilePathWithHash('/bundle.mobile.js', staticFilePathWithHashOptions)
+      : staticFilePathWithHash('/bundle.desktop.js', staticFilePathWithHashOptions)
+  }" defer></script>
   <link rel="stylesheet" href="${staticFilePathWithHash('/index.css', staticFilePathWithHashOptions)}">
   <meta name="mobile-web-app-capable" content="yes">
 
@@ -109,12 +114,37 @@ function template(): string {
   return minifyHTML(htmlString);
 }
 
-const html: string = template();
+function isMobile(ua: string): boolean {
+  const agent: any = useragent.parse(ua);
+  const os: string = agent.os.toString();
+  switch (true) {
+    case os.indexOf('Android') !== -1: {
+      return true;
+    }
+    case os.indexOf('iOS') !== -1: {
+      return true;
+    }
+    case os.indexOf('Windows Phone') !== -1: {
+      return true;
+    }
+    default: {
+      return false;
+    }
+  }
+}
+
+const desktopHTML: string = template(false);
+const mobileHTML: string = template(true);
 
 app.use('/', serveStaticCompression(path.join(__dirname, 'public')));
 app.use('/', serveStaticCompression(path.join(__dirname, 'assets')));
 app.get('*', (req: any, res: any): void => {
-  res.type('text/html').send(html);
+  if (isMobile(req.headers['user-agent'])) {
+    res.type('text/html').send(mobileHTML);
+
+    return;
+  }
+  res.type('text/html').send(desktopHTML);
 });
 
 console.log(`Start app at ${new Date().toString()}.`); // tslint:disable-line:no-console

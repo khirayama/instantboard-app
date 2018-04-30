@@ -3,9 +3,12 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const config = {
-  entry: './src/index.web.tsx',
+  entry: {
+    mobile: './src/index.mobile.tsx',
+    desktop: './src/index.desktop.tsx',
+  },
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[name].js',
     path: __dirname + '/dist/public',
   },
   module: {

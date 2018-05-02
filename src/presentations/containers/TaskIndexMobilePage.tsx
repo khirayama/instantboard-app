@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { fetchLabel } from 'action-creators/label';
 import { pollRequest } from 'action-creators/request';
-import { destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
+import { createTask, destroyTask, fetchTask, pollTask, sortTask, updateTask } from 'action-creators/task';
 import { IconLink } from 'presentations/components/IconLink';
 import { Indicator } from 'presentations/components/Indicator';
 import { LoadingContent } from 'presentations/components/LoadingContent';
@@ -14,8 +14,10 @@ import { RecycleTableContentList } from 'presentations/components/RecycleTableCo
 import { RecycleTableContentListItem } from 'presentations/components/RecycleTableContentListItem';
 import { RecycleTableList } from 'presentations/components/RecycleTableList';
 import { RecycleTableListItem } from 'presentations/components/RecycleTableListItem';
+import { Sheet } from 'presentations/components/Sheet';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
+import { TaskForm } from 'presentations/components/TaskForm';
 import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
@@ -23,6 +25,7 @@ import { poller } from 'utils/poller';
 
 interface ITaskIndexMobilePageState {
   index: number;
+  isTaskFormShown: boolean;
 }
 
 interface ITaskListProps {
@@ -48,11 +51,20 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
   private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps) => void;
 
+  private onClickAddTaskButton: (event: React.MouseEvent<HTMLElement>) => void;
+
+  private onSubmitTaskForm: (
+    event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
+    taskFormProps: any,
+    taskFormState: any,
+  ) => void;
+
   constructor(props: IContainerProps) {
     super(props);
 
     const initialState: ITaskIndexMobilePageState = {
       index: this.loadIndex(),
+      isTaskFormShown: false,
     };
 
     this.state = { ...this.getState(), ...initialState };
@@ -69,6 +81,9 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
       },
       fetchTask: (): Promise<IAction> => {
         return fetchTask(this.dispatch);
+      },
+      createTask: (params: { labelId: number; content: string }): Promise<{}> => {
+        return createTask(this.dispatch, params);
       },
       updateTask: (params: {
         id: number;
@@ -98,6 +113,8 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
     this.onClickCompleteButton = this.handleClickCompleteButton.bind(this);
     this.onClickTaskListItem = this.handleClickTaskListItem.bind(this);
     this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
+    this.onClickAddTaskButton = this.handleClickAddTaskButton.bind(this);
+    this.onSubmitTaskForm = this.handleSubmitTaskForm.bind(this);
   }
 
   public componentDidMount(): void {
@@ -173,8 +190,8 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
               })}
             </TaskList>
             {groupedTasks.length === 0 ? null : (
-              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
-                {'ADD TASK'}
+              <IconLink iconType="add" onClick={this.onClickAddTaskButton}>
+                ADD TASK
               </IconLink>
             )}
             {backgroundElement}
@@ -205,6 +222,9 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation index={0} badges={badges} />
+        <Sheet isShown={this.state.isTaskFormShown}>
+          <TaskForm labels={labels} selectedLabelId={labels[this.state.index].id} onSubmit={this.onSubmitTaskForm} />
+        </Sheet>
       </section>
     );
   }
@@ -261,5 +281,40 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
     this.actions.destroyTask({
       id: taskListItemProps.task.id,
     });
+  }
+
+  private handleClickAddTaskButton(event: React.MouseEvent<HTMLElement>): void {
+    this.setState({ isTaskFormShown: true });
+  }
+
+  private handleSubmitTaskForm(
+    event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
+    taskFormProps: any,
+    taskFormState: any,
+  ): void {
+    const content: string = taskFormState.content.trim();
+    const id: number | null = null;
+
+    // TODO: uiblock
+    if (id === null) {
+      this.actions
+        .createTask({
+          content,
+          labelId: taskFormState.labelId,
+        })
+        .then(() => {
+          this.setState({ isTaskFormShown: false });
+        });
+    } else {
+      this.actions
+        .updateTask({
+          id,
+          content,
+          labelId: taskFormState.labelId,
+        })
+        .then(() => {
+          this.setState({ isTaskFormShown: false });
+        });
+    }
   }
 }

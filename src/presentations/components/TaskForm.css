@@ -1,0 +1,10 @@
+.task-form {
+  div {
+    border-bottom: $border;
+  }
+
+  input {
+    padding: 16px;
+    width: 100%;
+  }
+}

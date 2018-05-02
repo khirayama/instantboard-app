@@ -44,6 +44,8 @@ export class ListItem extends React.Component<any, any> {
 
   private listHeight: number;
 
+  private isAnimating: boolean;
+
   private onMouseDown: any;
 
   private onMouseMove: any;
@@ -74,6 +76,7 @@ export class ListItem extends React.Component<any, any> {
     super(props);
 
     this.listHeight = 0;
+    this.isAnimating = false;
 
     this.pointer = {
       startX: null,
@@ -121,6 +124,10 @@ export class ListItem extends React.Component<any, any> {
 
   public componentWillUnount(): void {
     this.listItem.removeEventListener('touchmove', this.onTouchMove);
+  }
+
+  public shouldComponentUpdate(): boolean {
+    return !this.isAnimating;
   }
 
   public render(): JSX.Element {
@@ -309,6 +316,8 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleEnter(): void {
+    this.isAnimating = true;
+
     const el: HTMLElement = this.listItem;
     this.listHeight = el.offsetHeight;
     el.style.minHeight = 'auto';
@@ -324,6 +333,8 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleEntered(): void {
+    this.isAnimating = false;
+
     const el: HTMLElement = this.listItem;
     el.style.minHeight = `${this.listHeight}px`;
     el.style.maxHeight = '';
@@ -332,6 +343,8 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleExit(): void {
+    this.isAnimating = true;
+
     const el: HTMLElement = this.listItem;
     this.listHeight = el.offsetHeight;
 
@@ -348,6 +361,8 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleExited(): void {
+    this.isAnimating = false;
+
     const { onExited } = this.props;
     onExited();
   }

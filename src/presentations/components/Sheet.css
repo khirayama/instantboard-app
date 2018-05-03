@@ -1,7 +1,7 @@
 .sheet {
   $color-transparent: rgba(0, 0, 0, 0);
 
-  display: none;
+  display: inline-block;
   position: fixed;
   top: 0;
   left: 0;
@@ -11,10 +11,6 @@
   transition: $time-fast $ease-out;
   transition-property: background;
   z-index: 2;
-
-  &.sheet__active {
-    display: inline-block;
-  }
 
   .sheet--content {
     position: absolute;
@@ -34,7 +30,6 @@
   }
 
   &.sheet__enter {
-    display: inline-block;
     background: $color-transparent;
 
     .sheet--content {
@@ -51,7 +46,6 @@
   }
 
   &.sheet__enter-done {
-    display: inline-block;
     background: $color-shadow;
 
     .sheet--content {
@@ -60,7 +54,6 @@
   }
 
   &.sheet__exit {
-    display: inline-block;
     background: $color-shadow;
 
     .sheet--content {
@@ -75,9 +68,5 @@
     .sheet--content {
       transform: translate(0, 100%);
     }
-  }
-
-  &.sheet__exit-done {
-    display: none;
   }
 }

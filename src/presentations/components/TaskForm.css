@@ -4,7 +4,6 @@
   .task-form--content-input {
     width: 100%;
     height: $height-mobile-bar-middle;
-    line-height: $height-mobile-bar-middle;
     padding: 0 12px;
     border-bottom: $border;
   }

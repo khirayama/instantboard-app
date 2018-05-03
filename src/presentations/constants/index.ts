@@ -1,4 +1,5 @@
 export const TRANSITION_TIME: number = 175;
+export const TRANSITION_TIME_BASIC: number = 200;
 export const THRESHOLD_DELTA: number = 0.8;
 export const THRESHOLD_HOLD_TIME: number = 500;
 export const THRESHOLD_SCROLL_HEIGHT: number = 60;

@@ -25,12 +25,14 @@ $breakpoint-narrow: 480px;
 $breakpoint-wide: 768px;
 
 $height-desktop-bar-high: 64px;
+$height-desktop-bar-middle: 56px;
 $height-desktop-bar-low: 48px;
 $margin-desktop-screen-edge: 24px;
 $margin-desktop-screen-edge-content: 80px;
 $height-desktop-list-item: 64px;
 
 $height-mobile-bar-high: 56px;
+$height-mobile-bar-middle: 48px;
 $height-mobile-bar-low: 36px;
 $margin-mobile-screen-edge: 12px;
 $margin-mobile-screen-edge-content: 48px;

@@ -4,17 +4,17 @@ import { Icon } from 'presentations/components/Icon';
 import { Link } from 'router/Link';
 
 interface ITaskFormProps {
-  selectedLabelId: number;
+  selectedLabelId: number | null;
+  selectedTaskId: number | null;
+  tasks: ITask[];
   labels: ILabel[];
-  onSubmit(
-    event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
-    props: ITaskFormProps,
-    state: ITaskFormState,
-  ): void;
+  onSubmit(event: React.FormEvent<HTMLFormElement>, props: ITaskFormProps, state: ITaskFormState): void;
+  onSubmitWithEnter(event: React.KeyboardEvent<HTMLInputElement>, props: ITaskFormProps, state: ITaskFormState): void;
 }
 
 interface ITaskFormState {
-  labelId: number;
+  labelId: number | null;
+  taskId: number | null;
   content: string;
 }
 
@@ -30,9 +30,15 @@ export class TaskForm extends React.Component<ITaskFormProps, ITaskFormState> {
   constructor(props: ITaskFormProps) {
     super(props);
 
+    const selectedTask: ITask | null =
+      this.props.tasks.filter((task: ITask) => {
+        return task.id === this.props.selectedTaskId;
+      })[0] || null;
+
     this.state = {
       labelId: this.props.selectedLabelId,
-      content: '',
+      taskId: this.props.selectedTaskId,
+      content: selectedTask === null ? '' : selectedTask.content,
     };
 
     this.onChangeLabelIdSelect = this.handleChangeLabelIdSelect.bind(this);
@@ -46,22 +52,25 @@ export class TaskForm extends React.Component<ITaskFormProps, ITaskFormState> {
 
     return (
       <form className="task-form" onSubmit={this.onSubmit}>
-        <Link to="/labels">
-          <Icon type="label" />
-        </Link>
-        <div>
-          <input
-            type="text"
-            autoFocus
-            value={this.state.content}
-            onChange={this.onChangeContentInput}
-            onKeyDown={this.onKeyDownContentInput}
-            placeholder="Enter task text"
-          />
-        </div>
-        <div>
+        <input
+          className="task-form--content-input"
+          type="text"
+          autoFocus
+          value={this.state.content}
+          onChange={this.onChangeContentInput}
+          onKeyDown={this.onKeyDownContentInput}
+          placeholder="Enter task text"
+        />
+        <div className="task-form--label-select-box">
+          <Link to="/labels">
+            <Icon type="label" />
+          </Link>
           {this.state.labelId ? (
-            <select value={this.state.labelId} onChange={this.onChangeLabelIdSelect}>
+            <select
+              className="task-form--label-select-box--select"
+              value={this.state.labelId}
+              onChange={this.onChangeLabelIdSelect}
+            >
               {labels.map((label: ILabel): React.ReactNode => (
                 <option key={label.id} value={label.id} aria-selected={this.state.labelId === label.id}>
                   {label.name}
@@ -70,8 +79,10 @@ export class TaskForm extends React.Component<ITaskFormProps, ITaskFormState> {
             </select>
           ) : null}
         </div>
-        <div>
-          <button>Submit</button>
+        <div className="task-form--button-box">
+          <button className="task-form--button-box--button">
+            <Icon type="send" />
+          </button>
         </div>
       </form>
     );
@@ -87,20 +98,20 @@ export class TaskForm extends React.Component<ITaskFormProps, ITaskFormState> {
 
   private handleKeyDownContentInput(event: React.KeyboardEvent<HTMLInputElement>): void {
     const ENTER_KEY_CODE: number = 13;
-    const { onSubmit } = this.props;
+    const { onSubmitWithEnter } = this.props;
 
-    if (event.keyCode === ENTER_KEY_CODE && onSubmit) {
+    if (event.keyCode === ENTER_KEY_CODE && onSubmitWithEnter) {
       event.preventDefault();
-      onSubmit(event, this.props, this.state);
+      onSubmitWithEnter(event, this.props, this.state);
+      this.setState({ content: '' });
     }
   }
 
   private handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     const { onSubmit } = this.props;
 
-    event.preventDefault();
-
     if (onSubmit) {
+      event.preventDefault();
       onSubmit(event, this.props, this.state);
     }
   }

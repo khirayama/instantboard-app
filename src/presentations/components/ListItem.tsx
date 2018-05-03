@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import Transition from 'react-transition-group/Transition';
+import { Transition } from 'react-transition-group';
 
 import {
   THRESHOLD_HOLD_TIME,
@@ -135,6 +135,7 @@ export class ListItem extends React.Component<any, any> {
     const className: string = 'list-item';
     const props: any = { ...this.props };
     props.className = props.className ? `${props.className} ${className}` : className;
+
     delete props.appear;
     delete props.enter;
     delete props.exit;
@@ -146,7 +147,7 @@ export class ListItem extends React.Component<any, any> {
     return (
       <Transition
         key={key}
-        in={this.props.in} // eslint-disable-line
+        in={this.props.in}
         timeout={TRANSITION_TIME}
         onEnter={this.onEnter}
         onEntering={this.onEntering}

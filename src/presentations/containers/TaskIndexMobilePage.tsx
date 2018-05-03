@@ -26,6 +26,8 @@ import { poller } from 'utils/poller';
 interface ITaskIndexMobilePageState {
   index: number;
   isTaskFormShown: boolean;
+  selectedTaskId: number | null;
+  uiBlocking: boolean;
 }
 
 interface ITaskListProps {
@@ -53,8 +55,12 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
   private onClickAddTaskButton: (event: React.MouseEvent<HTMLElement>) => void;
 
-  private onSubmitTaskForm: (
-    event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
+  private onClickBackground: (event: React.MouseEvent<HTMLElement>) => void;
+
+  private onSubmitTaskForm: (event: React.FormEvent<HTMLFormElement>, taskFormProps: any, taskFormState: any) => void;
+
+  private onSubmitTaskFormWithEnter: (
+    event: React.KeyboardEvent<HTMLInputElement>,
     taskFormProps: any,
     taskFormState: any,
   ) => void;
@@ -64,7 +70,9 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
     const initialState: ITaskIndexMobilePageState = {
       index: this.loadIndex(),
+      selectedTaskId: null,
       isTaskFormShown: false,
+      uiBlocking: false,
     };
 
     this.state = { ...this.getState(), ...initialState };
@@ -115,6 +123,8 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
     this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
     this.onClickAddTaskButton = this.handleClickAddTaskButton.bind(this);
     this.onSubmitTaskForm = this.handleSubmitTaskForm.bind(this);
+    this.onSubmitTaskFormWithEnter = this.handleSubmitTaskFormWithEnter.bind(this);
+    this.onClickBackground = this.handleClickBackground.bind(this);
   }
 
   public componentDidMount(): void {
@@ -142,6 +152,7 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
   public render(): JSX.Element {
     const ui: IUI = this.state.ui;
     const labels: ILabel[] = this.state.labels.filter((label: ILabel) => label.visibled);
+    const selectedLabel: ILabel | null = labels[this.state.index] || null;
     const tasks: ITask[] = this.state.tasks;
     const requests: IRequest[] = this.state.requests;
 
@@ -165,7 +176,7 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
           backgroundElement = <LoadingContent />;
         } else if (groupedTasks.length === 0) {
-          backgroundElement = <NoTaskContent label={label} />;
+          backgroundElement = <NoTaskContent label={label} onClickAddTaskButton={this.onClickAddTaskButton} />;
         }
         const parentElement: Element = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
@@ -219,11 +230,19 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
     return (
       <section className="page task-index-mobile-page">
+        {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation index={0} badges={badges} />
-        <Sheet isShown={this.state.isTaskFormShown}>
-          <TaskForm labels={labels} selectedLabelId={labels[this.state.index].id} onSubmit={this.onSubmitTaskForm} />
+        <Sheet isShown={this.state.isTaskFormShown} onClickBackground={this.onClickBackground}>
+          <TaskForm
+            tasks={tasks}
+            labels={labels}
+            selectedLabelId={selectedLabel === null ? null : selectedLabel.id}
+            selectedTaskId={this.state.selectedTaskId}
+            onSubmit={this.onSubmitTaskForm}
+            onSubmitWithEnter={this.onSubmitTaskFormWithEnter}
+          />
         </Sheet>
       </section>
     );
@@ -273,7 +292,10 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
   }
 
   private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
-    this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
+    this.setState({
+      selectedTaskId: taskListItemProps.task.id,
+      isTaskFormShown: true,
+    });
   }
 
   private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
@@ -284,37 +306,88 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
   }
 
   private handleClickAddTaskButton(event: React.MouseEvent<HTMLElement>): void {
-    this.setState({ isTaskFormShown: true });
+    this.setState({
+      selectedTaskId: null,
+      isTaskFormShown: true,
+    });
   }
 
-  private handleSubmitTaskForm(
-    event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
+  private handleSubmitTaskForm(event: React.FormEvent<HTMLFormElement>, taskFormProps: any, taskFormState: any): void {
+    const content: string = taskFormState.content.trim();
+    const id: number | null = taskFormState.taskId || null;
+
+    if (content !== '' && !this.state.uiBlocking) {
+      this.setState({ uiBlocking: true });
+
+      if (id === null) {
+        this.actions
+          .createTask({
+            content,
+            labelId: taskFormState.labelId,
+          })
+          .then(() => {
+            this.setState({
+              uiBlocking: false,
+              isTaskFormShown: false,
+            });
+          });
+      } else {
+        this.actions
+          .updateTask({
+            id,
+            content,
+            labelId: taskFormState.labelId,
+          })
+          .then(() => {
+            this.setState({
+              uiBlocking: false,
+              isTaskFormShown: false,
+            });
+          });
+      }
+    }
+  }
+
+  private handleSubmitTaskFormWithEnter(
+    event: React.KeyboardEvent<HTMLInputElement>,
     taskFormProps: any,
     taskFormState: any,
   ): void {
     const content: string = taskFormState.content.trim();
-    const id: number | null = null;
+    const id: number | null = taskFormState.taskId || null;
 
-    // TODO: uiblock
-    if (id === null) {
-      this.actions
-        .createTask({
-          content,
-          labelId: taskFormState.labelId,
-        })
-        .then(() => {
-          this.setState({ isTaskFormShown: false });
-        });
-    } else {
-      this.actions
-        .updateTask({
-          id,
-          content,
-          labelId: taskFormState.labelId,
-        })
-        .then(() => {
-          this.setState({ isTaskFormShown: false });
-        });
+    if (content !== '' && !this.state.uiBlocking) {
+      this.setState({ uiBlocking: true });
+
+      if (id === null) {
+        this.actions
+          .createTask({
+            content,
+            labelId: taskFormState.labelId,
+          })
+          .then(() => {
+            this.setState({
+              uiBlocking: false,
+            });
+          });
+      } else {
+        this.actions
+          .updateTask({
+            id,
+            content,
+            labelId: taskFormState.labelId,
+          })
+          .then(() => {
+            this.setState({
+              uiBlocking: false,
+              isTaskFormShown: false,
+            });
+          });
+      }
     }
+  }
+
+  private handleClickBackground(event: React.MouseEvent<HTMLElement>): void {
+    this.setState({ isTaskFormShown: false });
   }
 }

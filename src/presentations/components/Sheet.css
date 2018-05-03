@@ -22,11 +22,6 @@
     transition: $time-basic $ease-out-expo;
     transition-property: transform;
     transform: translate(0, 100%);
-
-    .icon {
-      width: 24px;
-      background-color: red;
-    }
   }
 
   &.sheet__enter {

@@ -16,7 +16,7 @@
     bottom: 0;
     width: 100%;
     background: $color-background-content;
-    box-shadow: $shadow;
+    box-shadow: $shadow-inverse;
     transition: $time-basic $ease-out-expo;
     transition-property: transform;
     transform: translate(0, 100%);

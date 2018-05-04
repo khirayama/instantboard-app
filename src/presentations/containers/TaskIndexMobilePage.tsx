@@ -345,6 +345,8 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
             });
           });
       }
+    } else {
+      this.setState({ isTaskFormShown: false });
     }
   }
 
@@ -384,6 +386,8 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
             });
           });
       }
+    } else {
+      this.setState({ isTaskFormShown: false });
     }
   }
 

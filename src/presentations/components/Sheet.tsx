@@ -12,10 +12,26 @@ interface ISheetProps {
 export class Sheet extends React.Component<ISheetProps, {}> {
   private onClickContent: (event: React.MouseEvent<HTMLElement>) => void;
 
+  private startAnimation: () => void;
+
+  private endAnimation: () => void;
+
+  private isAnimating: boolean = false;
+
   constructor(props: ISheetProps) {
     super(props);
 
     this.onClickContent = this.handleClickContent.bind(this);
+    this.startAnimation = (): void => {
+      this.isAnimating = true;
+    };
+    this.endAnimation = (): void => {
+      this.isAnimating = false;
+    };
+  }
+
+  public shouldComponentUpdate(): boolean {
+    return !this.isAnimating;
   }
 
   public render(): JSX.Element | null {
@@ -38,6 +54,10 @@ export class Sheet extends React.Component<ISheetProps, {}> {
               exitActive: 'sheet__exit-active',
               exitDone: 'sheet__exit-done',
             }}
+            onEnter={this.startAnimation}
+            onEntered={this.endAnimation}
+            onExit={this.startAnimation}
+            onExited={this.endAnimation}
           >
             <div role="button" className="sheet" onClick={onClickBackground}>
               <div role="button" className="sheet--content" onClick={this.onClickContent}>

@@ -1,6 +1,6 @@
 .tab-navigation-tab-list {
   display: flex;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;

@@ -11,6 +11,24 @@ const config = {
     filename: 'bundle.[name].js',
     path: __dirname + '/dist/public',
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          name: 'vendor',
+          chunks: 'initial',
+          enforce: true
+        },
+        common: {
+          test: /src/,
+          name: 'common',
+          chunks: 'initial',
+          enforce: true
+        },
+      },
+    },
+  },
   module: {
     rules: [{
       test: /\.tsx?$/,

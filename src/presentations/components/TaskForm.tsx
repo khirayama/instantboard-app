@@ -61,25 +61,21 @@ export class TaskForm extends React.Component<ITaskFormProps, ITaskFormState> {
           onKeyDown={this.onKeyDownContentInput}
           placeholder="Enter task text"
         />
-        <div className="task-form--label-select-box">
-          <Link to="/labels">
-            <Icon type="label" />
-          </Link>
-          {this.state.labelId ? (
-            <select
-              className="task-form--label-select-box--select"
-              value={this.state.labelId}
-              onChange={this.onChangeLabelIdSelect}
-            >
-              {labels.map((label: ILabel): React.ReactNode => (
-                <option key={label.id} value={label.id} aria-selected={this.state.labelId === label.id}>
-                  {label.name}
-                </option>
-              ))}
-            </select>
-          ) : null}
-        </div>
         <div className="task-form--button-box">
+          <div className="task-form--button-box--select-box">
+            <Link to="/labels">
+              <Icon type="label" />
+            </Link>
+            {this.state.labelId ? (
+              <select value={this.state.labelId} onChange={this.onChangeLabelIdSelect}>
+                {labels.map((label: ILabel): React.ReactNode => (
+                  <option key={label.id} value={label.id} aria-selected={this.state.labelId === label.id}>
+                    {label.name}
+                  </option>
+                ))}
+              </select>
+            ) : null}
+          </div>
           <button className="task-form--button-box--button">
             <Icon type="send" />
           </button>

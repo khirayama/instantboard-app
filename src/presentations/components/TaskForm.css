@@ -8,45 +8,40 @@
     border-bottom: $border;
   }
 
-  .task-form--label-select-box {
-    border-bottom: $border;
+  .icon {
+    display: inline-block;
     height: $height-mobile-bar-middle;
+    padding: 6px 6px 8px;
 
-    .icon {
-      display: inline-block;
-      height: $height-mobile-bar-middle;
-      padding: 6px 6px 8px;
-
-      path {
-        stroke: $color-icon-active;
-      }
-    }
-
-    .task-form--label-select-box--select {
-      display: inline-block;
-      vertical-align: top;
-      background: transparent;
-      width: calc(100% - $height-mobile-bar-middle - 2px - 12px);
-      height: $height-mobile-bar-middle;
+    path {
+      stroke: $color-icon-active;
     }
   }
 
   .task-form--button-box {
+    position: relative;
     height: $height-mobile-bar-middle;
-    text-align: right;
+
+    .task-form--button-box--select-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: $height-mobile-bar-middle;
+
+      select {
+        display: inline-block;
+        vertical-align: top;
+        background: transparent;
+        height: $height-mobile-bar-middle;
+      }
+    }
 
     .task-form--button-box--button {
+      position: absolute;
+      top: 0;
+      right: 0;
       background-color: $color-background-content;
-
-      .icon {
-        display: inline-block;
-        height: $height-mobile-bar-middle;
-        padding: 6px 6px 8px;
-
-        path {
-          stroke: $color-icon-active;
-        }
-      }
     }
   }
 }

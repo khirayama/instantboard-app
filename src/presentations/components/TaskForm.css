@@ -19,17 +19,17 @@
   }
 
   .task-form--button-box {
-    position: relative;
+    display: flex;
     height: $height-mobile-bar-middle;
 
     .task-form--button-box--select-box {
-      position: absolute;
-      top: 0;
-      left: 0;
+      flex: 1;
+      display: flex;
       width: 100%;
       height: $height-mobile-bar-middle;
 
       select {
+        flex: 1;
         display: inline-block;
         vertical-align: top;
         background: transparent;
@@ -38,9 +38,6 @@
     }
 
     .task-form--button-box--button {
-      position: absolute;
-      top: 0;
-      right: 0;
       background-color: $color-background-content;
     }
   }

@@ -26,7 +26,7 @@
     "dev": "npm run clean && concurrently 'npm run compile:scripts' 'npm run build:styles' && concurrently 'npm run copy:files:watch' 'npm run compile:scripts:watch' 'npm run bundle:scripts:watch' 'npm run build:styles:watch' 'NODE_PATH=dist nodemon dist/index.server.js'",
     "lint": "tslint --format verbose -c tslint.json 'src/**/*.{ts,tsx}'",
     "lint:fix": "tslint --fix --format verbose -c tslint.json 'src/**/*.{ts,tsx}'",
-    "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/!(*.html|*.png|*.webp)'",
+    "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/!(*.html|*.png|*.webp|*.svg)'",
     "precommit": "npm run lint:fix && npm run format",
     "check": "npx npm-check-updates"
   },

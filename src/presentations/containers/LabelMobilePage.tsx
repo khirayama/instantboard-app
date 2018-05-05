@@ -1,4 +1,3 @@
-import * as Fuse from 'fuse.js';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
@@ -252,25 +251,9 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
   }
 
   private filterMembers(members: IMember[], keyword: string): IMember[] {
-    const options: {
-      shouldSort: boolean;
-      threshold: number;
-      location: number;
-      distance: number;
-      maxPatternLength: number;
-      minMatchCharLength: number;
-      keys: string[];
-    } = {
-      shouldSort: true,
-      threshold: 0.55,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: ['name'],
-    };
-    const fuse: Fuse = new Fuse(members, options);
-    const filteredMembers: IMember[] = fuse.search(keyword);
+    const filteredMembers: IMember[] = members.filter((member: IMember) => {
+      return member.name.indexOf(keyword) !== -1;
+    });
 
     return filteredMembers.length === 0 && keyword === '' ? members : filteredMembers;
   }

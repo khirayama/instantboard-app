@@ -26,6 +26,7 @@ tbody,
 tr,
 th,
 td,
+img,
 i,
 svg,
 circle,
@@ -97,4 +98,8 @@ a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+}
+img {
+  vertical-align: top;
+  width: 100%;
 }

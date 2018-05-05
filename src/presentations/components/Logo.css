@@ -1,0 +1,24 @@
+.logo {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &.logo__logo {
+    padding-top: 100%;
+  }
+
+  &.logo__typography {
+    padding-top: calc(401 / 1775 * 100%);
+  }
+
+  &.logo__logo-typography {
+    padding-top: calc(400 / 2166 * 100%);
+  }
+}

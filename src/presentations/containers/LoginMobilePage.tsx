@@ -38,7 +38,9 @@ export class LoginMobilePage extends Container<{}, {}> {
     return (
       <section className="page login-mobile-page">
         <section className="login-mobile-page--content">
-          <Logo type="logo_typography" />
+          <p className="login-mobile-page--content--logo">
+            <Logo type="logo_typography" />
+          </p>
           <p className="login-mobile-page--content--description">Sign up to manage and share your tasks.</p>
           <FlatButton
             className="login-mobile-page--flat-button login-mobile-page--flat-button__facebook"

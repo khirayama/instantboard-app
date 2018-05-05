@@ -70,8 +70,8 @@ function template(mobile: boolean): string {
 
   <link rel="manifest" href="/manifest.json">
   <link rel="manifest" href="/manifest.json">
-  <script src="${staticFilePathWithHash('/bundle.vendor.js', staticFilePathWithHashOptions)}" defer></script>
-  <script src="${staticFilePathWithHash('/bundle.common.js', staticFilePathWithHashOptions)}" defer></script>
+  <script src="${staticFilePathWithHash('/bundle.vendors.js', staticFilePathWithHashOptions)}" defer></script>
+  <script src="${staticFilePathWithHash('/bundle.commons.js', staticFilePathWithHashOptions)}" defer></script>
   <script src="${
     mobile
       ? staticFilePathWithHash('/bundle.mobile.js', staticFilePathWithHashOptions)

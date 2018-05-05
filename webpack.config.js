@@ -39,7 +39,10 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env': JSON.stringify(Object.assign({}, process.env)),
+        'process.env': JSON.stringify({
+          NODE_ENV: process.env.NODE_ENV,
+          API_SERVER_HOST: process.env.API_SERVER_HOST,
+        }),
       }),
     ],
     resolve: {

@@ -69,14 +69,13 @@ function template(mobile: boolean): string {
   <meta name="theme-color" content="#fbfaf5"/>
 
   <link rel="manifest" href="/manifest.json">
-  <link rel="manifest" href="/manifest.json">
-  <script src="${staticFilePathWithHash('/bundle.vendors.js', staticFilePathWithHashOptions)}" defer></script>
-  <script src="${staticFilePathWithHash('/bundle.commons.js', staticFilePathWithHashOptions)}" defer></script>
-  <script src="${
+  <script defer src="${staticFilePathWithHash('/bundle.vendors.js', staticFilePathWithHashOptions)}"></script>
+  <script defer src="${staticFilePathWithHash('/bundle.commons.js', staticFilePathWithHashOptions)}"></script>
+  <script defer src="${
     mobile
       ? staticFilePathWithHash('/bundle.mobile.js', staticFilePathWithHashOptions)
       : staticFilePathWithHash('/bundle.desktop.js', staticFilePathWithHashOptions)
-  }" defer></script>
+  }"></script>
   <link rel="stylesheet" href="${staticFilePathWithHash('/index.css', staticFilePathWithHashOptions)}">
   <meta name="mobile-web-app-capable" content="yes">
 

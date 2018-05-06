@@ -5,6 +5,7 @@ import { createLabel, fetchLabel, updateLabel } from 'action-creators/label';
 import { createRequest, destroyRequest } from 'action-creators/request';
 import { fetchMember, getUser } from 'action-creators/user';
 import { Icon } from 'presentations/components/Icon';
+import { Img } from 'presentations/components/Img';
 import { Indicator } from 'presentations/components/Indicator';
 import { SearchMemberListItem } from 'presentations/components/SearchMemberListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
@@ -22,7 +23,7 @@ const MemberListItem: any = (props: any): any => {
 
   return (
     <li>
-      <img src={labelMember.imageUrl} alt="member profile image" />
+      <Img src={labelMember.imageUrl} alt={labelMember.name} />
       <p>{labelMember.name}</p>
       <span role="button" onClick={handleRemoveButtonClick}>
         <Icon type="remove" />

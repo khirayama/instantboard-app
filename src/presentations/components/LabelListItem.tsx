@@ -51,14 +51,14 @@ export class LabelListItem extends React.Component<any, any> {
               })
               .map((member: ILabelMember): JSX.Element => {
                 return (
-                  <Img
-                    alt={member.name}
+                  <div
                     key={member.id}
                     className={classNames('label-list-item--content--profile-image', {
                       'label-list-item--content--profile-image__accepted': member.status === 'accepted',
                     })}
-                    src={member.imageUrl}
-                  />
+                  >
+                    <Img alt={member.name} src={member.imageUrl} />
+                  </div>
                 );
               })}
           </div>

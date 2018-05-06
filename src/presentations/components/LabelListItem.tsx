@@ -2,6 +2,7 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 
 import { Icon } from 'presentations/components/Icon';
+import { Img } from 'presentations/components/Img';
 import { ListItem } from 'presentations/components/ListItem';
 
 export class LabelListItem extends React.Component<any, any> {
@@ -50,8 +51,8 @@ export class LabelListItem extends React.Component<any, any> {
               })
               .map((member: ILabelMember): JSX.Element => {
                 return (
-                  <img
-                    alt="member profile image"
+                  <Img
+                    alt={member.name}
                     key={member.id}
                     className={classNames('label-list-item--content--profile-image', {
                       'label-list-item--content--profile-image__accepted': member.status === 'accepted',

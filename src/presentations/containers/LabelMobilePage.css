@@ -121,7 +121,7 @@
       padding: 4px;
       margin-right: 4px;
 
-      img {
+      .img {
         width: 24px;
         height: 24px;
         border: $border;

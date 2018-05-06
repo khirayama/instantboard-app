@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Img } from 'presentations/components/Img';
+
 export class SearchMemberListItem extends React.Component<any, any> {
   private onClick: (event: React.MouseEvent<HTMLElement>) => void;
 
@@ -15,7 +17,7 @@ export class SearchMemberListItem extends React.Component<any, any> {
     return (
       <li role="listbox" className="search-member-list-item" onClick={this.onClick}>
         <div className="search-member-list-item--image-container">
-          <img src={member.imageUrl} alt="profile image" />
+          <Img src={member.imageUrl} alt={member.name} />
         </div>
         <p>{member.name}</p>
       </li>

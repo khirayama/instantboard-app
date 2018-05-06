@@ -6,6 +6,7 @@ import { deleteUser, getUser } from 'action-creators/user';
 import { ApplicationContent } from 'presentations/components/ApplicationContent';
 import { ApplicationHeader } from 'presentations/components/ApplicationHeader';
 import { FlatButton } from 'presentations/components/FlatButton';
+import { Img } from 'presentations/components/Img';
 import { Container, IContainerProps } from 'presentations/containers/Container';
 import { poller } from 'utils/poller';
 import { tokenManager } from 'utils/tokenManager';
@@ -67,7 +68,7 @@ export class ProfileDesktopPage extends Container<{}, {}> {
         <ApplicationHeader index={3} badges={badges} />
         <ApplicationContent>
           <div className="profile-desktop-page--image">
-            <img src={profile.imageUrl} alt="profile image" />
+            <Img src={profile.imageUrl} alt={profile.name} />
           </div>
           <div className="profile-desktop-page--info">
             <p className="profile-desktop-page--info--name">{profile.name}</p>

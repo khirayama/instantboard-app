@@ -4,6 +4,7 @@ import * as React from 'react';
 import { pollRequest } from 'action-creators/request';
 import { deleteUser, getUser } from 'action-creators/user';
 import { FlatButton } from 'presentations/components/FlatButton';
+import { Img } from 'presentations/components/Img';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container, IContainerProps } from 'presentations/containers/Container';
@@ -66,7 +67,7 @@ export class ProfileMobilePage extends Container<{}, {}> {
       <section className="page profile-mobile-page">
         <TabNavigationContent>
           <div className="profile-mobile-page--image">
-            <img src={profile.imageUrl} alt="profile image" />
+            <Img src={profile.imageUrl} alt={profile.name} />
           </div>
           <div className="profile-mobile-page--info">
             <p className="profile-mobile-page--info--name">{profile.name}</p>

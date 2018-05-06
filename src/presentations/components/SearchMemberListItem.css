@@ -5,13 +5,11 @@
     display: inline-block;
     padding: calc(($height-mobile-bar-high - 32px) / 2 - 1px);
 
-    img {
+    .img {
       width: 32px;
       height: 32px;
       border-radius: 50%;
       border: $border;
-      vertical-align: top;
-      background-color: $color-background;
     }
   }
 

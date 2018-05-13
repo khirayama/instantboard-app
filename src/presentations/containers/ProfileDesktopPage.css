@@ -11,7 +11,7 @@
     text-align: center;
     padding: 36px 0 24px;
 
-    .img {
+    .profile-desktop-page--image--content {
       display: inline-block;
       width: 84px;
       height: 84px;
@@ -20,6 +20,11 @@
       overflow: hidden;
       box-shadow: $shadow;
       background-color: $color-disabled;
+
+      .img {
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 

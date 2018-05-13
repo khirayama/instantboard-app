@@ -5,7 +5,7 @@
     text-align: center;
     padding: 32px 0 12px;
 
-    .img {
+    .profile-mobile-page--image--content {
       display: inline-block;
       width: 76px;
       height: 76px;
@@ -14,6 +14,11 @@
       overflow: hidden;
       box-shadow: $shadow;
       background-color: $color-disabled;
+
+      .img {
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 

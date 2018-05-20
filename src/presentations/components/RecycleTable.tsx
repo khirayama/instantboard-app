@@ -16,11 +16,9 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
     setCurrentIndex: PropTypes.func,
   };
 
-  private el: any;
-
   private timerId: any = null;
 
-  private refElement: any;
+  private ref: any;
 
   constructor(props: any) {
     super(props);
@@ -28,8 +26,6 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
     this.state = {
       currentIndex: props.index || 0,
     };
-
-    this.refElement = this.setElement.bind(this);
   }
 
   public getChildContext(): any {
@@ -53,7 +49,7 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
   public scrollToCenter(index: any, animate: boolean): void {
     if (animate) {
       this.timerId = setInterval(() => {
-        const el: HTMLElement = this.el;
+        const el: HTMLElement = this.ref.current;
         if (el === null) {
           return;
         }
@@ -80,7 +76,7 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
         }
       }, 1000 / 60);
     } else {
-      const el: HTMLElement = this.el;
+      const el: HTMLElement = this.ref.current;
       if (el === null) {
         return;
       }
@@ -110,14 +106,12 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
   public render(): any {
     const { children } = this.props;
 
+    this.ref = React.createRef();
+
     return (
-      <section ref={this.refElement} className="recycle-table">
+      <section ref={this.ref} className="recycle-table">
         {children}
       </section>
     );
-  }
-
-  private setElement(el: any): void {
-    this.el = el;
   }
 }

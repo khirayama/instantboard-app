@@ -9,16 +9,12 @@ export class List extends React.Component<any, any> {
     onSort: PropTypes.func,
   };
 
-  private listElement: any;
-
-  private refListElement: any;
+  private ref: any;
 
   private preventDefault: any;
 
   constructor(props: any) {
     super(props);
-
-    this.refListElement = this.setListElement.bind(this);
 
     this.preventDefault = (event: any): void => {
       event.preventDefault();
@@ -26,11 +22,15 @@ export class List extends React.Component<any, any> {
   }
 
   public componentDidMount(): void {
-    this.listElement.querySelector('.list-content').addEventListener('contextmenu', this.preventDefault);
+    const el: HTMLElement = this.ref.current;
+    const targetElement: HTMLElement = el.querySelector('.list-content') as HTMLElement;
+    targetElement.addEventListener('contextmenu', this.preventDefault);
   }
 
   public componentWillUnmount(): void {
-    this.listElement.querySelector('.list-content').removeEventListener('contextmenu', this.preventDefault);
+    const el: HTMLElement = this.ref.current;
+    const targetElement: HTMLElement = el.querySelector('.list-content') as HTMLElement;
+    targetElement.removeEventListener('contextmenu', this.preventDefault);
   }
 
   public getChildContext(): any {
@@ -42,7 +42,7 @@ export class List extends React.Component<any, any> {
           return parentElement;
         }
 
-        return this.listElement;
+        return this.ref.current;
       },
       onSort,
     };
@@ -50,17 +50,14 @@ export class List extends React.Component<any, any> {
 
   public render(): JSX.Element {
     const { children, className } = this.props;
+    this.ref = React.createRef();
 
     return (
-      <section ref={this.refListElement} className={classNames('list', className || '')}>
+      <section ref={this.ref} className={classNames('list', className || '')}>
         <div className="list-content">
           <TransitionGroup component="ul">{children}</TransitionGroup>
         </div>
       </section>
     );
-  }
-
-  private setListElement(listElement: HTMLElement): void {
-    this.listElement = listElement;
   }
 }

@@ -3,13 +3,7 @@ import * as React from 'react';
 export class Indicator extends React.Component<any, any> {
   private el: any = null;
 
-  private refElement: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.refElement = this.setElement.bind(this);
-  }
+  private ref: any;
 
   public componentDidMount(): void {
     this.toggleClassName();
@@ -20,8 +14,10 @@ export class Indicator extends React.Component<any, any> {
   }
 
   public render(): JSX.Element {
+    this.ref = React.createRef();
+
     return (
-      <div key="indicator" ref={this.refElement} className="indicator">
+      <div key="indicator" ref={this.ref} className="indicator">
         <svg>
           <defs>
             <linearGradient id="indicator-gradient">
@@ -36,18 +32,15 @@ export class Indicator extends React.Component<any, any> {
     );
   }
 
-  private setElement(el: HTMLElement): void {
-    this.el = el;
-  }
-
   private toggleClassName(): void {
     setTimeout(() => {
       const { active } = this.props;
-      if (this.el) {
+      const el: HTMLElement = this.ref.current;
+      if (el) {
         if (active) {
-          this.el.classList.add('indicator__active');
+          el.classList.add('indicator__active');
         } else {
-          this.el.classList.remove('indicator__active');
+          el.classList.remove('indicator__active');
         }
       }
     }, 0);

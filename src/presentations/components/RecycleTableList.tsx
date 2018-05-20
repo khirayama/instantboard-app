@@ -11,15 +11,7 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
     setCurrentIndex: PropTypes.func,
   };
 
-  private recycleTableList: any;
-
-  private refRecycleTableList: any;
-
-  constructor(props: any) {
-    super(props);
-
-    this.refRecycleTableList = this.setRecycleTableList.bind(this);
-  }
+  private ref: any;
 
   public componentDidMount(): void {
     this.adjustListPosition();
@@ -32,7 +24,7 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
 
   public adjustIndex(): void {
     const { currentIndex, setCurrentIndex } = this.context;
-    const el: HTMLElement = this.recycleTableList;
+    const el: HTMLElement = this.ref.current;
     const listItems: NodeListOf<HTMLElement> = el.querySelectorAll('.recycle-table-list-item');
     if (listItems.length - 1 < currentIndex) {
       setCurrentIndex(listItems.length - 1);
@@ -40,7 +32,7 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
   }
 
   public adjustListPosition(): void {
-    const el: HTMLElement = this.recycleTableList;
+    const el: HTMLElement = this.ref.current;
     const container: HTMLElement = el.parentNode as HTMLElement;
     const inner: HTMLElement = el.querySelector('.recycle-table-list--inner') as HTMLElement;
     const listItems: NodeListOf<HTMLElement> = el.querySelectorAll('.recycle-table-list-item');
@@ -66,14 +58,12 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
   public render(): any {
     const { children } = this.props;
 
+    this.ref = React.createRef();
+
     return (
-      <section ref={this.refRecycleTableList} className="recycle-table-list" style={{ visibility: 'hidden' }}>
+      <section ref={this.ref} className="recycle-table-list" style={{ visibility: 'hidden' }}>
         <section className="recycle-table-list--inner">{children}</section>
       </section>
     );
-  }
-
-  private setRecycleTableList(recycleTableList: HTMLElement | null): void {
-    this.recycleTableList = recycleTableList;
   }
 }

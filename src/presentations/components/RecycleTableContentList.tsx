@@ -1,6 +1,7 @@
-import { THRESHOLD_DELTAX } from 'presentations/constants';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+
+import { THRESHOLD_DELTAX } from 'presentations/constants';
 
 interface IDiff {
   x: number;
@@ -24,9 +25,7 @@ export class RecycleTableContentList extends React.Component<any, any> {
     setCurrentIndex: PropTypes.func,
   };
 
-  private recycleTableContentList: any;
-
-  private refRecycleTableContentList: any;
+  private ref: any;
 
   private touch: any;
 
@@ -49,7 +48,6 @@ export class RecycleTableContentList extends React.Component<any, any> {
       moving: false,
     };
 
-    this.refRecycleTableContentList = this.setRecycleTableContentList.bind(this);
     this.onTouchStart = this.handleTouchStart.bind(this);
     this.onTouchMove = this.handleTouchMove.bind(this);
     this.onTouchEnd = this.handleTouchEnd.bind(this);
@@ -174,6 +172,7 @@ export class RecycleTableContentList extends React.Component<any, any> {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
     const diff: IDiff = this.calcFilteredDiff();
+    const el: HTMLElement = this.ref.current;
 
     if (
       this.touch.moving &&
@@ -182,23 +181,24 @@ export class RecycleTableContentList extends React.Component<any, any> {
       Math.abs(diff.x) > Math.abs(diff.y)
     ) {
       const translateX: number = currentIndex * 100 / children.length;
-      this.recycleTableContentList.classList.add('recycle-table-content-list__moving');
-      this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}% + ${diff.x}px))`;
-      this.recycleTableContentList.style.transitionProperty = 'none';
+      el.classList.add('recycle-table-content-list__moving');
+      el.style.transform = `translateX(calc(-${translateX}% + ${diff.x}px))`;
+      el.style.transitionProperty = 'none';
     }
   }
 
   public updateTouchEndView(): void {
     const { currentIndex }: { currentIndex: number } = this.context;
     const { children }: { children?: any } = this.props;
+    const el: HTMLElement = this.ref.current;
 
-    if (this.recycleTableContentList.classList.contains('recycle-table-content-list__moving')) {
-      this.recycleTableContentList.classList.remove('recycle-table-content-list__moving');
+    if (el.classList.contains('recycle-table-content-list__moving')) {
+      el.classList.remove('recycle-table-content-list__moving');
     }
 
     const translateX: number = currentIndex * 100 / children.length;
-    this.recycleTableContentList.style.transform = `translateX(calc(-${translateX}%))`;
-    this.recycleTableContentList.style.transitionProperty = 'transform';
+    el.style.transform = `translateX(calc(-${translateX}%))`;
+    el.style.transitionProperty = 'transform';
   }
 
   public render(): any {
@@ -212,16 +212,14 @@ export class RecycleTableContentList extends React.Component<any, any> {
       transform: `translateX(-${currentIndex * 100 / children.length}%)`,
     };
 
+    this.ref = React.createRef();
+
     return (
       <section className="recycle-table-content-list">
-        <section ref={this.refRecycleTableContentList} style={style} className="recycle-table-content-list--inner">
+        <section ref={this.ref} style={style} className="recycle-table-content-list--inner">
           {children}
         </section>
       </section>
     );
-  }
-
-  private setRecycleTableContentList(recycleTableContentList: HTMLElement | null): void {
-    this.recycleTableContentList = recycleTableContentList;
   }
 }

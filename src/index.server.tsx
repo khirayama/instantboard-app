@@ -63,7 +63,7 @@ function template(mobile: boolean): string {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
   <link rel="preconnect" href="//api.instantboard.cloud" crossorigin>
 
   <meta name="theme-color" content="#fbfaf5"/>
@@ -79,10 +79,11 @@ function template(mobile: boolean): string {
   <link rel="stylesheet" href="${staticFilePathWithHash('/index.css', staticFilePathWithHashOptions)}">
   <meta name="mobile-web-app-capable" content="yes">
 
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Instantboard">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/icon_ios.png">
+  <link rel="apple-touch-startup-image" href="/images/logo/icon_ios.png">
 
   <link rel="icon" sizes="192x192" type="image/png" href="/images/logo/favicon.png">
 

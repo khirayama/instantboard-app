@@ -30,8 +30,6 @@ export class ListItem extends React.Component<any, any> {
     onSort: PropTypes.func,
   };
 
-  private listItem: any;
-
   private pointer: any;
 
   private timerId: any;
@@ -40,7 +38,7 @@ export class ListItem extends React.Component<any, any> {
 
   private mouse: any;
 
-  private refListItem: any;
+  private ref: any;
 
   private listHeight: number;
 
@@ -100,7 +98,6 @@ export class ListItem extends React.Component<any, any> {
       holding: false,
     };
 
-    this.refListItem = this.setListItem.bind(this);
     this.onClick = this.handleClick.bind(this);
     this.onMouseDown = this.handleMouseDown.bind(this);
     this.onMouseMove = this.handleMouseMove.bind(this);
@@ -119,11 +116,13 @@ export class ListItem extends React.Component<any, any> {
   public componentDidMount(): void {
     // Can't prevent event passive in Chrome.
     // because not use onTouchMove
-    this.listItem.addEventListener('touchmove', this.onTouchMove);
+    const el: HTMLElement = this.ref.current;
+    el.addEventListener('touchmove', this.onTouchMove);
   }
 
   public componentWillUnount(): void {
-    this.listItem.removeEventListener('touchmove', this.onTouchMove);
+    const el: HTMLElement = this.ref.current;
+    el.removeEventListener('touchmove', this.onTouchMove);
   }
 
   public shouldComponentUpdate(): boolean {
@@ -144,6 +143,8 @@ export class ListItem extends React.Component<any, any> {
 
     this.listHeight = 0;
 
+    this.ref = React.createRef();
+
     return (
       <Transition
         key={key}
@@ -159,7 +160,7 @@ export class ListItem extends React.Component<any, any> {
         <li
           role="listbox"
           {...props}
-          ref={this.refListItem}
+          ref={this.ref}
           onMouseDown={this.onMouseDown}
           onMouseMove={this.onMouseMove}
           onMouseUp={this.onMouseUp}
@@ -319,7 +320,7 @@ export class ListItem extends React.Component<any, any> {
   private handleEnter(): void {
     this.isAnimating = true;
 
-    const el: HTMLElement = this.listItem;
+    const el: HTMLElement = this.ref.current;
     this.listHeight = el.offsetHeight;
     el.style.minHeight = 'auto';
     el.style.maxHeight = '0px';
@@ -327,7 +328,7 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleEntering(): void {
-    const el: HTMLElement = this.listItem;
+    const el: HTMLElement = this.ref.current;
     setTimeout(() => {
       el.style.maxHeight = `${this.listHeight}px`;
     }, 0);
@@ -336,7 +337,7 @@ export class ListItem extends React.Component<any, any> {
   private handleEntered(): void {
     this.isAnimating = false;
 
-    const el: HTMLElement = this.listItem;
+    const el: HTMLElement = this.ref.current;
     el.style.minHeight = `${this.listHeight}px`;
     el.style.maxHeight = '';
     el.style.transitionProperty = '';
@@ -346,7 +347,7 @@ export class ListItem extends React.Component<any, any> {
   private handleExit(): void {
     this.isAnimating = true;
 
-    const el: HTMLElement = this.listItem;
+    const el: HTMLElement = this.ref.current;
     this.listHeight = el.offsetHeight;
 
     el.style.height = `${this.listHeight}px`;
@@ -355,7 +356,7 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private handleExiting(): void {
-    const el: HTMLElement = this.listItem;
+    const el: HTMLElement = this.ref.current;
     setTimeout(() => {
       el.style.height = '0px';
     }, 0);
@@ -371,9 +372,10 @@ export class ListItem extends React.Component<any, any> {
   // Update views
   private updatePointerMoveView(): void {
     const { listElement } = this.context;
+    const el: HTMLElement = this.ref.current;
 
     listElement().classList.add('list__sorting');
-    this.listItem.classList.add('list-item__sorting');
+    el.classList.add('list-item__sorting');
 
     this.moveCurrentListItemAnimation();
     this.moveListItemAnimation();
@@ -382,11 +384,13 @@ export class ListItem extends React.Component<any, any> {
 
   private updatePointerUpView(): void {
     const { listElement } = this.context;
-    if (this.listItem.classList.contains('list-item__holding')) {
-      this.listItem.classList.remove('list-item__holding');
+    const el: HTMLElement = this.ref.current;
+
+    if (el.classList.contains('list-item__holding')) {
+      el.classList.remove('list-item__holding');
     }
-    if (this.listItem.classList.contains('list-item__sorting')) {
-      this.listItem.classList.remove('list-item__sorting');
+    if (el.classList.contains('list-item__sorting')) {
+      el.classList.remove('list-item__sorting');
     }
 
     const listItemElements: NodeListOf<HTMLElement> = listElement().querySelectorAll('.list-item');
@@ -398,9 +402,11 @@ export class ListItem extends React.Component<any, any> {
   }
 
   private updateTouchHoldView(): void {
-    if (!this.listItem.classList.contains('list-item__holding')) {
-      this.listItem.style.transitionProperty = transitionProperties.ALL;
-      this.listItem.classList.add('list-item__holding');
+    const el: HTMLElement = this.ref.current;
+
+    if (!el.classList.contains('list-item__holding')) {
+      el.style.transitionProperty = transitionProperties.ALL;
+      el.classList.add('list-item__holding');
     }
   }
 
@@ -409,15 +415,17 @@ export class ListItem extends React.Component<any, any> {
     const { listElement } = this.context;
     const diff: IDiff = this.calcDiff();
     const scrollDiff: number = this.pointer.startScrollTop - listElement().scrollTop;
+    const el: HTMLElement = this.ref.current;
 
-    this.listItem.style.transitionProperty = transitionProperties.NONE;
-    this.listItem.style.transform = `translateY(${diff.y - scrollDiff}px)`;
+    el.style.transitionProperty = transitionProperties.NONE;
+    el.style.transform = `translateY(${diff.y - scrollDiff}px)`;
   }
 
   private moveListItemAnimation(): void {
     const { listElement } = this.context;
     const listItemElements: NodeListOf<HTMLElement> = listElement().querySelectorAll('.list-item');
-    const height: number = this.listItem.offsetHeight;
+    const el: HTMLElement = this.ref.current;
+    const height: number = el.offsetHeight;
 
     const { currentIndex, targetIndex } = this.calcIndex();
 
@@ -507,6 +515,7 @@ export class ListItem extends React.Component<any, any> {
 
   private calcIndex(): IIndex {
     const { listElement } = this.context;
+    const el: HTMLElement = this.ref.current;
     const listItemElements: NodeListOf<HTMLElement> = listElement().querySelectorAll('.list-item');
 
     const scrollTop: number = listElement().scrollTop;
@@ -530,7 +539,7 @@ export class ListItem extends React.Component<any, any> {
           height: listItemElement.offsetHeight,
         };
 
-        if (listItemElement === this.listItem) {
+        if (listItemElement === el) {
           currentIndex = index;
         }
         if (this.pointer.endY < listTop) {
@@ -552,9 +561,5 @@ export class ListItem extends React.Component<any, any> {
       currentIndex,
       targetIndex,
     };
-  }
-
-  private setListItem(listItem: any): void {
-    this.listItem = listItem;
   }
 }

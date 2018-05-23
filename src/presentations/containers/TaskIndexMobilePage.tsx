@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { fetchLabel } from 'action-creators/label';
@@ -39,10 +38,6 @@ interface ITaskListItemProps {
 }
 
 export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMobilePageState & IState> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
-
   private onChangeIndex: (index: number) => void;
 
   private onSortTaskList: (fromIndex: number, toIndex: number, taskListProps: ITaskListProps) => void;

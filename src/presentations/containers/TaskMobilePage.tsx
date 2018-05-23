@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { fetchLabel } from 'action-creators/label';
@@ -7,6 +6,7 @@ import { Icon } from 'presentations/components/Icon';
 import { Indicator } from 'presentations/components/Indicator';
 import { Container, IContainerProps } from 'presentations/containers/Container';
 import { Link } from 'router/Link';
+import { context } from 'router/Navigator';
 import { queryString } from 'utils/queryString';
 
 interface ITaskMobilePageState {
@@ -17,9 +17,7 @@ interface ITaskMobilePageState {
 }
 
 export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
+  private move: any;
 
   private onChangeLabelIdSelect: (event: React.FormEvent<HTMLSelectElement>) => void;
 
@@ -111,6 +109,7 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
 
     return (
       <section className="page task-mobile-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={ui.isLoadingTasks} />
         <form onSubmit={this.onSubmit}>
@@ -150,6 +149,12 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
         </form>
       </section>
     );
+  }
+
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
   }
 
   private onUpdate(callback: () => void): void {
@@ -192,7 +197,7 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
             labelId: this.state.labelId,
           })
           .then(() => {
-            this.context.move('/');
+            this.move('/');
           });
       } else {
         this.actions
@@ -202,7 +207,7 @@ export class TaskMobilePage extends Container<{}, ITaskMobilePageState & IState>
             labelId: this.state.labelId,
           })
           .then(() => {
-            this.context.move('/');
+            this.move('/');
           });
       }
     }

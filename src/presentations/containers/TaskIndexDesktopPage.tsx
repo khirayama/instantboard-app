@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { fetchLabel } from 'action-creators/label';
@@ -20,6 +19,7 @@ import { NoTaskContent } from 'presentations/components/NoTaskContent';
 import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
+import { context } from 'router/Navigator';
 import { poller } from 'utils/poller';
 
 interface ITaskIndexDesktopPageState {
@@ -35,9 +35,7 @@ interface ITaskListItemProps {
 }
 
 export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageState> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
+  private move: any;
 
   private onChangeIndex: (index: number) => void;
 
@@ -198,11 +196,18 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
 
     return (
       <section className="page task-index-desktop-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <ApplicationHeader index={0} badges={badges} />
         <ApplicationContent>{contentElement}</ApplicationContent>
       </section>
     );
+  }
+
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
   }
 
   private loadIndex(): number {
@@ -249,7 +254,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
   }
 
   private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
-    this.context.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
+    this.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
   }
 
   private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {

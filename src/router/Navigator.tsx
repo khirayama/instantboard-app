@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
+import { context } from 'router/context';
 import { Router } from 'router/Router';
 import { Tracker } from 'utils/Tracker';
 
@@ -12,23 +13,11 @@ interface INavigatorProps {
 }
 
 export class Navigator extends React.Component<INavigatorProps, { path: string }> {
-  public static childContextTypes: {
-    move: PropTypes.Validator<void>;
-  } = {
-    move: PropTypes.func.isRequired,
-  };
-
   constructor(props: INavigatorProps) {
     super(props);
 
     this.state = {
       path: props.path,
-    };
-  }
-
-  public getChildContext(): { move(): void } {
-    return {
-      move: this.move.bind(this),
     };
   }
 
@@ -64,7 +53,11 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       const component: string | React.ComponentClass | React.StatelessComponent =
         route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
 
-      return React.createElement(component, { ...props, params });
+      return (
+        <context.Provider value={{ move: this.move.bind(this) }}>
+          {React.createElement(component, { ...props, params })}
+        </context.Provider>
+      );
     }
 
     return null;

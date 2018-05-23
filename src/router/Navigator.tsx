@@ -1,9 +1,10 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { context } from 'router/context';
 import { Router } from 'router/Router';
 import { Tracker } from 'utils/Tracker';
+
+export const context: any = React.createContext(null);
 
 interface INavigatorProps {
   props?: any;

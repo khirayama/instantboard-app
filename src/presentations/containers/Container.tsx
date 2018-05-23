@@ -21,16 +21,13 @@ export class Container<P, S> extends React.Component<P & IContainerProps, S & IS
       this.setState(props.store.getState());
     };
     this.dispatch = props.store.dispatch.bind(props.store);
+
+    const { store }: { store: Store<IState, IAction> } = this.props;
+    store.addChangeListener(this.handleStateUpdate);
   }
 
   public shouldComponentUpdate(prevProps: IContainerProps, prevState: IState): boolean {
     return !deepEqual(this.props, prevProps) || !deepEqual(this.state, prevState);
-  }
-
-  public componentWillMount(): void {
-    const { store }: { store: Store<IState, IAction> } = this.props;
-
-    store.addChangeListener(this.handleStateUpdate);
   }
 
   public componentWillUnmount(): void {

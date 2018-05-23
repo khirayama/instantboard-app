@@ -20,9 +20,7 @@ export class LoginMobilePage extends Container<{}, {}> {
     super(props);
 
     this.onClickLink = this.handleClickLink.bind(this);
-  }
 
-  public componentWillMount(): void {
     if (typeof window === 'object') {
       const query: { [key: string]: string } = queryString.parse(window.location.search);
       const token: string = query.token;

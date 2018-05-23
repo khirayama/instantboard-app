@@ -19,9 +19,7 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
     this.state = {
       path: props.path,
     };
-  }
 
-  public componentWillMount(): void {
     if (typeof window === 'object' && window.history && window.history.pushState) {
       window.addEventListener('popstate', () => {
         const { router, tracker } = this.props;

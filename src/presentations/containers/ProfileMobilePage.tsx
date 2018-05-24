@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { pollRequest } from 'action-creators/request';
@@ -8,13 +7,12 @@ import { Img } from 'presentations/components/Img';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container, IContainerProps } from 'presentations/containers/Container';
+import { context } from 'router/Navigator';
 import { poller } from 'utils/poller';
 import { tokenManager } from 'utils/tokenManager';
 
 export class ProfileMobilePage extends Container<{}, {}> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
+  private move: any;
 
   private onClickLogoutButton: () => void;
 
@@ -64,6 +62,7 @@ export class ProfileMobilePage extends Container<{}, {}> {
 
     return (
       <section className="page profile-mobile-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <TabNavigationContent>
           <div className="profile-mobile-page--image">
             <div className="profile-mobile-page--image--content">
@@ -89,9 +88,15 @@ export class ProfileMobilePage extends Container<{}, {}> {
     );
   }
 
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
+  }
+
   private handleClickLogoutButton(): void {
     tokenManager.set('');
-    this.context.move('/login');
+    this.move('/login');
   }
 
   private handleClickDeleteAccountButton(): void {
@@ -99,7 +104,7 @@ export class ProfileMobilePage extends Container<{}, {}> {
     if (isDelete) {
       this.actions.deleteUser().then(() => {
         tokenManager.set('');
-        this.context.move('/login');
+        this.move('/login');
       });
     }
   }

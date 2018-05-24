@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { fetchRequest, pollRequest, updateRequest } from 'action-creators/request';
@@ -16,10 +15,6 @@ interface IRequestListItemProps {
 }
 
 export class NotificationIndexDesktopPage extends Container<{}, {}> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
-
   private onClickAcceptButton: (event: React.MouseEvent<HTMLDivElement>) => void;
 
   private onClickRefuseButton: (event: React.MouseEvent<HTMLDivElement>) => void;

@@ -1,28 +1,13 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-export class LayeredList extends React.Component<any, any> {
-  private static childContextTypes: any = {
-    currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func,
-  };
+export const context: any = React.createContext(null);
 
+export class LayeredList extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       currentIndex: props.index || 0,
-    };
-  }
-
-  public getChildContext(): any {
-    const { currentIndex } = this.state;
-
-    return {
-      currentIndex,
-      setCurrentIndex: (index: number): void => {
-        this.setCurrentIndex(index);
-      },
     };
   }
 
@@ -35,7 +20,18 @@ export class LayeredList extends React.Component<any, any> {
     const className: string = 'layered-list';
     props.className = props.className ? `$[props.className} ${className}` : className;
 
-    return <div {...props}>{children}</div>;
+    const ctx: any = {
+      currentIndex: this.state.currentIndex,
+      setCurrentIndex: (index: number): void => {
+        this.setCurrentIndex(index);
+      },
+    };
+
+    return (
+      <context.Provider value={ctx}>
+        <div {...props}>{children}</div>
+      </context.Provider>
+    );
   }
 
   private setCurrentIndex(index: number): void {

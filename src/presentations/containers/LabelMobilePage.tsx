@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { createLabel, fetchLabel, updateLabel } from 'action-creators/label';
@@ -10,10 +9,11 @@ import { Indicator } from 'presentations/components/Indicator';
 import { SearchMemberListItem } from 'presentations/components/SearchMemberListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
 import { Link } from 'router/Link';
+import { context } from 'router/Navigator';
 import { userService } from 'services/userService';
 
-/* tslint:disable:variable-name */
-const MemberListItem: any = (props: any): any => {
+// tslint:disable-next-line:variable-name
+const MemberListItem: any = (props: any): JSX.Element => {
   const { labelMember, onRemoveButtonClick } = props;
   const handleRemoveButtonClick: () => void = (): void => {
     if (onRemoveButtonClick) {
@@ -31,7 +31,6 @@ const MemberListItem: any = (props: any): any => {
     </li>
   );
 };
-/* tslint:enable:variable-name */
 
 interface ITemporaryLabelMember {
   id: number;
@@ -53,9 +52,7 @@ interface ILableMobilePageState {
 }
 
 export class LabelMobilePage extends Container<IContainerProps, ILableMobilePageState & IState> {
-  public static contextTypes: { move: PropTypes.Validator<void> } = {
-    move: PropTypes.func,
-  };
+  private move: any;
 
   private onChangeNameInput: any;
 
@@ -158,13 +155,14 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
     });
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const ui: IUI = this.state.ui;
     const profile: IUser | null = this.state.profile;
     const filteredMembers: IMember[] = this.filterMembers(this.state.members, this.state.keyword);
 
     return (
       <section className="page label-mobile-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={ui.isLoadingLabels} />
         <header className="label-mobile-page--header">
@@ -249,6 +247,12 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
         </form>
       </section>
     );
+  }
+
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
   }
 
   private filterMembers(members: IMember[], keyword: string): IMember[] {
@@ -388,7 +392,7 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
                 });
               }),
             ).then(() => {
-              this.context.move('/labels');
+              this.move('/labels');
             });
           })
           .catch((result: any) => {
@@ -444,7 +448,7 @@ export class LabelMobilePage extends Container<IContainerProps, ILableMobilePage
                 }),
               ),
             ]).then(() => {
-              this.context.move('/labels');
+              this.move('/labels');
             });
           })
           .catch((result: any) => {

@@ -1,14 +1,10 @@
 import * as classNames from 'classnames';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
-export class List extends React.Component<any, any> {
-  private static childContextTypes: any = {
-    listElement: PropTypes.func,
-    onSort: PropTypes.func,
-  };
+export const context: any = React.createContext(null);
 
+export class List extends React.Component<any, any> {
   private ref: any;
 
   private preventDefault: any;
@@ -33,10 +29,11 @@ export class List extends React.Component<any, any> {
     targetElement.removeEventListener('contextmenu', this.preventDefault);
   }
 
-  public getChildContext(): any {
-    const { parentElement, onSort } = this.props;
+  public render(): JSX.Element {
+    const { children, className, parentElement, onSort } = this.props;
+    this.ref = React.createRef();
 
-    return {
+    const ctx: any = {
       listElement: (): HTMLElement => {
         if (parentElement) {
           return parentElement;
@@ -46,18 +43,15 @@ export class List extends React.Component<any, any> {
       },
       onSort,
     };
-  }
-
-  public render(): JSX.Element {
-    const { children, className } = this.props;
-    this.ref = React.createRef();
 
     return (
-      <section ref={this.ref} className={classNames('list', className || '')}>
-        <div className="list-content">
-          <TransitionGroup component="ul">{children}</TransitionGroup>
-        </div>
-      </section>
+      <context.Provider value={ctx}>
+        <section ref={this.ref} className={classNames('list', className || '')}>
+          <div className="list-content">
+            <TransitionGroup component="ul">{children}</TransitionGroup>
+          </div>
+        </section>
+      </context.Provider>
     );
   }
 }

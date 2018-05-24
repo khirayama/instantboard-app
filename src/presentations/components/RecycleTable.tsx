@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 interface IRecycleTableProps {
@@ -7,15 +6,9 @@ interface IRecycleTableProps {
   children: any;
 }
 
-export class RecycleTable extends React.Component<IRecycleTableProps, any> {
-  private static childContextTypes: {
-    currentIndex: any;
-    setCurrentIndex: any;
-  } = {
-    currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func,
-  };
+export const context: any = React.createContext(null);
 
+export class RecycleTable extends React.Component<IRecycleTableProps, any> {
   private timerId: any = null;
 
   private ref: any;
@@ -25,17 +18,6 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
 
     this.state = {
       currentIndex: props.index || 0,
-    };
-  }
-
-  public getChildContext(): any {
-    const { currentIndex } = this.state;
-
-    return {
-      currentIndex,
-      setCurrentIndex: (index: number): void => {
-        this.setCurrentIndex(index);
-      },
     };
   }
 
@@ -105,13 +87,22 @@ export class RecycleTable extends React.Component<IRecycleTableProps, any> {
 
   public render(): any {
     const { children } = this.props;
+    const { currentIndex } = this.state;
+    const ctx: any = {
+      currentIndex,
+      setCurrentIndex: (index: number): void => {
+        this.setCurrentIndex(index);
+      },
+    };
 
     this.ref = React.createRef();
 
     return (
-      <section ref={this.ref} className="recycle-table">
-        {children}
-      </section>
+      <context.Provider value={ctx}>
+        <section ref={this.ref} className="recycle-table">
+          {children}
+        </section>
+      </context.Provider>
     );
   }
 }

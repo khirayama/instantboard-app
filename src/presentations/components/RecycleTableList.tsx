@@ -1,15 +1,15 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
+
+import { context } from 'presentations/components/RecycleTable';
 
 interface IRecycleTableList {
   children: any;
 }
 
 export class RecycleTableList extends React.Component<IRecycleTableList, any> {
-  private static contextTypes: any = {
-    currentIndex: PropTypes.number,
-    setCurrentIndex: PropTypes.func,
-  };
+  private currentIndex: any;
+
+  private setCurrentIndex: any;
 
   private ref: any;
 
@@ -23,11 +23,10 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
   }
 
   public adjustIndex(): void {
-    const { currentIndex, setCurrentIndex } = this.context;
     const el: HTMLElement = this.ref.current;
     const listItems: NodeListOf<HTMLElement> = el.querySelectorAll('.recycle-table-list-item');
-    if (listItems.length - 1 < currentIndex) {
-      setCurrentIndex(listItems.length - 1);
+    if (listItems.length - 1 < this.currentIndex) {
+      this.setCurrentIndex(listItems.length - 1);
     }
   }
 
@@ -62,8 +61,16 @@ export class RecycleTableList extends React.Component<IRecycleTableList, any> {
 
     return (
       <section ref={this.ref} className="recycle-table-list" style={{ visibility: 'hidden' }}>
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <section className="recycle-table-list--inner">{children}</section>
       </section>
     );
+  }
+
+  private bindContext(ctx: any): null {
+    this.currentIndex = ctx.currentIndex;
+    this.setCurrentIndex = ctx.setCurrentIndex;
+
+    return null;
   }
 }

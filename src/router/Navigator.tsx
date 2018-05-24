@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { Router } from 'router/Router';
@@ -52,11 +51,11 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       const component: string | React.ComponentClass | React.StatelessComponent =
         route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
 
-      return (
-        <context.Provider value={{ move: this.move.bind(this) }}>
-          {React.createElement(component, { ...props, params })}
-        </context.Provider>
-      );
+      const ctx: any = {
+        move: this.move.bind(this),
+      };
+
+      return <context.Provider value={ctx}>{React.createElement(component, { ...props, params })}</context.Provider>;
     }
 
     return null;

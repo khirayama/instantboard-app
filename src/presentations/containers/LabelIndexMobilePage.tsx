@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { destroyLabel, fetchLabel, sortLabel, updateLabel } from 'action-creators/label';
@@ -13,12 +12,11 @@ import { NoLabelContent } from 'presentations/components/NoLabelContent';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
 import { Container, IContainerProps } from 'presentations/containers/Container';
+import { context } from 'router/Navigator';
 import { poller } from 'utils/poller';
 
 export class LabelIndexMobilePage extends Container<{}, IState> {
-  public static contextTypes: { move: any } = {
-    move: PropTypes.func,
-  };
+  private move: any;
 
   private onSortLabelList: (fromIndex: number, toIndex: number) => void;
 
@@ -73,7 +71,7 @@ export class LabelIndexMobilePage extends Container<{}, IState> {
     poller.remove(this.actions.pollRequest);
   }
 
-  public render(): any {
+  public render(): JSX.Element {
     const profile: IUser | null = this.state.profile;
     const labels: ILabel[] = this.state.labels;
     const requests: IRequest[] = this.state.requests;
@@ -92,6 +90,7 @@ export class LabelIndexMobilePage extends Container<{}, IState> {
 
     return (
       <section key="label-index-mobile-page" className="page label-index-mobile-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <Indicator active={ui.isLoadingLabels && labels.length !== 0} />
         <TabNavigationContent>
           <List className="label-list" parentElement={parentElement} onSort={this.onSortLabelList}>
@@ -118,6 +117,12 @@ export class LabelIndexMobilePage extends Container<{}, IState> {
     );
   }
 
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
+  }
+
   private handleSortLabelList(fromIndex: number, toIndex: number): void {
     const labels: ILabel[] = this.state.labels;
     const label: ILabel = labels[fromIndex];
@@ -137,7 +142,7 @@ export class LabelIndexMobilePage extends Container<{}, IState> {
   }
 
   private handleClickLabelListItem(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {
-    this.context.move(`/labels/${labelListItemProps.label.id}/edit`);
+    this.move(`/labels/${labelListItemProps.label.id}/edit`);
   }
 
   private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, labelListItemProps: any): void {

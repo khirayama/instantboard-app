@@ -260,7 +260,7 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
   private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
     event.stopPropagation();
     this.actions.destroyTask({
-      id: taskListItemProps.task,
+      id: taskListItemProps.task.id,
     });
   }
 }

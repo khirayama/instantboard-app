@@ -36,8 +36,8 @@
     "deep-equal": "1.0.1",
     "fastify": "1.5.0",
     "forever": "0.15.3",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
+    "react": "16.4.0",
+    "react-dom": "16.4.0",
     "react-transition-group": "2.3.1",
     "serve-static": "1.13.2",
     "useragent": "2.3.0"

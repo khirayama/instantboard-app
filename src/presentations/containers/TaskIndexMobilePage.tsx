@@ -13,18 +13,16 @@ import { RecycleTableContentList } from 'presentations/components/RecycleTableCo
 import { RecycleTableContentListItem } from 'presentations/components/RecycleTableContentListItem';
 import { RecycleTableList } from 'presentations/components/RecycleTableList';
 import { RecycleTableListItem } from 'presentations/components/RecycleTableListItem';
-import { Sheet } from 'presentations/components/Sheet';
 import { TabNavigation } from 'presentations/components/TabNavigation';
 import { TabNavigationContent } from 'presentations/components/TabNavigationContent';
-import { TaskForm } from 'presentations/components/TaskForm';
 import { TaskList } from 'presentations/components/TaskList';
 import { TaskListItem } from 'presentations/components/TaskListItem';
 import { Container, IContainerProps } from 'presentations/containers/Container';
+import { context } from 'router/Navigator';
 import { poller } from 'utils/poller';
 
 interface ITaskIndexMobilePageState {
   index: number;
-  isTaskFormShown: boolean;
   selectedTaskId: number | null;
   uiBlocking: boolean;
 }
@@ -38,6 +36,8 @@ interface ITaskListItemProps {
 }
 
 export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMobilePageState & IState> {
+  private move: any;
+
   private onChangeIndex: (index: number) => void;
 
   private onSortTaskList: (fromIndex: number, toIndex: number, taskListProps: ITaskListProps) => void;
@@ -48,25 +48,12 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
   private onClickDestroyButton: (event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps) => void;
 
-  private onClickAddTaskButton: (event: React.MouseEvent<HTMLElement>) => void;
-
-  private onClickBackground: (event: React.MouseEvent<HTMLElement>) => void;
-
-  private onSubmitTaskForm: (event: React.FormEvent<HTMLFormElement>, taskFormProps: any, taskFormState: any) => void;
-
-  private onSubmitTaskFormWithEnter: (
-    event: React.KeyboardEvent<HTMLInputElement>,
-    taskFormProps: any,
-    taskFormState: any,
-  ) => void;
-
   constructor(props: IContainerProps) {
     super(props);
 
     const initialState: ITaskIndexMobilePageState = {
       index: this.loadIndex(),
       selectedTaskId: null,
-      isTaskFormShown: false,
       uiBlocking: false,
     };
 
@@ -116,10 +103,6 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
     this.onClickCompleteButton = this.handleClickCompleteButton.bind(this);
     this.onClickTaskListItem = this.handleClickTaskListItem.bind(this);
     this.onClickDestroyButton = this.handleClickDestroyButton.bind(this);
-    this.onClickAddTaskButton = this.handleClickAddTaskButton.bind(this);
-    this.onSubmitTaskForm = this.handleSubmitTaskForm.bind(this);
-    this.onSubmitTaskFormWithEnter = this.handleSubmitTaskFormWithEnter.bind(this);
-    this.onClickBackground = this.handleClickBackground.bind(this);
   }
 
   public componentDidMount(): void {
@@ -171,7 +154,7 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
         if (ui.isLoadingTasks && groupedTasks.length === 0) {
           backgroundElement = <LoadingContent />;
         } else if (groupedTasks.length === 0) {
-          backgroundElement = <NoTaskContent label={label} onClickAddTaskButton={this.onClickAddTaskButton} />;
+          backgroundElement = <NoTaskContent label={label} />;
         }
         const parentElement: Element = window.document.querySelectorAll('.recycle-table-content-list-item')[index];
 
@@ -196,7 +179,7 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
               })}
             </TaskList>
             {groupedTasks.length === 0 ? null : (
-              <IconLink iconType="add" onClick={this.onClickAddTaskButton}>
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add">
                 ADD TASK
               </IconLink>
             )}
@@ -225,22 +208,19 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
 
     return (
       <section className="page task-index-mobile-page">
+        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         {this.state.uiBlocking ? <div className="ui-block" /> : null}
         <Indicator active={(ui.isLoadingLabels && labels.length !== 0) || (ui.isLoadingTasks && tasks.length !== 0)} />
         <TabNavigationContent>{contentElement}</TabNavigationContent>
         <TabNavigation index={0} badges={badges} />
-        <Sheet isShown={this.state.isTaskFormShown} onClickBackground={this.onClickBackground}>
-          <TaskForm
-            tasks={tasks}
-            labels={labels}
-            selectedLabelId={selectedLabel === null ? null : selectedLabel.id}
-            selectedTaskId={this.state.selectedTaskId}
-            onSubmit={this.onSubmitTaskForm}
-            onSubmitWithEnter={this.onSubmitTaskFormWithEnter}
-          />
-        </Sheet>
       </section>
     );
+  }
+
+  private bindContext(ctx: any): null {
+    this.move = ctx.move;
+
+    return null;
   }
 
   private loadIndex(): number {
@@ -287,10 +267,7 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
   }
 
   private handleClickTaskListItem(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
-    this.setState({
-      selectedTaskId: taskListItemProps.task.id,
-      isTaskFormShown: true,
-    });
+    this.move(`/tasks/${taskListItemProps.task.id}/edit?label-id=${taskListItemProps.task.labelId}`);
   }
 
   private handleClickDestroyButton(event: React.MouseEvent<HTMLElement>, taskListItemProps: ITaskListItemProps): void {
@@ -298,95 +275,5 @@ export class TaskIndexMobilePage extends Container<IContainerProps, ITaskIndexMo
     this.actions.destroyTask({
       id: taskListItemProps.task.id,
     });
-  }
-
-  private handleClickAddTaskButton(event: React.MouseEvent<HTMLElement>): void {
-    this.setState({
-      selectedTaskId: null,
-      isTaskFormShown: true,
-    });
-  }
-
-  private handleSubmitTaskForm(event: React.FormEvent<HTMLFormElement>, taskFormProps: any, taskFormState: any): void {
-    const content: string = taskFormState.content.trim();
-    const id: number | null = taskFormState.taskId || null;
-
-    if (content !== '' && !this.state.uiBlocking) {
-      this.setState({ uiBlocking: true });
-
-      if (id === null) {
-        this.actions
-          .createTask({
-            content,
-            labelId: taskFormState.labelId,
-          })
-          .then(() => {
-            this.setState({
-              uiBlocking: false,
-              isTaskFormShown: false,
-            });
-          });
-      } else {
-        this.actions
-          .updateTask({
-            id,
-            content,
-            labelId: taskFormState.labelId,
-          })
-          .then(() => {
-            this.setState({
-              uiBlocking: false,
-              isTaskFormShown: false,
-            });
-          });
-      }
-    } else {
-      this.setState({ isTaskFormShown: false });
-    }
-  }
-
-  private handleSubmitTaskFormWithEnter(
-    event: React.KeyboardEvent<HTMLInputElement>,
-    taskFormProps: any,
-    taskFormState: any,
-  ): void {
-    const content: string = taskFormState.content.trim();
-    const id: number | null = taskFormState.taskId || null;
-
-    if (content !== '' && !this.state.uiBlocking) {
-      this.setState({ uiBlocking: true });
-
-      if (id === null) {
-        this.actions
-          .createTask({
-            content,
-            labelId: taskFormState.labelId,
-          })
-          .then(() => {
-            this.setState({
-              uiBlocking: false,
-            });
-          });
-      } else {
-        this.actions
-          .updateTask({
-            id,
-            content,
-            labelId: taskFormState.labelId,
-          })
-          .then(() => {
-            this.setState({
-              uiBlocking: false,
-              isTaskFormShown: false,
-            });
-          });
-      }
-    } else {
-      this.setState({ isTaskFormShown: false });
-    }
-  }
-
-  private handleClickBackground(event: React.MouseEvent<HTMLElement>): void {
-    this.setState({ isTaskFormShown: false });
   }
 }

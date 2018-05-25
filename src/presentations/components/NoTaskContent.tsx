@@ -8,8 +8,8 @@ export class NoTaskContent extends React.Component<any, any> {
 
     return (
       <div className="no-task-content">
-        <IconLink iconType="add" onClick={onClickAddTaskButton}>
-          {'ADD TASK'}
+        <IconLink iconType="add" onClick={onClickAddTaskButton} to={`/tasks/new?label-id=${label.id}`}>
+          ADD TASK
         </IconLink>
       </div>
     );

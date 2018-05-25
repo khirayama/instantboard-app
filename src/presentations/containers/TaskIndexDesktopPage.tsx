@@ -166,8 +166,8 @@ export class TaskIndexDesktopPage extends Container<{}, ITaskIndexDesktopPageSta
               })}
             </TaskList>
             {groupedTasks.length === 0 ? null : (
-              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add" className="task-list--add-button">
-                {'ADD TASK'}
+              <IconLink to={`/tasks/new?label-id=${label.id}`} iconType="add">
+                ADD TASK
               </IconLink>
             )}
             {backgroundElement}
